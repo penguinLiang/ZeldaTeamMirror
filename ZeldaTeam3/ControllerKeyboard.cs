@@ -9,24 +9,12 @@ namespace Zelda
 
         public ControllerKeyboard(ZeldaGame zeldaGame)
         {
-            var quit = new CommandQuit(zeldaGame);
-            var setFixedStatic = new CommandSetFixedStatic(zeldaGame);
-            var setFixedAnimated = new CommandSetFixedAnimated(zeldaGame);
-            var setMovingStatic = new CommandSetMovingStatic(zeldaGame);
-            var setMovingAnimated = new CommandSetMovingAnimated(zeldaGame);
+            var quit = new Commands.Quit(zeldaGame);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
                 { Keys.NumPad0, quit },
                 { Keys.D0, quit },
-                { Keys.NumPad1, setFixedStatic },
-                { Keys.D1, setFixedStatic },
-                { Keys.NumPad2, setFixedAnimated },
-                { Keys.D2, setFixedAnimated },
-                { Keys.NumPad3, setMovingStatic },
-                { Keys.D3, setMovingStatic },
-                { Keys.NumPad4, setMovingAnimated },
-                { Keys.D4, setMovingAnimated }
             };
         }
 
@@ -37,6 +25,17 @@ namespace Zelda
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
             }
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+            foreach (KeyValuePair<Keys, ICommand> keyCommand in _keymap)
+            {
+                result += keyCommand.Key + " - " + keyCommand.Value + "\n";
+            }
+
+            return result;
         }
     }
 }

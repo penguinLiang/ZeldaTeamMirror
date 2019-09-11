@@ -41,12 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CommandSetMovingAnimated.cs" />
-    <Compile Include="CommandSetFixedAnimated.cs" />
-    <Compile Include="CommandSetMovingStatic.cs" />
-    <Compile Include="CommandSetFixedStatic.cs" />
-    <Compile Include="CommandQuit.cs" />
-    <Compile Include="ControllerMouse.cs" />
+    <Compile Include="Commands\Quit.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="ControllerKeyboard.cs" />

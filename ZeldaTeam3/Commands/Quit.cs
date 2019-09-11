@@ -1,10 +1,10 @@
-﻿namespace Zelda
+﻿namespace Zelda.Commands
 {
-    class CommandQuit : ICommand
+    class Quit : ICommand
     {
         private readonly ZeldaGame _zeldaGame;
 
-        public CommandQuit(ZeldaGame zeldaGame)
+        public Quit(ZeldaGame zeldaGame)
         {
             _zeldaGame = zeldaGame;
         }
@@ -13,5 +13,7 @@
         {
             _zeldaGame.Exit();
         }
+
+        public override string ToString() => "Quit the game";
     }
 }
