@@ -42,6 +42,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\Quit.cs" />
+    <Compile Include="INonPlayerCharacter.cs" />
+    <Compile Include="IEnemy.cs" />
+    <Compile Include="IProjectile.cs" />
+    <Compile Include="ICharacter.cs" />
+    <Compile Include="IPlayer.cs" />
+    <Compile Include="IMoveable.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="ControllerKeyboard.cs" />
@@ -67,6 +73,13 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enemies\" />
+    <Folder Include="Items\" />
+    <Folder Include="NonPlayerCharacters\" />
+    <Folder Include="Player\" />
+    <Folder Include="Projectiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
