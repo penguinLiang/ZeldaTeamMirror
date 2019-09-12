@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface IPlayer : IMoveable, ICharacter
+    interface IPlayer : IMoveable, ISpawnable
     {
         void UsePrimaryItem();
         void UseSecondaryItem();

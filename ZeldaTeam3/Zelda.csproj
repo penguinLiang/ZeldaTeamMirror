@@ -44,8 +44,7 @@
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
-    <Compile Include="IProjectile.cs" />
-    <Compile Include="ICharacter.cs" />
+    <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IMoveable.cs" />
     <Compile Include="ICommand.cs" />

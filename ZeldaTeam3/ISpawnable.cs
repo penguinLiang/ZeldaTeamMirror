@@ -1,9 +1,9 @@
 ﻿namespace Zelda
 {
-    interface ICharacter
+    interface ISpawnable
     {
         void Spawn();
-        void Damage();
+        void TakeDamage();
         void Kill();
     }
 }

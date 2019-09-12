@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface INonPlayerCharacter
+    interface INonPlayerCharacter : ISpawnable
     {
         void ShowDialogue();
         void HideDialogue();
