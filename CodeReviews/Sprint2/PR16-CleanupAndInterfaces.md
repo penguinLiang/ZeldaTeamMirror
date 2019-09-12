@@ -11,9 +11,9 @@ __Minutes to Review:__ 7
 
 __Specific Comments (Readability):__
 
-Line 1: Change the namespace to Zelda.Commands, which makes it easier to see that this is specifically a command and not part of the game class itself.
+Line 1: Changed the namespace of the file to Zelda.Commands, which makes it easier to see that this is specifically a command and not part of the game class itself.
 
-Line 3: Change 'CommandQuit' to 'Quit', as command is now implied by the folder structure
+Line 3: Changed 'CommandQuit' to 'Quit', as command is now implied by the folder structure
 
 General: Really simple implementation that tells the reader exactly what the Quit command will do, which is exit the game. 
 
