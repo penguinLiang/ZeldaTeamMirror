@@ -50,6 +50,8 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="ControllerKeyboard.cs" />
+    <Compile Include="Items\Primary.cs" />
+    <Compile Include="Items\Secondary.cs" />
     <Compile Include="SpriteMovingAnimated.cs" />
     <Compile Include="SpriteFixedAnimated.cs" />
     <Compile Include="SpriteMovingStatic.cs" />
@@ -75,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enemies\" />
-    <Folder Include="Items\" />
     <Folder Include="NonPlayerCharacters\" />
     <Folder Include="Player\" />
     <Folder Include="Projectiles\" />
