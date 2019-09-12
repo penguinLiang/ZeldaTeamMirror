@@ -41,15 +41,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CommandSetMovingAnimated.cs" />
-    <Compile Include="CommandSetFixedAnimated.cs" />
-    <Compile Include="CommandSetMovingStatic.cs" />
-    <Compile Include="CommandSetFixedStatic.cs" />
-    <Compile Include="CommandQuit.cs" />
-    <Compile Include="ControllerMouse.cs" />
+    <Compile Include="Commands\Quit.cs" />
+    <Compile Include="INonPlayerCharacter.cs" />
+    <Compile Include="IEnemy.cs" />
+    <Compile Include="ISpawnable.cs" />
+    <Compile Include="IPlayer.cs" />
+    <Compile Include="IMoveable.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="ControllerKeyboard.cs" />
+    <Compile Include="Items\Primary.cs" />
+    <Compile Include="Items\Secondary.cs" />
     <Compile Include="SpriteMovingAnimated.cs" />
     <Compile Include="SpriteFixedAnimated.cs" />
     <Compile Include="SpriteMovingStatic.cs" />
@@ -72,6 +74,12 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enemies\" />
+    <Folder Include="NonPlayerCharacters\" />
+    <Folder Include="Player\" />
+    <Folder Include="Projectiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

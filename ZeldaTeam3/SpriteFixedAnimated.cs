@@ -35,9 +35,34 @@ namespace Zelda
             CurrentFrame++;
         }
 
+        public void LoadContent()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
             spriteBatch.Draw(_spriteSheet, location, _frameBoundingBoxes[_currentFrame], Color.White);
+        }
+
+        public void Show()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Hide()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PauseAnimation()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PlayAnimation()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

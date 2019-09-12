@@ -17,6 +17,7 @@ namespace Zelda
         private SpriteFont _font;
 
         private IController[] _controllers;
+        private string _controlsDescription = "";
 
         public ZeldaGame()
         {
@@ -29,8 +30,12 @@ namespace Zelda
         {
             _controllers = new IController[]{
                 new ControllerKeyboard(this), 
-                new ControllerMouse(this), 
             };
+
+            foreach (IController controller in _controllers)
+            {
+                _controlsDescription += controller + "\n";
+            }
 
             base.Initialize();
         }
@@ -78,11 +83,11 @@ namespace Zelda
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
-            _spriteBatch.DrawString(_font, "Credits\nProgram Made By: CHASE COLMAN\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/sheet/8366/", new Vector2(0,0), Color.Black);
+            _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);

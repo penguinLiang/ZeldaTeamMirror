@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -49,6 +48,11 @@ namespace Zelda
             _updatesDelayed = 0;
         }
 
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
             Vector2 offsetLocation = location;
@@ -65,6 +69,26 @@ namespace Zelda
                     1f);
             }
 
+        }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Hide()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PauseAnimation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlayAnimation()
+        {
+            throw new NotImplementedException();
         }
     }
 }
