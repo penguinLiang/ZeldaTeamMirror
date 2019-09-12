@@ -166,7 +166,7 @@ If you did not inherit from the Moveable interface, then IPlayer would need to r
 
 __Name of .cs file:__ IProjectile.cs
 __Author of .cs file:__ Chase
-__Minutes to Review:__
+__Minutes to Review:__ 4
 
 __Specific Comments (Readability):__
 
@@ -185,100 +185,120 @@ Since nothing is implementing this yet, changing the method names will be easy t
 ---
 ## ISprite.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ ISprite.cs
+__Author of .cs file:__ Chase
+__Minutes to Review:__ 4
 
 __Specific Comments (Readability):__
 
-
+Update, Draw, and LoadContent are all required for spritework in general. The Show, Hide, PauseAnimation, and PlayAnimation are all short methods that were added so we have control over the sprites. 
 
 
 __Specific Comments (Code Quality):__
 
-
-
+Chase removed some comments that were no longer necessary. All of the methods follow c# naming conventions and are in a logical order. 
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Potentially, all of the animation methods could have a TotalFrameCount parameter. This would make it easier to mathematically use the texture atlases, but it could also make it harder to maintain in the long run. 
 
 ---
 ## SpriteFixedAnimated.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ SpriteFixedAnimated.cs
+__Author of .cs file:__ Chase, Steven
+__Minutes to Review:__ 4
 
 __Specific Comments (Readability):__
 
-
+Kept much of the boilerplate code from Sprint0. Right now, none of the methods are implemented, but they **do** all let the user know that they **will** be implemented and that the methods can be used. Further, it helps the developers keep track of what has been done and what still needs to be done. 
 
 
 __Specific Comments (Code Quality):__
 
-
-
+The use of the Exceptions is great. You let the user know the error and why it happened, and also create a skeleton for future development. All of these methods need to be implemented due to inheritence from ISprite, so you need to have the methods in place. That said, this also means we don't return a null value, which will make it easier to add to and test in the future. 
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Instead of a generic error, we could throw customized errors that state which method was called. This would probably require a base string statement which you could modify in each of the methods. Would be easy to implement, but not all that important in the long run for us. 
 
 ---
 ## SpriteFixedStatic.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ SpriteFixedStatic.cs
+__Author of .cs file:__ Chase, Steven
+__Minutes to Review:__ 3
 
 __Specific Comments (Readability):__
 
-
+Kept a lot of code from Sprint0, but added the placeholder methods for the ISprite inherited methods. Everything is clean and clear-cut. 
 
 
 __Specific Comments (Code Quality):__
 
-
-
+See SpriteFixedAnimated.cs
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Again, could potentially change the error messages to be more specific and less generic. Right now, that isn't needed, but potentially in the future would be good to do. 
 
 ---
 ## SpriteMovingAnimated.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ SpriteMovingAnimated.cs
+__Author of .cs file:__ Chase, Steven
+__Minutes to Review:__ 3
 
 __Specific Comments (Readability):__
 
-
-
+Clear, you are only inheriting one class, and everything is organized logically. 
 
 __Specific Comments (Code Quality):__
 
-
-
-
+The exceptions let the user know that there was an error instead of just crashing or silently moving forward. They also let the developers know that there is still more to implement, given that they are placeholder exceptions. 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+The problem with sprites that all inherit from the same source is that it feels like you're rewriting a lot of the same code. That said, it could be possible that all of the sprites move and animate differently, but I wonder if these could be pulled out into some form of master class with helper methods? Probably not ideal though. 
 
 ---
 ## SpriteMovingStatic.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ SpriteMovingStatic.cs
+__Author of .cs file:__ Chase, Steven
+__Minutes to Review:__ 3
 
 __Specific Comments (Readability):__
 
-
-
+It's clear, it's clean, and everything is organized logically. The exceptions are clear and quick.
 
 __Specific Comments (Code Quality):__
 
-
-
-
+N/A
 
 __Hypothetical Changes and how current implementation May/Not support change:__
 
+N/A
+
+
+---
+## ZeldaGame.cs ##
+
+__Name of .cs file:__ ZeldaGame.cs
+__Author of .cs file:__ Chase, Steven
+__Minutes to Review:__ 3
+
+__Specific Comments (Readability):__
+
+Everything was kept pretty much the same from Sprint0. The code itself is less than 100 lines, and everything is spaced out neatly and logically. 
+
+__Specific Comments (Code Quality):__
+
+Removed unneeded classes. All private variables are listed at the top of the file, and the constructor is not empty or null. 
+
+__Hypothetical Changes and how current implementation May/Not support change:__
+
+Eventually, we'll need to manage the gametime, the overall map, and if the game is paused or not. Those should all go in the ZeldaGame class. 
