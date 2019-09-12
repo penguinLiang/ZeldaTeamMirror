@@ -101,80 +101,86 @@ If IEnemy was suddenly no longer inheriting ICharacter, then any implementation 
 
 __Name of .cs file:__ IMoveable.cs
 __Author of .cs file:__ Chase
-__Minutes to Review:__
+__Minutes to Review:__ 5
 
 __Specific Comments (Readability):__
 
-
-
+All methods are clear and self-explanatory. 
 
 __Specific Comments (Code Quality):__
 
-
+L5-8: I'm not entirely sure why we need the FaceX methods. They seem redundant. Otherwise, everything follows convention. 
 
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Remove the FaceX methods and instead implement if/else logic in the concrete classes. Presumably, if you are facing down you are also moving downward. 
 
 ---
 ## INonPlayerCharacter.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ INonPlayerCharacter.cs
+__Author of .cs file:__ Chase
+__Minutes to Review:__ 5
 
 __Specific Comments (Readability):__
 
-
+We have 2 different methods here, one to write the dialogue, and another to de-render or hide the dialogue. Both names explain their use very effectively. 
 
 
 __Specific Comments (Code Quality):__
 
-
+Potentially rename these methods to something like "StartDialog" and "EndDialog" but the names are also clear and follow convention. 
 
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Change either of the method names, and you would need to change the NPC character implementations. Given that there are not many NPC characters, this would be easy to implement. 
 
 ---
 ## IPlayer.cs ##
 
-__Name of .cs file:__
-__Author of .cs file:__
-__Minutes to Review:__
+__Name of .cs file:__ IPlayer.cs
+__Author of .cs file:__ Chase
+__Minutes to Review:__ 3
 
 __Specific Comments (Readability):__
 
-
+The player needs to be able to move, to spawn, damage, and be killed. Further, we have augmented the player by allowing them to use a primary item and a secondary item, both of which are self-explanatory. 
 
 
 __Specific Comments (Code Quality):__
 
-
-
+Conventions of C# are followed and everything is very clear. The intergace inheritance is necessary to avoid clutter. 
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+If you did not inherit from the Moveable interface, then IPlayer would need to rewrite those methods. This adds more points of failure, which is not ideal in the long run. 
+
 
 ---
 ## IProjectile.cs 
 
-__Name of .cs file:__
-__Author of .cs file:__
+__Name of .cs file:__ IProjectile.cs
+__Author of .cs file:__ Chase
 __Minutes to Review:__
 
 __Specific Comments (Readability):__
 
-
+Appear and Disappear are clear in meaning, but are perhaps not the strongest verbs we could use. 
 
 
 __Specific Comments (Code Quality):__
 
-
-
+To follow with the naming style of other interfaces, change Appear to Spawn and Disappear to Despawn.
 
 
 __Hypothetical Changes and how current implementation May/Not support change:__
+
+Since nothing is implementing this yet, changing the method names will be easy to implement and very easily supported. 
 
 ---
 ## ISprite.cs ##
