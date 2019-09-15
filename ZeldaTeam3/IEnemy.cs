@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface IEnemy : IMoveable, ISpawnable
+    public interface IEnemy : IMoveable, ISpawnable
     {
         void UseAttack();
     }
