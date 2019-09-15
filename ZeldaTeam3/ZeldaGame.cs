@@ -7,6 +7,8 @@ namespace Zelda
     {
         public ISprite CurrentSprite { get; set; }
 
+        public IPlayer TemporaryLink { get; set; }
+
         public ISprite StandingLink { get; private set; }
         public ISprite StabbingLink { get; private set; }
         public ISprite JumpingLink { get; private set; }
@@ -29,7 +31,7 @@ namespace Zelda
         protected override void Initialize()
         {
             _controllers = new IController[]{
-                new ControllerKeyboard(this), 
+                new ControllerKeyboard(this,TemporaryLink), 
             };
 
             foreach (IController controller in _controllers)

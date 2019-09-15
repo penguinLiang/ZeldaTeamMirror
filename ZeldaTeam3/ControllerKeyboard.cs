@@ -7,15 +7,35 @@ namespace Zelda
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
 
-        public ControllerKeyboard(ZeldaGame zeldaGame)
-        {
+        public ControllerKeyboard(ZeldaGame zeldaGame, IPlayer Link)
+        { 
             var quit = new Commands.Quit(zeldaGame);
+            var attack = new Commands.LinkPrimaryAction(Link);
+            var secondary = new Commands.LinkSecondaryAction(Link);
+            var damage = new Commands.LinkDamage(Link);
+            var up = new Commands.LinkUp(Link);
+            var down = new Commands.LinkDown(Link);
+            var right = new Commands.LinkRight(Link);
+            var left = new Commands.LinkLeft(Link);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
                 { Keys.NumPad0, quit },
                 { Keys.D0, quit },
-            };
+                { Keys.N, attack },
+                { Keys.Z, attack },
+                { Keys.X, secondary },
+                { Keys.M, secondary },
+                { Keys.Up, up },
+                { Keys.W, up },
+                { Keys.Left, left },
+                { Keys.A, left },
+                { Keys.D, right },
+                { Keys.Right, right },
+                { Keys.S, down },
+                { Keys.Down, down },
+                { Keys.E, damage }
+        };
         }
 
         public void Update()

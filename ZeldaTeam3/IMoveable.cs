@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface IMoveable 
+    public interface IMoveable 
     {
         void FaceUp();
         void FaceDown();
