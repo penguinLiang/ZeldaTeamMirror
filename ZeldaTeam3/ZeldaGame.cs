@@ -7,11 +7,7 @@ namespace Zelda
     {
         public ISprite CurrentSprite { get; set; }
 
-        // This is temporary Link variable for implementing stuff
         public IPlayer TemporaryLink { get; set; }
-
-        // This is temporary enemy variable for implementing stuff
-        public IEnemy TemporaryEnemy { get; set; }
 
         public ISprite StandingLink { get; private set; }
         public ISprite StabbingLink { get; private set; }
@@ -23,6 +19,7 @@ namespace Zelda
         private SpriteFont _font;
 
         private IController[] _controllers;
+        public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
         public ZeldaGame()

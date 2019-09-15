@@ -2,17 +2,20 @@
 {
     class EnemyRight : ICommand
     {
-        private readonly IEnemy _enemy;
+        private readonly IEnemy[] _enemy;
 
-        public EnemyRight(IEnemy Enemy)
+        public EnemyRight(IEnemy[] Enemy)
         {
             _enemy = Enemy;
         }
 
         public void Execute()
         {
-            _enemy.FaceRight();
-            _enemy.MoveRight();
+            foreach (IEnemy enemy in _enemy)
+            {
+                enemy.FaceRight();
+                enemy.MoveRight();
+            }
         }
 
         public override string ToString() => "Enemy faces right and then moves right";

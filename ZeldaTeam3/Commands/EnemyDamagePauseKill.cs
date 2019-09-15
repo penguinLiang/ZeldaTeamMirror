@@ -2,20 +2,29 @@
 {
     class EnemyDamagePauseKill : ICommand
     {
-        private readonly IEnemy _enemy;
+        private readonly IEnemy[] _enemy;
+        static int counter = 0;
 
-        public EnemyDamagePauseKill(IEnemy Enemy)
+        public EnemyDamagePauseKill(IEnemy[] Enemy)
         {
             _enemy = Enemy;
         }
 
         public void Execute()
         {
-            _enemy.TakeDamage();
-            _enemy.Idle();
-            _enemy.Kill();
+            IEnemy randomEnemy = _enemy[counter];
+            counter++;
+            if(counter >= _enemy.Length)
+            {
+                counter = 0;
+            }
+
+            randomEnemy.TakeDamage();
+            randomEnemy.Idle();
+            randomEnemy.Kill();
+
         }
 
-        public override string ToString() => "Enemy takes damage, pauses and then gets killed";
+        public override string ToString() => "Enemy gets damaged, then pauses, then gets killed";
     }
 }
