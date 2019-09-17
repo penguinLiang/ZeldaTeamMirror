@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface ISpawnable
+    public interface ISpawnable
     {
         void Spawn();
         void TakeDamage();

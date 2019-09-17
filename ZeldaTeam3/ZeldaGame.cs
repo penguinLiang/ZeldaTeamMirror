@@ -7,6 +7,8 @@ namespace Zelda
     {
         public ISprite CurrentSprite { get; set; }
 
+        public IPlayer TemporaryLink { get; set; }
+
         public ISprite StandingLink { get; private set; }
         public ISprite StabbingLink { get; private set; }
         public ISprite JumpingLink { get; private set; }
@@ -17,6 +19,7 @@ namespace Zelda
         private SpriteFont _font;
 
         private IController[] _controllers;
+        public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
         public ZeldaGame()
