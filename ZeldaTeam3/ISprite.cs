@@ -6,7 +6,6 @@ namespace Zelda
     public interface ISprite
     {
         void Update();
-        void LoadContent();
         void Draw(SpriteBatch spriteBatch, Vector2 location);
         void Show();
         void Hide();

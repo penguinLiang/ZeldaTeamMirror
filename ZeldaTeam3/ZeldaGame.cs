@@ -7,11 +7,6 @@ namespace Zelda
     {
         public ISprite CurrentSprite { get; set; }
 
-        public ISprite StandingLink { get; private set; }
-        public ISprite StabbingLink { get; private set; }
-        public ISprite JumpingLink { get; private set; }
-        public ISprite WalkingLink { get; private set; }
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
@@ -47,22 +42,7 @@ namespace Zelda
             _font = Content.Load<SpriteFont>("Arial");
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
 
-            StandingLink = new SpriteFixedStatic(legendOfZeldaSheet, new Rectangle(426, 22, 32, 32));
-            StabbingLink = new SpriteFixedAnimated(legendOfZeldaSheet, new []
-            {
-                new Rectangle(2, 154, 32, 32),
-                new Rectangle(36, 154, 54, 32),
-                new Rectangle(92, 154, 46, 32),
-                new Rectangle(140, 154, 38, 32) 
-            });
-            JumpingLink = new SpriteMovingStatic(legendOfZeldaSheet, new Rectangle(460, 22, 32, 32), 64);
-            WalkingLink = new SpriteMovingAnimated(legendOfZeldaSheet, new []
-            {
-                new Rectangle(70, 22, 32, 32), 
-                new Rectangle(104, 22, 32, 32), 
-            });
-
-            CurrentSprite = StandingLink;
+            CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
         }
 
         protected override void UnloadContent()

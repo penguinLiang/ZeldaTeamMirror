@@ -52,10 +52,7 @@
     <Compile Include="ControllerKeyboard.cs" />
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
-    <Compile Include="SpriteMovingAnimated.cs" />
-    <Compile Include="SpriteFixedAnimated.cs" />
-    <Compile Include="SpriteMovingStatic.cs" />
-    <Compile Include="SpriteFixedStatic.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
