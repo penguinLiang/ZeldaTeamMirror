@@ -133,6 +133,52 @@ namespace Zelda
             return new SpriteFixedStatic(doorSpritesheet, new Rectangle(128, 96, 32, 32));
         }
 
+        public ISprite CreateSolidBlock()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 0, 16, 16));
+        }
 
+        public ISprite CreateTransparentTile1()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 0, 16, 16));
+        }
+
+        public ISprite CreateStatue1()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 16, 16, 16));
+        }
+
+        public ISprite CreateStatue2()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 16, 16, 16));
+        }
+
+        public ISprite CreateStairs1()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 32, 16, 16));
+        }
+
+        public ISprite CreateTransparentTile2()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 32, 16, 16));
+        }
+
+        public ISprite CreateStairs2()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 48, 16, 16));
+        }
+
+        public ISprite CreateBrickBlock()
+        {
+            return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 48, 16, 16));
+        }
+
+        public ISprite CreateFire()
+        {
+            Rectangle fireFrameOne = new Rectangle(0, 60, 16, 16);
+            Rectangle fireFrameTwo = new Rectangle(16, 60, 16, 16);
+            Rectangle[] frameBounceArray = [fireFrameOne, fireFrameTwo];
+            return new SpriteFixedAnimated(tileSpritesheet, frameBounceArray);
+        }
     }
 }
