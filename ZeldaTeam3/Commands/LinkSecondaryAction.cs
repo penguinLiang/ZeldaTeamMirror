@@ -1,19 +1,19 @@
 ﻿namespace Zelda.Commands
 {
-    class LinkPrimaryAction : ICommand
+    class LinkSecondaryAction : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkPrimaryAction(IPlayer Link)
+        public LinkSecondaryAction(IPlayer Link)
         {
             _link = Link;
         }
 
         public void Execute()
         {
-            _link.UsePrimaryItem();
+            _link.UseSecondaryItem();
         }
 
-        public override string ToString() => "Link uses primary action";
+        public override string ToString() => "Link uses secondary action";
     }
 }
