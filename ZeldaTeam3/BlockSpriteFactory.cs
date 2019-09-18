@@ -165,7 +165,7 @@ namespace Zelda
 
         public ISprite CreateFire()
         {
-            return new (Texture2D _tileSpritesheet, 32, 16, 2, new Point(0,60), frameDelay: 15, paletteRowCount: 1, paletteRows: 2);
+            return new Sprite(Texture2D _tileSpritesheet, 32, 16, 2, new Point(0,60), frameDelay: 15, paletteRowCount: 1, paletteRows: 2);
         }
     }
 }
