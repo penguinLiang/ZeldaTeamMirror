@@ -16,8 +16,8 @@ namespace Zelda
         private readonly int _frameCount;
         private readonly Point _sourceOffset;
         private readonly int _frameDelay;
-        private readonly int _paletteRows;
-        private readonly int _paletteRowCount;
+        private readonly int _totalPaletteCount;
+        private readonly int _rowsPerPalette;
         private readonly int _paletteShiftDelay;
         private int _currentFrame;
         private int _currentPaletteRow;
@@ -42,25 +42,25 @@ namespace Zelda
             get => _currentPaletteRow;
             set
             {
-                if (_paletteRows == 0 || _paletteShiftsDelayed++ != _paletteShiftDelay || !_playing) return;
-                _currentPaletteRow = value % _paletteRows;
+                if (_totalPaletteCount == 0 || _paletteShiftsDelayed++ != _paletteShiftDelay || !_playing) return;
+                _currentPaletteRow = value % _totalPaletteCount;
                 _paletteShiftsDelayed = 0;
             }
         }
 
         private int SourceX => _sourceOffset.X + _currentFrame * _width;
-        private int SourceY => _sourceOffset.Y + _height * _currentPaletteRow * _paletteRowCount;
+        private int SourceY => _sourceOffset.Y + _height * _currentPaletteRow * _rowsPerPalette;
 
 
-        public Sprite(Texture2D spriteSheet, int width, int height, int frameCount, Point sourceOffset, int frameDelay = DefaultFrameDelay, int paletteRowCount = 0, int paletteRows = 0, int paletteShiftDelay = DefaultPaletteShiftDelay)
+        public Sprite(Texture2D spriteSheet, int width, int height, int frameCount, Point sourceOffset, int frameDelay = DefaultFrameDelay, int rowsPerPalette = 0, int totalPaletteCount = 0, int paletteShiftDelay = DefaultPaletteShiftDelay)
         {
             _width = width;
             _height = height;
             _frameCount = frameCount;
             _frameDelay = frameDelay;
             _spriteSheet = spriteSheet;
-            _paletteRowCount = paletteRowCount;
-            _paletteRows = paletteRows;
+            _rowsPerPalette = rowsPerPalette;
+            _totalPaletteCount = totalPaletteCount;
             _paletteShiftDelay = paletteShiftDelay;
             _sourceOffset = sourceOffset;
         }
