@@ -138,7 +138,7 @@ namespace Zelda
             return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 0, 16, 16));
         }
 
-        public ISprite CreateTransparentTile1()
+        public ISprite CreateGapTile()
         {
             return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 0, 16, 16));
         }
@@ -158,7 +158,7 @@ namespace Zelda
             return new SpriteFixedStatic(tileSpritesheet, new Rectangle(0, 32, 16, 16));
         }
 
-        public ISprite CreateTransparentTile2()
+        public ISprite CreateTransparentTile()
         {
             return new SpriteFixedStatic(tileSpritesheet, new Rectangle(16, 32, 16, 16));
         }
