@@ -11,7 +11,7 @@ namespace Zelda
 {
    public class ItemSpriteFactory
     {
-        private Texture2D _fieldWeaponsSpriteSheet;
+       
         private Texture2D _itemsSpriteSheet;
 
         private static ItemSpriteFactory _instance = new ItemSpriteFactory();
@@ -21,7 +21,6 @@ namespace Zelda
 
         public void LoadAllTextures(ContentManager content)
         {
-            _fieldWeaponsSpriteSheet = content.Load<Texture2D>("FieldWeapons");
             _itemsSpriteSheet = content.Load<Texture2D>("Items");
 
         }
