@@ -11,6 +11,7 @@ namespace Zelda
         {
             using (var game = new ZeldaGame())
                 game.Run();
+                
         }
     }
 #endif
