@@ -11,24 +11,8 @@ namespace Zelda
 {
    public class ItemSpriteFactory
     {
-        //initial variables for spritesheets
-        //IE: private Texture2D _spritesheet;
         private Texture2D _fieldWeaponsSpriteSheet;
         private Texture2D _itemsSpriteSheet;
-
-        /* Field Weapons (64X136) 
-         Individual Frame = 16X16
-         Boomerang 8X8
-         Rows 1-4 = Swords
-         Rows 7-8 = fireballs
-         9 = boomerang
-         
-             
-             Items (32X192)
-                8X16 or 16X16
-                Vertical Offset = multiple of 16
-                red and blue hearts = 8X8
-                */
 
         private static ItemSpriteFactory _instance = new ItemSpriteFactory();
         public static ItemSpriteFactory Instance => _instance;
@@ -49,108 +33,95 @@ namespace Zelda
 
         public ISprite CreateHeartContainer()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 0));
         }
 
         public ISprite CreateFairy()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateClock()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateBlueRupee()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 16));
         }
 
         public ISprite CreateRedRupee()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 16));
         }
 
+        public ISprite CreateBlueRupee()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(16, 24));
+        }
+      
         public ISprite CreateMap()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 64));
         }
 
         public ISprite CreateCompass()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateKey()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateWoodBoomerang()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateWoodShield()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateWoodSword()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateBomb()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-        public ISprite CreateBlueRing()
-        {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(16, 64));
         }
 
         public ISprite CreateRedRing()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 80));
+        }
+        public ISprite CreateBlueRing()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(8, 80));
+        }
+   
+        public ISprite CreateKey()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 80));
         }
 
-        public ISprite CreateBow()
+        public ISprite CreateClock()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 96));
         }
 
-        public ISprite CreateMagicBoomerang()
+        public ISprite CreateWoodSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 112));
         }
 
         public ISprite CreateWhiteSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(8, 112));
         }
 
         public ISprite CreateMagicSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 112));
+        }
+        public ISprite CreateWoodShield()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(24, 112));
         }
 
+        public ISprite CreateBow()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 128));
+        }
+
+        public ISprite CreateWoodBoomerang()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(8, 128));
+        }
+     
+        public ISprite CreateBomb()
+        {
+            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(24, 128));
+        }
+      
         public ISprite CreateArrow()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192,1, new Point(0, 144));
         }
 
         public ISprite CreateTriforcePiece()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
-        }
-
-
-        public ISprite CreateFireball()
-        {
-            return new Sprite(_fieldWeaponsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 176));
         }
 
     }
