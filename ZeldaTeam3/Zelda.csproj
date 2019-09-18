@@ -41,6 +41,24 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\EnemyDamagePauseKill.cs" />
+    <Compile Include="Commands\EnemyLeft.cs" />
+    <Compile Include="Commands\EnemyRight.cs" />
+    <Compile Include="Commands\EnemyDown.cs" />
+    <Compile Include="Commands\LinkBoomerangAssign.cs" />
+    <Compile Include="Commands\LinkBombAssign.cs" />
+    <Compile Include="Commands\LinkBowAssign.cs" />
+    <Compile Include="Commands\LinkMagicSwordAssign.cs" />
+    <Compile Include="Commands\LinkWhiteSwordAssign.cs" />
+    <Compile Include="Commands\LinkSwordAssign.cs" />
+    <Compile Include="Commands\LinkDown.cs" />
+    <Compile Include="Commands\EnemyUp.cs" />
+    <Compile Include="Commands\LinkLeft.cs" />
+    <Compile Include="Commands\LinkRight.cs" />
+    <Compile Include="Commands\LinkUp.cs" />
+    <Compile Include="Commands\LinkDamage.cs" />
+    <Compile Include="Commands\LinkSecondaryAction.cs" />
+    <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />

@@ -6,12 +6,14 @@ namespace Zelda
     public class ZeldaGame : Game
     {
         public ISprite CurrentSprite { get; set; }
+        public IPlayer TemporaryLink { get; set; }
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
         private IController[] _controllers;
+        public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
         public ZeldaGame()
