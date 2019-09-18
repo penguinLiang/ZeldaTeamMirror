@@ -164,7 +164,7 @@ namespace Zelda
 
         public ISprite CreateFire()
         {
-            return new Sprite(_tileSpritesheet, 32, 16, 2, new Point(0,60), frameDelay: 15, paletteRowCount: 1, paletteRows: 2);
+            return new Sprite(_tileSpritesheet, 32, 16, 2, new Point(0,60), 15);
         }
     }
 }
