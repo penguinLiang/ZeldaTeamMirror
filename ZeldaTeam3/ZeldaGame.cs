@@ -7,6 +7,7 @@ namespace Zelda
     {
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
+        public ISprite test;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -16,11 +17,15 @@ namespace Zelda
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
+        public ISprite heart;
+
+
         public ZeldaGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
@@ -45,6 +50,9 @@ namespace Zelda
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            heart = ItemSpriteFactory.Instance.CreateDroppedHeart();
+
         }
 
         protected override void UnloadContent()
@@ -59,6 +67,7 @@ namespace Zelda
             }
 
             CurrentSprite.Update();
+            heart.Update();
 
             base.Update(gameTime);
         }
@@ -67,8 +76,10 @@ namespace Zelda
         {
             GraphicsDevice.Clear(Color.Black);
 
+            
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+            heart.Draw(_spriteBatch, new Vector2(600, 100));
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
 

@@ -27,7 +27,7 @@ namespace Zelda
 
         public ISprite CreateDroppedHeart()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 0));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(0, 0));
         }
 
         public ISprite CreateHeartContainer()
