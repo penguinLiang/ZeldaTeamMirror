@@ -43,8 +43,10 @@ namespace Zelda
 
             _font = Content.Load<SpriteFont>("Arial");
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-            CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+            //CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+            CurrentSprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
         }
 
         protected override void UnloadContent()

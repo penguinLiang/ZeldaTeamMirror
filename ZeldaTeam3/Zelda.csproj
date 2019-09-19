@@ -41,6 +41,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Enemies\StalfosStateMachine.cs" />
+    <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Commands\EnemyDamagePauseKill.cs" />
     <Compile Include="Commands\EnemyLeft.cs" />
     <Compile Include="Commands\EnemyRight.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Quit.cs" />
+    <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
     <Compile Include="ISpawnable.cs" />
@@ -91,7 +94,6 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enemies\" />
     <Folder Include="NonPlayerCharacters\" />
     <Folder Include="Player\" />
     <Folder Include="Projectiles\" />
