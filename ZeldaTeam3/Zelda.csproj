@@ -62,6 +62,7 @@
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
+    <Compile Include="BlockSpriteFactory.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IMoveable.cs" />

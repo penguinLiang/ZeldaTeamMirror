@@ -12,7 +12,6 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
-
         private ISprite _randomBlock;
         private IController[] _controllers;
         public IEnemy[] Enemies;
@@ -73,9 +72,8 @@ namespace Zelda
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
-
             _spriteBatch.Begin();
+            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
