@@ -1,20 +1,19 @@
 ﻿namespace Zelda.Commands
 {
-    class Quit : ICommand
+    class Reset : ICommand
     {
         private readonly ZeldaGame _zeldaGame;
 
-        public Quit(ZeldaGame zeldaGame)
+        public Reset(ZeldaGame zeldaGame)
         {
             _zeldaGame = zeldaGame;
         }
 
         public void Execute()
         {
-            _zeldaGame.Resetting = false;
             _zeldaGame.Exit();
         }
 
-        public override string ToString() => "Quit the game";
+        public override string ToString() => "Reset the game";
     }
 }

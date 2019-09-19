@@ -9,9 +9,18 @@ namespace Zelda
         [STAThread]
         static void Main()
         {
-            using (var game = new ZeldaGame())
+            //using (var game = new ZeldaGame())
+            //    game.Run();
+
+            var game = new ZeldaGame();
+
+            while (game.Resetting)
+            {
                 game.Run();
-                
+
+                if (game.Resetting)
+                    game = new ZeldaGame();
+            }
         }
     }
 #endif

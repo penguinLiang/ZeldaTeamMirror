@@ -59,6 +59,7 @@
     <Compile Include="Commands\LinkDamage.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
+    <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
