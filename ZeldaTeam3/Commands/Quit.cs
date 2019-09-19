@@ -11,7 +11,6 @@
 
         public void Execute()
         {
-            _zeldaGame.Resetting = false;
             _zeldaGame.Exit();
         }
 

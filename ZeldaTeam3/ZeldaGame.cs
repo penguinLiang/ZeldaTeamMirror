@@ -5,7 +5,7 @@ namespace Zelda
 {
     public class ZeldaGame : Game
     {
-        public bool Resetting { get; set; } = true;
+        public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
 
@@ -22,6 +22,7 @@ namespace Zelda
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Resetting = false;
         }
 
         protected override void Initialize()
