@@ -18,6 +18,8 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
+
+        private ISprite _randomBlock;
         private IController[] _controllers;
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
@@ -49,6 +51,8 @@ namespace Zelda
 
             _font = Content.Load<SpriteFont>("Arial");
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
 
             StandingLink = new SpriteFixedStatic(legendOfZeldaSheet, new Rectangle(426, 22, 32, 32));
             StabbingLink = new SpriteFixedAnimated(legendOfZeldaSheet, new []
@@ -79,6 +83,8 @@ namespace Zelda
                 controller.Update();
             }
 
+            _randomBlock.Update();
+
             CurrentSprite.Update();
 
             base.Update(gameTime);
@@ -87,6 +93,8 @@ namespace Zelda
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
+            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
 
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
