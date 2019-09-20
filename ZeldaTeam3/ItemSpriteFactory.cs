@@ -32,95 +32,95 @@ namespace Zelda
 
         public ISprite CreateHeartContainer()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 0));
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 0));
         }
 
         public ISprite CreateFairy()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 16));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(0, 16));
         }
 
         public ISprite CreateRedRupee()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 16));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 16));
         }
 
         public ISprite CreateBlueRupee()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(16, 24));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 16));
         }
       
         public ISprite CreateMap()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 64));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(0, 48));
         }
 
         public ISprite CreateCompass()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(16, 64));
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 48));
         }
 
         public ISprite CreateRedRing()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 80));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 64));
         }
         public ISprite CreateBlueRing()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(8, 80));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 64));
         }
    
         public ISprite CreateKey()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 80));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 64));
         }
 
         public ISprite CreateClock()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 96));
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 80));
         }
 
         public ISprite CreateWoodSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 112));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 96));
         }
 
         public ISprite CreateWhiteSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(8, 112));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 96));
         }
 
         public ISprite CreateMagicSword()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(16, 112));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 96));
         }
         public ISprite CreateWoodShield()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(24, 112));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 96));
         }
 
         public ISprite CreateBow()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(0, 128));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 112));
         }
 
         public ISprite CreateWoodBoomerang()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(8, 128));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(8, 112));
         }
      
         public ISprite CreateBomb()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 1, new Point(24, 128));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 112));
         }
       
         public ISprite CreateArrow()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192,1, new Point(0, 144));
+            return new Sprite(_itemsSpriteSheet, 8, 16,1, new Point(0, 128));
         }
 
         public ISprite CreateTriforcePiece()
         {
-            return new Sprite(_itemsSpriteSheet, 32, 192, 2, new Point(0, 176));
+            return new Sprite(_itemsSpriteSheet, 16, 16, 2, new Point(0, 176));
         }
 
     }

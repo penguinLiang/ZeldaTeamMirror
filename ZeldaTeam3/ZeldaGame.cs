@@ -17,7 +17,8 @@ namespace Zelda
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
-        public ISprite heart;
+        private ISprite[] items;
+        
 
 
         public ZeldaGame()
@@ -51,7 +52,30 @@ namespace Zelda
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
-            heart = ItemSpriteFactory.Instance.CreateDroppedHeart();
+
+            items = new ISprite[]
+            {
+            ItemSpriteFactory.Instance.CreateArrow(),
+            ItemSpriteFactory.Instance.CreateBlueRing(),
+            ItemSpriteFactory.Instance.CreateBlueRupee(),
+            ItemSpriteFactory.Instance.CreateBomb(),
+            ItemSpriteFactory.Instance.CreateBow(),
+            ItemSpriteFactory.Instance.CreateClock(),
+            ItemSpriteFactory.Instance.CreateCompass(),
+            ItemSpriteFactory.Instance.CreateDroppedHeart(),
+            ItemSpriteFactory.Instance.CreateFairy(),
+            ItemSpriteFactory.Instance.CreateHeartContainer(),
+            ItemSpriteFactory.Instance.CreateKey(),
+            ItemSpriteFactory.Instance.CreateMagicSword(),
+            ItemSpriteFactory.Instance.CreateMap(),
+            ItemSpriteFactory.Instance.CreateRedRing(),
+            ItemSpriteFactory.Instance.CreateRedRupee(),
+            ItemSpriteFactory.Instance.CreateTriforcePiece(),
+            ItemSpriteFactory.Instance.CreateWhiteSword(),
+            ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+            ItemSpriteFactory.Instance.CreateWoodShield(),
+            ItemSpriteFactory.Instance.CreateWoodSword()
+            };
 
         }
 
@@ -67,7 +91,11 @@ namespace Zelda
             }
 
             CurrentSprite.Update();
-            heart.Update();
+          
+            foreach (ISprite item in items)
+            {
+                item.Update();
+            }
 
             base.Update(gameTime);
         }
@@ -75,11 +103,27 @@ namespace Zelda
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
+            int x = GraphicsDevice.Viewport.Bounds.Center.X;
+            int y = 50;
             
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
-            heart.Draw(_spriteBatch, new Vector2(600, 100));
+           foreach(ISprite item in items)
+            {
+
+
+                if(x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    x += 32;
+                }
+                else
+                {
+                    x = GraphicsDevice.Viewport.Bounds.Center.X +32;
+                    y += 32;
+                }
+
+                item.Draw(_spriteBatch, new Vector2(x, y));
+            }
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
 
