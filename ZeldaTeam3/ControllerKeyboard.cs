@@ -10,6 +10,7 @@ namespace Zelda
         public ControllerKeyboard(ZeldaGame zeldaGame)
         { 
             var quit = new Commands.Quit(zeldaGame);
+            var reset = new Commands.Reset(zeldaGame);
 
             var attack = new Commands.LinkPrimaryAction(zeldaGame.TemporaryLink);
 
@@ -35,11 +36,18 @@ namespace Zelda
 
             _keymap = new Dictionary<Keys, ICommand>
             {
-                { Keys.NumPad0, quit },
-                { Keys.D0, quit },
+                { Keys.Q, quit },
+                { Keys.R, reset },
 
                 { Keys.N, attack },
                 { Keys.Z, attack },
+
+                { Keys.D1, swordassign },
+                { Keys.D2, whiteswordassign },
+                { Keys.D3, magicswordassign },
+                { Keys.D4, bowassign },
+                { Keys.D5, boomerangassign },
+                { Keys.D6, bombassign },
 
                 { Keys.NumPad1, swordassign },
                 { Keys.NumPad2, whiteswordassign },

@@ -17,7 +17,6 @@ namespace Zelda
         private readonly Point _sourceOffset;
         private readonly int _frameDelay;
         private readonly int _totalPaletteCount;
-        private readonly int _rowsPerPalette;
         private readonly int _paletteShiftDelay;
         private int _currentFrame;
         private int _currentPaletteRow;
@@ -49,17 +48,15 @@ namespace Zelda
         }
 
         private int SourceX => _sourceOffset.X + _currentFrame * _width;
-        private int SourceY => _sourceOffset.Y + _height * _currentPaletteRow * _rowsPerPalette;
+        private int SourceY => (_sourceOffset.Y + _height) * _currentPaletteRow;
 
-
-        public Sprite(Texture2D spriteSheet, int width, int height, int frameCount, Point sourceOffset, int frameDelay = DefaultFrameDelay, int rowsPerPalette = 0, int totalPaletteCount = 0, int paletteShiftDelay = DefaultPaletteShiftDelay)
+        public Sprite(Texture2D spriteSheet, int width, int height, int frameCount, Point sourceOffset, int frameDelay = DefaultFrameDelay, int totalPaletteCount = 0, int paletteShiftDelay = DefaultPaletteShiftDelay)
         {
             _width = width;
             _height = height;
             _frameCount = frameCount;
             _frameDelay = frameDelay;
             _spriteSheet = spriteSheet;
-            _rowsPerPalette = rowsPerPalette;
             _totalPaletteCount = totalPaletteCount;
             _paletteShiftDelay = paletteShiftDelay;
             _sourceOffset = sourceOffset;

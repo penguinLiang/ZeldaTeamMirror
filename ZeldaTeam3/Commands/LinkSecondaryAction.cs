@@ -11,9 +11,8 @@
 
         public void Execute()
         {
-            _link.UsePrimaryItem();
+            _link.UseSecondaryItem();
         }
-
-        public override string ToString() => "Link uses Secondary action";
+        public override string ToString() => "Link uses secondary action";
     }
 }

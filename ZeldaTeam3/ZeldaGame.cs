@@ -5,6 +5,7 @@ namespace Zelda
 {
     public class ZeldaGame : Game
     {
+        public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
         public ISprite test;
@@ -13,6 +14,7 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
+        private ISprite _randomBlock;
         private IController[] _controllers;
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
@@ -49,6 +51,8 @@ namespace Zelda
 
             _font = Content.Load<SpriteFont>("Arial");
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
@@ -90,6 +94,8 @@ namespace Zelda
                 controller.Update();
             }
 
+            _randomBlock.Update();
+
             CurrentSprite.Update();
           
             foreach (ISprite item in items)
@@ -107,6 +113,7 @@ namespace Zelda
             int y = 50;
             
             _spriteBatch.Begin();
+            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
            foreach(ISprite item in items)
             {
