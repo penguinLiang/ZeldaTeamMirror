@@ -5,6 +5,7 @@ namespace Zelda
 {
     public class ZeldaGame : Game
     {
+        public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
 
