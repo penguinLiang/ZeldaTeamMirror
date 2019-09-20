@@ -22,7 +22,6 @@ namespace Zelda
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Resetting = false;
         }
 
         protected override void Initialize()
