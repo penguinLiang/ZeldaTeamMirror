@@ -13,10 +13,15 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
-        private ISprite _randomBlock;
+        private static int _frameCounter = 0;
+        private static int _blockListItem = 0;
+        private ISprite _displayedBlockSprite;
+
         private IController[] _controllers;
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
+
+        private ISprite[] _randomBlocksList;
 
         public ZeldaGame()
         {
@@ -46,13 +51,48 @@ namespace Zelda
             _font = Content.Load<SpriteFont>("Arial");
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
-            _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
+
+            _randomBlocksList = new ISprite[]
+            {
+                BlockSpriteFactory.Instance.CreateBottomBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateBottomLockedDoor(),
+                BlockSpriteFactory.Instance.CreateBottomOpenDoor(),
+                BlockSpriteFactory.Instance.CreateBottomWall(),
+                BlockSpriteFactory.Instance.CreateBottomWallHole(),
+                BlockSpriteFactory.Instance.CreateBrickBlock(),
+                BlockSpriteFactory.Instance.CreateFire(),
+                BlockSpriteFactory.Instance.CreateGapTile(),
+                BlockSpriteFactory.Instance.CreateLeftBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateLeftLockedDoor(),
+                BlockSpriteFactory.Instance.CreateLeftOpenDoor(),
+                BlockSpriteFactory.Instance.CreateLeftWall(),
+                BlockSpriteFactory.Instance.CreateLeftWallHole(),
+                BlockSpriteFactory.Instance.CreateRightBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateRightLockedDoor(),
+                BlockSpriteFactory.Instance.CreateRightOpenDoor(),
+                BlockSpriteFactory.Instance.CreateRightWall(),
+                BlockSpriteFactory.Instance.CreateRightWallHole(),
+                BlockSpriteFactory.Instance.CreateSolidBlock(),
+                BlockSpriteFactory.Instance.CreateStairs1(),
+                BlockSpriteFactory.Instance.CreateStairs2(),
+                BlockSpriteFactory.Instance.CreateStatue1(),
+                BlockSpriteFactory.Instance.CreateStatue2(),
+                BlockSpriteFactory.Instance.CreateTopBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateTopLockedDoor(),
+                BlockSpriteFactory.Instance.CreateTopOpenDoor(),
+                BlockSpriteFactory.Instance.CreateTopWall(),
+                BlockSpriteFactory.Instance.CreateTopWallHole()
+            };
+
+            _displayedBlockSprite = _randomBlocksList[0];
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
         }
 
         protected override void UnloadContent()
         {
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,11 +102,18 @@ namespace Zelda
                 controller.Update();
             }
 
-            _randomBlock.Update();
+            foreach (ISprite block in _randomBlocksList)
+            {
+                block.Update();
+            }
 
             CurrentSprite.Update();
 
             base.Update(gameTime);
+
+            _frameCounter++;
+
+            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -74,7 +121,20 @@ namespace Zelda
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
+
+            if(_frameCounter >= 30)
+            {
+                _blockListItem++;
+                if(_blockListItem >= _randomBlocksList.Length)
+                {
+                    _blockListItem = 0;
+                }
+                _displayedBlockSprite = _randomBlocksList[_blockListItem];
+                _frameCounter = 0;
+            }
+            _displayedBlockSprite.Draw(_spriteBatch, new Vector2(500, 200));
+
+
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
