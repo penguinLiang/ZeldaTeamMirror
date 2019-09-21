@@ -15,6 +15,6 @@
             _link.UseSecondaryItem();
         }
 
-        public override string ToString() => "Link assigns boomerang to secondary slot, then uses it";
+        public override string ToString() => "Link assign/use boomerang";
     }
 }

@@ -15,6 +15,6 @@
             _link.MoveDown();
         }
 
-        public override string ToString() => "Link faces down and then moves down";
+        public override string ToString() => "Link faces/move down";
     }
 }
