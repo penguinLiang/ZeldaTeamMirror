@@ -19,7 +19,7 @@ namespace Zelda
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
-        private ISprite[] items;
+        private ISprite[] _items;
         
 
 
@@ -57,7 +57,7 @@ namespace Zelda
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
-            items = new ISprite[]
+            _items = new ISprite[]
             {
             ItemSpriteFactory.Instance.CreateArrow(),
             ItemSpriteFactory.Instance.CreateBlueRing(),
@@ -98,7 +98,7 @@ namespace Zelda
 
             CurrentSprite.Update();
           
-            foreach (ISprite item in items)
+            foreach (ISprite item in _items)
             {
                 item.Update();
             }
@@ -115,7 +115,7 @@ namespace Zelda
             _spriteBatch.Begin();
             _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
-           foreach(ISprite item in items)
+           foreach(ISprite item in _items)
             {
 
 
