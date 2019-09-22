@@ -2,23 +2,6 @@ __Author:__ Henry Xiong
 __Date of Review:__ 9/21/2019-9/22/2019
 __Sprint Number:__ 2
 
----
-## ItemSpriteFactory.cs ##
-
-__Name of .cs file:__ ItemSpriteFactory.cs
-__Author of .cs file:__ Quinn
-__Minutes to review:__ 
-
-__Specific Comments (Readability):__
-Very readable, every single function inside of the factory clearly does what a factory is supposed to do, and that is to return an ISprite.
-
-__Specific Comments (Code Quality):__
-Simple, and easy to maintain looking. A very good job.
-
-__Hypothetical Changes and how current implementation May/Not support change:__
-There is no hypothetical changes for now and the current implementation has very low maintainability, will be easy to update.
-
----
 ## ItemSpriteFactory.cs ##
 
 __Name of .cs file:__ ItemSpriteFactory.cs
