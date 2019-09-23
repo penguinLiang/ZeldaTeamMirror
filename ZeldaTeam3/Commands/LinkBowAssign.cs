@@ -15,6 +15,6 @@
             _link.UseSecondaryItem();
         }
 
-        public override string ToString() => "Link assign/use bow";
+        public override string ToString() => "Link: Assign/use bow";
     }
 }
