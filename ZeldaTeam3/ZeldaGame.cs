@@ -58,30 +58,30 @@ namespace Zelda
             _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
             _items = new ISprite[]
             {
-            ItemSpriteFactory.Instance.CreateArrow(),
-            ItemSpriteFactory.Instance.CreateBlueRing(),
-            ItemSpriteFactory.Instance.CreateBlueRupee(),
-            ItemSpriteFactory.Instance.CreateBomb(),
-            ItemSpriteFactory.Instance.CreateBow(),
-            ItemSpriteFactory.Instance.CreateClock(),
-            ItemSpriteFactory.Instance.CreateCompass(),
-            ItemSpriteFactory.Instance.CreateDroppedHeart(),
-            ItemSpriteFactory.Instance.CreateFairy(),
-            ItemSpriteFactory.Instance.CreateHeartContainer(),
-            ItemSpriteFactory.Instance.CreateKey(),
-            ItemSpriteFactory.Instance.CreateMagicSword(),
-            ItemSpriteFactory.Instance.CreateMap(),
-            ItemSpriteFactory.Instance.CreateRedRing(),
-            ItemSpriteFactory.Instance.CreateRedRupee(),
-            ItemSpriteFactory.Instance.CreateTriforcePiece(),
-            ItemSpriteFactory.Instance.CreateWhiteSword(),
-            ItemSpriteFactory.Instance.CreateWoodBoomerang(),
-            ItemSpriteFactory.Instance.CreateWoodShield(),
-            ItemSpriteFactory.Instance.CreateWoodSword()
+            Items.ItemSpriteFactory.Instance.CreateArrow(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRing(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
+            Items.ItemSpriteFactory.Instance.CreateBomb(),
+            Items.ItemSpriteFactory.Instance.CreateBow(),
+            Items.ItemSpriteFactory.Instance.CreateClock(),
+            Items.ItemSpriteFactory.Instance.CreateCompass(),
+            Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
+            Items.ItemSpriteFactory.Instance.CreateFairy(),
+            Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
+            Items.ItemSpriteFactory.Instance.CreateKey(),
+            Items.ItemSpriteFactory.Instance.CreateMagicSword(),
+            Items.ItemSpriteFactory.Instance.CreateMap(),
+            Items.ItemSpriteFactory.Instance.CreateRedRing(),
+            Items.ItemSpriteFactory.Instance.CreateRedRupee(),
+            Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
+            Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
+            Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+            Items.ItemSpriteFactory.Instance.CreateWoodShield(),
+            Items.ItemSpriteFactory.Instance.CreateWoodSword()
             };
 
         }

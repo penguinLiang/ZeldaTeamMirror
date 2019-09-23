@@ -41,7 +41,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ProjectileSpriteFactory.cs" />
     <Compile Include="ItemSpriteFactory.cs" />
     <Compile Include="Commands\EnemyDamagePauseKill.cs" />
     <Compile Include="Commands\EnemyLeft.cs" />
