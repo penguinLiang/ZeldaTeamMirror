@@ -15,6 +15,6 @@
             _link.MoveDown();
         }
 
-        public override string ToString() => "Link faces/move down";
+        public override string ToString() => "Link: Face/move down";
     }
 }

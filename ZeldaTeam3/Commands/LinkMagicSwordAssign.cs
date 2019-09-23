@@ -15,6 +15,6 @@
             _link.UsePrimaryItem();
         }
 
-        public override string ToString() => "Link assigns/use magic sword";
+        public override string ToString() => "Link: Assign/use magic sword";
     }
 }
