@@ -11,5 +11,6 @@ namespace Zelda
         void Hide();
         void PauseAnimation();
         void PlayAnimation();
+        void PaletteShift();
     }
 }
