@@ -62,10 +62,12 @@
     <Compile Include="Commands\LinkDamage.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
+    <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
+    <Compile Include="BlockSpriteFactory.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IMoveable.cs" />

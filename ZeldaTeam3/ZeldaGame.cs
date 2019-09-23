@@ -5,6 +5,7 @@ namespace Zelda
 {
     public class ZeldaGame : Game
     {
+        public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
 
@@ -12,6 +13,7 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
 
+        private ISprite _randomBlock;
         private IController[] _controllers;
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
@@ -19,6 +21,9 @@ namespace Zelda
         public ZeldaGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1200;
+            _graphics.PreferredBackBufferHeight = 900;
+            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -42,10 +47,9 @@ namespace Zelda
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _font = Content.Load<SpriteFont>("Arial");
-            Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-
-            //CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
             CurrentSprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
         }
 
@@ -60,6 +64,8 @@ namespace Zelda
                 controller.Update();
             }
 
+            _randomBlock.Update();
+
             CurrentSprite.Update();
 
             base.Update(gameTime);
@@ -70,6 +76,7 @@ namespace Zelda
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
+            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
