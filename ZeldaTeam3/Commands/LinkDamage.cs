@@ -14,6 +14,6 @@
             _link.TakeDamage();
         }
 
-        public override string ToString() => "Link takes damage";
+        public override string ToString() => "Link: Take damage";
     }
 }

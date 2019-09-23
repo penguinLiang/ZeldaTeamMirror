@@ -13,6 +13,6 @@
         {
             _link.UseSecondaryItem();
         }
-        public override string ToString() => "Link uses secondary action";
+        public override string ToString() => "Link: Secondary action";
     }
 }

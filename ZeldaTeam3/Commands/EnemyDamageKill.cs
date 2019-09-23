@@ -20,11 +20,10 @@
             }
 
             randomEnemy.TakeDamage();
-            randomEnemy.Idle();
             randomEnemy.Kill();
 
         }
 
-        public override string ToString() => "Enemy gets damaged, then pauses, then gets killed";
+        public override string ToString() => "Enemy: Damage, Kill";
     }
 }

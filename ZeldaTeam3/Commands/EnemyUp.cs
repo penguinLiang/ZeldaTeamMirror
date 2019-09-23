@@ -18,6 +18,6 @@
             }
         }
 
-        public override string ToString() => "Enemy faces up and then moves up";
+        public override string ToString() => "Enemy: Face/move up";
     }
 }

@@ -15,6 +15,6 @@
             _link.UsePrimaryItem();
         }
 
-        public override string ToString() => "Link assigns sword to primary, then uses it";
+        public override string ToString() => "Link: Assign/use sword";
     }
 }

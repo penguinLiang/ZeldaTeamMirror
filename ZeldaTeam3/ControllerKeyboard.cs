@@ -32,7 +32,7 @@ namespace Zelda
             var enemyleft = new Commands.EnemyLeft(zeldaGame.Enemies);
             var enemyright = new Commands.EnemyRight(zeldaGame.Enemies);
 
-            var enemysequence = new Commands.EnemyDamagePauseKill(zeldaGame.Enemies);
+            var enemysequence = new Commands.EnemyDamageKill(zeldaGame.Enemies);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
