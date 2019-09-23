@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\StalfosStateMachine.cs" />
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Commands\EnemyDamagePauseKill.cs" />

@@ -4,89 +4,80 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zelda.Enemies
+namespace Zelda
 {
-    public class Stalfos : IEnemy
+    class Stalfos : IEnemy
     {
-        private StalfosStateMachine _stateMachine;
+        private StateMachine = new StalfosStateMachine();
+        private ISprite StalfosSprite = new StalfosSpriteSTandin();
 
-        public Stalfos(int posX, int posY)
+        public Stalfos()
         {
-            _stateMachine = new StalfosStateMachine(this, posX, posY);
-            
-        }
+            //TODO: set StateMachine
+            //SpriteFactory getStalfos()
 
+        }
         public void FaceDown()
-        {
-            return;
-        }
-
-        public void FaceLeft()
-        {
-            return;
-        }
-
-        public void FaceRight()
-        {
-            return;
-        }
-
-        public void FaceUp()
-        {
-            return;
-        }
-
-        public void Idle()
-        {
-            return;
-        }
-
-        public void Kill()
-        {
-            _stateMachine.Kill();
-        }
-
-        public void MoveDown()
-        {
-            _stateMachine.MoveDown();
-        }
-
-        public void MoveLeft()
-        {
-            _stateMachine.MoveLeft();
-        }
-
-        public void MoveRight()
-        {
-            _stateMachine.MoveRight();
-        }
-
-        public void MoveUp()
-        {
-            _stateMachine.MoveUp();
-        }
-
-        public void Spawn()
-        {
-            _stateMachine.Spawn();
-        }
-
-        public void TakeDamage()
-        {
-            _stateMachine.TakeDamage();
-        }
-
-        public void UseAttack()
-        {
-            _stateMachine.UseAttack();
-        }
-
-        public void Draw()
         {
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public void FaceLeft()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FaceRight()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FaceUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Idle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Kill()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveLeft()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveRight()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Spawn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakeDamage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UseAttack()
         {
             throw new NotImplementedException();
         }

@@ -12,6 +12,7 @@ namespace Zelda
     public class EnemySpriteFactory
     {
         public static EnemySpriteFactory Instance { get; } = new EnemySpriteFactory();
+
         private EnemySpriteFactory()
         {
         }
