@@ -8,12 +8,10 @@ namespace Zelda
         public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
-        public ISprite test;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
-
         private IController[] _controllers;
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
@@ -92,6 +90,7 @@ namespace Zelda
             };
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+
             Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
             _items = new ISprite[]
@@ -164,6 +163,7 @@ namespace Zelda
             int yEnvironmentBlocks = 400;
             int x = GraphicsDevice.Viewport.Bounds.Center.X;
             int y = 50;
+            
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
 
@@ -215,6 +215,7 @@ namespace Zelda
             }
 
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
+          
             _spriteBatch.End();
 
             base.Draw(gameTime);
