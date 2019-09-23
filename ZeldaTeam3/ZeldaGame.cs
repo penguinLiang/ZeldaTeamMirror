@@ -8,6 +8,7 @@ namespace Zelda
         public bool Resetting { get; set; }
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
+        public ISprite test;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -18,6 +19,10 @@ namespace Zelda
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
+        private ISprite[] _items;
+        
+
+
         public ZeldaGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -26,6 +31,7 @@ namespace Zelda
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
@@ -52,6 +58,32 @@ namespace Zelda
             _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
 
             CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+            Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
+
+            _items = new ISprite[]
+            {
+            Items.ItemSpriteFactory.Instance.CreateArrow(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRing(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
+            Items.ItemSpriteFactory.Instance.CreateBomb(),
+            Items.ItemSpriteFactory.Instance.CreateBow(),
+            Items.ItemSpriteFactory.Instance.CreateClock(),
+            Items.ItemSpriteFactory.Instance.CreateCompass(),
+            Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
+            Items.ItemSpriteFactory.Instance.CreateFairy(),
+            Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
+            Items.ItemSpriteFactory.Instance.CreateKey(),
+            Items.ItemSpriteFactory.Instance.CreateMagicSword(),
+            Items.ItemSpriteFactory.Instance.CreateMap(),
+            Items.ItemSpriteFactory.Instance.CreateRedRing(),
+            Items.ItemSpriteFactory.Instance.CreateRedRupee(),
+            Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
+            Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
+            Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+            Items.ItemSpriteFactory.Instance.CreateWoodShield(),
+            Items.ItemSpriteFactory.Instance.CreateWoodSword()
+            };
+
         }
 
         protected override void UnloadContent()
@@ -68,6 +100,11 @@ namespace Zelda
             _randomBlock.Update();
 
             CurrentSprite.Update();
+          
+            foreach (ISprite item in _items)
+            {
+                item.Update();
+            }
 
             base.Update(gameTime);
         }
@@ -75,10 +112,28 @@ namespace Zelda
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
+            int x = GraphicsDevice.Viewport.Bounds.Center.X;
+            int y = 50;
+            
             _spriteBatch.Begin();
             _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+           foreach(ISprite item in _items)
+            {
+
+
+                if(x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    x += 32;
+                }
+                else
+                {
+                    x = GraphicsDevice.Viewport.Bounds.Center.X +32;
+                    y += 32;
+                }
+
+                item.Draw(_spriteBatch, new Vector2(x, y));
+            }
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
             _spriteBatch.End();
 
