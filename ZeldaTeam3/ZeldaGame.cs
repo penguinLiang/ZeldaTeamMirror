@@ -17,8 +17,8 @@ namespace Zelda
         public IEnemy[] Enemies;
         private string _controlsDescription = "";
 
-        private ISprite[] _doorsBlocksList;
-        private ISprite[] _tilesBlocksList;
+        private ISprite[] _dungeonBorderBlocks;
+        private ISprite[] _dungeonEnvironmentBlocks;
 
         public ZeldaGame()
         {
@@ -49,7 +49,7 @@ namespace Zelda
             Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _doorsBlocksList = new ISprite[]
+            _dungeonBorderBlocks = new ISprite[]
             {
                 BlockSpriteFactory.Instance.CreateBottomBlockedDoor(),
                 BlockSpriteFactory.Instance.CreateBottomLockedDoor(),
@@ -73,7 +73,7 @@ namespace Zelda
                 BlockSpriteFactory.Instance.CreateTopWallHole()
             };
 
-            _tilesBlocksList = new ISprite[]
+            _dungeonEnvironmentBlocks = new ISprite[]
             {
                 BlockSpriteFactory.Instance.CreateBrickBlock(),
                 BlockSpriteFactory.Instance.CreateFire(),
@@ -101,12 +101,12 @@ namespace Zelda
                 controller.Update();
             }
 
-            foreach (ISprite block in _doorsBlocksList)
+            foreach (ISprite block in _dungeonBorderBlocks)
             {
                 block.Update();
             }
 
-            foreach (ISprite block in _tilesBlocksList)
+            foreach (ISprite block in _dungeonEnvironmentBlocks)
             {
                 block.Update();
             }
@@ -121,42 +121,42 @@ namespace Zelda
         {
             GraphicsDevice.Clear(Color.Black);
 
-            int xDoors = GraphicsDevice.Viewport.Bounds.Center.X - 100;
-            int yDoors = 300;
-            int xTiles = GraphicsDevice.Viewport.Bounds.Center.X - 100;
-            int yTiles = 400;
+            int xBorderBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
+            int yBorderBlocks = 300;
+            int xEnvironmentBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
+            int yEnvironmentBlocks = 400;
 
             _spriteBatch.Begin();
             CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
 
-            foreach (ISprite block in _doorsBlocksList)
+            foreach (ISprite block in _dungeonBorderBlocks)
             {
-                if(xDoors < (GraphicsDevice.Viewport.Bounds.Right - 100) && yDoors < GraphicsDevice.Viewport.Bounds.Bottom)
+                if(xBorderBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yBorderBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
                 {
-                    xDoors += 32;
+                    xBorderBlocks += 32;
                 }
                 else
                 {
-                    xDoors = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
-                    yDoors += 32;
+                    xBorderBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
+                    yBorderBlocks += 32;
                 }
 
-                block.Draw(_spriteBatch, new Vector2(xDoors, yDoors));
+                block.Draw(_spriteBatch, new Vector2(xBorderBlocks, yBorderBlocks));
             }
 
-            foreach (ISprite block in _tilesBlocksList)
+            foreach (ISprite block in _dungeonEnvironmentBlocks)
             {
-                if (xTiles < (GraphicsDevice.Viewport.Bounds.Right - 100) && yTiles < GraphicsDevice.Viewport.Bounds.Bottom)
+                if (xEnvironmentBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yEnvironmentBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
                 {
-                    xTiles += 32;
+                    xEnvironmentBlocks += 32;
                 }
                 else
                 {
-                    xTiles = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
-                    yTiles += 32;
+                    xEnvironmentBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
+                    yEnvironmentBlocks += 32;
                 }
 
-                block.Draw(_spriteBatch, new Vector2(xTiles, yTiles));
+                block.Draw(_spriteBatch, new Vector2(xEnvironmentBlocks, yEnvironmentBlocks));
             }
 
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);

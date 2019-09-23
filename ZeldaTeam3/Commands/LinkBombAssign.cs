@@ -15,6 +15,6 @@
             _link.UseSecondaryItem();
         }
 
-        public override string ToString() => "Enemy: Assign/use bomb";
+        public override string ToString() => "Link: Assign/use bomb";
     }
 }
