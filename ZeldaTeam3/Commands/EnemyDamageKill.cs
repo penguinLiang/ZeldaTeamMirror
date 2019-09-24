@@ -1,11 +1,11 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyDamagePauseKill : ICommand
+    class EnemyDamageKill : ICommand
     {
         private readonly IEnemy[] _enemy;
         static int counter = 0;
 
-        public EnemyDamagePauseKill(IEnemy[] Enemy)
+        public EnemyDamageKill(IEnemy[] Enemy)
         {
             _enemy = Enemy;
         }
