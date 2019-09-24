@@ -34,7 +34,7 @@ namespace Zelda
             get => _currentFrame;
             set
             {
-                if (_frameCount == 0 || _framesDelayed++ != _frameDelay || !_playing) return;
+                if (!_playing || _frameCount == 0 || _framesDelayed++ != _frameDelay) return;
                 _currentFrame = value % _frameCount;
                 _framesDelayed = 0;
             }

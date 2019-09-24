@@ -6,10 +6,9 @@ namespace Zelda
     public class ZeldaGame : Game
     {
         public bool Resetting { get; set; }
-        public ISprite CurrentSprite { get; set; }
-        public IPlayer TemporaryLink { get; set; }
+        public IPlayer Link { get; private set; }
 
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IController[] _controllers;
@@ -22,35 +21,24 @@ namespace Zelda
 
         public ZeldaGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1200;
-            _graphics.PreferredBackBufferHeight = 900;
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1200, PreferredBackBufferHeight = 900
+            };
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
         }
 
         protected override void Initialize()
         {
-            _controllers = new IController[]{
-                new ControllerKeyboard(this), 
-            };
-
-            foreach (IController controller in _controllers)
-            {
-                _controlsDescription += controller + "\n";
-            }
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             _font = Content.Load<SpriteFont>("Arial");
-            Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             _dungeonBorderBlocks = new ISprite[]
@@ -89,40 +77,49 @@ namespace Zelda
                 BlockSpriteFactory.Instance.CreateStatue2()
             };
 
-            CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
-
             Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
             _items = new ISprite[]
             {
-            Items.ItemSpriteFactory.Instance.CreateArrow(),
-            Items.ItemSpriteFactory.Instance.CreateBlueRing(),
-            Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
-            Items.ItemSpriteFactory.Instance.CreateBomb(),
-            Items.ItemSpriteFactory.Instance.CreateBow(),
-            Items.ItemSpriteFactory.Instance.CreateClock(),
-            Items.ItemSpriteFactory.Instance.CreateCompass(),
-            Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
-            Items.ItemSpriteFactory.Instance.CreateFairy(),
-            Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
-            Items.ItemSpriteFactory.Instance.CreateKey(),
-            Items.ItemSpriteFactory.Instance.CreateMagicSword(),
-            Items.ItemSpriteFactory.Instance.CreateMap(),
-            Items.ItemSpriteFactory.Instance.CreateRedRing(),
-            Items.ItemSpriteFactory.Instance.CreateRedRupee(),
-            Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
-            Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
-            Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
-            Items.ItemSpriteFactory.Instance.CreateWoodShield(),
-            Items.ItemSpriteFactory.Instance.CreateWoodSword()
+                Items.ItemSpriteFactory.Instance.CreateArrow(),
+                Items.ItemSpriteFactory.Instance.CreateBlueRing(),
+                Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
+                Items.ItemSpriteFactory.Instance.CreateBomb(),
+                Items.ItemSpriteFactory.Instance.CreateBow(),
+                Items.ItemSpriteFactory.Instance.CreateClock(),
+                Items.ItemSpriteFactory.Instance.CreateCompass(),
+                Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
+                Items.ItemSpriteFactory.Instance.CreateFairy(),
+                Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
+                Items.ItemSpriteFactory.Instance.CreateKey(),
+                Items.ItemSpriteFactory.Instance.CreateMagicSword(),
+                Items.ItemSpriteFactory.Instance.CreateMap(),
+                Items.ItemSpriteFactory.Instance.CreateRedRing(),
+                Items.ItemSpriteFactory.Instance.CreateRedRupee(),
+                Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
+                Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
+                Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+                Items.ItemSpriteFactory.Instance.CreateWoodShield(),
+                Items.ItemSpriteFactory.Instance.CreateWoodSword()
             };
 
+            Player.LinkSpriteFactory.Instance.LoadAllTextures(Content);
+
+            Link = new Player.Link(_spriteBatch, _graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+
+            // Controller instanciation expects that IPlayer and IEnemy exist
+            _controllers = new IController[]{
+                new ControllerKeyboard(this)
+            };
+
+            foreach (IController controller in _controllers)
+            {
+                _controlsDescription += controller + "\n";
+            }
         }
 
         protected override void UnloadContent()
         {
-
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -142,15 +139,13 @@ namespace Zelda
                 block.Update();
             }
 
-            CurrentSprite.Update();
-          
             foreach (ISprite item in _items)
             {
                 item.Update();
             }
 
+            Link.Update();
             base.Update(gameTime);
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -165,7 +160,6 @@ namespace Zelda
             int y = 50;
             
             _spriteBatch.Begin();
-            CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
 
             foreach (ISprite block in _dungeonBorderBlocks)
             {
@@ -214,6 +208,7 @@ namespace Zelda
                 item.Draw(_spriteBatch, new Vector2(x, y));
             }
 
+            Link.Draw();
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
           
             _spriteBatch.End();

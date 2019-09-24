@@ -12,20 +12,20 @@ namespace Zelda
             var quit = new Commands.Quit(zeldaGame);
             var reset = new Commands.Reset(zeldaGame);
 
-            var attack = new Commands.LinkPrimaryAction(zeldaGame.TemporaryLink);
+            var attack = new Commands.LinkPrimaryAction(zeldaGame.Link);
 
-            var swordassign = new Commands.LinkSwordAssign(zeldaGame.TemporaryLink);
-            var whiteswordassign = new Commands.LinkWhiteSwordAssign(zeldaGame.TemporaryLink);
-            var magicswordassign = new Commands.LinkMagicSwordAssign(zeldaGame.TemporaryLink);
-            var bowassign = new Commands.LinkBowAssign(zeldaGame.TemporaryLink);
-            var boomerangassign = new Commands.LinkBoomerangAssign(zeldaGame.TemporaryLink);
-            var bombassign = new Commands.LinkBombAssign(zeldaGame.TemporaryLink);
+            var swordassign = new Commands.LinkSwordAssign(zeldaGame.Link);
+            var whiteswordassign = new Commands.LinkWhiteSwordAssign(zeldaGame.Link);
+            var magicswordassign = new Commands.LinkMagicSwordAssign(zeldaGame.Link);
+            var bowassign = new Commands.LinkBowAssign(zeldaGame.Link);
+            var boomerangassign = new Commands.LinkBoomerangAssign(zeldaGame.Link);
+            var bombassign = new Commands.LinkBombAssign(zeldaGame.Link);
 
-            var damage = new Commands.LinkDamage(zeldaGame.TemporaryLink);
-            var up = new Commands.LinkUp(zeldaGame.TemporaryLink);
-            var down = new Commands.LinkDown(zeldaGame.TemporaryLink);
-            var right = new Commands.LinkRight(zeldaGame.TemporaryLink);
-            var left = new Commands.LinkLeft(zeldaGame.TemporaryLink);
+            var damage = new Commands.LinkDamage(zeldaGame.Link);
+            var up = new Commands.LinkUp(zeldaGame.Link);
+            var down = new Commands.LinkDown(zeldaGame.Link);
+            var right = new Commands.LinkRight(zeldaGame.Link);
+            var left = new Commands.LinkLeft(zeldaGame.Link);
 
             var enemyup = new Commands.EnemyUp(zeldaGame.Enemies);
             var enemydown = new Commands.EnemyDown(zeldaGame.Enemies);
