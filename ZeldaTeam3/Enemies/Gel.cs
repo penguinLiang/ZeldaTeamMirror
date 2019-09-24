@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
-    public class Stalfos : IEnemy
+    public class Gel : IEnemy
     {
-        private StalfosAgent _agent;
+        private GelAgent _agent;
 
-        public Stalfos(SpriteBatch spriteBatch, int posX, int posY)
+        public Gel(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new StalfosAgent(this, spriteBatch, posX, posY);
+            _agent = new GelAgent(this, spriteBatch, posX, posY);
         }
 
         public void FaceDown()

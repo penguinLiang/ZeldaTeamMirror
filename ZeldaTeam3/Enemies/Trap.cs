@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
-    public class Stalfos : IEnemy
+    public class Trap : IEnemy
     {
-        private StalfosAgent _agent;
+        private TrapAgent _agent;
 
-        public Stalfos(SpriteBatch spriteBatch, int posX, int posY)
+        public Trap(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new StalfosAgent(this, spriteBatch, posX, posY);
+            _agent = new TrapAgent(this, spriteBatch, posX, posY);
         }
 
         public void FaceDown()
@@ -73,12 +73,12 @@ namespace Zelda.Enemies
 
         public void TakeDamage()
         {
-            _agent.TakeDamage();
+            return;
         }
 
         public void UseAttack()
         {
-            _agent.UseAttack();
+            return;
         }
 
         public void Draw()
