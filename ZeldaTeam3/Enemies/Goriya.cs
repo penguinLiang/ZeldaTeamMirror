@@ -38,7 +38,7 @@ namespace Zelda.Enemies
 
         public void Idle()
         {
-            return;
+            _agent.Idle();
         }
 
         public void Kill()

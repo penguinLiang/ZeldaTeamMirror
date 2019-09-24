@@ -13,7 +13,7 @@ namespace Zelda.Enemies
         private StatusHealth _statusHealth;
         private StatusMoving _statusMoving;
 
-        private StatusDirection _statusDirection;
+        private Direction _statusDirection;
 
         private Vector2 _previousLocation;
 
@@ -21,13 +21,11 @@ namespace Zelda.Enemies
         private int _posX;
         private int _posY;
 
-        private readonly float GAP = 1;
-
         private readonly SpriteBatch _spriteBatch;
 
         private enum StatusHealth
         {
-            Alive, Dead
+            Alive, Dead, Damaged
         };
 
         private enum StatusMoving
@@ -35,10 +33,6 @@ namespace Zelda.Enemies
             Idle, Moving
         };
 
-        private enum StatusDirection
-        {
-            Up, Down, Left, Right
-        };
 
         public GoriyaAgent(Goriya goriya, SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -49,9 +43,14 @@ namespace Zelda.Enemies
             _statusHealth = StatusHealth.Dead;
             _spriteBatch = spriteBatch;
             _previousLocation = new Vector2(posX, posY);
-            _statusDirection = StatusDirection.Down;
-            _health = 4;
+            _statusDirection = Direction.Down;
+            _health = 2;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
+        }
+
+        public void Idle()
+        {
+            _statusMoving = StatusMoving.Idle;
         }
 
         public void Kill()
@@ -61,7 +60,7 @@ namespace Zelda.Enemies
 
         public void MoveDown()
         {
-            UpdateMoving(StatusDirection.Down);
+            UpdateMoving(Direction.Down);
             _posY += 1;
         }
 
@@ -72,19 +71,19 @@ namespace Zelda.Enemies
 
         public void MoveLeft()
         {
-            UpdateMoving(StatusDirection.Left);
+            UpdateMoving(Direction.Left);
             _posX -= 1;
         }
 
         public void MoveRight()
         {
-            UpdateMoving(StatusDirection.Right);
+            UpdateMoving(Direction.Right);
             _posX += 1;
         }
 
         public void MoveUp()
         {
-            UpdateMoving(StatusDirection.Up);
+            UpdateMoving(Direction.Up);
             _posY -= 1;
         }
 
@@ -98,6 +97,7 @@ namespace Zelda.Enemies
             if (_statusHealth == StatusHealth.Alive)
             {
                 _health--;
+                _statusHealth = StatusHealth.Damaged;
                 _sprite.PaletteShift();
             }
 
@@ -118,11 +118,10 @@ namespace Zelda.Enemies
             {
                 UpdateSprite();
             }
-
             _sprite.Update();
         }
 
-        private void UpdateMoving(StatusDirection direction)
+        private void UpdateMoving(Direction direction)
         {
             _updateSpriteFlag = (_statusMoving != StatusMoving.Moving) || (_statusDirection != direction);
             _statusMoving = StatusMoving.Moving;
@@ -132,22 +131,23 @@ namespace Zelda.Enemies
 
         private void UpdateSprite()
         {
+            
             switch(_statusDirection)
             {
-                case StatusDirection.Down:
+                case Direction.Down:
                     _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
                     break;
-                case StatusDirection.Left:
+                case Direction.Left:
                     _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceLeft();
                     break;
-                case StatusDirection.Up:
+                case Direction.Up:
                     _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceUp();
                     break;
-                case StatusDirection.Right:
+                case Direction.Right:
                     _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceRight();
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
