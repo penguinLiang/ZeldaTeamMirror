@@ -22,24 +22,28 @@ namespace Zelda.Player
 
         public void FaceUp()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _movementStateMachine.FaceUp();
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
 
         public void FaceDown()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _movementStateMachine.FaceDown();
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
 
         public void FaceLeft()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _movementStateMachine.FaceLeft();
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
 
         public void FaceRight()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _movementStateMachine.FaceRight();
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
