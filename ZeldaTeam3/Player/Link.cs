@@ -9,6 +9,7 @@ namespace Zelda.Player
         private readonly MovementStateMachine _movementStateMachine;
         private readonly SpriteStateMachine _spriteStateMachine;
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
+        private readonly SecondaryItemAgent _secondaryItemAgent;
 
         public Link(SpriteBatch spriteBatch, Vector2 location)
         {
@@ -16,6 +17,7 @@ namespace Zelda.Player
             _movementStateMachine = new MovementStateMachine(location);
             _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
+            _secondaryItemAgent = new SecondaryItemAgent(_spriteBatch);
         }
 
         public void FaceUp()
@@ -84,12 +86,15 @@ namespace Zelda.Player
 
         public void UsePrimaryItem()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _spriteStateMachine.UsePrimaryItem();
         }
 
         public void UseSecondaryItem()
         {
+            if (_spriteStateMachine.UsingItem) return;
             _spriteStateMachine.UseSecondaryItem();
+            _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
         }
 
         public void AssignPrimaryItem(Items.Primary item)
@@ -100,6 +105,7 @@ namespace Zelda.Player
         public void AssignSecondaryItem(Items.Secondary item)
         {
             _spriteStateMachine.AssignSecondaryItem(item);
+            _secondaryItemAgent.AssignSecondaryItem(item);
         }
 
         public void Update()
@@ -119,26 +125,34 @@ namespace Zelda.Player
             }
 
             _spriteStateMachine.Update();
+            _secondaryItemAgent.Update();
             if (!_spriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
         }
 
+        // When using a primary item, the sprite is offset from the origin of the bounding box for the Left and Up directions by 16 pixels,
+        // this was chosen in contrast to making every sprite 32x32 and calculating the origin of the bounding box for all directions
+        private Vector2 AdjustedDrawLocation()
+        {
+            var drawLocation = _movementStateMachine.Location;
+            if (!_spriteStateMachine.UsingPrimaryItem) return drawLocation;
+
+            if (_movementStateMachine.Facing == Direction.Left)
+            {
+                drawLocation.X -= 16;
+            }
+            else if (_movementStateMachine.Facing == Direction.Up)
+            {
+                drawLocation.Y -= 16;
+            }
+
+            return drawLocation;
+        }
+
         public void Draw()
         {
-            int yBoundOffset = 0;
-            int xBoundOffset = 0;
-            // When using an item, the texture atlas offsets the Left and Up directions by 16 pixels from origin
-            if (_spriteStateMachine.UsingItem)
-            {
-                if (_movementStateMachine.Facing == Direction.Left)
-                {
-                    xBoundOffset = 16;
-                } else if (_movementStateMachine.Facing == Direction.Up)
-                {
-                    yBoundOffset = 16;
-                }
-            }
-            _spriteStateMachine.Sprite.Draw(_spriteBatch, new Vector2(_movementStateMachine.Location.X - xBoundOffset, _movementStateMachine.Location.Y - yBoundOffset));
+            _secondaryItemAgent.Draw();
+            _spriteStateMachine.Sprite.Draw(_spriteBatch, AdjustedDrawLocation());
         }
     }
 }

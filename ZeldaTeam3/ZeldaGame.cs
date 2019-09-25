@@ -103,6 +103,8 @@ namespace Zelda
                 Items.ItemSpriteFactory.Instance.CreateWoodSword()
             };
 
+            Projectiles.ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
+
             Player.LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
             Link = new Player.Link(_spriteBatch, _graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2());

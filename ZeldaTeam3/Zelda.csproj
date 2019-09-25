@@ -75,12 +75,12 @@
     <Compile Include="ControllerKeyboard.cs" />
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
+    <Compile Include="Player\SecondaryItemAgent.cs" />
+    <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
-    <Compile Include="Projectiles\BombStateMachine.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
-    <Compile Include="Projectiles\ProjectileStateMachine.cs" />
+    <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
     <Compile Include="Projectiles\ThrownBoomerang.cs" />
-    <Compile Include="Projectiles\ThrownBoomerangStateMachine.cs" />
     <Compile Include="Player\SpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />
     <Compile Include="Player\Link.cs" />
@@ -109,8 +109,6 @@
   <ItemGroup>
     <Folder Include="Enemies\" />
     <Folder Include="NonPlayerCharacters\" />
-    <Folder Include="Player\" />
-    <Folder Include="Projectiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

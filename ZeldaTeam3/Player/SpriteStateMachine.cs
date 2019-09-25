@@ -8,17 +8,16 @@ namespace Zelda.Player
         private const int AttackResetDelay = 50;
 
         public ISprite Sprite { get; private set; }
+        public bool UsingSecondaryItem { get; private set; }
+        public bool UsingPrimaryItem { get; private set; }
 
         private Direction _facing;
         private Items.Primary _primaryItem;
-        private Items.Secondary _secondaryItem;
 
-        // Memoizing the primary item and direction prevents sprite thrashing
+        // Memoizing the direction prevents sprite thrashing
         private Direction _lastFacing;
 
         private int _attackResetFramesDelayed;
-        private bool _usingSecondaryItem;
-        private bool _usingPrimaryItem;
 
         public SpriteStateMachine(Direction facing)
         {
@@ -27,7 +26,7 @@ namespace Zelda.Player
             ChangeSprite(_facing);
         }
 
-        public bool UsingItem => _usingPrimaryItem || _usingSecondaryItem;
+        public bool UsingItem => UsingPrimaryItem || UsingSecondaryItem;
 
         private int AttackResetFramesDelayed
         {
@@ -38,8 +37,8 @@ namespace Zelda.Player
                 _attackResetFramesDelayed = value;
 
                 if (_attackResetFramesDelayed != AttackResetDelay) return;
-                _usingPrimaryItem = false;
-                _usingSecondaryItem = false;
+                UsingPrimaryItem = false;
+                UsingSecondaryItem = false;
                 ChangeSprite(_facing);
 
                 _attackResetFramesDelayed = 0;
@@ -66,11 +65,11 @@ namespace Zelda.Player
 
         private void ChangeSprite(Direction direction)
         {
-            if (_usingPrimaryItem)
+            if (UsingPrimaryItem)
             {
                 ChangePrimaryItemSprite(direction);
             }
-            else if (_usingSecondaryItem)
+            else if (UsingSecondaryItem)
             {
                 Sprite = LinkSpriteFactory.Instance.CreateUseSecondary(direction);
             }
@@ -96,18 +95,18 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
-            _secondaryItem = item;
+            // NO-OP: The sprite maintains the same apperance regardless of item
         }
 
         public void UsePrimaryItem()
         {
-            _usingPrimaryItem = true;
+            UsingPrimaryItem = true;
             ChangeSprite(_facing);
         }
 
         public void UseSecondaryItem()
         {
-            _usingSecondaryItem = true;
+            UsingSecondaryItem = true;
             ChangeSprite(_facing);
         }
 

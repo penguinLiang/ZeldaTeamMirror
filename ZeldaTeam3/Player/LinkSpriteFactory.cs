@@ -22,9 +22,12 @@ namespace Zelda.Player
 
         private const int FrameCount = 2;
         private const int AttackFrameCount = 4;
+        private const int UseSecondaryFrameCount = 1;
 
         private readonly Dictionary<Direction, Point> _offset;
         private readonly Dictionary<Direction, Point> _swordOffset;
+        private readonly Dictionary<Direction, Point> _useSecondaryOffset;
+
         private readonly Dictionary<Direction, int> _swordWidth;
         private readonly Dictionary<Direction, int> _swordHeight;
 
@@ -52,6 +55,14 @@ namespace Zelda.Player
                 { Direction.Down, new Point(0, 0) },
                 { Direction.Left, new Point(0, SwordUpDownHeight * 2 + SwordLeftRightHeight) },
                 { Direction.Right, new Point(0, SwordUpDownHeight * 2) },
+            };
+
+            _useSecondaryOffset = new Dictionary<Direction, Point>
+            {
+                { Direction.Up, new Point(Width * 3, 0) },
+                { Direction.Down, new Point(0, 0) },
+                { Direction.Left, new Point(Width * 2, 0) },
+                { Direction.Right, new Point(Width, 0) },
             };
 
             _swordWidth = new Dictionary<Direction, int>
@@ -102,7 +113,7 @@ namespace Zelda.Player
 
         public ISprite CreateUseSecondary(Direction direction)
         {
-            return new Sprite(_useSecondarySpritesheet, Width, Height, AttackFrameCount, _offset[direction], FrameDelay, SwordPaletteHeight, PaletteCount);
+            return new Sprite(_useSecondarySpritesheet, Width, Height, UseSecondaryFrameCount, _useSecondaryOffset[direction], FrameDelay, SwordPaletteHeight, PaletteCount);
         }
     }
 }
