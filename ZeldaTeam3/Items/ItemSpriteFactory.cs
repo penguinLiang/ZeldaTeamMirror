@@ -40,19 +40,19 @@ namespace Zelda.Items
             return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(0, 16));
         }
 
-        public ISprite CreateRedRupee()
+        public ISprite Create1Rupee()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 16));
         }
 
-        public ISprite CreateBlueRupee()
+        public ISprite Create5Rupee()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 16));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(16, 16));
         }
       
         public ISprite CreateMap()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(0, 48));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 48));
         }
 
         public ISprite CreateCompass()
@@ -105,7 +105,7 @@ namespace Zelda.Items
 
         public ISprite CreateWoodBoomerang()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(8, 112));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 112));
         }
      
         public ISprite CreateBomb()

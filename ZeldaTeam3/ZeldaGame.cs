@@ -99,7 +99,7 @@ namespace Zelda
             {
                 Items.ItemSpriteFactory.Instance.CreateArrow(),
                 Items.ItemSpriteFactory.Instance.CreateBlueRing(),
-                Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
+                Items.ItemSpriteFactory.Instance.Create5Rupee(),
                 Items.ItemSpriteFactory.Instance.CreateBomb(),
                 Items.ItemSpriteFactory.Instance.CreateBow(),
                 Items.ItemSpriteFactory.Instance.CreateClock(),
@@ -111,7 +111,7 @@ namespace Zelda
                 Items.ItemSpriteFactory.Instance.CreateMagicSword(),
                 Items.ItemSpriteFactory.Instance.CreateMap(),
                 Items.ItemSpriteFactory.Instance.CreateRedRing(),
-                Items.ItemSpriteFactory.Instance.CreateRedRupee(),
+                Items.ItemSpriteFactory.Instance.Create1Rupee(),
                 Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
                 Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
                 Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
