@@ -14,6 +14,6 @@
             _link.UsePrimaryItem();
         }
 
-        public override string ToString() => "Link uses primary action";
+        public override string ToString() => "Link: Primary action";
     }
 }

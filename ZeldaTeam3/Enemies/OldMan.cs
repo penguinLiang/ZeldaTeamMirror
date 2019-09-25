@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
-    public class Gel : IEnemy
+    public class OldMan : IEnemy
     {
-        private GelAgent _agent;
+        private OldManAgent _agent;
 
-        public Gel(SpriteBatch spriteBatch, int posX, int posY)
+        public OldMan(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new GelAgent(spriteBatch, posX, posY);
+            _agent = new OldManAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()

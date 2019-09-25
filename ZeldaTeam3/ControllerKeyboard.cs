@@ -32,7 +32,9 @@ namespace Zelda
             var enemyleft = new Commands.EnemyLeft(zeldaGame.Enemies);
             var enemyright = new Commands.EnemyRight(zeldaGame.Enemies);
 
-            var enemysequence = new Commands.EnemyDamagePauseKill(zeldaGame.Enemies);
+            var enemyspawn = new Commands.EnemySpawn(zeldaGame.Enemies);
+            var enemydamage = new Commands.EnemyDamage(zeldaGame.Enemies);
+            var enemykill = new Commands.EnemyKill(zeldaGame.Enemies);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
@@ -71,13 +73,13 @@ namespace Zelda
                 { Keys.J, enemydown },
                 { Keys.K, enemyright },
 
-                { Keys.T, enemysequence },
-                { Keys.Y, enemysequence },
-                { Keys.I, enemysequence },
-                { Keys.O, enemysequence },
-                { Keys.P, enemysequence },
-                { Keys.G, enemysequence },
-                { Keys.L, enemysequence },
+                { Keys.T, enemyspawn },
+                { Keys.Y, enemydamage},
+                { Keys.I, enemykill },
+                //{ Keys.O, enemyattack },
+               // { Keys.P, enemysequence },
+               // { Keys.G, enemysequence },
+               // { Keys.L, enemysequence },
             };
         }
 

@@ -13,7 +13,7 @@ namespace Zelda.Enemies
 
         public WallMaster(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new WallMasterAgent(this, spriteBatch, posX, posY);
+            _agent = new WallMasterAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()

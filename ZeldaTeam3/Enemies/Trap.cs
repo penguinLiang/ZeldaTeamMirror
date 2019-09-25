@@ -13,7 +13,7 @@ namespace Zelda.Enemies
 
         public Trap(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new TrapAgent(this, spriteBatch, posX, posY);
+            _agent = new TrapAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()

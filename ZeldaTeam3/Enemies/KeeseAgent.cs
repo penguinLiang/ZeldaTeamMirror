@@ -5,43 +5,26 @@ namespace Zelda.Enemies
 {
     public class KeeseAgent
     {
-        private Keese _keese;
         private readonly ISprite _sprite;
 
-        private StatusHealth _statusHealth;
-
-        private Direction _statusDirection;
-
-        private Vector2 _previousLocation;
-
-        private int _health;
         private int _posX;
         private int _posY;
 
-        private readonly float GAP = 1;
-
         private readonly SpriteBatch _spriteBatch;
 
-        private enum StatusHealth
-        {
-            Alive, Dead, Damaged
-        };
 
-
-        public KeeseAgent(Keese keese, SpriteBatch spriteBatch, int posX, int posY)
+        public KeeseAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _keese = keese;
-            _statusHealth = StatusHealth.Dead;
             _spriteBatch = spriteBatch;
-            _previousLocation = new Vector2(posX, posY);
             _sprite = EnemySpriteFactory.Instance.CreateKeese();
+            _sprite.Hide();
         }
 
         public void Kill()
         {
-            _statusHealth = StatusHealth.Dead;
+            _sprite.Hide();
         }
 
         public void MoveDown()
@@ -71,21 +54,12 @@ namespace Zelda.Enemies
 
         public void Spawn()
         {
-            _statusHealth = StatusHealth.Alive;
+            _sprite.Show();
         }
 
         public void TakeDamage()
         {
-            if (_statusHealth == StatusHealth.Alive)
-            {
-                _health--;
-                _statusHealth = StatusHealth.Damaged;
-            }
-
-            if (_health < 1)
-            {
-                _statusHealth = StatusHealth.Dead;
-            }
+            this.Kill();
         }
 
         public void Draw()
@@ -95,25 +69,7 @@ namespace Zelda.Enemies
 
         public void Update()
         {
-            switch (_statusHealth)
-            {
-                case StatusHealth.Damaged:
-                    _sprite.PaletteShift();
-                    break;
-                case StatusHealth.Dead:
-                    _sprite.Hide();
-                    break;
-                default:
-                    _sprite.Show();
-                    break;
-            }
-
             _sprite.Update();
-        }
-
-        private void UpdateMoving(Direction direction)
-        {
-            _statusDirection = direction;
         }
     }
 }

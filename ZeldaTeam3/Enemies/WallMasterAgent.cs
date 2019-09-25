@@ -5,42 +5,36 @@ namespace Zelda.Enemies
 {
     public class WallMasterAgent
     {
-        private WallMaster _wallMaster;
         private readonly ISprite _sprite;
 
         private StatusHealth _statusHealth;
-
-        private Direction _statusDirection;
-
-        private Vector2 _previousLocation;
 
         private int _health;
         private int _posX;
         private int _posY;
 
-        private readonly float GAP = 1;
-
         private readonly SpriteBatch _spriteBatch;
 
         private enum StatusHealth
         {
-            Alive, Dead, Damaged
+            Alive, Dead
         };
 
 
-        public WallMasterAgent(WallMaster wallMaster, SpriteBatch spriteBatch, int posX, int posY)
+        public WallMasterAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _wallMaster = wallMaster;
-            _statusHealth = StatusHealth.Dead;
+            _statusHealth = StatusHealth.Alive;
             _spriteBatch = spriteBatch;
-            _previousLocation = new Vector2(posX, posY);
+            _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
+            _sprite.Hide();
         }
 
         public void Kill()
         {
+            _sprite.Hide();
             _statusHealth = StatusHealth.Dead;
         }
 
@@ -71,6 +65,8 @@ namespace Zelda.Enemies
 
         public void Spawn()
         {
+            _sprite.Show();
+            _health = 10;
             _statusHealth = StatusHealth.Alive;
         }
 
@@ -79,12 +75,12 @@ namespace Zelda.Enemies
             if (_statusHealth == StatusHealth.Alive)
             {
                 _health--;
-                _statusHealth = StatusHealth.Damaged;
+                _sprite.PaletteShift();
             }
 
             if (_health < 1)
             {
-                _statusHealth = StatusHealth.Dead;
+                this.Kill();
             }
         }
 
@@ -95,25 +91,7 @@ namespace Zelda.Enemies
 
         public void Update()
         {
-            switch (_statusHealth)
-            {
-                case StatusHealth.Damaged:
-                    _sprite.PaletteShift();
-                    break;
-                case StatusHealth.Dead:
-                    _sprite.Hide();
-                    break;
-                default:
-                    _sprite.Show();
-                    break;
-            }
-
             _sprite.Update();
-        }
-
-        private void UpdateMoving(Direction direction)
-        {
-            _statusDirection = direction;
         }
     }
 }

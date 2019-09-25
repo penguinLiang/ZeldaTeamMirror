@@ -15,6 +15,6 @@
             _link.MoveLeft();
         }
 
-        public override string ToString() => "Link faces left and then moves left";
+        public override string ToString() => "Link: Face/move left";
     }
 }

@@ -13,7 +13,7 @@ namespace Zelda.Enemies
 
         public Stalfos(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new StalfosAgent(this, spriteBatch, posX, posY);
+            _agent = new StalfosAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()

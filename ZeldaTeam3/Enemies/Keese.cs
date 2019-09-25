@@ -14,7 +14,7 @@ namespace Zelda.Enemies
 
         public Keese(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new KeeseAgent(this, spriteBatch, posX, posY);
+            _agent = new KeeseAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()
@@ -79,7 +79,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            _agent.UseAttack();
+            return;
         }
 
         public void Draw()

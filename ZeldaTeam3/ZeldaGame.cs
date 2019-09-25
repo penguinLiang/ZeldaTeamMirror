@@ -10,16 +10,16 @@ namespace Zelda
         public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
 
-        public IEnemy TemporaryEnemy { get; set; }
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
-
-        private ISprite _randomBlock;
         private IController[] _controllers;
         public IEnemy[] Enemies { get; set; }
         private string _controlsDescription = "";
+
+        private ISprite[] _items;
+        private ISprite[] _dungeonBorderBlocks;
+        private ISprite[] _dungeonEnvironmentBlocks;
 
         public ZeldaGame()
         {
@@ -29,6 +29,7 @@ namespace Zelda
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
@@ -43,39 +44,101 @@ namespace Zelda
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _font = Content.Load<SpriteFont>("Arial");
+
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            Enemies = new IEnemy[]
+            {
+                new Gel(_spriteBatch, 500, 600),
+                new Goriya(_spriteBatch, 550, 600), 
+                new Keese(_spriteBatch, 600, 600),
+                new Stalfos(_spriteBatch, 650, 600),
+                new Trap(_spriteBatch, 700, 600), 
+                new WallMaster(_spriteBatch, 750, 600),
+                new Aquamentus(_spriteBatch, 800, 600),
+                new OldMan(_spriteBatch, 450, 600)
+            };
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _randomBlock = BlockSpriteFactory.Instance.CreateBottomWall();
-            CurrentSprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
-            TemporaryEnemy = new Stalfos(_spriteBatch, 600, 400);
-            Gel gel = new Gel(_spriteBatch, 632, 400);
-            Keese keese = new Keese(_spriteBatch, 664, 400);
-            WallMaster wallMaster = new WallMaster(_spriteBatch, 696, 400);
-            Trap trap = new Trap(_spriteBatch, 732, 400);
-            Goriya goriya = new Goriya(_spriteBatch, 764, 400);
-            
-
-            Enemies = new IEnemy[] { TemporaryEnemy, gel, keese, wallMaster, trap, goriya};
-
-            foreach (IEnemy enemy in Enemies)
+            _dungeonBorderBlocks = new ISprite[]
             {
-                enemy.Spawn();
-            }
+                BlockSpriteFactory.Instance.CreateBottomBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateBottomLockedDoor(),
+                BlockSpriteFactory.Instance.CreateBottomOpenDoor(),
+                BlockSpriteFactory.Instance.CreateBottomWall(),
+                BlockSpriteFactory.Instance.CreateBottomWallHole(),
+                BlockSpriteFactory.Instance.CreateLeftBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateLeftLockedDoor(),
+                BlockSpriteFactory.Instance.CreateLeftOpenDoor(),
+                BlockSpriteFactory.Instance.CreateLeftWall(),
+                BlockSpriteFactory.Instance.CreateLeftWallHole(),
+                BlockSpriteFactory.Instance.CreateRightBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateRightLockedDoor(),
+                BlockSpriteFactory.Instance.CreateRightOpenDoor(),
+                BlockSpriteFactory.Instance.CreateRightWall(),
+                BlockSpriteFactory.Instance.CreateRightWallHole(),
+                BlockSpriteFactory.Instance.CreateTopBlockedDoor(),
+                BlockSpriteFactory.Instance.CreateTopLockedDoor(),
+                BlockSpriteFactory.Instance.CreateTopOpenDoor(),
+                BlockSpriteFactory.Instance.CreateTopWall(),
+                BlockSpriteFactory.Instance.CreateTopWallHole()
+            };
+
+            _dungeonEnvironmentBlocks = new ISprite[]
+            {
+                BlockSpriteFactory.Instance.CreateBrickBlock(),
+                BlockSpriteFactory.Instance.CreateFire(),
+                BlockSpriteFactory.Instance.CreateGapTile(),
+                BlockSpriteFactory.Instance.CreateSolidBlock(),
+                BlockSpriteFactory.Instance.CreateStairs1(),
+                BlockSpriteFactory.Instance.CreateStairs2(),
+                BlockSpriteFactory.Instance.CreateStatue1(),
+                BlockSpriteFactory.Instance.CreateStatue2()
+            };
+
+
+
+            Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
+
+            _items = new ISprite[]
+            {
+            Items.ItemSpriteFactory.Instance.CreateArrow(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRing(),
+            Items.ItemSpriteFactory.Instance.CreateBlueRupee(),
+            Items.ItemSpriteFactory.Instance.CreateBomb(),
+            Items.ItemSpriteFactory.Instance.CreateBow(),
+            Items.ItemSpriteFactory.Instance.CreateClock(),
+            Items.ItemSpriteFactory.Instance.CreateCompass(),
+            Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
+            Items.ItemSpriteFactory.Instance.CreateFairy(),
+            Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
+            Items.ItemSpriteFactory.Instance.CreateKey(),
+            Items.ItemSpriteFactory.Instance.CreateMagicSword(),
+            Items.ItemSpriteFactory.Instance.CreateMap(),
+            Items.ItemSpriteFactory.Instance.CreateRedRing(),
+            Items.ItemSpriteFactory.Instance.CreateRedRupee(),
+            Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
+            Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
+            Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+            Items.ItemSpriteFactory.Instance.CreateWoodShield(),
+            Items.ItemSpriteFactory.Instance.CreateWoodSword()
+            };
 
             _controllers = new IController[]{
-                new ControllerKeyboard(this),
+                new ControllerKeyboard(this)
             };
 
             foreach (IController controller in _controllers)
             {
                 _controlsDescription += controller + "\n";
             }
-
         }
 
         protected override void UnloadContent()
         {
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -85,29 +148,99 @@ namespace Zelda
                 controller.Update();
             }
 
-            _randomBlock.Update();
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Update();
             }
 
-            CurrentSprite.Update();
+            foreach (ISprite block in _dungeonBorderBlocks)
+            {
+                block.Update();
+            }
+
+            foreach (ISprite block in _dungeonEnvironmentBlocks)
+            {
+                block.Update();
+            }
+
+          
+            foreach (ISprite item in _items)
+            {
+                item.Update();
+            }
 
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
+            int xBorderBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
+            int yBorderBlocks = 300;
+            int xEnvironmentBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
+            int yEnvironmentBlocks = 400;
+            int x = GraphicsDevice.Viewport.Bounds.Center.X;
+            int y = 50;
+            
             _spriteBatch.Begin();
-            _randomBlock.Draw(_spriteBatch, new Vector2(500,200));
+
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Draw();
             }
-            CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+            //CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+
+            foreach (ISprite block in _dungeonBorderBlocks)
+            {
+                if(xBorderBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yBorderBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    xBorderBlocks += 32;
+                }
+                else
+                {
+                    xBorderBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
+                    yBorderBlocks += 32;
+                }
+
+                block.Draw(_spriteBatch, new Vector2(xBorderBlocks, yBorderBlocks));
+            }
+
+            foreach (ISprite block in _dungeonEnvironmentBlocks)
+            {
+                if (xEnvironmentBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yEnvironmentBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    xEnvironmentBlocks += 32;
+                }
+                else
+                {
+                    xEnvironmentBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
+                    yEnvironmentBlocks += 32;
+                }
+
+                block.Draw(_spriteBatch, new Vector2(xEnvironmentBlocks, yEnvironmentBlocks));
+            }
+            
+            foreach(ISprite item in _items)
+            {
+
+
+                if(x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    x += 32;
+                }
+                else
+                {
+                    x = GraphicsDevice.Viewport.Bounds.Center.X +32;
+                    y += 32;
+                }
+
+                item.Draw(_spriteBatch, new Vector2(x, y));
+            }
+
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
+          
             _spriteBatch.End();
 
             base.Draw(gameTime);

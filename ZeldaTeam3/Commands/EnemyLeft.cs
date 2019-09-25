@@ -13,11 +13,10 @@
         {
             foreach (IEnemy enemy in _enemy)
             {
-                enemy.FaceLeft();
                 enemy.MoveLeft();
             }
         }
 
-        public override string ToString() => "Enemy faces left and then moves left";
+        public override string ToString() => "Enemy: Face/move left";
     }
 }

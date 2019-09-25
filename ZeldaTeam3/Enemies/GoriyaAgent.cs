@@ -1,21 +1,18 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zelda.Projectiles;
 
 namespace Zelda.Enemies
 {
     public class GoriyaAgent
     {
-        private Goriya _goriya;
         private ISprite _sprite;
 
         private bool _updateSpriteFlag;
         private StatusHealth _statusHealth;
-        private StatusMoving _statusMoving;
 
         private Direction _statusDirection;
-
-        private Vector2 _previousLocation;
 
         private int _health;
         private int _posX;
@@ -25,71 +22,64 @@ namespace Zelda.Enemies
 
         private enum StatusHealth
         {
-            Alive, Dead, Damaged
-        };
-
-        private enum StatusMoving
-        {
-            Idle, Moving
+            Alive,
+            Dead
         };
 
 
-        public GoriyaAgent(Goriya goriya, SpriteBatch spriteBatch, int posX, int posY)
+        public GoriyaAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
             _updateSpriteFlag = false;
             _posX = posX;
             _posY = posY;
-            _goriya = goriya;
-            _statusHealth = StatusHealth.Dead;
+            _statusHealth = StatusHealth.Alive;
             _spriteBatch = spriteBatch;
-            _previousLocation = new Vector2(posX, posY);
             _statusDirection = Direction.Down;
-            _health = 2;
+            _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
-        }
-
-        public void Idle()
-        {
-            _statusMoving = StatusMoving.Idle;
+            _sprite.Hide();
         }
 
         public void Kill()
         {
+            _sprite.Hide();
             _statusHealth = StatusHealth.Dead;
         }
 
         public void MoveDown()
         {
-            UpdateMoving(Direction.Down);
+            UpdateDirection(Direction.Down);
             _posY += 1;
         }
 
         public void UseAttack()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void MoveLeft()
         {
-            UpdateMoving(Direction.Left);
+            UpdateDirection(Direction.Left);
             _posX -= 1;
         }
 
         public void MoveRight()
         {
-            UpdateMoving(Direction.Right);
+            UpdateDirection(Direction.Right);
             _posX += 1;
         }
 
         public void MoveUp()
         {
-            UpdateMoving(Direction.Up);
+            UpdateDirection(Direction.Up);
             _posY -= 1;
         }
 
         public void Spawn()
         {
+            _sprite.Show();
             _statusHealth = StatusHealth.Alive;
+            _health = 10;
         }
 
         public void TakeDamage()
@@ -97,13 +87,12 @@ namespace Zelda.Enemies
             if (_statusHealth == StatusHealth.Alive)
             {
                 _health--;
-                _statusHealth = StatusHealth.Damaged;
                 _sprite.PaletteShift();
             }
 
             if (_health < 1)
             {
-                _statusHealth = StatusHealth.Dead;
+                this.Kill();
             }
         }
 
@@ -118,21 +107,20 @@ namespace Zelda.Enemies
             {
                 UpdateSprite();
             }
+
             _sprite.Update();
         }
 
-        private void UpdateMoving(Direction direction)
+        public void UpdateDirection(Direction direction)
         {
-            _updateSpriteFlag = (_statusMoving != StatusMoving.Moving) || (_statusDirection != direction);
-            _statusMoving = StatusMoving.Moving;
+            _updateSpriteFlag = _statusDirection != direction;
             _statusDirection = direction;
-            
         }
 
         private void UpdateSprite()
         {
-            
-            switch(_statusDirection)
+
+            switch (_statusDirection)
             {
                 case Direction.Down:
                     _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
@@ -148,6 +136,11 @@ namespace Zelda.Enemies
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+
+            if (_statusHealth == StatusHealth.Dead)
+            {
+                _sprite.Hide();
             }
         }
     }

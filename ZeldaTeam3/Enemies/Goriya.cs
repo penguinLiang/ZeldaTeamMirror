@@ -13,32 +13,32 @@ namespace Zelda.Enemies
 
         public Goriya(SpriteBatch spriteBatch, int posX, int posY)
         {
-            _agent = new GoriyaAgent(this, spriteBatch, posX, posY);
+            _agent = new GoriyaAgent(spriteBatch, posX, posY);
         }
 
         public void FaceDown()
         {
-            return;
+            _agent.UpdateDirection(Direction.Down);
         }
 
         public void FaceLeft()
         {
-            return;
+            _agent.UpdateDirection(Direction.Left);
         }
 
         public void FaceRight()
         {
-            return;
+            _agent.UpdateDirection(Direction.Right);
         }
 
         public void FaceUp()
         {
-            return;
+            _agent.UpdateDirection(Direction.Up);
         }
 
         public void Idle()
         {
-            _agent.Idle();
+            return;
         }
 
         public void Kill()

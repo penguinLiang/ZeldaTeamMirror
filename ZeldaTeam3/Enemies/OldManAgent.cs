@@ -1,9 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
-    public class TrapAgent
+    public class OldManAgent
     {
         private readonly ISprite _sprite;
 
@@ -13,18 +18,23 @@ namespace Zelda.Enemies
         private readonly SpriteBatch _spriteBatch;
 
 
-        public TrapAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public OldManAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
             _spriteBatch = spriteBatch;
-            _sprite = EnemySpriteFactory.Instance.CreateTrap();
+            _sprite = EnemySpriteFactory.Instance.CreateOldMan();
             _sprite.Hide();
         }
 
         public void Kill()
         {
             _sprite.Hide();
+        }
+
+        public void TakeDamage()
+        {
+            _sprite.PaletteShift();
         }
 
         public void MoveDown()

@@ -1,11 +1,11 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyDamagePauseKill : ICommand
+    class EnemyKill : ICommand
     {
         private readonly IEnemy[] _enemy;
         static int counter = 0;
 
-        public EnemyDamagePauseKill(IEnemy[] Enemy)
+        public EnemyKill(IEnemy[] Enemy)
         {
             _enemy = Enemy;
         }
@@ -19,12 +19,10 @@
                 counter = 0;
             }
 
-            randomEnemy.TakeDamage();
-            randomEnemy.Idle();
             randomEnemy.Kill();
 
         }
 
-        public override string ToString() => "Enemy gets damaged, then pauses, then gets killed";
+        public override string ToString() => "Enemy: Kill";
     }
 }
