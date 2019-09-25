@@ -150,6 +150,24 @@ namespace Zelda
             base.Update(gameTime);
         }
 
+        private void DrawSpriteGrid(ISprite[] spriteArray, int x, int y)
+        {
+            foreach (ISprite sprite in spriteArray)
+            {
+                if (x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
+                {
+                    x += 32;
+                }
+                else
+                {
+                    x = GraphicsDevice.Viewport.Bounds.Center.X + 32;
+                    y += 32;
+                }
+
+                sprite.Draw(_spriteBatch, new Vector2(x, y));
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
@@ -158,57 +176,14 @@ namespace Zelda
             int yBorderBlocks = 300;
             int xEnvironmentBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
             int yEnvironmentBlocks = 400;
-            int x = GraphicsDevice.Viewport.Bounds.Center.X;
-            int y = 50;
+            int xItems = GraphicsDevice.Viewport.Bounds.Center.X;
+            int yItems = 50;
             
             _spriteBatch.Begin();
 
-            foreach (ISprite block in _dungeonBorderBlocks)
-            {
-                if(xBorderBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yBorderBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
-                {
-                    xBorderBlocks += 32;
-                }
-                else
-                {
-                    xBorderBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
-                    yBorderBlocks += 32;
-                }
-
-                block.Draw(_spriteBatch, new Vector2(xBorderBlocks, yBorderBlocks));
-            }
-
-            foreach (ISprite block in _dungeonEnvironmentBlocks)
-            {
-                if (xEnvironmentBlocks < (GraphicsDevice.Viewport.Bounds.Right - 100) && yEnvironmentBlocks < GraphicsDevice.Viewport.Bounds.Bottom)
-                {
-                    xEnvironmentBlocks += 32;
-                }
-                else
-                {
-                    xEnvironmentBlocks = (GraphicsDevice.Viewport.Bounds.Center.X - 100) + 32;
-                    yEnvironmentBlocks += 32;
-                }
-
-                block.Draw(_spriteBatch, new Vector2(xEnvironmentBlocks, yEnvironmentBlocks));
-            }
-            
-            foreach(ISprite item in _items)
-            {
-
-
-                if(x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
-                {
-                    x += 32;
-                }
-                else
-                {
-                    x = GraphicsDevice.Viewport.Bounds.Center.X +32;
-                    y += 32;
-                }
-
-                item.Draw(_spriteBatch, new Vector2(x, y));
-            }
+            DrawSpriteGrid(_dungeonBorderBlocks, xBorderBlocks, yBorderBlocks);
+            DrawSpriteGrid(_dungeonEnvironmentBlocks, xEnvironmentBlocks, yEnvironmentBlocks);
+            DrawSpriteGrid(_items, xItems, yItems);
 
             Link.Draw();
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
