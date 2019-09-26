@@ -50,7 +50,6 @@
     <Compile Include="Enemies\GelAgent.cs" />
     <Compile Include="Enemies\Goriya.cs" />
     <Compile Include="Enemies\Keese.cs" />
-    <Compile Include="Direction.cs" />
     <Compile Include="Enemies\GoriyaAgent.cs" />
     <Compile Include="Enemies\KeeseAgent.cs" />
     <Compile Include="Enemies\OldMan.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="Enemies\TrapAgent.cs" />
     <Compile Include="Enemies\WallMaster.cs" />
     <Compile Include="Enemies\WallMasterAgent.cs" />
-    <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\StalfosAgent.cs" />
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
