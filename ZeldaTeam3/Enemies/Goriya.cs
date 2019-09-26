@@ -16,31 +16,6 @@ namespace Zelda.Enemies
             _agent = new GoriyaAgent(spriteBatch, posX, posY);
         }
 
-        public void FaceDown()
-        {
-            _agent.UpdateDirection(Direction.Down);
-        }
-
-        public void FaceLeft()
-        {
-            _agent.UpdateDirection(Direction.Left);
-        }
-
-        public void FaceRight()
-        {
-            _agent.UpdateDirection(Direction.Right);
-        }
-
-        public void FaceUp()
-        {
-            _agent.UpdateDirection(Direction.Up);
-        }
-
-        public void Idle()
-        {
-            return;
-        }
-
         public void Kill()
         {
             _agent.Kill();

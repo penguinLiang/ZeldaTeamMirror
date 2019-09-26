@@ -9,7 +9,6 @@ namespace Zelda.Commands
     class EnemyDamage : ICommand
     {
         private readonly IEnemy[] _enemy;
-        static int counter = 0;
 
         public EnemyDamage(IEnemy[] Enemy)
         {
@@ -18,15 +17,10 @@ namespace Zelda.Commands
 
         public void Execute()
         {
-            IEnemy randomEnemy = _enemy[counter];
-            counter++;
-            if (counter >= _enemy.Length)
+            foreach (IEnemy enemy in _enemy)
             {
-                counter = 0;
+                enemy.TakeDamage();
             }
-
-            randomEnemy.TakeDamage();
-
         }
 
         public override string ToString() => "Enemy: Take damage";

@@ -17,31 +17,6 @@ namespace Zelda.Enemies
             _agent = new KeeseAgent(spriteBatch, posX, posY);
         }
 
-        public void FaceDown()
-        {
-            return;
-        }
-
-        public void FaceLeft()
-        {
-            return;
-        }
-
-        public void FaceRight()
-        {
-            return;
-        }
-
-        public void FaceUp()
-        {
-            return;
-        }
-
-        public void Idle()
-        {
-            return;
-        }
-
         public void Kill()
         {
             _agent.Kill();

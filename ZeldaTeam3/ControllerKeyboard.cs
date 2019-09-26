@@ -76,10 +76,6 @@ namespace Zelda
                 { Keys.T, enemyspawn },
                 { Keys.Y, enemydamage},
                 { Keys.I, enemykill },
-                //{ Keys.O, enemyattack },
-               // { Keys.P, enemysequence },
-               // { Keys.G, enemysequence },
-               // { Keys.L, enemysequence },
             };
         }
 
