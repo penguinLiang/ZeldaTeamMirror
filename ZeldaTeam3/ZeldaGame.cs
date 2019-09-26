@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zelda.Enemies;
 
 namespace Zelda
 {
@@ -12,7 +13,7 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IController[] _controllers;
-        public IEnemy[] Enemies;
+        public IEnemy[] Enemies { get; set; }
         private string _controlsDescription = "";
 
         private ISprite[] _items;
@@ -39,6 +40,21 @@ namespace Zelda
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _font = Content.Load<SpriteFont>("Arial");
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            Enemies = new IEnemy[]
+            {
+                new Gel(_spriteBatch, 500, 600),
+                new Goriya(_spriteBatch, 550, 600), 
+                new Keese(_spriteBatch, 600, 600),
+                new Stalfos(_spriteBatch, 650, 600),
+                new Trap(_spriteBatch, 700, 600), 
+                new WallMaster(_spriteBatch, 750, 600),
+                new Aquamentus(_spriteBatch, 800, 600),
+                new OldMan(_spriteBatch, 450, 600)
+            };
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             _dungeonBorderBlocks = new ISprite[]
@@ -131,6 +147,11 @@ namespace Zelda
                 controller.Update();
             }
 
+            foreach (IEnemy enemy in Enemies)
+            {
+                enemy.Update();
+            }
+
             foreach (ISprite block in _dungeonBorderBlocks)
             {
                 block.Update();
@@ -186,6 +207,12 @@ namespace Zelda
             DrawSpriteGrid(_items, xItems, yItems);
 
             Link.Draw();
+
+            foreach (IEnemy enemy in Enemies)
+            {
+                enemy.Draw();
+            }
+
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
           
             _spriteBatch.End();

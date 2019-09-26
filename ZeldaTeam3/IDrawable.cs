@@ -1,4 +1,4 @@
-﻿namespace Zelda
+namespace Zelda
 {
     public interface IDrawable
     {

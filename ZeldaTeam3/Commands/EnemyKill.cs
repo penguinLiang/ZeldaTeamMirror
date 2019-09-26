@@ -1,10 +1,10 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyUp : ICommand
+    class EnemyKill : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemyUp(IEnemy[] Enemy)
+        public EnemyKill(IEnemy[] Enemy)
         {
             _enemy = Enemy;
         }
@@ -13,10 +13,11 @@
         {
             foreach (IEnemy enemy in _enemy)
             {
-                enemy.MoveUp();
+                enemy.Kill();
             }
+
         }
 
-        public override string ToString() => "Enemy: Face/move up";
+        public override string ToString() => "Enemy: Kill";
     }
 }
