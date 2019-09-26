@@ -62,17 +62,13 @@ __A/LEFT__: Move Link Left
 __S/DOWN__: Move Link Down
 __D/RIGHT__:  Move Link Right
 __E__: Apply Damage
-__U__: Turn an Enemy to face up and move the enemy up 
-__H__: Turn an Enemy to face left and move left
-__J__: Turn an Enemy to face down and move down
-__K__: Turn an Enemy to face right and move right
-__T__: A Random Enemy will take damage, be idle, and then display the kill animation
-__Y__: A Random Enemy will take damage, be idle, and then display the kill animation
-__I__: A Random Enemy will take damage, be idle, and then display the kill animation
-__O__: A Random Enemy will take damage, be idle, and then display the kill animation
-__P__: A Random Enemy will take damage, be idle, and then display the kill animation
-__G__: A Random Enemy will take damage, be idle, and then display the kill animation
-__L__: A Random Enemy will take damage, be idle, and then display the kill animation
+__U__: Turn all enemies to face up and move the enemy up 
+__H__: Turn all enemies to face left and move left
+__J__: Turn all enemies to face down and move down
+__K__: Turn all enemies to face right and move right
+__T__: Spawn all enemies.
+__Y__: Damage* all enemies.
+__I__: Kill all enemies.
 
 
 ## Frame Rates
@@ -98,6 +94,24 @@ Link Use Secondary (64 X 64), individual frame: 16 X 16
 Old Man (16 X 64), individual frame: 16 X 16
 Particles (64 X 120), individual frame: 16 X 16
 Tiles (32 X 80), individual frame: 16 X 16
+
+## Enemies
+All enemies were implemented as closely to the source as possibly. In regard to current design, each monster has it's own class which has it's own "agent" class. The agent class is roughly an expanded state machine geared towards AI / logic, and a few of the monsters share very similar and redundant agent code (e.g. KeeseAgent.cs and GelAgent.cs). This is purposeful and temporary as going forward there will be logic / AI implemented within the agent which will be specific to each monster and uses the current quasi skeleton code. It would be a waste to make a BasicAgent.cs only to delete it for the next sprint albeit there will be redundant code temporarily. This was approved by the grader.
+
+The following are all the monsters currently implemented with their behavior explained.
+__Stalfos__: The skeleton. Has a damaged sprite. Constant animation.
+__Keese__: The bat. Dies instantly, no damaged sprite. Constant animation.
+__WallMaster__: The hand. Has a damaged sprite. Constant animation.
+__Goriya__: The goblin. Has four different sprites for each direction and constant animation. Has a damaged sprite.
+__Trap__: The blue cross. Has no health and can't be damaged, still sprite.
+__Aquamentus__: The dragon. Faces only one direction in the game.
+__Gel__: The gel drop. Dies instantly, no damaged sprite. Constant animation.
+__Old_Man__: The old man. No animation, but a damaged sprite. Won't die from damage.
+
+###Known issues: 
+__1__: The Goriya sprite will sometimes freeze when moving two perpendicular directions (e.g. left ^ up) at the same time over a long distance. This will not be an issue going forward as Goriya cannot move diagonally in the game and will not be changing sprites that fast with the AI implemented. This is simply an issue with the Goriya being keyboard controlled.
+__2__: The Damage command can be a bit touchy. Try not to hold the key if you are trying to observe the hurt animation.
+
 
 
 ## Sprite Resources
