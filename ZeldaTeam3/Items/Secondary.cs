@@ -4,7 +4,6 @@
     {
         Bow,
         Boomerang,
-        Bomb,
-        BlueCandle
+        Bomb
     }
 }

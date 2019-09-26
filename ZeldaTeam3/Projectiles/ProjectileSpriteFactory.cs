@@ -49,7 +49,7 @@ namespace Zelda.Projectiles
 
         public ISprite CreateThrownBoomerang()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 8, 8, 8, new Point(0, 128));
+            return new Sprite(_fieldWeaponsSpriteSheet, 8, 8, 8, new Point(0, 128), 5);
         }
 
         public ISprite CreateBombExplosion()

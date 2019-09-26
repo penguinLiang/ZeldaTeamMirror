@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb
+    public class Bomb : IDrawable
     {
-        private ISprite _arrowSprite;
-        private BombStateMachine _statemachine;
-        private Vector2 _location;
-        private SpriteBatch _spritebatch;
-        public Bomb(SpriteBatch spritebatch, Vector2 location, ISprite currentSprite)
-        {
-            _spritebatch = spritebatch;
-            _location = location;
-            _arrowSprite = currentSprite;
-            _statemachine = new BombStateMachine(_spritebatch, _location, _arrowSprite );
+        private const int FramesToExplosion = 100;
+        private const int FramesToDisappear = 140;
 
+        private readonly Vector2 _location;
+        private readonly SpriteBatch _spriteBatch;
+        private ISprite _sprite;
+        private int _framesDelayed;
+
+        public Bomb(SpriteBatch spriteBatch, Vector2 location)
+        {
+            _location = location;
+            _sprite = Items.ItemSpriteFactory.Instance.CreateBomb();
+            _spriteBatch = spriteBatch;
         }
 
         public void Update()
         {
-            _statemachine.Update();
+            _sprite.Update();
+            if (++_framesDelayed == FramesToExplosion)
+            {
+                _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
+            } else if (_framesDelayed == FramesToDisappear)
+            {
+                _sprite.Hide();
+            }
         }
 
         public void Draw()
         {
-            _statemachine.Draw();
+            _sprite.Draw(_spriteBatch, _location);
         }
     }
 }

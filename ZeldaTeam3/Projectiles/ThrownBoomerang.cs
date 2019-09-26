@@ -1,38 +1,86 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace Zelda.Projectiles
 {
-    public class ThrownBoomerang
+    public class ThrownBoomerang : IDrawable
     {
-        private ISprite _arrowSprite;
-        private ThrownBoomerangStateMachine _statemachine;
+        private const int ReturnDistance = 100;
+        private const int DistancePerFrame = 5;
+
         private Vector2 _location;
-        private SpriteBatch _spritebatch;
-        private int _direction;
-        public ThrownBoomerang(SpriteBatch spritebatch, Vector2 location, ISprite currentSprite, int direction)
+        private readonly SpriteBatch _spriteBatch;
+        private readonly ISprite _sprite;
+
+        private int _currentDistanceAway;
+        private Direction _direction;
+
+        public ThrownBoomerang(SpriteBatch spriteBatch, Vector2 location, Direction direction)
         {
-            _spritebatch = spritebatch;
-            _location = location;
-            _arrowSprite = currentSprite;
             _direction = direction;
-            _statemachine = new ThrownBoomerangStateMachine(_spritebatch, _location, _arrowSprite, _direction);
+            _location = location;
+            _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
+            _spriteBatch = spriteBatch;
+            _currentDistanceAway = 0;
+        }
+
+        private void UpdateFlippedDirection()
+        {
+            if (_currentDistanceAway != ReturnDistance) return;
+
+            switch (_direction)
+            {
+                case Direction.Up:
+                    _direction = Direction.Down;
+                    break;
+                case Direction.Down:
+                    _direction = Direction.Up;
+                    break;
+                case Direction.Left:
+                    _direction = Direction.Right;
+                    break;
+                case Direction.Right:
+                    _direction = Direction.Left;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Update()
         {
-            _statemachine.Update();
+            if (_currentDistanceAway == ReturnDistance * 2)
+            {
+                _sprite.Hide();
+            }
+            UpdateFlippedDirection();
+
+            switch (_direction)
+            {
+                case Direction.Up:
+                    _location.Y -= DistancePerFrame;
+                    break;
+                case Direction.Down:
+                    _location.Y += DistancePerFrame;
+                    break;
+                case Direction.Left:
+                    _location.X -= DistancePerFrame;
+                    break;
+                case Direction.Right:
+                    _location.X += DistancePerFrame;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            _currentDistanceAway += DistancePerFrame;
+
+            _sprite.Update();
         }
 
         public void Draw()
         {
-            _statemachine.Draw();
+            _sprite.Draw(_spriteBatch, _location);
         }
     }
 }
