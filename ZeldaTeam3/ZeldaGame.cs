@@ -1,19 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zelda.Enemies;
 
 namespace Zelda
 {
     public class ZeldaGame : Game
     {
         public bool Resetting { get; set; }
-        public ISprite CurrentSprite { get; set; }
         public IPlayer TemporaryLink { get; set; }
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IController[] _controllers;
-        public IEnemy[] Enemies;
+        public IEnemy[] Enemies { get; set; }
         private string _controlsDescription = "";
 
         private ISprite[] _items;
@@ -33,14 +33,7 @@ namespace Zelda
 
         protected override void Initialize()
         {
-            _controllers = new IController[]{
-                new ControllerKeyboard(this), 
-            };
-
-            foreach (IController controller in _controllers)
-            {
-                _controlsDescription += controller + "\n";
-            }
+            
 
             base.Initialize();
         }
@@ -50,7 +43,21 @@ namespace Zelda
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _font = Content.Load<SpriteFont>("Arial");
-            Texture2D legendOfZeldaSheet = Content.Load<Texture2D>("LegendOfZelda");
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            Enemies = new IEnemy[]
+            {
+                new Gel(_spriteBatch, 500, 600),
+                new Goriya(_spriteBatch, 550, 600), 
+                new Keese(_spriteBatch, 600, 600),
+                new Stalfos(_spriteBatch, 650, 600),
+                new Trap(_spriteBatch, 700, 600), 
+                new WallMaster(_spriteBatch, 750, 600),
+                new Aquamentus(_spriteBatch, 800, 600),
+                new OldMan(_spriteBatch, 450, 600)
+            };
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             _dungeonBorderBlocks = new ISprite[]
@@ -89,7 +96,7 @@ namespace Zelda
                 BlockSpriteFactory.Instance.CreateStatue2()
             };
 
-            CurrentSprite = new Sprite(legendOfZeldaSheet, 34, 54, 4, new Point(0, 94));
+
 
             Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
@@ -117,6 +124,14 @@ namespace Zelda
             Items.ItemSpriteFactory.Instance.CreateWoodSword()
             };
 
+            _controllers = new IController[]{
+                new ControllerKeyboard(this)
+            };
+
+            foreach (IController controller in _controllers)
+            {
+                _controlsDescription += controller + "\n";
+            }
         }
 
         protected override void UnloadContent()
@@ -132,6 +147,11 @@ namespace Zelda
                 controller.Update();
             }
 
+            foreach (IEnemy enemy in Enemies)
+            {
+                enemy.Update();
+            }
+
             foreach (ISprite block in _dungeonBorderBlocks)
             {
                 block.Update();
@@ -142,7 +162,6 @@ namespace Zelda
                 block.Update();
             }
 
-            CurrentSprite.Update();
           
             foreach (ISprite item in _items)
             {
@@ -183,11 +202,15 @@ namespace Zelda
             int yItems = 50;
             
             _spriteBatch.Begin();
-            CurrentSprite.Draw(_spriteBatch, GraphicsDevice.Viewport.Bounds.Center.ToVector2());
 
             DrawSpriteGrid(_dungeonBorderBlocks, xBorderBlocks, yBorderBlocks);
             DrawSpriteGrid(_dungeonEnvironmentBlocks, xEnvironmentBlocks, yEnvironmentBlocks);
             DrawSpriteGrid(_items, xItems, yItems);
+
+            foreach (IEnemy enemy in Enemies)
+            {
+                enemy.Draw();
+            }
 
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
           

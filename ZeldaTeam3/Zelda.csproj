@@ -41,8 +41,28 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\EnemyDamage.cs" />
+    <Compile Include="Commands\EnemyKill.cs" />
+    <Compile Include="Commands\EnemySpawn.cs" />
+    <Compile Include="Enemies\Aquamentus.cs" />
+    <Compile Include="Enemies\AquamentusAgent.cs" />
+    <Compile Include="Enemies\Gel.cs" />
+    <Compile Include="Enemies\GelAgent.cs" />
+    <Compile Include="Enemies\Goriya.cs" />
+    <Compile Include="Enemies\Keese.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="Enemies\GoriyaAgent.cs" />
+    <Compile Include="Enemies\KeeseAgent.cs" />
+    <Compile Include="Enemies\OldMan.cs" />
+    <Compile Include="Enemies\OldManAgent.cs" />
+    <Compile Include="Enemies\Trap.cs" />
+    <Compile Include="Enemies\TrapAgent.cs" />
+    <Compile Include="Enemies\WallMaster.cs" />
+    <Compile Include="Enemies\WallMasterAgent.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="Enemies\StalfosAgent.cs" />
+    <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
-    <Compile Include="Commands\EnemyDamageKill.cs" />
     <Compile Include="Commands\EnemyLeft.cs" />
     <Compile Include="Commands\EnemyRight.cs" />
     <Compile Include="Commands\EnemyDown.cs" />
@@ -62,6 +82,7 @@
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
+    <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
     <Compile Include="BlockSpriteFactory.cs" />
@@ -100,8 +121,6 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enemies\" />
-    <Folder Include="NonPlayerCharacters\" />
     <Folder Include="Player\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,7 +13,6 @@
         {
             foreach (IEnemy enemy in _enemy)
             {
-                enemy.FaceDown();
                 enemy.MoveDown();
             }
         }
