@@ -79,7 +79,7 @@ namespace Zelda
                 {Keys.Up, up},
                 {Keys.Left, left},
                 {Keys.Right, right},
-                {Keys.Down, down},
+                {Keys.Down, down}
             };
 
             _enemyDirections = new Dictionary<Keys, ICommand>
@@ -121,7 +121,7 @@ namespace Zelda
 
         }
 
-        private string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
+        private static string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
 
         public override string ToString()
         {
