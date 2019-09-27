@@ -3,7 +3,7 @@
 
 ## Enemies
 
-###Known issues: 
+### Known issues: 
 __1__: The Goriya sprite will sometimes freeze when moving two perpendicular directions (e.g. left ^ up) at the same time over a long distance. This will not be an issue going forward as Goriya cannot move diagonally in the game and will not be changing sprites that fast with the AI implemented. This is simply an issue with the Goriya being keyboard controlled.  
   (Sprint 2 Bug) (Patched by Chase on 9/27)
 
