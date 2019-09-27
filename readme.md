@@ -42,8 +42,7 @@ In addition, every Sprint will have it's own subfolder in the CodeReview folder.
   
 __Further__ the team has agreed that all members of the team should attempt to look at the PR, and one member will be assigned the in depth code review. As a member is looking at the PR, they are able to comment on specific lines of code for clarification, changes, or suggestions. These comments are kept in the PR, and typically short enough that they are not included in the Major Code Review file for that PR unless a change was made.  
   
-    
-	  ----
+----
 # General Information  
 ### Known bugs, controls, extra processes  
   
@@ -116,9 +115,8 @@ __Aquamentus__: The dragon. Faces only one direction in the game.
 __Gel__: The gel drop. Dies instantly, no damaged sprite. Constant animation.  
 __Old_Man__: The old man. No animation, but a damaged sprite. Won't die from damage.  
   
-
-  ## Bugs
-  Please check out our [bug report](bugs.md)
+## Bugs
+Please check out our [bug report](bugs.md)
     
   
 ## Sprite Resources  
