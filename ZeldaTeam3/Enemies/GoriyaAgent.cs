@@ -79,6 +79,7 @@ namespace Zelda.Enemies
         {
             _sprite.Show();
             _statusHealth = StatusHealth.Alive;
+            UpdateDirection(Direction.Down);
             _health = 10;
         }
 
@@ -141,6 +142,7 @@ namespace Zelda.Enemies
             if (_statusHealth == StatusHealth.Dead)
             {
                 _sprite.Hide();
+                
             }
         }
     }
