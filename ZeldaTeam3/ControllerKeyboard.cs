@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 namespace Zelda
@@ -6,6 +7,11 @@ namespace Zelda
     class ControllerKeyboard : IController
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
+        private readonly Dictionary<Keys, ICommand> _playerDirections;
+        private readonly Dictionary<Keys, ICommand> _enemyDirections;
+
+        private Keys _firstPlayerDirection = Keys.None;
+        private Keys _firstEnemyDirection = Keys.None;
 
         public ControllerKeyboard(ZeldaGame zeldaGame)
         { 
@@ -51,6 +57,8 @@ namespace Zelda
                 { Keys.D5, boomerangassign },
                 { Keys.D6, bombassign },
 
+                {Keys.E, damage},
+
                 { Keys.NumPad1, swordassign },
                 { Keys.NumPad2, whiteswordassign },
                 { Keys.NumPad3, magicswordassign },
@@ -58,42 +66,82 @@ namespace Zelda
                 { Keys.NumPad5, boomerangassign },
                 { Keys.NumPad6, bombassign },
 
-                { Keys.Up, up },
-                { Keys.W, up },
-                { Keys.Left, left },
-                { Keys.A, left },
-                { Keys.D, right },
-                { Keys.Right, right },
-                { Keys.S, down },
-                { Keys.Down, down },
-                { Keys.E, damage },
-
-                { Keys.U, enemyup },
-                { Keys.H, enemyleft },
-                { Keys.J, enemydown },
-                { Keys.K, enemyright },
-
                 { Keys.T, enemyspawn },
                 { Keys.Y, enemydamage},
-                { Keys.I, enemykill },
+                { Keys.I, enemykill }
+            };
+
+            _playerDirections = new Dictionary<Keys, ICommand>
+            {
+                {Keys.W, up},
+                {Keys.A, left},
+                {Keys.S, down},
+                {Keys.D, right},
+                {Keys.Up, up},
+                {Keys.Left, left},
+                {Keys.Right, right},
+                {Keys.Down, down},
+            };
+
+            _enemyDirections = new Dictionary<Keys, ICommand>
+            {
+                {Keys.U, enemyup},
+                {Keys.H, enemyleft},
+                {Keys.J, enemydown},
+                {Keys.K, enemyright}
             };
         }
 
         public void Update()
         {
-            Keys[] keysPressed = Keyboard.GetState().GetPressedKeys();
+            var keysPressed = Keyboard.GetState().GetPressedKeys();
             foreach (Keys key in keysPressed)
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
+
+                if (_playerDirections.ContainsKey(key) && !keysPressed.Contains(_firstPlayerDirection))
+                {
+                    _firstPlayerDirection = key;
+                }
+
+                if (_enemyDirections.ContainsKey(key) && !keysPressed.Contains(_firstEnemyDirection))
+                {
+                    _firstEnemyDirection = key;
+                }
+
+                if (_firstPlayerDirection == key)
+                {
+                    _playerDirections[key].Execute();
+                }
+
+                if (_firstEnemyDirection == key)
+                {
+                    _enemyDirections[key].Execute();
+                }
             }
+
         }
+
+        private string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
 
         public override string ToString()
         {
             string result = "";
-            foreach (KeyValuePair<Keys, ICommand> keyCommand in _keymap)
+            foreach (var keyCommand in _keymap)
             {
-                result += keyCommand.Key + " - " + keyCommand.Value + "\n";
+                result += KeyListing(keyCommand);
+            }
+            result += "\n";
+
+            foreach (var keyCommand in _playerDirections)
+            {
+                result += KeyListing(keyCommand);
+            }
+            result += "\n";
+
+            foreach (var keyCommand in _enemyDirections)
+            {
+                result += KeyListing(keyCommand);
             }
 
             return result;
