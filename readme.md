@@ -47,27 +47,27 @@ __Further__ the team has agreed that all members of the team should attempt to l
 ### Known bugs, controls, extra processes  
   
 ## Controls  
-  
-__N__: Primary Attack (Sword)   
-__Z__: Primary Attack (Sword)  
-__1__: Assign Sword as Primary Weapon  
-__2__: Assign the White Sword as the Primary Weapon  
-__3__: Assign the Magic Sword as the Primary Weapon  
-__4__: Assign the Bow as the Secondary Weapon  
-__5__: Assign the Boomerang as the Secondary Weapon  
-__6__: Assign the Bomb as the Secondary Weapon  
-__W/UP__: Move Link Up  
-__A/LEFT__: Move Link Left  
-__S/DOWN__: Move Link Down  
-__D/RIGHT__:  Move Link Right  
-__E__: Apply Damage  
-__U__: Turn all enemies to face up and move the enemy up   
-__H__: Turn all enemies to face left and move left  
-__J__: Turn all enemies to face down and move down  
-__K__: Turn all enemies to face right and move right  
-__T__: Spawn all enemies.  
-__Y__: Damage* all enemies.  
-__I__: Kill all enemies.  
+
+__N__: Primary Attack (Sword) 
+__Z__: Primary Attack (Sword)
+__1__: Assign and Use Sword as Primary Weapon
+__2__: Assign and Use the White Sword as the Primary Weapon
+__3__: Assign and Use the Magic Sword as the Primary Weapon
+__4__: Assign and Use the Bow as the Secondary Weapon
+__5__: Assign and Use the Boomerang as the Secondary Weapon
+__6__: Assign and Use the Bomb as the Secondary Weapon
+__W/UP__: Move Link Up
+__A/LEFT__: Move Link Left
+__S/DOWN__: Move Link Down
+__D/RIGHT__:  Move Link Right
+__E__: Apply Damage
+__U__: Move all enemies up 
+__H__: Move all enemies left
+__J__: Move all enemies down
+__K__: Move all enemies right
+__T__: Spawn all enemies.
+__Y__: Damage* all enemies.
+__I__: Kill all enemies.
   
   
 ## Frame Rates  
@@ -137,4 +137,3 @@ We are using Git, and all of the tools associated with Git.
 All spritesheets have been configured to be texture atlasses.   
 We are meeting outside of class at least 2 times a week, for around an hour per meeting.  
 We have included more items and enemies than the default.  
-
