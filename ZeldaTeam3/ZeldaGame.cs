@@ -24,7 +24,7 @@ namespace Zelda
         {
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 1200, PreferredBackBufferHeight = 900
+                PreferredBackBufferWidth = 1024, PreferredBackBufferHeight = 768
             };
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
@@ -45,14 +45,14 @@ namespace Zelda
 
             Enemies = new IEnemy[]
             {
-                new Gel(_spriteBatch, 500, 600),
-                new Goriya(_spriteBatch, 550, 600), 
-                new Keese(_spriteBatch, 600, 600),
-                new Stalfos(_spriteBatch, 650, 600),
-                new Trap(_spriteBatch, 700, 600), 
-                new WallMaster(_spriteBatch, 750, 600),
-                new Aquamentus(_spriteBatch, 800, 600),
-                new OldMan(_spriteBatch, 450, 600)
+                new Gel(_spriteBatch, 250, 300),
+                new Goriya(_spriteBatch, 275, 300), 
+                new Keese(_spriteBatch, 600/2, 300),
+                new Stalfos(_spriteBatch, 325, 300),
+                new Trap(_spriteBatch, 350, 300), 
+                new WallMaster(_spriteBatch, 375, 300),
+                new Aquamentus(_spriteBatch, 400, 300),
+                new OldMan(_spriteBatch, 225, 300)
             };
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
@@ -85,7 +85,6 @@ namespace Zelda
             {
                 BlockSpriteFactory.Instance.CreateBrickBlock(),
                 BlockSpriteFactory.Instance.CreateFire(),
-                BlockSpriteFactory.Instance.CreateGapTile(),
                 BlockSpriteFactory.Instance.CreateSolidBlock(),
                 BlockSpriteFactory.Instance.CreateStairs1(),
                 BlockSpriteFactory.Instance.CreateStairs2(),
@@ -123,7 +122,7 @@ namespace Zelda
 
             Player.LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Link = new Player.Link(_spriteBatch, _graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2());
+            Link = new Player.Link(_spriteBatch, Vector2.Divide(_graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2(), 2.0f));
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IController[]{
@@ -171,40 +170,35 @@ namespace Zelda
             base.Update(gameTime);
         }
 
-        private void DrawSpriteGrid(ISprite[] spriteArray, int x, int y)
+        private int DrawSpriteGrid(ISprite[] spriteArray, int columns, int y)
         {
-            foreach (ISprite sprite in spriteArray)
+            var rows = spriteArray.Length / columns;
+            for (var row = 0; row < rows; row++)
             {
-                if (x < GraphicsDevice.Viewport.Bounds.Right && y < GraphicsDevice.Viewport.Bounds.Bottom)
+                var x = GraphicsDevice.Viewport.Bounds.Right / 2 - columns * 32 - 5;
+                for (var col = 0; (rows * columns + col < spriteArray.Length) || col < columns; col++)
                 {
+                    spriteArray[row * 5 + col].Draw(_spriteBatch, new Vector2(x, y));
                     x += 32;
                 }
-                else
-                {
-                    x = GraphicsDevice.Viewport.Bounds.Center.X + 32;
-                    y += 32;
-                }
 
-                sprite.Draw(_spriteBatch, new Vector2(x, y));
+                y += 32;
             }
+
+            return rows * 32;
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            var y = 5;
+
             GraphicsDevice.Clear(Color.Black);
-
-            int xBorderBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
-            int yBorderBlocks = 300;
-            int xEnvironmentBlocks = GraphicsDevice.Viewport.Bounds.Center.X - 100;
-            int yEnvironmentBlocks = 400;
-            int xItems = GraphicsDevice.Viewport.Bounds.Center.X;
-            int yItems = 50;
             
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f));
 
-            DrawSpriteGrid(_dungeonBorderBlocks, xBorderBlocks, yBorderBlocks);
-            DrawSpriteGrid(_dungeonEnvironmentBlocks, xEnvironmentBlocks, yEnvironmentBlocks);
-            DrawSpriteGrid(_items, xItems, yItems);
+            y += DrawSpriteGrid(_items, 5, y);
+            y += DrawSpriteGrid(_dungeonEnvironmentBlocks, 5, y);
+            DrawSpriteGrid(_dungeonBorderBlocks, 5, y);
 
             Link.Draw();
 
@@ -212,8 +206,11 @@ namespace Zelda
             {
                 enemy.Draw();
             }
+            _spriteBatch.End();
 
-            _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(0,0), Color.White);
+            _spriteBatch.Begin();
+
+            _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(5,5), Color.White);
           
             _spriteBatch.End();
 
