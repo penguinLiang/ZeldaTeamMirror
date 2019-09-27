@@ -15,6 +15,6 @@ __2__: The Damage command can be a bit touchy. Try not to hold the key if you ar
  __1__: The Rupee sprite has been flipped. From the original game, the blue rupee was solid and the red/yellow rupee should flash between colors.  
  (Sprint 2 Bug) (Patched by Quinn on 9/27)
 
- __2__: The Goriya sprite is supposed to alternate between 4 different palettes when damaged. Currently only alternating between 2.  
+ __2__: Some enemy sprites are supposed to alternate between 4 different palettes when damaged. Currently only alternating between 2.  
  (Sprint 2 Bug) (Patched by Steven on 9/27)
 
