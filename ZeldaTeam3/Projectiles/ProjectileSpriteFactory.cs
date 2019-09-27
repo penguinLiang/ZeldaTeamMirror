@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -13,8 +8,8 @@ namespace Zelda.Projectiles
     {
         private Texture2D _fieldWeaponsSpriteSheet;
         private Texture2D _bombExplosionSpriteSheet;
-        private static ProjectileSpriteFactory _instance = new ProjectileSpriteFactory();
-        public static ProjectileSpriteFactory Instance => _instance;
+
+        public static ProjectileSpriteFactory Instance { get; } = new ProjectileSpriteFactory();
 
         private ProjectileSpriteFactory() { }
 
@@ -22,7 +17,6 @@ namespace Zelda.Projectiles
         {
             _fieldWeaponsSpriteSheet = content.Load<Texture2D>("FieldWeapons");
             _bombExplosionSpriteSheet = content.Load<Texture2D>("SpawnExplosion");
-
         }
 
         public ISprite CreateArrowUp()

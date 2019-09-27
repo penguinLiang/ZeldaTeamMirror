@@ -1,21 +1,12 @@
-﻿using Microsoft.Xna.Framework.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Zelda
+namespace Zelda.Enemies
 {
     public class EnemySpriteFactory
     {
         public static EnemySpriteFactory Instance { get; } = new EnemySpriteFactory();
-
-        private EnemySpriteFactory()
-        {
-        }
 
         private Texture2D _stalfosTexture2D;
         private Texture2D _keeseGelTrapTexture2D;

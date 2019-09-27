@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class Goriya : IEnemy
     {
-        private GoriyaAgent _agent;
+        private readonly GoriyaAgent _agent;
 
         public Goriya(SpriteBatch spriteBatch, int posX, int posY)
         {

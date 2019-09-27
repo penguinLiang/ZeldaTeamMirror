@@ -1,17 +1,17 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyUp : ICommand
+    internal class EnemyUp : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemyUp(IEnemy[] Enemy)
+        public EnemyUp(IEnemy[] enemy)
         {
-            _enemy = Enemy;
+            _enemy = enemy;
         }
 
         public void Execute()
         {
-            foreach (IEnemy enemy in _enemy)
+            foreach (var enemy in _enemy)
             {
                 enemy.MoveUp();
             }

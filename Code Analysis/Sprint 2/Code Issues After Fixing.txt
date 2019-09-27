@@ -1,0 +1,46 @@
+﻿Solution ZeldaTeam3.sln
+    Project Zelda
+      ZeldaTeam3\Commands\LinkSecondaryAction.cs:3 Class 'LinkSecondaryAction' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\ControllerKeyboard.cs:94 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+        # Less clear representation of a simple foreach loop, no benefit
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:63 Method 'CreateAquamentusFiring' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Enemies\KeeseAgent.cs:35 Method 'UseAttack' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Enemies\TrapAgent.cs:35 Method 'UseAttack' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\IEnemy.cs:5 Method 'UseAttack' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Player\Link.cs:139 Convert 'if' statement to 'switch' statement
+        # Switches require all cases to be covered, only two cases are used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:39 Method 'CreateFireball' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:54 Method 'CreateWoodSwordBeamUp' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:58 Method 'CreateWoodSwordBeamRight' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:62 Method 'CreateWoodSwordBeamLeft' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:66 Method 'CreateWoodSwordBeamDown' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:70 Method 'CreateWhiteSwordBeamUp' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:74 Method 'CreateWhiteSwordBeamRight' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:78 Method 'CreateWhiteSwordBeamLeft' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:82 Method 'CreateWhiteSwordBeamDown' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:86 Method 'CreateMagicSwordBeamUp' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:90 Method 'CreateMagicSwordBeamRight' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:94 Method 'CreateMagicSwordBeamLeft' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:98 Method 'CreateMagicSwordBeamDown' is never used
+        # Will be used in next sprint
+      ZeldaTeam3\ZeldaGame.cs:172 Parameter can be of type 'IEnumerable<ISprite>'
+        # Less clear representation of an array, no benefit
+    
+  

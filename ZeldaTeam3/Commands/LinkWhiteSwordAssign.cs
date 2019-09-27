@@ -1,12 +1,12 @@
 ﻿namespace Zelda.Commands
 {
-    class LinkWhiteSwordAssign : ICommand
+    internal class LinkWhiteSwordAssign : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkWhiteSwordAssign(IPlayer Link)
+        public LinkWhiteSwordAssign(IPlayer link)
         {
-            _link = Link;
+            _link = link;
         }
 
         public void Execute()

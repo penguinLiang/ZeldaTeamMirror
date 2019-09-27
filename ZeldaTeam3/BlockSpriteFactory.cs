@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -14,12 +9,7 @@ namespace Zelda
         private Texture2D _doorSpritesheet;
         private Texture2D _tileSpritesheet;
 
-        private static BlockSpriteFactory _instance = new BlockSpriteFactory();
-        public static BlockSpriteFactory Instance => _instance;
-
-        private BlockSpriteFactory()
-        {
-        }
+        public static BlockSpriteFactory Instance { get; } = new BlockSpriteFactory();
 
         public void LoadAllTextures(ContentManager content)
         {

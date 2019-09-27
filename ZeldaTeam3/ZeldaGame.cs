@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Enemies;
+using Zelda.Items;
+using Zelda.Player;
+using Zelda.Projectiles;
 
 namespace Zelda
 {
@@ -31,11 +34,6 @@ namespace Zelda
             IsMouseVisible = true;
         }
 
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -57,7 +55,7 @@ namespace Zelda
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _dungeonBorderBlocks = new ISprite[]
+            _dungeonBorderBlocks = new[]
             {
                 BlockSpriteFactory.Instance.CreateBottomBlockedDoor(),
                 BlockSpriteFactory.Instance.CreateBottomLockedDoor(),
@@ -81,7 +79,7 @@ namespace Zelda
                 BlockSpriteFactory.Instance.CreateTopWallHole()
             };
 
-            _dungeonEnvironmentBlocks = new ISprite[]
+            _dungeonEnvironmentBlocks = new[]
             {
                 BlockSpriteFactory.Instance.CreateBrickBlock(),
                 BlockSpriteFactory.Instance.CreateFire(),
@@ -92,44 +90,44 @@ namespace Zelda
                 BlockSpriteFactory.Instance.CreateStatue2()
             };
 
-            Items.ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _items = new ISprite[]
+            _items = new[]
             {
-                Items.ItemSpriteFactory.Instance.CreateArrow(),
-                Items.ItemSpriteFactory.Instance.CreateBlueRing(),
-                Items.ItemSpriteFactory.Instance.Create5Rupee(),
-                Items.ItemSpriteFactory.Instance.CreateBomb(),
-                Items.ItemSpriteFactory.Instance.CreateBow(),
-                Items.ItemSpriteFactory.Instance.CreateClock(),
-                Items.ItemSpriteFactory.Instance.CreateCompass(),
-                Items.ItemSpriteFactory.Instance.CreateDroppedHeart(),
-                Items.ItemSpriteFactory.Instance.CreateFairy(),
-                Items.ItemSpriteFactory.Instance.CreateHeartContainer(),
-                Items.ItemSpriteFactory.Instance.CreateKey(),
-                Items.ItemSpriteFactory.Instance.CreateMagicSword(),
-                Items.ItemSpriteFactory.Instance.CreateMap(),
-                Items.ItemSpriteFactory.Instance.CreateRedRing(),
-                Items.ItemSpriteFactory.Instance.Create1Rupee(),
-                Items.ItemSpriteFactory.Instance.CreateTriforcePiece(),
-                Items.ItemSpriteFactory.Instance.CreateWhiteSword(),
-                Items.ItemSpriteFactory.Instance.CreateWoodBoomerang(),
-                Items.ItemSpriteFactory.Instance.CreateWoodShield(),
-                Items.ItemSpriteFactory.Instance.CreateWoodSword()
+                ItemSpriteFactory.Instance.CreateArrow(),
+                ItemSpriteFactory.Instance.CreateBlueRing(),
+                ItemSpriteFactory.Instance.Create5Rupee(),
+                ItemSpriteFactory.Instance.CreateBomb(),
+                ItemSpriteFactory.Instance.CreateBow(),
+                ItemSpriteFactory.Instance.CreateClock(),
+                ItemSpriteFactory.Instance.CreateCompass(),
+                ItemSpriteFactory.Instance.CreateDroppedHeart(),
+                ItemSpriteFactory.Instance.CreateFairy(),
+                ItemSpriteFactory.Instance.CreateHeartContainer(),
+                ItemSpriteFactory.Instance.CreateKey(),
+                ItemSpriteFactory.Instance.CreateMagicSword(),
+                ItemSpriteFactory.Instance.CreateMap(),
+                ItemSpriteFactory.Instance.CreateRedRing(),
+                ItemSpriteFactory.Instance.Create1Rupee(),
+                ItemSpriteFactory.Instance.CreateTriforcePiece(),
+                ItemSpriteFactory.Instance.CreateWhiteSword(),
+                ItemSpriteFactory.Instance.CreateWoodBoomerang(),
+                ItemSpriteFactory.Instance.CreateWoodShield(),
+                ItemSpriteFactory.Instance.CreateWoodSword()
             };
 
-            Projectiles.ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
+            ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Player.LinkSpriteFactory.Instance.LoadAllTextures(Content);
+            LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Link = new Player.Link(_spriteBatch, Vector2.Divide(_graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2(), 2.0f));
+            Link = new Link(_spriteBatch, Vector2.Divide(_graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2(), 2.0f));
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IController[]{
                 new ControllerKeyboard(this)
             };
 
-            foreach (IController controller in _controllers)
+            foreach (var controller in _controllers)
             {
                 _controlsDescription += controller + "\n";
             }
@@ -141,27 +139,27 @@ namespace Zelda
 
         protected override void Update(GameTime gameTime)
         {
-            foreach (IController controller in _controllers)
+            foreach (var controller in _controllers)
             {
                 controller.Update();
             }
 
-            foreach (IEnemy enemy in Enemies)
+            foreach (var enemy in Enemies)
             {
                 enemy.Update();
             }
 
-            foreach (ISprite block in _dungeonBorderBlocks)
+            foreach (var block in _dungeonBorderBlocks)
             {
                 block.Update();
             }
 
-            foreach (ISprite block in _dungeonEnvironmentBlocks)
+            foreach (var block in _dungeonEnvironmentBlocks)
             {
                 block.Update();
             }
 
-            foreach (ISprite item in _items)
+            foreach (var item in _items)
             {
                 item.Update();
             }
@@ -202,7 +200,7 @@ namespace Zelda
 
             Link.Draw();
 
-            foreach (IEnemy enemy in Enemies)
+            foreach (var enemy in Enemies)
             {
                 enemy.Draw();
             }

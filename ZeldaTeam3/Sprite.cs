@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda
 {
-    class Sprite : ISprite
+    internal class Sprite : ISprite
     {
         // 20/60 fps
         private const int DefaultFrameDelay = 20;

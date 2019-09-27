@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class Keese : IEnemy
     {
-
-        private KeeseAgent _agent;
+        private readonly KeeseAgent _agent;
 
         public Keese(SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -54,7 +48,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void Draw()

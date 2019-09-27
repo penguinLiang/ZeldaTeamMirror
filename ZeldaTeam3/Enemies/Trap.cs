@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class Trap : IEnemy
     {
-        private TrapAgent _agent;
+        private readonly TrapAgent _agent;
 
         public Trap(SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -48,12 +43,12 @@ namespace Zelda.Enemies
 
         public void TakeDamage()
         {
-            return;
+            // NO-OP: Trap cannot take damage
         }
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void Draw()

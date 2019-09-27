@@ -1,6 +1,6 @@
 ﻿namespace Zelda.Player
 {
-    class HealthStateMachine : ISpawnable
+    internal class HealthStateMachine : ISpawnable
     {
         // 60/60 frames = ~1s
         private const int DeathFrameDelay = 60;

@@ -1,0 +1,237 @@
+﻿Solution ZeldaTeam3.sln
+    Project Zelda
+      ZeldaTeam3\BlockSpriteFactory.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\BlockSpriteFactory.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\BlockSpriteFactory.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\BlockSpriteFactory.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\BlockSpriteFactory.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\BlockSpriteFactory.cs:17 Field can be made readonly
+      ZeldaTeam3\BlockSpriteFactory.cs:18 Convert to auto-property
+      ZeldaTeam3\Commands\EnemyDamage.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemyDamage.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemyDamage.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemyDamage.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemyDamage.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemyDamage.cs:9 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyDamage.cs:13 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyDamage.cs:20 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemyDown.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyDown.cs:7 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyDown.cs:14 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemyKill.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyKill.cs:7 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyKill.cs:14 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemyLeft.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyLeft.cs:7 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyLeft.cs:14 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemyRight.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyRight.cs:7 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyRight.cs:14 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemySpawn.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemySpawn.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemySpawn.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemySpawn.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemySpawn.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\EnemySpawn.cs:9 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemySpawn.cs:13 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemySpawn.cs:20 Use 'var' (simple types)
+      ZeldaTeam3\Commands\EnemyUp.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\EnemyUp.cs:7 Name 'Enemy' does not match rule 'Parameters'. Suggested name is 'enemy'.
+      ZeldaTeam3\Commands\EnemyUp.cs:14 Use 'var' (simple types)
+      ZeldaTeam3\Commands\LinkBombAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkBombAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkBoomerangAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkBoomerangAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkBowAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkBowAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkDamage.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkDamage.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkDown.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkDown.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkLeft.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkLeft.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkMagicSwordAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkMagicSwordAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkPrimaryAction.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkPrimaryAction.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkRight.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkRight.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkSecondaryAction.cs:3 Class 'LinkSecondaryAction' is never used
+      ZeldaTeam3\Commands\LinkSecondaryAction.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkSecondaryAction.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkSwordAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkSwordAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkUp.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkUp.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\LinkWhiteSwordAssign.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\LinkWhiteSwordAssign.cs:7 Name 'Link' does not match rule 'Parameters'. Suggested name is 'link'.
+      ZeldaTeam3\Commands\Quit.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Commands\Reset.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\ControllerKeyboard.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\ControllerKeyboard.cs:78 Redundant comma in collection initializer
+      ZeldaTeam3\ControllerKeyboard.cs:84 Use 'var' (elsewhere)
+      ZeldaTeam3\ControllerKeyboard.cs:85 Use 'var' (simple types)
+      ZeldaTeam3\ControllerKeyboard.cs:93 Use 'var' (built-in types)
+      ZeldaTeam3\ControllerKeyboard.cs:94 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\ControllerKeyboard.cs:94 Use 'var' (elsewhere)
+      ZeldaTeam3\Direction.cs:9 Semicolon after enum declaration is redundant
+      ZeldaTeam3\Enemies\Aquamentus.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Aquamentus.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Aquamentus.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Aquamentus.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Aquamentus.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Aquamentus.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\AquamentusAgent.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:26 Semicolon after enum declaration is redundant
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:53 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\AquamentusAgent.cs:88 Qualifier 'this.' is redundant
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:10 Namespace does not correspond to file location, should be: 'Zelda.Enemies'
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:72 Method 'CreateAquamentusFiring' is never used
+      ZeldaTeam3\Enemies\Gel.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Gel.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Gel.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Gel.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Gel.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Gel.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\GelAgent.cs:37 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\GelAgent.cs:62 Qualifier 'this.' is redundant
+      ZeldaTeam3\Enemies\Goriya.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Goriya.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Goriya.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Goriya.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Goriya.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Goriya.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\GoriyaAgent.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\GoriyaAgent.cs:27 Semicolon after enum declaration is redundant
+      ZeldaTeam3\Enemies\GoriyaAgent.cs:57 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\GoriyaAgent.cs:95 Qualifier 'this.' is redundant
+      ZeldaTeam3\Enemies\Keese.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Keese.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Keese.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Keese.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Keese.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Keese.cs:13 Field can be made readonly
+      ZeldaTeam3\Enemies\Keese.cs:57 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\KeeseAgent.cs:35 Method 'UseAttack' is never used
+      ZeldaTeam3\Enemies\KeeseAgent.cs:37 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\KeeseAgent.cs:62 Qualifier 'this.' is redundant
+      ZeldaTeam3\Enemies\OldMan.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldMan.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldMan.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldMan.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldMan.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldMan.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\OldManAgent.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldManAgent.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldManAgent.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldManAgent.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldManAgent.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\OldManAgent.cs:47 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\Stalfos.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Stalfos.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Stalfos.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Stalfos.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Stalfos.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Stalfos.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\StalfosAgent.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\StalfosAgent.cs:22 Semicolon after enum declaration is redundant
+      ZeldaTeam3\Enemies\StalfosAgent.cs:49 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\StalfosAgent.cs:84 Qualifier 'this.' is redundant
+      ZeldaTeam3\Enemies\Trap.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Trap.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Trap.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Trap.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Trap.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Trap.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\Trap.cs:51 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\Trap.cs:56 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\TrapAgent.cs:35 Method 'UseAttack' is never used
+      ZeldaTeam3\Enemies\TrapAgent.cs:37 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\WallMaster.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:12 Field can be made readonly
+      ZeldaTeam3\Enemies\WallMasterAgent.cs:21 Semicolon after enum declaration is redundant
+      ZeldaTeam3\Enemies\WallMasterAgent.cs:48 Redundant control flow jump statement
+      ZeldaTeam3\Enemies\WallMasterAgent.cs:83 Qualifier 'this.' is redundant
+      ZeldaTeam3\ICommand.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\IEnemy.cs:5 Method 'UseAttack' is never used
+      ZeldaTeam3\INonPlayerCharacter.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\INonPlayerCharacter.cs:3 Interface 'INonPlayerCharacter' is never used
+      ZeldaTeam3\INonPlayerCharacter.cs:5 Method 'ShowDialogue' is never used
+      ZeldaTeam3\INonPlayerCharacter.cs:6 Method 'HideDialogue' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:17 Field can be made readonly
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:18 Convert to auto-property
+      ZeldaTeam3\Player\HealthStateMachine.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Player\Link.cs:71 Method 'Idle' is never used
+      ZeldaTeam3\Player\Link.cs:144 Convert 'if' statement to 'switch' statement
+      ZeldaTeam3\Player\LinkSpriteFactory.cs:8 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Player\LinkSpriteFactory.cs:49 Redundant comma in collection initializer
+      ZeldaTeam3\Player\LinkSpriteFactory.cs:57 Redundant comma in collection initializer
+      ZeldaTeam3\Player\LinkSpriteFactory.cs:65 Redundant comma in collection initializer
+      ZeldaTeam3\Player\MovementStateMachine.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Player\SecondaryItemAgent.cs:8 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Player\SpriteStateMachine.cs:5 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Program.cs:10 Inconsistent modifiers style: missing 'private' modifier
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:16 Field can be made readonly
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:17 Convert to auto-property
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:45 Method 'CreateFireball' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:60 Method 'CreateWoodSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:64 Method 'CreateWoodSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:68 Method 'CreateWoodSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:72 Method 'CreateWoodSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:76 Method 'CreateWhiteSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:80 Method 'CreateWhiteSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:84 Method 'CreateWhiteSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:88 Method 'CreateWhiteSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:92 Method 'CreateMagicSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:96 Method 'CreateMagicSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:100 Method 'CreateMagicSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:104 Method 'CreateMagicSwordBeamDown' is never used
+      ZeldaTeam3\Properties\AssemblyInfo.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Sprite.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\ZeldaGame.cs:34 Redundant method override
+      ZeldaTeam3\ZeldaGame.cs:60 Redundant explicit array type specification
+      ZeldaTeam3\ZeldaGame.cs:84 Redundant explicit array type specification
+      ZeldaTeam3\ZeldaGame.cs:98 Redundant explicit array type specification
+      ZeldaTeam3\ZeldaGame.cs:133 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:145 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:150 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:155 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:160 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:165 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:174 Parameter can be of type 'IEnumerable<ISprite>'
+      ZeldaTeam3\ZeldaGame.cs:176 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:196 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:197 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:197 Convert to constant
+      ZeldaTeam3\ZeldaGame.cs:198 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:199 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:199 Convert to constant
+      ZeldaTeam3\ZeldaGame.cs:200 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:201 Use 'var' (built-in types)
+      ZeldaTeam3\ZeldaGame.cs:201 Convert to constant
+      ZeldaTeam3\ZeldaGame.cs:211 Use 'var' (simple types)
+    
+  

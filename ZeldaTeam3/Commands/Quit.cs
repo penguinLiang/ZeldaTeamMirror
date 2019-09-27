@@ -1,6 +1,6 @@
 ﻿namespace Zelda.Commands
 {
-    class Quit : ICommand
+    internal class Quit : ICommand
     {
         private readonly ZeldaGame _zeldaGame;
 

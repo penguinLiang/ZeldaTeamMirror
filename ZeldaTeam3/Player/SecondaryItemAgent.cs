@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
 {
-    class SecondaryItemAgent : IDrawable
+    internal class SecondaryItemAgent : IDrawable
     {
         // 600/60 frames = ~10s
         private const int DrawableExpiration = 600;

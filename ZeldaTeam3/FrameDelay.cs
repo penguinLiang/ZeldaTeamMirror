@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    class FrameDelay
+    internal class FrameDelay
     {
         private readonly int _frames;
         private bool _paused;

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class Gel : IEnemy
     {
-        private GelAgent _agent;
+        private readonly GelAgent _agent;
 
         public Gel(SpriteBatch spriteBatch, int posX, int posY)
         {

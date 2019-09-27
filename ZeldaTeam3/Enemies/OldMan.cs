@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class OldMan : IEnemy
     {
-        private OldManAgent _agent;
+        private readonly OldManAgent _agent;
 
         public OldMan(SpriteBatch spriteBatch, int posX, int posY)
         {

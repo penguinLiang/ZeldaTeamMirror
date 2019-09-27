@@ -1,6 +1,6 @@
 ﻿namespace Zelda.Commands
 {
-    class Reset : ICommand
+    internal class Reset : ICommand
     {
         private readonly ZeldaGame _zeldaGame;
 

@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
@@ -16,7 +11,6 @@ namespace Zelda.Enemies
         private int _posY;
 
         private readonly SpriteBatch _spriteBatch;
-
 
         public OldManAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -44,7 +38,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()

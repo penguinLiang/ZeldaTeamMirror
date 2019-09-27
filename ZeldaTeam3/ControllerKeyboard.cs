@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Zelda
 {
-    class ControllerKeyboard : IController
+    internal class ControllerKeyboard : IController
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
         private readonly Dictionary<Keys, ICommand> _playerDirections;
@@ -79,7 +79,7 @@ namespace Zelda
                 {Keys.Up, up},
                 {Keys.Left, left},
                 {Keys.Right, right},
-                {Keys.Down, down},
+                {Keys.Down, down}
             };
 
             _enemyDirections = new Dictionary<Keys, ICommand>
@@ -94,7 +94,7 @@ namespace Zelda
         public void Update()
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
-            foreach (Keys key in keysPressed)
+            foreach (var key in keysPressed)
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
 
@@ -121,11 +121,11 @@ namespace Zelda
 
         }
 
-        private string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
+        private static string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
 
         public override string ToString()
         {
-            string result = "";
+            var result = "";
             foreach (var keyCommand in _keymap)
             {
                 result += KeyListing(keyCommand);

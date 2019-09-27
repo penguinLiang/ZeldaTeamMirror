@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class WallMaster : IEnemy
     {
-        private WallMasterAgent _agent;
+        private readonly WallMasterAgent _agent;
 
         public WallMaster(SpriteBatch spriteBatch, int posX, int posY)
         {

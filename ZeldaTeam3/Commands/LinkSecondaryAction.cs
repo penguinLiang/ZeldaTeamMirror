@@ -1,12 +1,12 @@
 ﻿namespace Zelda.Commands
 {
-    class LinkSecondaryAction : ICommand
+    internal class LinkSecondaryAction : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkSecondaryAction(IPlayer Link)
+        public LinkSecondaryAction(IPlayer link)
         {
-            _link = Link;
+            _link = link;
         }
 
         public void Execute()
