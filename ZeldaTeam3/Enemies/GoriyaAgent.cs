@@ -44,7 +44,6 @@ namespace Zelda.Enemies
         {
             _sprite.Hide();
             _statusHealth = StatusHealth.Dead;
-            UpdateDirection(Direction.Down);
         }
 
         public void MoveDown()
