@@ -41,6 +41,10 @@ Every code review file will have every file that was in the particular PR listed
 In addition, every Sprint will have it's own subfolder in the CodeReview folder.   
   
 __Further__ the team has agreed that all members of the team should attempt to look at the PR, and one member will be assigned the in depth code review. As a member is looking at the PR, they are able to comment on specific lines of code for clarification, changes, or suggestions. These comments are kept in the PR, and typically short enough that they are not included in the Major Code Review file for that PR unless a change was made.  
+
+## Code Analysis
+
+Code Analysis results before and after fixes for each sprint can be found under the Code Analysis folder.
   
 ----
 # General Information  
@@ -94,7 +98,7 @@ Old Man (16 X 64), individual frame: 16 X 16
 Particles (64 X 120), individual frame: 16 X 16  
 Tiles (32 X 80), individual frame: 16 X 16  
   
-  ### Note on Sprite Animation: The Sprite method takes in the Spritesheet, the width and height of the specific sprite, the frame count for animations, the offset from the spritesheet, and optionally takes in a frame delay, palette height, palette count, and palette shift delay.   
+### Note on Sprite Animation: The Sprite method takes in the Spritesheet, the width and height of the specific sprite, the frame count for animations, the offset from the spritesheet, and optionally takes in a frame delay, palette height, palette count, and palette shift delay.   
   Palette shifts most often occur when an entity is damaged, and thus not a required parameter for most sprites. 
 
 ## Enemies  
