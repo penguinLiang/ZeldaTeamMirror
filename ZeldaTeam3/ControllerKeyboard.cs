@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 namespace Zelda
@@ -6,6 +7,11 @@ namespace Zelda
     internal class ControllerKeyboard : IController
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
+        private readonly Dictionary<Keys, ICommand> _playerDirections;
+        private readonly Dictionary<Keys, ICommand> _enemyDirections;
+
+        private Keys _firstPlayerDirection = Keys.None;
+        private Keys _firstEnemyDirection = Keys.None;
 
         public ControllerKeyboard(ZeldaGame zeldaGame)
         { 
@@ -43,6 +49,7 @@ namespace Zelda
 
                 { Keys.N, attack },
                 { Keys.Z, attack },
+                { Keys.E, damage},
 
                 { Keys.D1, swordassign },
                 { Keys.D2, whiteswordassign },
@@ -58,24 +65,29 @@ namespace Zelda
                 { Keys.NumPad5, boomerangassign },
                 { Keys.NumPad6, bombassign },
 
-                { Keys.Up, up },
-                { Keys.W, up },
-                { Keys.Left, left },
-                { Keys.A, left },
-                { Keys.D, right },
-                { Keys.Right, right },
-                { Keys.S, down },
-                { Keys.Down, down },
-                { Keys.E, damage },
-
-                { Keys.U, enemyup },
-                { Keys.H, enemyleft },
-                { Keys.J, enemydown },
-                { Keys.K, enemyright },
-
                 { Keys.T, enemyspawn },
                 { Keys.Y, enemydamage},
                 { Keys.I, enemykill }
+            };
+
+            _playerDirections = new Dictionary<Keys, ICommand>
+            {
+                {Keys.W, up},
+                {Keys.A, left},
+                {Keys.S, down},
+                {Keys.D, right},
+                {Keys.Up, up},
+                {Keys.Left, left},
+                {Keys.Right, right},
+                {Keys.Down, down},
+            };
+
+            _enemyDirections = new Dictionary<Keys, ICommand>
+            {
+                {Keys.U, enemyup},
+                {Keys.H, enemyleft},
+                {Keys.J, enemydown},
+                {Keys.K, enemyright}
             };
         }
 
@@ -85,15 +97,50 @@ namespace Zelda
             foreach (var key in keysPressed)
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
+
+                if (_playerDirections.ContainsKey(key) && !keysPressed.Contains(_firstPlayerDirection))
+                {
+                    _firstPlayerDirection = key;
+                }
+
+                if (_enemyDirections.ContainsKey(key) && !keysPressed.Contains(_firstEnemyDirection))
+                {
+                    _firstEnemyDirection = key;
+                }
+
+                if (_firstPlayerDirection == key)
+                {
+                    _playerDirections[key].Execute();
+                }
+
+                if (_firstEnemyDirection == key)
+                {
+                    _enemyDirections[key].Execute();
+                }
             }
+
         }
+
+        private string KeyListing(KeyValuePair<Keys, ICommand> keyCommand) => keyCommand.Key + " - " + keyCommand.Value + "\n";
 
         public override string ToString()
         {
             var result = "";
             foreach (var keyCommand in _keymap)
             {
-                result += keyCommand.Key + " - " + keyCommand.Value + "\n";
+                result += KeyListing(keyCommand);
+            }
+            result += "\n";
+
+            foreach (var keyCommand in _playerDirections)
+            {
+                result += KeyListing(keyCommand);
+            }
+            result += "\n";
+
+            foreach (var keyCommand in _enemyDirections)
+            {
+                result += KeyListing(keyCommand);
             }
 
             return result;

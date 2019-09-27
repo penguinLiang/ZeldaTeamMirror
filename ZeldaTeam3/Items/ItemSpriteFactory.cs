@@ -32,12 +32,12 @@ namespace Zelda.Items
 
         public ISprite Create1Rupee()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 16));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(16, 16));
         }
 
         public ISprite Create5Rupee()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 2, new Point(16, 16));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 16));
         }
       
         public ISprite CreateMap()

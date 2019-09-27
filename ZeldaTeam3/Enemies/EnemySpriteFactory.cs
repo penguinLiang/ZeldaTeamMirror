@@ -27,7 +27,7 @@ namespace Zelda.Enemies
 
         public ISprite CreateStalfos()
         {
-            return new Sprite(_stalfosTexture2D, 16, 16, 2, new Point(0,0), 20, 16, 2);
+            return new Sprite(_stalfosTexture2D, 16, 16, 2, new Point(0,0), 20, 16, 4);
         }
 
         public ISprite CreateKeese()
@@ -37,7 +37,7 @@ namespace Zelda.Enemies
 
         public ISprite CreateOldMan()
         {
-            return new Sprite(_oldManTexture2D, 16, 16, 1, new Point(0, 0), 20, 16, 2);
+            return new Sprite(_oldManTexture2D, 16, 16, 1, new Point(0, 0), 20, 16, 4);
         }
 
         public ISprite CreateTrap()
@@ -47,7 +47,7 @@ namespace Zelda.Enemies
 
         public ISprite CreateWallMaster()
         {
-            return new Sprite(_wallMasterTexture2D, 16, 16, 2, new Point(0, 0), 20, 16, 2);
+            return new Sprite(_wallMasterTexture2D, 16, 16, 2, new Point(0, 0), 20, 16, 4);
         }
 
         public ISprite CreateGel()
@@ -57,7 +57,7 @@ namespace Zelda.Enemies
 
         public ISprite CreateAquamentusIdle()
         {
-            return new Sprite(_aquamentusTexture2D, 24, 32, 2, new Point(0, 0), 20, 64, 2);
+            return new Sprite(_aquamentusTexture2D, 24, 32, 2, new Point(0, 0), 20, 64, 4);
         }
 
         public ISprite CreateAquamentusFiring()
@@ -67,22 +67,22 @@ namespace Zelda.Enemies
 
         public ISprite CreateGoriyaFaceDown()
         {
-            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 0), 20, 64, 2);
+            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 0), 20, 64, 4);
         }
 
         public ISprite CreateGoriyaFaceUp()
         {
-            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 16),20, 64, 2);
+            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 16),20, 64, 4);
         }
 
         public ISprite CreateGoriyaFaceLeft()
         {
-            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 48), 20, 64, 2);
+            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 48), 20, 64, 4);
         }
 
         public ISprite CreateGoriyaFaceRight()
         {
-            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 32), 20, 64, 2);
+            return new Sprite(_goriyaTexture2D, 16, 16, 2, new Point(0, 32), 20, 64, 4);
         }
     }
 }

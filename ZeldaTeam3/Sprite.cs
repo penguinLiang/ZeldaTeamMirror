@@ -11,32 +11,42 @@ namespace Zelda
         private const int DefaultPaletteShiftDelay = 4;
         private const int PaletteShiftCycles = 4;
 
+        /* Each sprite sheet follows a convention such that row dimensions may vary,
+           but each column has the same width and height. */
         private readonly Texture2D _spriteSheet;
         private readonly int _width;
         private readonly int _height;
-        private readonly int _frameCount;
+
+        /* A source offset must be provided since the dimensions of each row may vary,
+           and some sheets are single frames and not contiguous. */
         private readonly Point _sourceOffset;
-        private readonly int _frameDelay;
+
+        /* The number of frames delayed between draws for an animation can vary per sprite and
+           the number of frames in an animation cannot be automatically determined since
+           row dimensions vary. */
+        private readonly FrameDelay _frameDelay;
+        private readonly int _frameCount;
+        private int _currentFrame;
+
+        /* In addition to an animation consisting of frames in a row, there is also a concurrent
+           animation that can occur that shifts the vertical offset by a group of rows called a palette.
+           This palette is largely used for color shifting while maintaining the current frame appearance
+           in the animation. */
+        private readonly FrameDelay _paletteShiftDelay;
         private readonly int _paletteHeight;
         private readonly int _totalPaletteCount;
-        private readonly int _paletteShiftDelay;
-        private int _currentFrame;
         private int _currentPaletteRow;
-        private int _framesDelayed;
-        private int _paletteShiftsDelayed;
         private int _paletteCyclesShifted;
+
         private bool _visible = true;
-        private bool _playing = true;
-        private bool _paletteShifting;
 
         private int CurrentFrame
         {
             get => _currentFrame;
             set
             {
-                if (!_playing || _frameCount == 0 || _framesDelayed++ != _frameDelay) return;
+                if (_frameCount == 0 || _frameDelay.Delayed) return;
                 _currentFrame = value % _frameCount;
-                _framesDelayed = 0;
             }
         }
 
@@ -45,12 +55,11 @@ namespace Zelda
             get => _currentPaletteRow;
             set
             {
-                if (!_paletteShifting || _totalPaletteCount == 0 || _paletteShiftsDelayed++ != _paletteShiftDelay) return;
+                if (_totalPaletteCount == 0 || _paletteShiftDelay.Delayed) return;
                 _currentPaletteRow = value % _totalPaletteCount;
-                _paletteShiftsDelayed = 0;
 
                 if (_currentPaletteRow != 0 || _paletteCyclesShifted++ != PaletteShiftCycles) return;
-                _paletteShifting = false;
+                _paletteShiftDelay.Pause();
                 _paletteCyclesShifted = 0;
             }
         }
@@ -63,16 +72,19 @@ namespace Zelda
             _width = width;
             _height = height;
             _frameCount = frameCount;
-            _frameDelay = frameDelay;
             _spriteSheet = spriteSheet;
             _paletteHeight = paletteHeight;
             _totalPaletteCount = totalPaletteCount;
-            _paletteShiftDelay = paletteShiftDelay;
             _sourceOffset = sourceOffset;
+            _frameDelay = new FrameDelay(frameDelay);
+            _paletteShiftDelay = new FrameDelay(paletteShiftDelay);
+            _paletteShiftDelay.Pause();
         }
 
         public void Update()
         {
+            _frameDelay.Update();
+            _paletteShiftDelay.Update();
             CurrentFrame++;
             CurrentPaletteRow++;
         }
@@ -95,17 +107,18 @@ namespace Zelda
 
         public void PauseAnimation()
         {
-            _playing = false;
+            _frameDelay.Pause();
         }
 
         public void PlayAnimation()
         {
-            _playing = true;
+            _frameDelay.Resume();
         }
 
         public void PaletteShift()
         {
-            _paletteShifting = true;
+            _paletteShiftDelay.Resume();
         }
     }
 }
+ 
