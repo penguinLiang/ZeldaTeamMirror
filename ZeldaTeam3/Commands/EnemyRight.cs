@@ -1,17 +1,17 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyRight : ICommand
+    internal class EnemyRight : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemyRight(IEnemy[] Enemy)
+        public EnemyRight(IEnemy[] enemy)
         {
-            _enemy = Enemy;
+            _enemy = enemy;
         }
 
         public void Execute()
         {
-            foreach (IEnemy enemy in _enemy)
+            foreach (var enemy in _enemy)
             {
                 enemy.MoveRight();
             }

@@ -6,5 +6,5 @@ namespace Zelda
         Down,
         Left,
         Right
-    };
+    }
 }

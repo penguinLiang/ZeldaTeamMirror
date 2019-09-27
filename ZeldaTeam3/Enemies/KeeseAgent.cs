@@ -34,7 +34,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()
@@ -59,7 +59,7 @@ namespace Zelda.Enemies
 
         public void TakeDamage()
         {
-            this.Kill();
+            Kill();
         }
 
         public void Draw()

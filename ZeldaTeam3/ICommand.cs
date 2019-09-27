@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface ICommand
+    internal interface ICommand
     {
         void Execute();
     }

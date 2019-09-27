@@ -1,12 +1,12 @@
 ﻿namespace Zelda.Commands
 {
-    class LinkBombAssign : ICommand
+    internal class LinkBombAssign : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkBombAssign(IPlayer Link)
+        public LinkBombAssign(IPlayer link)
         {
-            _link = Link;
+            _link = link;
         }
 
         public void Execute()

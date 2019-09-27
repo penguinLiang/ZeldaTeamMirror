@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zelda.Commands
+﻿namespace Zelda.Commands
 {
-    class EnemySpawn : ICommand
+    internal class EnemySpawn : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemySpawn(IEnemy[] Enemy)
+        public EnemySpawn(IEnemy[] enemy)
         {
-            _enemy = Enemy;
+            _enemy = enemy;
         }
 
         public void Execute()
         {
-            foreach (IEnemy enemy in _enemy)
+            foreach (var enemy in _enemy)
             {
                 enemy.Spawn();
             }
-
         }
 
         public override string ToString() => "Enemy: Spawn";

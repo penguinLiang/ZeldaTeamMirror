@@ -34,7 +34,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()

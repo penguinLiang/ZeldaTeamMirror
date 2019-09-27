@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Zelda.Projectiles;
 
 namespace Zelda.Enemies
 {
@@ -24,8 +23,7 @@ namespace Zelda.Enemies
         {
             Alive,
             Dead
-        };
-
+        }
 
         public GoriyaAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -54,7 +52,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()
@@ -92,7 +90,7 @@ namespace Zelda.Enemies
 
             if (_health < 1)
             {
-                this.Kill();
+                Kill();
             }
         }
 

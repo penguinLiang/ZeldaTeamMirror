@@ -83,7 +83,6 @@
     <Compile Include="Direction.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\Stalfos.cs" />
-    <Compile Include="INonPlayerCharacter.cs" />
     <Compile Include="IEnemy.cs" />
     <Compile Include="BlockSpriteFactory.cs" />
     <Compile Include="ISpawnable.cs" />

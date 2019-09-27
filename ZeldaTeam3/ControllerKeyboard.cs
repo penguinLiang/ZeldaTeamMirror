@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Zelda
 {
-    class ControllerKeyboard : IController
+    internal class ControllerKeyboard : IController
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
 
@@ -75,14 +75,14 @@ namespace Zelda
 
                 { Keys.T, enemyspawn },
                 { Keys.Y, enemydamage},
-                { Keys.I, enemykill },
+                { Keys.I, enemykill }
             };
         }
 
         public void Update()
         {
-            Keys[] keysPressed = Keyboard.GetState().GetPressedKeys();
-            foreach (Keys key in keysPressed)
+            var keysPressed = Keyboard.GetState().GetPressedKeys();
+            foreach (var key in keysPressed)
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
             }
@@ -90,8 +90,8 @@ namespace Zelda
 
         public override string ToString()
         {
-            string result = "";
-            foreach (KeyValuePair<Keys, ICommand> keyCommand in _keymap)
+            var result = "";
+            foreach (var keyCommand in _keymap)
             {
                 result += keyCommand.Key + " - " + keyCommand.Value + "\n";
             }

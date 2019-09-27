@@ -68,11 +68,6 @@ namespace Zelda.Player
             if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveRight();
         }
 
-        public void Idle()
-        {
-            _movementStateMachine.Idle();
-        }
-
         public void Spawn()
         {
             _healthStateMachine.Spawn();

@@ -18,7 +18,7 @@ namespace Zelda.Enemies
         private enum StatusHealth
         {
             Alive, Dead
-        };
+        }
 
 
         public WallMasterAgent(SpriteBatch spriteBatch, int posX, int posY)
@@ -45,7 +45,7 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            return;
+            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()
@@ -80,7 +80,7 @@ namespace Zelda.Enemies
 
             if (_health < 1)
             {
-                this.Kill();
+                Kill();
             }
         }
 

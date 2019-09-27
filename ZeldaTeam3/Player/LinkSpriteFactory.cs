@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
 {
-    class LinkSpriteFactory
+    internal class LinkSpriteFactory
     {
         private const int FrameDelay = 10;
 
@@ -46,7 +46,7 @@ namespace Zelda.Player
                 { Direction.Up, new Point(0, Height * 3) },
                 { Direction.Down, new Point(0, 0) },
                 { Direction.Left, new Point(0, Height * 2) },
-                { Direction.Right, new Point(0, Height) },
+                { Direction.Right, new Point(0, Height) }
             };
 
             _swordOffset = new Dictionary<Direction, Point>
@@ -54,7 +54,7 @@ namespace Zelda.Player
                 { Direction.Up, new Point(0, SwordUpDownHeight) },
                 { Direction.Down, new Point(0, 0) },
                 { Direction.Left, new Point(0, SwordUpDownHeight * 2 + SwordLeftRightHeight) },
-                { Direction.Right, new Point(0, SwordUpDownHeight * 2) },
+                { Direction.Right, new Point(0, SwordUpDownHeight * 2) }
             };
 
             _useSecondaryOffset = new Dictionary<Direction, Point>
@@ -62,7 +62,7 @@ namespace Zelda.Player
                 { Direction.Up, new Point(Width * 3, 0) },
                 { Direction.Down, new Point(0, 0) },
                 { Direction.Left, new Point(Width * 2, 0) },
-                { Direction.Right, new Point(Width, 0) },
+                { Direction.Right, new Point(Width, 0) }
             };
 
             _swordWidth = new Dictionary<Direction, int>

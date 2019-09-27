@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zelda.Commands
+﻿namespace Zelda.Commands
 {
-    class EnemyDamage : ICommand
+    internal class EnemyDamage : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemyDamage(IEnemy[] Enemy)
+        public EnemyDamage(IEnemy[] enemy)
         {
-            _enemy = Enemy;
+            _enemy = enemy;
         }
 
         public void Execute()
         {
-            foreach (IEnemy enemy in _enemy)
+            foreach (var enemy in _enemy)
             {
                 enemy.TakeDamage();
             }

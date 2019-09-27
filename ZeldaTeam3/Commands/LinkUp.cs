@@ -1,12 +1,12 @@
 ﻿namespace Zelda.Commands
 {
-    class LinkUp : ICommand
+    internal class LinkUp : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkUp(IPlayer Link)
+        public LinkUp(IPlayer link)
         {
-            _link = Link;
+            _link = link;
         }
 
         public void Execute()

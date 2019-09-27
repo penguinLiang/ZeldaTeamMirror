@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Player
 {
-    class MovementStateMachine : IMoveable
+    internal class MovementStateMachine : IMoveable
     {
         // Frame delay: 1/60 fps = ~1/60s
         private const int FrameDelay = 1;

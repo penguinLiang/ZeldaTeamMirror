@@ -2,7 +2,7 @@
 
 namespace Zelda.Player
 {
-    class SpriteStateMachine
+    internal class SpriteStateMachine
     {
         // 50/60 frames = ~5/6s and ~1 full animation
         private const int AttackResetDelay = 50;

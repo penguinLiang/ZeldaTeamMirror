@@ -1,21 +1,20 @@
 ﻿namespace Zelda.Commands
 {
-    class EnemyKill : ICommand
+    internal class EnemyKill : ICommand
     {
         private readonly IEnemy[] _enemy;
 
-        public EnemyKill(IEnemy[] Enemy)
+        public EnemyKill(IEnemy[] enemy)
         {
-            _enemy = Enemy;
+            _enemy = enemy;
         }
 
         public void Execute()
         {
-            foreach (IEnemy enemy in _enemy)
+            foreach (var enemy in _enemy)
             {
                 enemy.Kill();
             }
-
         }
 
         public override string ToString() => "Enemy: Kill";
