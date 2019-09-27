@@ -49,6 +49,7 @@ namespace Zelda
 
                 { Keys.N, attack },
                 { Keys.Z, attack },
+                { Keys.E, damage},
 
                 { Keys.D1, swordassign },
                 { Keys.D2, whiteswordassign },
@@ -56,8 +57,6 @@ namespace Zelda
                 { Keys.D4, bowassign },
                 { Keys.D5, boomerangassign },
                 { Keys.D6, bombassign },
-
-                {Keys.E, damage},
 
                 { Keys.NumPad1, swordassign },
                 { Keys.NumPad2, whiteswordassign },
