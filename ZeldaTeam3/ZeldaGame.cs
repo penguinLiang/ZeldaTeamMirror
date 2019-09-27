@@ -24,7 +24,7 @@ namespace Zelda
         {
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 800, PreferredBackBufferHeight = 600
+                PreferredBackBufferWidth = 1024, PreferredBackBufferHeight = 768
             };
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
@@ -45,14 +45,14 @@ namespace Zelda
 
             Enemies = new IEnemy[]
             {
-                new Gel(_spriteBatch, 500, 600),
-                new Goriya(_spriteBatch, 550, 600), 
-                new Keese(_spriteBatch, 600, 600),
-                new Stalfos(_spriteBatch, 650, 600),
-                new Trap(_spriteBatch, 700, 600), 
-                new WallMaster(_spriteBatch, 750, 600),
-                new Aquamentus(_spriteBatch, 800, 600),
-                new OldMan(_spriteBatch, 450, 600)
+                new Gel(_spriteBatch, 250, 300),
+                new Goriya(_spriteBatch, 275, 300), 
+                new Keese(_spriteBatch, 600/2, 300),
+                new Stalfos(_spriteBatch, 325, 300),
+                new Trap(_spriteBatch, 350, 300), 
+                new WallMaster(_spriteBatch, 375, 300),
+                new Aquamentus(_spriteBatch, 400, 300),
+                new OldMan(_spriteBatch, 225, 300)
             };
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
