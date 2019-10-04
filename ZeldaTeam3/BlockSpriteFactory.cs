@@ -122,7 +122,7 @@ namespace Zelda
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 0));
         }
 
-        public ISprite CreateGapTile()
+        public ISprite CreateWater()
         {
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(16, 0));
         }
@@ -142,6 +142,11 @@ namespace Zelda
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 32));
         }
 
+        public ISprite CreateSand()
+        {
+            return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(16, 32));
+        }
+
         public ISprite CreateStairs2()
         {
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 48));
@@ -154,7 +159,12 @@ namespace Zelda
 
         public ISprite CreateFire()
         {
-            return new Sprite(_tileSpritesheet, 16, 16, 2, new Point(0,64), 15);
+            return new Sprite(_tileSpritesheet, 16, 16, 2, new Point(0, 64), 15);
+        }
+
+        public ISprite CreateBlackTile()
+        {
+            return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 80));
         }
     }
 }
