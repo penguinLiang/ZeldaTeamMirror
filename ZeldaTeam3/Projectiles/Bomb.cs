@@ -8,7 +8,6 @@ namespace Zelda.Projectiles
     public class Bomb : IDrawable
     {
         private const int FramesToExplosion = 100;
-        private const int FramesToDisappear = 160;
 
         private readonly Vector2 _location;
         private readonly SpriteBatch _spriteBatch;
