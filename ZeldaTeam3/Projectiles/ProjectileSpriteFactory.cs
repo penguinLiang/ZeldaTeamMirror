@@ -46,6 +46,11 @@ namespace Zelda.Projectiles
             return new Sprite(_fieldWeaponsSpriteSheet, 8, 8, 8, new Point(0, 128), 5);
         }
 
+        public ISprite CreateBomb()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 80));
+        }
+
         public ISprite CreateBombExplosion()
         {
             return new Sprite(_bombExplosionSpriteSheet, 16, 16, 3, new Point(0, 0));

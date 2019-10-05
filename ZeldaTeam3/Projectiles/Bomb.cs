@@ -16,7 +16,7 @@ namespace Zelda.Projectiles
         public Bomb(SpriteBatch spriteBatch, Vector2 location)
         {
             _location = location;
-            _sprite = Items.ItemSpriteFactory.Instance.CreateBomb();
+            _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
             _spriteBatch = spriteBatch;
         }
 
