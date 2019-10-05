@@ -1,16 +1,17 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Items;
 
-namespace Zelda.Items
+namespace Zelda.Blocks
 {
-    internal class Compass : ICollideable, IDrawable
+    internal class MovableBlock : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateCompass();
+        private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
-        public Compass(Point location)
+        public MovableBlock(Point location)
         {
             var (x, y) = location;
             _bounds = new Rectangle(x + 8, y, 8, 8);
@@ -45,6 +46,25 @@ namespace Zelda.Items
         public void Draw()
         {
             _sprite.Draw(_drawLocation);
+        }
+
+        public void MoveLeft()
+        {
+
+        }
+
+        public void MoveRight()
+        {
+
+        }
+
+        public void MoveDown()
+        {
+
+        }
+        public void MoveUp()
+        {
+
         }
     }
 }
