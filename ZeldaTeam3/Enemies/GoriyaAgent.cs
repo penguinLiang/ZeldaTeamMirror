@@ -8,6 +8,8 @@ namespace Zelda.Enemies
     {
         private ISprite _sprite;
 
+        private const int BoomerangDuration = 40;
+
         private bool _updateSpriteFlag;
         private StatusHealth _statusHealth;
 
@@ -16,6 +18,8 @@ namespace Zelda.Enemies
         private int _health;
         private int _posX;
         private int _posY;
+        private int _timeSinceBoomerangThrown;
+        private Projectiles.ThrownBoomerang _boomerang;
 
         private readonly SpriteBatch _spriteBatch;
 
@@ -30,6 +34,7 @@ namespace Zelda.Enemies
             _updateSpriteFlag = false;
             _posX = posX;
             _posY = posY;
+            _timeSinceBoomerangThrown = BoomerangDuration;
             _statusHealth = StatusHealth.Alive;
             _spriteBatch = spriteBatch;
             _statusDirection = Direction.Down;
@@ -44,33 +49,64 @@ namespace Zelda.Enemies
             _statusHealth = StatusHealth.Dead;
         }
 
-        public void MoveDown()
-        {
-            UpdateDirection(Direction.Down);
-            _posY += 1;
-        }
-
         public void UseAttack()
         {
-            // NO-OP: Attack has no animation
+            Vector2 boomerangLocation = new Vector2(_posX + 4, _posY + 4);
+            switch (_statusDirection)
+            {
+                case Direction.Up:
+                    boomerangLocation.Y -= 16;
+                    break;
+                case Direction.Down:
+                    boomerangLocation.Y += 16;
+                    break;
+                case Direction.Left:
+                    boomerangLocation.X -= 16;
+                    break;
+                case Direction.Right:
+                    boomerangLocation.X += 16;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            _boomerang = new Projectiles.ThrownBoomerang(_spriteBatch, boomerangLocation, _statusDirection);
+            _timeSinceBoomerangThrown = 0;
         }
 
         public void MoveLeft()
         {
-            UpdateDirection(Direction.Left);
-            _posX -= 1;
+            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            {
+                UpdateDirection(Direction.Left);
+                _posX -= 1;
+            }
         }
 
         public void MoveRight()
         {
-            UpdateDirection(Direction.Right);
-            _posX += 1;
+            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            {
+                UpdateDirection(Direction.Right);
+                _posX += 1;
+            }
         }
 
         public void MoveUp()
         {
-            UpdateDirection(Direction.Up);
-            _posY -= 1;
+            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            {
+                UpdateDirection(Direction.Up);
+                _posY -= 1;
+            }
+        }
+
+        public void MoveDown()
+        {
+            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            {
+                UpdateDirection(Direction.Down);
+                _posY += 1;
+            }
         }
 
         public void Spawn()
@@ -98,16 +134,26 @@ namespace Zelda.Enemies
         public void Draw()
         {
             _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            if (_boomerang != null)
+            {
+                _boomerang.Draw();
+            }
         }
 
         public void Update()
         {
+            _timeSinceBoomerangThrown++;
+
             if (_updateSpriteFlag)
             {
                 UpdateSprite();
             }
 
             _sprite.Update();
+            if (_boomerang != null)
+            {
+                _boomerang.Update();
+            }
         }
 
         public void UpdateDirection(Direction direction)
