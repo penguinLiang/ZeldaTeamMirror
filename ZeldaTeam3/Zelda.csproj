@@ -61,6 +61,7 @@
     <Compile Include="Enemies\StalfosAgent.cs" />
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="FrameDelay.cs" />
+    <Compile Include="ICollideable.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
     <Compile Include="Commands\EnemyLeft.cs" />
     <Compile Include="Commands\EnemyRight.cs" />
