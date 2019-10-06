@@ -47,6 +47,8 @@ namespace Zelda.Player
                     _drawables.Add(new Projectiles.Arrow(_spriteBatch, location, facing));
                     break;
                 case Items.Secondary.Boomerang:
+                    location.X += 4;
+                    location.Y += 4;
                     _drawables.Add(new Projectiles.ThrownBoomerang(_spriteBatch, location, facing));
                     break;
                 case Items.Secondary.Bomb:
