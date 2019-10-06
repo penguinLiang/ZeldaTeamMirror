@@ -76,11 +76,13 @@ namespace Zelda.Player
         public void TakeDamage()
         {
             _healthStateMachine.TakeDamage();
+            //health state machine would look at the damage
         }
 
         public void Kill()
         {
             _healthStateMachine.Kill();
+            //health state machine applies the animation
         }
 
         public void UsePrimaryItem()
