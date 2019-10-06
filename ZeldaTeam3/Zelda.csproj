@@ -96,7 +96,6 @@
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
-    <Compile Include="Projectiles\BombExplosion.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
     <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
