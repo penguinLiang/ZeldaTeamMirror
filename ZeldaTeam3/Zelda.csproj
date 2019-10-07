@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\EnemyDamage.cs" />
+    <Compile Include="Commands\EnemyUseAttack.cs" />
     <Compile Include="Commands\EnemyKill.cs" />
     <Compile Include="Commands\EnemySpawn.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />

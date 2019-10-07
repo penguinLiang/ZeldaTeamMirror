@@ -41,6 +41,7 @@ namespace Zelda
             var enemyspawn = new Commands.EnemySpawn(zeldaGame.Enemies);
             var enemydamage = new Commands.EnemyDamage(zeldaGame.Enemies);
             var enemykill = new Commands.EnemyKill(zeldaGame.Enemies);
+            var enemyuseattack = new Commands.EnemyUseAttack(zeldaGame.Enemies);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
@@ -67,7 +68,8 @@ namespace Zelda
 
                 { Keys.T, enemyspawn },
                 { Keys.Y, enemydamage},
-                { Keys.I, enemykill }
+                { Keys.I, enemykill },
+                { Keys.O, enemyuseattack }
             };
 
             _playerDirections = new Dictionary<Keys, ICommand>
