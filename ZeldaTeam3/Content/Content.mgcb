@@ -32,6 +32,18 @@
 /processorParam:TextureFormat=Color
 /build:Boss.png
 
+#begin CharacterDeath.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterDeath.png
+
 #begin Doors.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -43,6 +55,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Doors.png
+
+#begin DungeonBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DungeonBackground.png
 
 #begin EnemyGoriya.png
 /importer:TextureImporter
@@ -188,30 +212,6 @@
 /processorParam:TextureFormat=Color
 /build:OldMan.png
 
-#begin CharacterDeath.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:CharacterDeath.png
-
-#begin SpawnExplosion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SpawnExplosion.png
-
 #begin Particles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -224,7 +224,17 @@
 /processorParam:TextureFormat=Color
 /build:Particles.png
 
-#begin DungeonBackground.png
+#begin Rooms/1-1.csv
+/importer:
+/processor:
+/build:Rooms/1-1.csv
+
+#begin Rooms/2-0.csv
+/importer:
+/processor:
+/build:Rooms/2-0.csv
+
+#begin SpawnExplosion.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -234,7 +244,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:DungeonBackground.png
+/build:SpawnExplosion.png
 
 #begin Tiles.png
 /importer:TextureImporter
