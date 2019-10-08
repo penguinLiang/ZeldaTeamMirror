@@ -110,6 +110,13 @@ namespace Zelda.Player
             ChangeSprite(_facing);
         }
 
+        public void Kill(){
+            UsingPrimaryItem = false;
+            UsingSecondaryItem = false;
+  
+           Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
+        }   
+
         public void Update()
         {
             AttackResetFramesDelayed++;

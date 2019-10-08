@@ -3,10 +3,10 @@
     internal class HealthStateMachine : ISpawnable
     {
         // 60/60 frames = ~1s
-        private const int DeathFrameDelay = 60;
+        private const int DeathFrameDelay = 300;
         // 120/60 frames = ~2s
         private const int RespawnFrameDelay = 120;
-        private const int HurtResetDelay = 120;
+        private const int HurtResetDelay = 60;
 
         public bool Alive { get; private set; } = true;
         public bool Visible { get; private set; } = true;
@@ -75,13 +75,16 @@
 
         public void TakeDamage()
         {
-            Hurt = true;
-            //TODO: Add in HEALTH checks
-            _health--;
+            if(Alive){
+               System.Diagnostics.Debug.WriteLine("HEALTH: " + _health);
+
+                _health--;
+                Hurt = true;
+            }
             //Health = Health - Enemy Attack Value
             
-            System.Diagnostics.Debug.WriteLine("HEALTH: " + _health);
-            if(_health<1){
+            if(_health<=0&&Alive){
+                System.Diagnostics.Debug.WriteLine("Killing Link");
                 Kill();
                 }                         
             
@@ -91,11 +94,15 @@
         {
             Hurt = false;
             Alive = false;
+            Visible = false;
             //play death animation?
             System.Diagnostics.Debug.WriteLine("\n Oh no! ");
-             Visible = false;
+            
+            
+           // Spawn();
                 _dyingFramesDelayed = 0;
-            _hurtFramesDelayed = 0;
+           _hurtFramesDelayed = 0;
+            _respawnFramesDelayed = 0;
 
             
         }
