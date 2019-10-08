@@ -10,5 +10,7 @@
         void FaceRight();
         void FaceLeft();
         void FaceDown();
+        void Heal();
+        void FullHeal();
     }
 }
