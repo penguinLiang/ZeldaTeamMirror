@@ -86,25 +86,22 @@
             if(_health<=0&&Alive){
                 System.Diagnostics.Debug.WriteLine("Killing Link");
                 Kill();
-                }                         
-            
+                }     
+                        
         }
 
         public void Kill()
         {
             Hurt = false;
             Alive = false;
-            Visible = false;
-            //play death animation?
-            System.Diagnostics.Debug.WriteLine("\n Oh no! ");
-            
-            
-           // Spawn();
-                _dyingFramesDelayed = 0;
-           _hurtFramesDelayed = 0;
-            _respawnFramesDelayed = 0;
 
-            
+            Visible = false;
+            //play death animation?            
+
+           // Spawn();
+           
+            _dyingFramesDelayed = 0;
+            _respawnFramesDelayed = 0; 
         }
 
         public void Update()

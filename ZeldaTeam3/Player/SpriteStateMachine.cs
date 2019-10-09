@@ -10,6 +10,7 @@ namespace Zelda.Player
         public ISprite Sprite { get; private set; }
         public bool UsingSecondaryItem { get; private set; }
         public bool UsingPrimaryItem { get; private set; }
+        public bool Dying {get; set; }
 
         private Direction _facing;
         private Items.Primary _primaryItem;
@@ -113,8 +114,13 @@ namespace Zelda.Player
         public void Kill(){
             UsingPrimaryItem = false;
             UsingSecondaryItem = false;
-  
+            Dying = true;
+
            Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
+            //Need to flesh this out, with the animation and the disappearing, then make a respawn option
+            //Make a check so that if link is dead he doesn't keep dying
+            System.Diagnostics.Debug.WriteLine("Dead");
+            //Dying = false;
         }   
 
         public void Update()

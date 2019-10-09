@@ -77,23 +77,25 @@ namespace Zelda.Player
         {
             if(_healthStateMachine.Hurt) return;
             _healthStateMachine.TakeDamage();
+            if(!_healthStateMachine.Alive){
+                Kill();
+            }
+
             //health state machine would look at the damage
         }
 
         public void Kill()
         {
-            if(!_healthStateMachine.Alive) return;
-            else {
-            System.Diagnostics.Debug.WriteLine("Execute HealthStateMachine.Kill");
-
-            _healthStateMachine.Kill();
 
             //Health is 0, now apply the death animation
-           
-            System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine.Kill");
+     
+            if(!_healthStateMachine.Alive && _spriteStateMachine.Dying) return;
+            //if you are already dead or in the process of dying, do nothing
+            else {
+            System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
              _spriteStateMachine.Kill();
+            
                 }
-
         }
 
         public void UsePrimaryItem()
