@@ -11,6 +11,7 @@ namespace Zelda.Player
         public bool UsingSecondaryItem { get; private set; }
         public bool UsingPrimaryItem { get; private set; }
         public bool Dying {get; set; }
+        public int DyingFrames {get; private set;}
 
         private Direction _facing;
         private Items.Primary _primaryItem;
@@ -25,6 +26,7 @@ namespace Zelda.Player
             _facing = facing;
             _lastFacing = _facing;
             ChangeSprite(_facing);
+            DyingFrames = 0;
         }
 
         public bool UsingItem => UsingPrimaryItem || UsingSecondaryItem;
@@ -115,16 +117,34 @@ namespace Zelda.Player
             UsingPrimaryItem = false;
             UsingSecondaryItem = false;
             Dying = true;
+            DyingFrames++;
 
-           Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
+           //Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
             //Need to flesh this out, with the animation and the disappearing, then make a respawn option
             //Make a check so that if link is dead he doesn't keep dying
+                switch (_lastFacing) 
+                {
+                    case Direction.Right:
+                    _facing = Direction.Up;
+                    break;
+                    case Direction.Up:
+                    _facing = Direction.Left;
+                    break;
+                    case Direction.Left:
+                    _facing = Direction.Down;
+                    break;
+                    case Direction.Down:
+                    _facing = Direction.Right;
+                     break;
+                }
+            _lastFacing = _facing;
             System.Diagnostics.Debug.WriteLine("Dead");
-            //Dying = false;
-        }   
+                ChangeSprite(_facing);              
+ }   
+
 
         public void Update()
-        {
+        {   
             AttackResetFramesDelayed++;
             Sprite.Update();
         }

@@ -89,13 +89,15 @@ namespace Zelda.Player
 
             //Health is 0, now apply the death animation
      
-            if(!_healthStateMachine.Alive && _spriteStateMachine.Dying) return;
-            //if you are already dead or in the process of dying, do nothing
-            else {
+            //if(!_healthStateMachine.Alive && !_spriteStateMachine.Dying) return;
+            //if you are already dead 
+             if(_spriteStateMachine.DyingFrames < 25) {
             System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
              _spriteStateMachine.Kill();
-            
                 }
+            //in the Dying state
+
+            System.Diagnostics.Debug.WriteLine("DyingFrames? "+_spriteStateMachine.DyingFrames);
         }
 
         public void UsePrimaryItem()
