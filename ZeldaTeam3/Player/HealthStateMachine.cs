@@ -81,5 +81,15 @@
             RespawnFramesDelayed++;
             HurtFramesDelayed++;
         }
+
+        public void FullHeal()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Heal()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
