@@ -68,6 +68,16 @@ namespace Zelda.Player
             if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveRight();
         }
 
+        public void Heal()
+        {
+            _healthStateMachine.Heal();
+        }
+
+        public void FullHeal()
+        {
+            _healthStateMachine.FullHeal();
+        }
+
         public void Spawn()
         {
             _healthStateMachine.Spawn();
