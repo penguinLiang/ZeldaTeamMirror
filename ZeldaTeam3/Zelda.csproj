@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\EnemyDamage.cs" />
+    <Compile Include="Commands\EnemyUseAttack.cs" />
     <Compile Include="Commands\EnemyKill.cs" />
     <Compile Include="Commands\EnemySpawn.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Commands\LinkWhiteSwordAssign.cs" />
     <Compile Include="Commands\LinkSwordAssign.cs" />
     <Compile Include="Commands\LinkDown.cs" />
+    <Compile Include="Commands\LinkFullHeal.cs" />
+    <Compile Include="Commands\LinkHeal.cs" />
     <Compile Include="Commands\EnemyUp.cs" />
     <Compile Include="Commands\LinkLeft.cs" />
     <Compile Include="Commands\LinkRight.cs" />
@@ -95,6 +98,8 @@
     <Compile Include="ControllerKeyboard.cs" />
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
+    <Compile Include="Items\Fairy.cs" />
+    <Compile Include="Items\Heart.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
