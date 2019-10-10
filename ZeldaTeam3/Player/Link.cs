@@ -89,17 +89,18 @@ namespace Zelda.Player
 
             //Health is 0, now apply the death animation
      
-            //if(!_healthStateMachine.Alive && !_spriteStateMachine.Dying) return;
-            //if you are already dead 
-             if(_spriteStateMachine.DyingFrames <= 25) {
-            System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
-                            System.Diagnostics.Debug.WriteLine("DyingFrames  1?: "+_spriteStateMachine.DyingFrames);
+            if(_spriteStateMachine.DyingFrames<16&&!_spriteStateMachine.Dying) {
+                _spriteStateMachine.Dying = true;
+}
 
+             //if(_spriteStateMachine.DyingFrames < 16) {
+               if(_spriteStateMachine.Dying){
+                //if you are still in the state of dying -> 
+            System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
+            System.Diagnostics.Debug.WriteLine("DyingFrames? "+_spriteStateMachine.DyingFrames);
              _spriteStateMachine.Kill();
                 }
-            //in the Dying state
 
-            System.Diagnostics.Debug.WriteLine("DyingFrames? "+_spriteStateMachine.DyingFrames);
         }
 
         public void UsePrimaryItem()
@@ -146,6 +147,10 @@ namespace Zelda.Player
             _secondaryItemAgent.Update();
             if (!_spriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
+
+            if(!_healthStateMachine.Alive&&_spriteStateMachine.Dying){
+                Kill();
+            }
         }
 
         // When using a primary item, the sprite is offset from the origin of the bounding box for the Left and Up directions by 16 pixels,

@@ -83,7 +83,7 @@
             }
             //Health = Health - Enemy Attack Value
             
-            if(_health<=0&&Alive){
+            if(_health<=0){
                 System.Diagnostics.Debug.WriteLine("Killing Link");
                 Kill();
                 }     
