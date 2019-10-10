@@ -45,6 +45,7 @@
     <Compile Include="Commands\EnemyUseAttack.cs" />
     <Compile Include="Commands\EnemyKill.cs" />
     <Compile Include="Commands\EnemySpawn.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\AquamentusAgent.cs" />
     <Compile Include="Enemies\Gel.cs" />
