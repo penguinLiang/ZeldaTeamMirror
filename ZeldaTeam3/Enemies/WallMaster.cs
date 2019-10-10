@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace Zelda.Enemies
+﻿namespace Zelda.Enemies
 {
     public class WallMaster : IEnemy
     {
         private readonly WallMasterAgent _agent;
 
-        public WallMaster(SpriteBatch spriteBatch, int posX, int posY)
+        public WallMaster(int posX, int posY)
         {
-            _agent = new WallMasterAgent(spriteBatch, posX, posY);
+            _agent = new WallMasterAgent(posX, posY);
         }
 
         public void Kill()

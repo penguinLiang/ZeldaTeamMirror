@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
 {
     public class Link : IPlayer
     {
-        private readonly SpriteBatch _spriteBatch;
         private readonly MovementStateMachine _movementStateMachine;
         private readonly SpriteStateMachine _spriteStateMachine;
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
@@ -13,13 +11,12 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
 
-        public Link(SpriteBatch spriteBatch, Vector2 location)
+        public Link(Vector2 location)
         {
-            _spriteBatch = spriteBatch;
             _movementStateMachine = new MovementStateMachine(location);
             _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
-            _secondaryItemAgent = new SecondaryItemAgent(_spriteBatch);
+            _secondaryItemAgent = new SecondaryItemAgent();
         }
 
         public void FaceUp()
@@ -163,7 +160,7 @@ namespace Zelda.Player
         public void Draw()
         {
             _secondaryItemAgent.Draw();
-            _spriteStateMachine.Sprite.Draw(_spriteBatch, AdjustedDrawLocation());
+            _spriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
+﻿
 namespace Zelda.Enemies
 {
     public class Keese : IEnemy
     {
         private readonly KeeseAgent _agent;
 
-        public Keese(SpriteBatch spriteBatch, int posX, int posY)
+        public Keese(int posX, int posY)
         {
-            _agent = new KeeseAgent(spriteBatch, posX, posY);
+            _agent = new KeeseAgent(posX, posY);
         }
 
         public void Kill()

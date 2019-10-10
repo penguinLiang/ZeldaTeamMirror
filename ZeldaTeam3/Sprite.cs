@@ -5,6 +5,8 @@ namespace Zelda
 {
     internal class Sprite : ISprite
     {
+        public static SpriteBatch SpriteBatch { private get; set; }
+
         // 20/60 fps
         private const int DefaultFrameDelay = 20;
         // 4/60 fps, 1/5 of frame delay
@@ -89,10 +91,10 @@ namespace Zelda
             CurrentPaletteRow++;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location)
+        public void Draw(Vector2 location)
         {
             if (!_visible) return;
-            spriteBatch.Draw(_spriteSheet, location, new Rectangle(SourceX, SourceY, _width, _height), Color.White);
+            SpriteBatch.Draw(_spriteSheet, location, new Rectangle(SourceX, SourceY, _width, _height), Color.White);
         }
 
         public void Show()

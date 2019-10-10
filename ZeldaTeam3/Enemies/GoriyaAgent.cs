@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -21,22 +20,19 @@ namespace Zelda.Enemies
         private int _timeSinceBoomerangThrown;
         private Projectiles.ThrownBoomerang _boomerang;
 
-        private readonly SpriteBatch _spriteBatch;
-
         private enum StatusHealth
         {
             Alive,
             Dead
         }
 
-        public GoriyaAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public GoriyaAgent(int posX, int posY)
         {
             _updateSpriteFlag = false;
             _posX = posX;
             _posY = posY;
             _timeSinceBoomerangThrown = BoomerangDuration;
             _statusHealth = StatusHealth.Alive;
-            _spriteBatch = spriteBatch;
             _statusDirection = Direction.Down;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
@@ -69,7 +65,7 @@ namespace Zelda.Enemies
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _boomerang = new Projectiles.ThrownBoomerang(_spriteBatch, boomerangLocation, _statusDirection);
+            _boomerang = new Projectiles.ThrownBoomerang(boomerangLocation, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -133,7 +129,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(new Vector2(_posX, _posY));
             if (_boomerang != null)
             {
                 _boomerang.Draw();

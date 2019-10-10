@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -13,20 +12,16 @@ namespace Zelda.Enemies
         private int _posX;
         private int _posY;
 
-        private readonly SpriteBatch _spriteBatch;
-
         private enum StatusHealth
         {
             Alive, Dead
         }
 
-
-        public StalfosAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public StalfosAgent(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
             _statusHealth = StatusHealth.Alive;
-            _spriteBatch = spriteBatch;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateStalfos();
             _sprite.Hide();
@@ -86,7 +81,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(new Vector2(_posX, _posY));
         }
 
         public void Update()

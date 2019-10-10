@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace Zelda.Enemies
+﻿namespace Zelda.Enemies
 {
     public class Trap : IEnemy
     {
         private readonly TrapAgent _agent;
 
-        public Trap(SpriteBatch spriteBatch, int posX, int posY)
+        public Trap(int posX, int posY)
         {
-            _agent = new TrapAgent(spriteBatch, posX, posY);
+            _agent = new TrapAgent(posX, posY);
         }
 
         public void Kill()

@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace Zelda.Enemies
+﻿namespace Zelda.Enemies
 {
     public class OldMan : IEnemy
     {
         private readonly OldManAgent _agent;
 
-        public OldMan(SpriteBatch spriteBatch, int posX, int posY)
+        public OldMan(int posX, int posY)
         {
-            _agent = new OldManAgent(spriteBatch, posX, posY);
+            _agent = new OldManAgent(posX, posY);
         }
 
         public void Kill()

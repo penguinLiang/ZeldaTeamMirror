@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -10,14 +9,10 @@ namespace Zelda.Enemies
         private int _posX;
         private int _posY;
 
-        private readonly SpriteBatch _spriteBatch;
-
-
-        public GelAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public GelAgent(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _spriteBatch = spriteBatch;
             _sprite = EnemySpriteFactory.Instance.CreateGel();
             _sprite.Hide();
         }
@@ -64,7 +59,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(new Vector2(_posX, _posY));
         }
 
         public void Update()

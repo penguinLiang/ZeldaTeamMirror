@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace Zelda.Enemies
+﻿namespace Zelda.Enemies
 {
     public class Aquamentus : IEnemy
     {
         private readonly AquamentusAgent _agent;
 
-        public Aquamentus(SpriteBatch spriteBatch, int posX, int posY)
+        public Aquamentus(int posX, int posY)
         {
-            _agent = new AquamentusAgent(spriteBatch, posX, posY);
+            _agent = new AquamentusAgent(posX, posY);
         }
 
         public void Kill()

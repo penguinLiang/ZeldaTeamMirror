@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace Zelda.Enemies
+﻿namespace Zelda.Enemies
 {
     public class Gel : IEnemy
     {
         private readonly GelAgent _agent;
 
-        public Gel(SpriteBatch spriteBatch, int posX, int posY)
+        public Gel(int posX, int posY)
         {
-            _agent = new GelAgent(spriteBatch, posX, posY);
+            _agent = new GelAgent(posX, posY);
         }
 
         public void Kill()

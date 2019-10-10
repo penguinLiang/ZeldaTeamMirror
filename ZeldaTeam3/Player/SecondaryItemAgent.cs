@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
 {
@@ -10,16 +9,10 @@ namespace Zelda.Player
         // 600/60 frames = ~10s
         private const int DrawableExpiration = 600;
 
-        private readonly SpriteBatch _spriteBatch;
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
 
         private Items.Secondary _item;
-
-        public SecondaryItemAgent(SpriteBatch spriteBatch)
-        {
-            _spriteBatch = spriteBatch;
-        }
 
         public void UseSecondaryItem(Direction facing, Vector2 location)
         {
@@ -44,15 +37,15 @@ namespace Zelda.Player
             switch (_item)
             {
                 case Items.Secondary.Bow:
-                    _drawables.Add(new Projectiles.Arrow(_spriteBatch, location, facing));
+                    _drawables.Add(new Projectiles.Arrow(location, facing));
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
-                    _drawables.Add(new Projectiles.ThrownBoomerang(_spriteBatch, location, facing));
+                    _drawables.Add(new Projectiles.ThrownBoomerang(location, facing));
                     break;
                 case Items.Secondary.Bomb:
-                    _drawables.Add(new Projectiles.Bomb(_spriteBatch, location));
+                    _drawables.Add(new Projectiles.Bomb(location));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

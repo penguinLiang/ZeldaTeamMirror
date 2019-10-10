@@ -39,20 +39,21 @@ namespace Zelda
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Sprite.SpriteBatch = _spriteBatch;
             _font = Content.Load<SpriteFont>("Arial");
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             Enemies = new IEnemy[]
             {
-                new Gel(_spriteBatch, 250, 300),
-                new Goriya(_spriteBatch, 275, 300), 
-                new Keese(_spriteBatch, 600/2, 300),
-                new Stalfos(_spriteBatch, 325, 300),
-                new Trap(_spriteBatch, 350, 300), 
-                new WallMaster(_spriteBatch, 375, 300),
-                new Aquamentus(_spriteBatch, 400, 300),
-                new OldMan(_spriteBatch, 225, 300)
+                new Gel(250, 300),
+                new Goriya(275, 300), 
+                new Keese(600/2, 300),
+                new Stalfos(325, 300),
+                new Trap(350, 300), 
+                new WallMaster(375, 300),
+                new Aquamentus(400, 300),
+                new OldMan(225, 300)
             };
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
@@ -122,7 +123,7 @@ namespace Zelda
 
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Link = new Link(_spriteBatch, Vector2.Divide(_graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2(), 2.0f));
+            Link = new Link(Vector2.Divide(_graphics.GraphicsDevice.Viewport.Bounds.Center.ToVector2(), 2.0f));
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IController[]{
@@ -191,7 +192,7 @@ namespace Zelda
                 var x = GraphicsDevice.Viewport.Bounds.Right / 2 - columns * 32 - 5;
                 for (var col = 0; (rows * columns + col < spriteArray.Length) || col < columns; col++)
                 {
-                    spriteArray[row * 5 + col].Draw(_spriteBatch, new Vector2(x, y));
+                    spriteArray[row * 5 + col].Draw(new Vector2(x, y));
                     x += 32;
                 }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Projectiles
 {
@@ -8,15 +7,13 @@ namespace Zelda.Projectiles
     {
         private const int FramesToDisappear = 140;
 
-        private readonly SpriteBatch _spriteBatch;
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
 
         private int _framesDelayed;
 
-        public Arrow(SpriteBatch spriteBatch, Vector2 location, Direction direction)
+        public Arrow(Vector2 location, Direction direction)
         {
-            _spriteBatch = spriteBatch;
             switch (direction)
             {
                 case Direction.Up:
@@ -49,8 +46,7 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-
-            _sprite.Draw(_spriteBatch, _arrowStateMachine.Location);
+            _sprite.Draw(_arrowStateMachine.Location);
         }
     }
 }
