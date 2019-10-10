@@ -91,8 +91,10 @@ namespace Zelda.Player
      
             //if(!_healthStateMachine.Alive && !_spriteStateMachine.Dying) return;
             //if you are already dead 
-             if(_spriteStateMachine.DyingFrames < 25) {
+             if(_spriteStateMachine.DyingFrames <= 25) {
             System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
+                            System.Diagnostics.Debug.WriteLine("DyingFrames  1?: "+_spriteStateMachine.DyingFrames);
+
              _spriteStateMachine.Kill();
                 }
             //in the Dying state

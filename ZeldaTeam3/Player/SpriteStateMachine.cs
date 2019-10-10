@@ -117,7 +117,6 @@ namespace Zelda.Player
             UsingPrimaryItem = false;
             UsingSecondaryItem = false;
             Dying = true;
-            DyingFrames++;
 
            //Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
             //Need to flesh this out, with the animation and the disappearing, then make a respawn option
@@ -139,7 +138,9 @@ namespace Zelda.Player
                 }
             _lastFacing = _facing;
             System.Diagnostics.Debug.WriteLine("Dead");
-                ChangeSprite(_facing);              
+            ChangeSprite(_facing);  
+            DyingFrames++;
+
  }   
 
 
