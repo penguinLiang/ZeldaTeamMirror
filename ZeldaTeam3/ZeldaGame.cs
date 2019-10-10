@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Enemies;
 using Zelda.Items;
@@ -131,6 +132,19 @@ namespace Zelda
             {
                 _controlsDescription += controller + "\n";
             }
+
+            /* SHOULD BE REMOVED! ONLY FOR PROOF */
+            var result = Content.Load<int[,]>("Rooms/0-1");
+            for (var row = 0; row < result.GetLength(0); row++)
+            {
+                Console.Write($"Row {row,2}: ");
+                for (var col = 0; col < result.GetLength(1); col++)
+                {
+                    Console.Write($"{result[row, col],3},");
+                }
+                Console.WriteLine();
+            }
+            /* END REMOVE */
         }
 
         protected override void UnloadContent()

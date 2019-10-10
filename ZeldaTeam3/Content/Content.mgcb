@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\CSVMapContentPipeline\bin\Debug\CSVMapContentPipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -224,15 +225,95 @@
 /processorParam:TextureFormat=Color
 /build:Particles.png
 
+#begin Rooms/0-1.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/0-1.csv
+
+#begin Rooms/0-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/0-2.csv
+
 #begin Rooms/1-1.csv
-/importer:
-/processor:
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
 /build:Rooms/1-1.csv
 
+#begin Rooms/1-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/1-2.csv
+
+#begin Rooms/1-4.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/1-4.csv
+
+#begin Rooms/1-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/1-5.csv
+
 #begin Rooms/2-0.csv
-/importer:
-/processor:
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
 /build:Rooms/2-0.csv
+
+#begin Rooms/2-1.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/2-1.csv
+
+#begin Rooms/2-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/2-2.csv
+
+#begin Rooms/2-3.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/2-3.csv
+
+#begin Rooms/2-4.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/2-4.csv
+
+#begin Rooms/3-1.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/3-1.csv
+
+#begin Rooms/3-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/3-2.csv
+
+#begin Rooms/3-3.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/3-3.csv
+
+#begin Rooms/4-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/4-2.csv
+
+#begin Rooms/5-1.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/5-1.csv
+
+#begin Rooms/5-2.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/5-2.csv
+
+#begin Rooms/5-3.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/5-3.csv
 
 #begin SpawnExplosion.png
 /importer:TextureImporter
@@ -257,84 +338,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles.png
-
-#begin Rooms/0-1.csv
-/importer:
-/processor:
-/build:Rooms/0-1.csv
-
-#begin Rooms/0-2.csv
-/importer:
-/processor:
-/build:Rooms/0-2.csv
-
-#begin Rooms/1-2.csv
-/importer:
-/processor:
-/build:Rooms/1-2.csv
-
-#begin Rooms/1-4.csv
-/importer:
-/processor:
-/build:Rooms/1-4.csv
-
-#begin Rooms/1-5.csv
-/importer:
-/processor:
-/build:Rooms/1-5.csv
-
-#begin Rooms/2-1.csv
-/importer:
-/processor:
-/build:Rooms/2-1.csv
-
-#begin Rooms/2-2.csv
-/importer:
-/processor:
-/build:Rooms/2-2.csv
-
-#begin Rooms/2-3.csv
-/importer:
-/processor:
-/build:Rooms/2-3.csv
-
-#begin Rooms/2-4.csv
-/importer:
-/processor:
-/build:Rooms/2-4.csv
-
-#begin Rooms/3-1.csv
-/importer:
-/processor:
-/build:Rooms/3-1.csv
-
-#begin Rooms/3-2.csv
-/importer:
-/processor:
-/build:Rooms/3-2.csv
-
-#begin Rooms/3-3.csv
-/importer:
-/processor:
-/build:Rooms/3-3.csv
-
-#begin Rooms/4-2.csv
-/importer:
-/processor:
-/build:Rooms/4-2.csv
-
-#begin Rooms/5-1.csv
-/importer:
-/processor:
-/build:Rooms/5-1.csv
-
-#begin Rooms/5-2.csv
-/importer:
-/processor:
-/build:Rooms/5-2.csv
-
-#begin Rooms/5-3.csv
-/importer:
-/processor:
-/build:Rooms/5-3.csv
 
