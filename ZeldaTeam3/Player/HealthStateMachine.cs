@@ -16,12 +16,6 @@
         private int _dyingFramesDelayed;
         private int _respawnFramesDelayed;
         private int _hurtFramesDelayed;
-        //Link starts with 3 hearts. Float because some enemies hit for .5 of a heart
-        //potential get/set?
-
-        //With Enemies, if they call damage to link, should be able to pass in the damage value?
-
-        
 
         private int DyingFramesDelayed
         {
@@ -94,14 +88,7 @@
         {
             Hurt = false;
             Alive = false;
-
             Visible = false;
-            //play death animation?            
-
-           // Spawn();
-           
-            _dyingFramesDelayed = 0;
-            _respawnFramesDelayed = 0; 
         }
 
         public void Update()

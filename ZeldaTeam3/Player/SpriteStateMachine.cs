@@ -6,6 +6,7 @@ namespace Zelda.Player
     {
         // 50/60 frames = ~5/6s and ~1 full animation
         private const int AttackResetDelay = 50;
+        private const int DeathFrameDelay = 7;
 
         public ISprite Sprite { get; private set; }
         public bool UsingSecondaryItem { get; private set; }
@@ -20,6 +21,7 @@ namespace Zelda.Player
         private Direction _lastFacing;
 
         private int _attackResetFramesDelayed;
+        private int _deathAnimationFramesDelayed;
 
         public SpriteStateMachine(Direction facing)
         {
@@ -49,6 +51,17 @@ namespace Zelda.Player
             }
         }
 
+        private int DeathAnimationFramesDelayed 
+            {
+            get => _deathAnimationFramesDelayed;
+            set {
+                if(!Dying) return;
+                _deathAnimationFramesDelayed = value;
+
+             //   if(_deathAnimationFramesDelayed != DeathFrameDelay) return;
+               // _deathAnimationFramesDelayed = 0;
+                }
+        }
         private void ChangePrimaryItemSprite(Direction direction)
         {
             switch (_primaryItem)
@@ -121,6 +134,8 @@ namespace Zelda.Player
            //Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
             //Need to flesh this out, with the animation and the disappearing, then make a respawn option
             //Make a check so that if link is dead he doesn't keep dying
+                        _lastFacing = _facing;
+
                 switch (_lastFacing) 
                 {
                     case Direction.Right:
@@ -136,21 +151,35 @@ namespace Zelda.Player
                     _facing = Direction.Right;
                      break;
                 }
-            _lastFacing = _facing;
-           if(DyingFrames > 15) {
-                            System.Diagnostics.Debug.WriteLine("Dead");
-                Dying = false;
-                            return;
+
+            //DyingFrames== current frame of death animation
+            //DeathFrameDelayed == how many updates have passed?
+            //DeathFrameDelay == how many frames pass before you move on to the next dying frame
+     
+           System.Diagnostics.Debug.WriteLine("DeathAnimationFramesDelayed: "+ DeathAnimationFramesDelayed + " _deathAnimatonFramesDelayed: " + _deathAnimationFramesDelayed);
+           System.Diagnostics.Debug.WriteLine("DeathFrameDelay: "+ DeathFrameDelay);
+
+            if(DeathAnimationFramesDelayed == DeathFrameDelay) {
+                DyingFrames++;
+                _deathAnimationFramesDelayed = 0;
+                ChangeSprite(_facing);  
+            if(DyingFrames > 15) {
+            System.Diagnostics.Debug.WriteLine("Dead");
+            Dying = false;
+            //TODO: Add in 'Death Sparkle'
+            //Add in Link fading to gray
+            //Add in Link Sprite disappearing
+
+            return;
             }
-           else {
-            ChangeSprite(_facing);  
-            DyingFrames++;
             }
- }   
+          }   
 
 
         public void Update()
         {   
+
+            DeathAnimationFramesDelayed++;     
             AttackResetFramesDelayed++;
             Sprite.Update();
         }

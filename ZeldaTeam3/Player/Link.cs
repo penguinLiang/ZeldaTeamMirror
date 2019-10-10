@@ -93,7 +93,16 @@ namespace Zelda.Player
                 _spriteStateMachine.Dying = true;
 }
 
-             //if(_spriteStateMachine.DyingFrames < 16) {
+            //TODO: Add in Death Sparkle
+            //TODO: Hide Link Sprite after Death Sparkle
+            //TODO:  Health Checks
+            //TODO: Fix health so it takes in a value
+
+            //THEN Make Dungeon CSVs, upload
+            //THEN Health
+            //THEN Items
+            //THEN bomb collision
+
                if(_spriteStateMachine.Dying){
                 //if you are still in the state of dying -> 
             System.Diagnostics.Debug.WriteLine("Execute SpriteStateMachine Kill");
