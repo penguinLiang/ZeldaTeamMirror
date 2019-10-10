@@ -1,23 +1,21 @@
-﻿using System;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Content.Pipeline;
-using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+﻿using Microsoft.Xna.Framework.Content;
 
 namespace CSVMapContentPipeline
 {
-    class CSVMapReader : ContentTypeReader<int[,]>
+    class CSVMapReader : ContentTypeReader<int[][]>
     {
-        protected override int[,] Read(ContentReader input, int[,] existingInstance)
+        protected override int[][] Read(ContentReader input, int[][] existingInstance)
         {
             var rows = input.ReadInt32();
             var cols = input.ReadInt32();
-            var result = new int[rows, cols];
+            var result = new int[rows][];
 
             for (var row = 0; row < rows; row++)
             {
+                result[row] = new int[cols];
                 for (var col = 0; col < cols; cols++)
                 {
-                    result[row, col] = input.ReadInt32();
+                    result[row][col] = input.ReadInt32();
                 }
             }
 
