@@ -70,15 +70,12 @@
         public void TakeDamage()
         {
             if(Alive){
-               System.Diagnostics.Debug.WriteLine("HEALTH: " + _health);
-
                 _health--;
                 Hurt = true;
             }
             //Health = Health - Enemy Attack Value
             
             if(_health<=0){
-                System.Diagnostics.Debug.WriteLine("Killing Link");
                 Kill();
                 }     
                         

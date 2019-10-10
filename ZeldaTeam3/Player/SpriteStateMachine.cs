@@ -57,9 +57,6 @@ namespace Zelda.Player
             set {
                 if(!Dying) return;
                 _deathAnimationFramesDelayed = value;
-
-             //   if(_deathAnimationFramesDelayed != DeathFrameDelay) return;
-               // _deathAnimationFramesDelayed = 0;
                 }
         }
         private void ChangePrimaryItemSprite(Direction direction)
@@ -130,11 +127,7 @@ namespace Zelda.Player
         public void Kill(){
             UsingPrimaryItem = false;
             UsingSecondaryItem = false;
-
-           //Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Left);
-            //Need to flesh this out, with the animation and the disappearing, then make a respawn option
-            //Make a check so that if link is dead he doesn't keep dying
-                        _lastFacing = _facing;
+            _lastFacing = _facing;
 
                 switch (_lastFacing) 
                 {
@@ -155,16 +148,12 @@ namespace Zelda.Player
             //DyingFrames== current frame of death animation
             //DeathFrameDelayed == how many updates have passed?
             //DeathFrameDelay == how many frames pass before you move on to the next dying frame
-     
-           System.Diagnostics.Debug.WriteLine("DeathAnimationFramesDelayed: "+ DeathAnimationFramesDelayed + " _deathAnimatonFramesDelayed: " + _deathAnimationFramesDelayed);
-           System.Diagnostics.Debug.WriteLine("DeathFrameDelay: "+ DeathFrameDelay);
 
             if(DeathAnimationFramesDelayed == DeathFrameDelay) {
                 DyingFrames++;
                 _deathAnimationFramesDelayed = 0;
                 ChangeSprite(_facing);  
             if(DyingFrames > 15) {
-            System.Diagnostics.Debug.WriteLine("Dead");
             Dying = false;
             //TODO: Add in 'Death Sparkle'
             //Add in Link fading to gray
