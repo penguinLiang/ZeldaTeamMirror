@@ -134,13 +134,13 @@ namespace Zelda
             }
 
             /* SHOULD BE REMOVED! ONLY FOR PROOF */
-            var result = Content.Load<int[,]>("Rooms/0-1");
-            for (var row = 0; row < result.GetLength(0); row++)
+            var result = Content.Load<int[][]>("Rooms/0-1");
+            for (var row = 0; row < result.Length; row++)
             {
                 Console.Write($"Row {row,2}: ");
-                for (var col = 0; col < result.GetLength(1); col++)
+                for (var col = 0; col < result[row].Length; col++)
                 {
-                    Console.Write($"{result[row, col],3},");
+                    Console.Write($"{result[row][col],3},");
                 }
                 Console.WriteLine();
             }

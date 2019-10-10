@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework.Content.Pipeline;
+﻿using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 namespace CSVMapContentPipeline
 {
-    class CSVMapWriter : ContentTypeWriter<int[,]>
+    class CSVMapWriter : ContentTypeWriter<int[][]>
     {
         public override string GetRuntimeType(TargetPlatform targetPlatform)
         {
-            return typeof(int[,]).AssemblyQualifiedName;
+            return typeof(int[][]).AssemblyQualifiedName;
         }
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
@@ -16,10 +15,10 @@ namespace CSVMapContentPipeline
             return "CSVMapContentPipeline.CSVMapReader, CSVMapContentPipeline";
         }
 
-        protected override void Write(ContentWriter output, int[,] value)
+        protected override void Write(ContentWriter output, int[][] value)
         {
-            var rows = value.GetLength(0);
-            var cols = value.GetLength(1);
+            var rows = value.Length;
+            var cols = value[0].Length;
             output.Write(rows);
             output.Write(cols);
 
@@ -27,7 +26,7 @@ namespace CSVMapContentPipeline
             {
                 for (var col = 0; col < cols; cols++)
                 {
-                    output.Write(value[row, col]);
+                    output.Write(value[row][col]);
                 }
             }
         }
