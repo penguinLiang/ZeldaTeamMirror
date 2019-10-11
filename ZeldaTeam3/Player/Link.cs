@@ -11,6 +11,8 @@ namespace Zelda.Player
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
         private readonly SecondaryItemAgent _secondaryItemAgent;
 
+        public Inventory Inventory { get; }
+
         public Link(SpriteBatch spriteBatch, Vector2 location)
         {
             _spriteBatch = spriteBatch;
@@ -18,6 +20,7 @@ namespace Zelda.Player
             _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
             _secondaryItemAgent = new SecondaryItemAgent(_spriteBatch);
+            Inventory = new Inventory();
         }
 
         public void FaceUp()

@@ -1,79 +1,60 @@
-﻿namespace Zelda.Player
+﻿using System;
+
+namespace Zelda.Player
 {
-    internal class Inventory
+    public class Inventory
     {
         private const int MaxRupeeCount = 255;
         private const int MaxBombCount = 8;
         private const int MaxKeyCount = 255;
 
-        public int SwordLevel { get; private set; }
-        public bool HasWoodenBoomerang { get; private set; }
-        public bool HasSilverBoomerang { get; private set; }
-        public int BombCount { get; private set; }
+        public Items.Primary SwordLevel { get; private set; }
+        public bool HasBoomerang { get; private set; }
+        public int BombCount { get; private set; } = MaxBombCount / 2;
         public bool HasBow { get; private set; }
-        public bool HasWoodenArrow { get; private set; }
-        public bool HasSilverArrow { get; private set; }
+        public bool HasArrow { get; private set; } = true;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
-        public int RupeeCount { get; private set; }
+        public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
         public int KeyCount { get; private set; }
 
         public Inventory()
         {
-            SwordLevel = 0;
-            HasWoodenBoomerang = false;
-            HasSilverBoomerang = true;
-            BombCount = MaxBombCount;
-            HasBow = false;
-            HasWoodenArrow = true;
-            HasSilverArrow = true;
-            HasMap = false;
-            HasCompass = false;
-            RupeeCount = MaxRupeeCount;
-            KeyCount = MaxKeyCount;
         }
 
-        public void UpgradeSword(int newSwordLevel)
+        public void UpgradeSword(Items.Primary newSwordLevel)
         {
-            if (newSwordLevel > SwordLevel)
+            if (newSwordLevel == Items.Primary.MagicalSword)
+            {
                 SwordLevel = newSwordLevel;
+            }
+            else if (newSwordLevel == Items.Primary.WhiteSword && SwordLevel != Items.Primary.MagicalSword)
+            {
+                SwordLevel = newSwordLevel;
+            }
         }
 
-        public void AddWoodenBoomerang()
+        public void AddSecondaryItem(Items.Secondary secondaryItem)
         {
-            HasWoodenBoomerang = true;
+            switch (secondaryItem)
+            {
+                case Items.Secondary.Boomerang:
+                    HasBoomerang = true;
+                    break;
+                case Items.Secondary.Bow:
+                    HasBow = true;
+                    break;
+                case Items.Secondary.Bomb:
+                    BombCount = Math.Min(BombCount + 4, MaxBombCount);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void AddSilverBoomerang()
+        public void AddArrow()
         {
-            HasSilverBoomerang = true;
-        }
-
-        public void AddFourBombs()
-        {
-            BombCount += 4;
-            if (BombCount > MaxBombCount)
-                BombCount = MaxBombCount;
-        }
-
-        public void RemoveBomb()
-        {
-            BombCount--;
-        }
-
-        public void AddBow()
-        {
-            HasBow = true;
-        }
-
-        public void AddWoodenArrow()
-        {
-            HasWoodenArrow = true;
-        }
-
-        public void AddSilverArrow()
-        {
-            HasSilverArrow = true;
+            HasArrow = true;
         }
 
         public void AddMap()
@@ -88,21 +69,22 @@
 
         public void AddRupee()
         {
-            RupeeCount++;
-            if (RupeeCount > MaxRupeeCount)
-                RupeeCount = MaxRupeeCount;
+            RupeeCount = Math.Min(RupeeCount + 1, MaxRupeeCount);
+        }
+
+        public void AddKey()
+        {
+            KeyCount = Math.Min(KeyCount + 1, MaxKeyCount);
+        }
+
+        public void RemoveBomb()
+        {
+            BombCount--;
         }
 
         public void RemoveRupee()
         {
             RupeeCount--;
-        }
-
-        public void AddKey()
-        {
-            KeyCount++;
-            if (KeyCount > MaxKeyCount)
-                KeyCount = MaxKeyCount;
         }
 
         public void RemoveKey()
