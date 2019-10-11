@@ -45,6 +45,7 @@
     <Compile Include="Commands\EnemyUseAttack.cs" />
     <Compile Include="Commands\EnemyKill.cs" />
     <Compile Include="Commands\EnemySpawn.cs" />
+    <Compile Include="IActivatable.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\AquamentusAgent.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="IEnemy.cs" />
-    <Compile Include="BlockSpriteFactory.cs" />
+    <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IMoveable.cs" />
@@ -132,9 +133,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NonPlayerCharacters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

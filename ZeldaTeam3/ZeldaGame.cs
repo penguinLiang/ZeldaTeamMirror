@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Player;
