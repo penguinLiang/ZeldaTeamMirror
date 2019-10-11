@@ -18,20 +18,10 @@ namespace Zelda.Player
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
         public int KeyCount { get; private set; }
 
-        public Inventory()
-        {
-        }
-
         public void UpgradeSword(Items.Primary newSwordLevel)
         {
-            if (newSwordLevel == Items.Primary.MagicalSword)
-            {
+            if (newSwordLevel > SwordLevel)
                 SwordLevel = newSwordLevel;
-            }
-            else if (newSwordLevel == Items.Primary.WhiteSword && SwordLevel != Items.Primary.MagicalSword)
-            {
-                SwordLevel = newSwordLevel;
-            }
         }
 
         public void AddSecondaryItem(Items.Secondary secondaryItem)
@@ -48,7 +38,7 @@ namespace Zelda.Player
                     BombCount = Math.Min(BombCount + 4, MaxBombCount);
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -77,19 +67,25 @@ namespace Zelda.Player
             KeyCount = Math.Min(KeyCount + 1, MaxKeyCount);
         }
 
-        public void RemoveBomb()
+        public bool TryRemoveBomb()
         {
+            if (BombCount <= 0) return false;
             BombCount--;
+            return true;
         }
 
-        public void RemoveRupee()
+        public bool TryRemoveRupee()
         {
+            if (RupeeCount <= 0) return false;
             RupeeCount--;
+            return true;
         }
 
-        public void RemoveKey()
+        public bool TryRemoveKey()
         {
+            if (KeyCount <= 0) return false;
             KeyCount--;
+            return true;
         }
     }
 }

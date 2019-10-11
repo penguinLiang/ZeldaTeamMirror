@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
@@ -11,7 +12,7 @@ namespace Zelda.Player
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
         private readonly SecondaryItemAgent _secondaryItemAgent;
 
-        public Inventory Inventory { get; }
+        public Inventory Inventory { get; } = new Inventory();
 
         public Link(SpriteBatch spriteBatch, Vector2 location)
         {
@@ -20,7 +21,6 @@ namespace Zelda.Player
             _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
             _secondaryItemAgent = new SecondaryItemAgent(_spriteBatch);
-            Inventory = new Inventory();
         }
 
         public void FaceUp()
@@ -105,6 +105,21 @@ namespace Zelda.Player
         public void UseSecondaryItem()
         {
             if (_spriteStateMachine.UsingItem) return;
+
+            switch (_secondaryItemAgent.Item)
+            {
+                case Items.Secondary.Boomerang:
+                    if (!Inventory.HasBoomerang) return;
+                    break;
+                case Items.Secondary.Bow:
+                    if (!Inventory.HasBow || !Inventory.HasArrow || !Inventory.TryRemoveRupee()) return;
+                    break;
+                case Items.Secondary.Bomb:
+                    if (!Inventory.TryRemoveBomb()) return;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             _spriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
         }
