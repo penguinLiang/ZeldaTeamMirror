@@ -2,6 +2,8 @@
 {
     public interface IPlayer : IMoveable, ISpawnable, IDrawable
     {
+        Player.Inventory Inventory { get; }
+
         void UsePrimaryItem();
         void UseSecondaryItem();
         void AssignPrimaryItem(Items.Primary item);

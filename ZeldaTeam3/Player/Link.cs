@@ -11,6 +11,8 @@ namespace Zelda.Player
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
         private readonly SecondaryItemAgent _secondaryItemAgent;
 
+        public Inventory Inventory { get; } = new Inventory();
+
         public Link(SpriteBatch spriteBatch, Vector2 location)
         {
             _spriteBatch = spriteBatch;

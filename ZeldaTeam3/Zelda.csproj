@@ -113,6 +113,7 @@
     <Compile Include="Player\Link.cs" />
     <Compile Include="Player\LinkSpriteFactory.cs" />
     <Compile Include="Player\MovementStateMachine.cs" />
+    <Compile Include="Player\Inventory.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="ISprite.cs" />
