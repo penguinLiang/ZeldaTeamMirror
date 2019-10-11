@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
@@ -105,21 +104,6 @@ namespace Zelda.Player
         public void UseSecondaryItem()
         {
             if (_spriteStateMachine.UsingItem) return;
-
-            switch (_secondaryItemAgent.Item)
-            {
-                case Items.Secondary.Boomerang:
-                    if (!Inventory.HasBoomerang) return;
-                    break;
-                case Items.Secondary.Bow:
-                    if (!Inventory.HasBow || !Inventory.HasArrow || !Inventory.TryRemoveRupee()) return;
-                    break;
-                case Items.Secondary.Bomb:
-                    if (!Inventory.TryRemoveBomb()) return;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
             _spriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
         }

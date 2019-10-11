@@ -69,23 +69,32 @@ namespace Zelda.Player
 
         public bool TryRemoveBomb()
         {
-            if (BombCount <= 0) return false;
-            BombCount--;
-            return true;
+            if (BombCount > 0)
+            {
+                BombCount--;
+                return true;
+            }
+            return false;
         }
 
         public bool TryRemoveRupee()
         {
-            if (RupeeCount <= 0) return false;
-            RupeeCount--;
-            return true;
+            if (RupeeCount > 0)
+            {
+                RupeeCount--;
+                return true;
+            }
+            return false;
         }
 
         public bool TryRemoveKey()
         {
-            if (KeyCount <= 0) return false;
-            KeyCount--;
-            return true;
+            if (KeyCount > 0)
+            {
+                KeyCount--;
+                return true;
+            }
+            return false;
         }
     }
 }

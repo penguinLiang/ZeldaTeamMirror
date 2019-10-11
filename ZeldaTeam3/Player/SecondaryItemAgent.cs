@@ -14,7 +14,7 @@ namespace Zelda.Player
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
 
-        public Items.Secondary Item { get; private set; } = Items.Secondary.Boomerang;
+        private Items.Secondary _item;
 
         public SecondaryItemAgent(SpriteBatch spriteBatch)
         {
@@ -41,7 +41,7 @@ namespace Zelda.Player
                     throw new ArgumentOutOfRangeException();
             }
 
-            switch (Item)
+            switch (_item)
             {
                 case Items.Secondary.Bow:
                     _drawables.Add(new Projectiles.Arrow(_spriteBatch, location, facing));
@@ -62,7 +62,7 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
-            Item = item;
+            _item = item;
         }
 
         public void Update()
