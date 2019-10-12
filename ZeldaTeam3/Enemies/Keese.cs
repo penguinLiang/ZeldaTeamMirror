@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -6,14 +6,21 @@ namespace Zelda.Enemies
     {
         private readonly KeeseAgent _agent;
 
-        public Keese(SpriteBatch spriteBatch, int posX, int posY)
+        public Keese(Point location)
         {
-            _agent = new KeeseAgent(spriteBatch, posX, posY);
+            _agent = new KeeseAgent(location);
         }
 
-        public void Kill()
+        public bool Alive { get; } = true;
+
+        public void Spawn()
         {
-            _agent.Kill();
+            _agent.Spawn();
+        }
+
+        public void TakeDamage()
+        {
+            _agent.TakeDamage();
         }
 
         public void MoveDown()
@@ -36,14 +43,9 @@ namespace Zelda.Enemies
             _agent.MoveUp();
         }
 
-        public void Spawn()
+        public void Stun()
         {
-            _agent.Spawn();
-        }
-
-        public void TakeDamage()
-        {
-            _agent.TakeDamage();
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()
@@ -59,6 +61,16 @@ namespace Zelda.Enemies
         public void Update()
         {
             _agent.Update();
+        }
+
+        public void Knockback()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -2,8 +2,10 @@
 {
     public interface ISpawnable
     {
+        bool Alive { get; }
+
         void Spawn();
         void TakeDamage();
-        void Kill();
+        void Stun();
     }
 }

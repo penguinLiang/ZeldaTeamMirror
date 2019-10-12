@@ -1,8 +1,7 @@
 namespace Zelda
 {
-    public interface IDrawable
+    public interface IDrawable : IUpdatable
     {
-        void Update();
         void Draw();
     }
 }

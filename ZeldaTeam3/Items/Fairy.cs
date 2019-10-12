@@ -3,30 +3,46 @@ using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class Fairy : ICollideable
+    internal class Fairy : ICollideable, IDrawable
     {
-        Rectangle _tileSpace;
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateFairy();
+        private readonly Vector2 _drawLocation;
+        private Rectangle _bounds;
 
-        public Fairy(Vector2 location)
+        public Fairy(Point location)
         {
-            _tileSpace = new Rectangle((int)location.X,(int)location.Y, 16, 16);
+            _bounds = new Rectangle(location.X + 8, location.Y, 8, 16);
+            _drawLocation = _bounds.Location.ToVector2();
         }
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _tileSpace.Intersects(rect);
+            return _bounds.Intersects(rect);
         }
+
         public ICommand PlayerEffect(IPlayer player)
         {
             return new LinkFullHeal(player);
         }
+
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            throw new System.NotImplementedException();
+            return NoOp.Instance;
         }
-        public ICommand ProjectileEffect()
+
+        public ICommand ProjectileEffect(IHaltable haltable)
         {
-            throw new System.NotImplementedException();
+            return NoOp.Instance;
+        }
+
+        public void Update()
+        {
+            _sprite.Update();
+        }
+
+        public void Draw()
+        {
+            _sprite.Draw(_drawLocation);
         }
     }
 }

@@ -41,10 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\EnemyDamage.cs" />
-    <Compile Include="Commands\EnemyUseAttack.cs" />
-    <Compile Include="Commands\EnemyKill.cs" />
-    <Compile Include="Commands\EnemySpawn.cs" />
+    <Compile Include="Commands\MoveableHalt.cs" />
+    <Compile Include="Commands\NoOp.cs" />
+    <Compile Include="IActivatable.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\AquamentusAgent.cs" />
     <Compile Include="Enemies\Gel.cs" />
@@ -64,24 +64,17 @@
     <Compile Include="FrameDelay.cs" />
     <Compile Include="ICollideable.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
-    <Compile Include="Commands\EnemyLeft.cs" />
-    <Compile Include="Commands\EnemyRight.cs" />
-    <Compile Include="Commands\EnemyDown.cs" />
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
     <Compile Include="Commands\LinkBowAssign.cs" />
-    <Compile Include="Commands\LinkMagicSwordAssign.cs" />
-    <Compile Include="Commands\LinkWhiteSwordAssign.cs" />
-    <Compile Include="Commands\LinkSwordAssign.cs" />
-    <Compile Include="Commands\LinkDown.cs" />
+    <Compile Include="Commands\LinkMoveDown.cs" />
     <Compile Include="Commands\LinkFullHeal.cs" />
     <Compile Include="Commands\LinkHeal.cs" />
-    <Compile Include="Commands\EnemyUp.cs" />
-    <Compile Include="Commands\LinkLeft.cs" />
-    <Compile Include="Commands\LinkRight.cs" />
-    <Compile Include="Commands\LinkUp.cs" />
-    <Compile Include="Commands\LinkDamage.cs" />
-    <Compile Include="Commands\LinkSecondaryAction.cs" />
+    <Compile Include="Commands\LinkMoveLeft.cs" />
+    <Compile Include="Commands\LinkMoveRight.cs" />
+    <Compile Include="Commands\LinkMoveUp.cs" />
+    <Compile Include="Commands\SpawnableDamage.cs" />
+    <Compile Include="Commands\LinkKnockback.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
@@ -89,17 +82,17 @@
     <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="IEnemy.cs" />
-    <Compile Include="BlockSpriteFactory.cs" />
+    <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
-    <Compile Include="IMoveable.cs" />
+    <Compile Include="IHaltable.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="IController.cs" />
+    <Compile Include="IUpdatable.cs" />
     <Compile Include="ControllerKeyboard.cs" />
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
-    <Compile Include="Items\Heart.cs" />
+    <Compile Include="Items\DroppedHeart.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
@@ -111,6 +104,7 @@
     <Compile Include="Player\Link.cs" />
     <Compile Include="Player\LinkSpriteFactory.cs" />
     <Compile Include="Player\MovementStateMachine.cs" />
+    <Compile Include="Player\Inventory.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="ISprite.cs" />
@@ -131,9 +125,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NonPlayerCharacters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -7,16 +6,11 @@ namespace Zelda.Enemies
     {
         private readonly ISprite _sprite;
 
-        private int _posX;
-        private int _posY;
+        private Point _location;
 
-        private readonly SpriteBatch _spriteBatch;
-
-        public OldManAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public OldManAgent(Point location)
         {
-            _posX = posX;
-            _posY = posY;
-            _spriteBatch = spriteBatch;
+            _location = location;
             _sprite = EnemySpriteFactory.Instance.CreateOldMan();
             _sprite.Hide();
         }
@@ -31,29 +25,29 @@ namespace Zelda.Enemies
             _sprite.PaletteShift();
         }
 
-        public void MoveDown()
-        {
-            _posY += 1;
-        }
-
         public void UseAttack()
         {
             // NO-OP: Attack has no animation
         }
 
+        public void MoveDown()
+        {
+            _location.Y += 1;
+        }
+
         public void MoveLeft()
         {
-            _posX -= 1;
+            _location.X -= 1;
         }
 
         public void MoveRight()
         {
-            _posX += 1;
+            _location.X += 1;
         }
 
         public void MoveUp()
         {
-            _posY -= 1;
+            _location.Y -= 1;
         }
 
         public void Spawn()
@@ -63,7 +57,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(_location.ToVector2());
         }
 
         public void Update()

@@ -4,14 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Zelda
 {
-    internal class ControllerKeyboard : IController
+    internal class ControllerKeyboard : IUpdatable
     {
         private readonly Dictionary<Keys, ICommand> _keymap;
         private readonly Dictionary<Keys, ICommand> _playerDirections;
-        private readonly Dictionary<Keys, ICommand> _enemyDirections;
 
         private Keys _firstPlayerDirection = Keys.None;
-        private Keys _firstEnemyDirection = Keys.None;
 
         public ControllerKeyboard(ZeldaGame zeldaGame)
         { 
@@ -20,28 +18,15 @@ namespace Zelda
 
             var attack = new Commands.LinkPrimaryAction(zeldaGame.Link);
 
-            var swordassign = new Commands.LinkSwordAssign(zeldaGame.Link);
-            var whiteswordassign = new Commands.LinkWhiteSwordAssign(zeldaGame.Link);
-            var magicswordassign = new Commands.LinkMagicSwordAssign(zeldaGame.Link);
             var bowassign = new Commands.LinkBowAssign(zeldaGame.Link);
             var boomerangassign = new Commands.LinkBoomerangAssign(zeldaGame.Link);
             var bombassign = new Commands.LinkBombAssign(zeldaGame.Link);
 
-            var damage = new Commands.LinkDamage(zeldaGame.Link);
-            var up = new Commands.LinkUp(zeldaGame.Link);
-            var down = new Commands.LinkDown(zeldaGame.Link);
-            var right = new Commands.LinkRight(zeldaGame.Link);
-            var left = new Commands.LinkLeft(zeldaGame.Link);
-
-            var enemyup = new Commands.EnemyUp(zeldaGame.Enemies);
-            var enemydown = new Commands.EnemyDown(zeldaGame.Enemies);
-            var enemyleft = new Commands.EnemyLeft(zeldaGame.Enemies);
-            var enemyright = new Commands.EnemyRight(zeldaGame.Enemies);
-
-            var enemyspawn = new Commands.EnemySpawn(zeldaGame.Enemies);
-            var enemydamage = new Commands.EnemyDamage(zeldaGame.Enemies);
-            var enemykill = new Commands.EnemyKill(zeldaGame.Enemies);
-            var enemyuseattack = new Commands.EnemyUseAttack(zeldaGame.Enemies);
+            var damage = new Commands.SpawnableDamage(zeldaGame.Link);
+            var up = new Commands.LinkMoveUp(zeldaGame.Link);
+            var down = new Commands.LinkMoveDown(zeldaGame.Link);
+            var right = new Commands.LinkMoveRight(zeldaGame.Link);
+            var left = new Commands.LinkMoveLeft(zeldaGame.Link);
 
             _keymap = new Dictionary<Keys, ICommand>
             {
@@ -52,24 +37,14 @@ namespace Zelda
                 { Keys.Z, attack },
                 { Keys.E, damage},
 
-                { Keys.D1, swordassign },
-                { Keys.D2, whiteswordassign },
-                { Keys.D3, magicswordassign },
                 { Keys.D4, bowassign },
                 { Keys.D5, boomerangassign },
                 { Keys.D6, bombassign },
 
-                { Keys.NumPad1, swordassign },
-                { Keys.NumPad2, whiteswordassign },
-                { Keys.NumPad3, magicswordassign },
                 { Keys.NumPad4, bowassign },
                 { Keys.NumPad5, boomerangassign },
                 { Keys.NumPad6, bombassign },
-
-                { Keys.T, enemyspawn },
-                { Keys.Y, enemydamage},
-                { Keys.I, enemykill },
-                { Keys.O, enemyuseattack }
+                {Keys.K, new Commands.LinkKnockback(zeldaGame.Link) }
             };
 
             _playerDirections = new Dictionary<Keys, ICommand>
@@ -82,14 +57,6 @@ namespace Zelda
                 {Keys.Left, left},
                 {Keys.Right, right},
                 {Keys.Down, down}
-            };
-
-            _enemyDirections = new Dictionary<Keys, ICommand>
-            {
-                {Keys.U, enemyup},
-                {Keys.H, enemyleft},
-                {Keys.J, enemydown},
-                {Keys.K, enemyright}
             };
         }
 
@@ -105,19 +72,9 @@ namespace Zelda
                     _firstPlayerDirection = key;
                 }
 
-                if (_enemyDirections.ContainsKey(key) && !keysPressed.Contains(_firstEnemyDirection))
-                {
-                    _firstEnemyDirection = key;
-                }
-
                 if (_firstPlayerDirection == key)
                 {
                     _playerDirections[key].Execute();
-                }
-
-                if (_firstEnemyDirection == key)
-                {
-                    _enemyDirections[key].Execute();
                 }
             }
 
@@ -139,11 +96,6 @@ namespace Zelda
                 result += KeyListing(keyCommand);
             }
             result += "\n";
-
-            foreach (var keyCommand in _enemyDirections)
-            {
-                result += KeyListing(keyCommand);
-            }
 
             return result;
         }

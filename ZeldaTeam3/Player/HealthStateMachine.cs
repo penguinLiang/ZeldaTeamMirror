@@ -90,9 +90,13 @@
                         
         }
 
-        public void Kill()
+        public void Stun()
         {
-            Hurt = false;
+        throw new System.NotImplementedException();
+        }
+        
+        public void Kill() {
+           Hurt = false;
             Alive = false;
             Visible = false;
         }
