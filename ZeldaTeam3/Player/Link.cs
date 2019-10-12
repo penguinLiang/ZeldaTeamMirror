@@ -142,7 +142,7 @@ namespace Zelda.Player
         // this was chosen in contrast to making every sprite 32x32 and calculating the origin of the bounding box for all directions
         private Vector2 AdjustedDrawLocation()
         {
-            var drawLocation = _movementStateMachine.Location;
+            var drawLocation = _movementStateMachine.Location.ToVector2();
             if (!_spriteStateMachine.UsingPrimaryItem) return drawLocation;
 
             if (_movementStateMachine.Facing == Direction.Left)

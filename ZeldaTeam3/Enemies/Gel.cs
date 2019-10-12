@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class Gel : IEnemy
     {
         private readonly GelAgent _agent;
 
-        public Gel(int posX, int posY)
+        public Gel(Point location)
         {
-            _agent = new GelAgent(posX, posY);
+            _agent = new GelAgent(location);
         }
 
         public void Kill()

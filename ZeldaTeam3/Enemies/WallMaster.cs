@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class WallMaster : IEnemy
     {
         private readonly WallMasterAgent _agent;
 
-        public WallMaster(int posX, int posY)
+        public WallMaster(Point location)
         {
-            _agent = new WallMasterAgent(posX, posY);
+            _agent = new WallMasterAgent(location);
         }
 
         public void Kill()

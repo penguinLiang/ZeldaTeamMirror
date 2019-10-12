@@ -14,9 +14,9 @@ namespace Zelda.Projectiles
         private ISprite _sprite;
         private int _framesDelayed;
 
-        public Bomb(Vector2 location)
+        public Bomb(Point location)
         {
-            _location = location;
+            _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
         }
 
@@ -55,12 +55,11 @@ namespace Zelda.Projectiles
         public void Draw()
         {
             _sprite.Draw(_location);
-            if (_framesDelayed >= FramesToExplosion)
+
+            if (_framesDelayed < FramesToExplosion) return;
+            foreach (var spriteLocation in _outerExplosionSpriteLocations)
             {
-                foreach (var spriteLocation in _outerExplosionSpriteLocations)
-                {
-                    _sprite.Draw( spriteLocation);
-                }
+                _sprite.Draw( spriteLocation);
             }
         }
     }

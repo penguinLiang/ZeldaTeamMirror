@@ -5,21 +5,26 @@ namespace Zelda.Items
 {
     internal class Fairy : ICollideable
     {
-        Rectangle _tileSpace;
+        private readonly Vector2 _drawLocation;
+        private Rectangle _bounds;
 
-        public Fairy(Vector2 location)
+        public Fairy(Point location)
         {
-            _tileSpace = new Rectangle((int)location.X,(int)location.Y, 16, 16);
+            var (x, y) = location;
+            _bounds = new Rectangle(x + 8, y, 8, 16);
+            _drawLocation = _bounds.Location.ToVector2();
         }
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _tileSpace.Intersects(rect);
+            return _bounds.Intersects(rect);
         }
+
         public ICommand PlayerEffect(IPlayer player)
         {
             return new LinkFullHeal(player);
         }
+
         public ICommand EnemyEffect(IEnemy enemy)
         {
             throw new System.NotImplementedException();

@@ -12,7 +12,7 @@ namespace Zelda.Projectiles
 
         private int _framesDelayed;
 
-        public Arrow(Vector2 location, Direction direction)
+        public Arrow(Point location, Direction direction)
         {
             switch (direction)
             {
@@ -46,7 +46,7 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-            _sprite.Draw(_arrowStateMachine.Location);
+            _sprite.Draw(_arrowStateMachine.Location.ToVector2());
         }
     }
 }

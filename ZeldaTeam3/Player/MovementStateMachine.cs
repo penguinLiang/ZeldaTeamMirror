@@ -10,11 +10,11 @@ namespace Zelda.Player
         public Direction Facing { get; private set; } = Direction.Right;
         public Direction Moving { get; private set; } = Direction.Right;
         public bool Idling { get; private set; } = true;
-        public Vector2 Location { get; private set; }
+        public Point Location { get; private set; }
 
         private int _framesDelayed;
 
-        public MovementStateMachine(Vector2 location)
+        public MovementStateMachine(Point location)
         {
             Location = location;
         }
@@ -24,16 +24,16 @@ namespace Zelda.Player
             switch (Moving)
             {
                 case Direction.Up:
-                    Location = new Vector2(Location.X, Location.Y - 1);
+                    Location = new Point(Location.X, Location.Y - 1);
                     break;
                 case Direction.Down:
-                    Location = new Vector2(Location.X, Location.Y + 1);
+                    Location = new Point(Location.X, Location.Y + 1);
                     break;
                 case Direction.Left:
-                    Location = new Vector2(Location.X - 1, Location.Y);
+                    Location = new Point(Location.X - 1, Location.Y);
                     break;
                 case Direction.Right:
-                    Location = new Vector2(Location.X + 1, Location.Y);
+                    Location = new Point(Location.X + 1, Location.Y);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

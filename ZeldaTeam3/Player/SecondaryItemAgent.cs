@@ -14,7 +14,7 @@ namespace Zelda.Player
 
         private Items.Secondary _item;
 
-        public void UseSecondaryItem(Direction facing, Vector2 location)
+        public void UseSecondaryItem(Direction facing, Point location)
         {
             switch (facing)
             {

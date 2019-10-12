@@ -14,10 +14,10 @@ namespace Zelda.Projectiles
         private int _currentDistanceAway;
         private Direction _direction;
 
-        public ThrownBoomerang(Vector2 location, Direction direction)
+        public ThrownBoomerang(Point location, Direction direction)
         {
             _direction = direction;
-            _location = location;
+            _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
             _currentDistanceAway = 0;
         }

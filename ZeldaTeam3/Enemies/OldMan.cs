@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class OldMan : IEnemy
     {
         private readonly OldManAgent _agent;
 
-        public OldMan(int posX, int posY)
+        public OldMan(Point location)
         {
-            _agent = new OldManAgent(posX, posY);
+            _agent = new OldManAgent(location);
         }
 
         public void Kill()

@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class Trap : IEnemy
     {
         private readonly TrapAgent _agent;
 
-        public Trap(int posX, int posY)
+        public Trap(Point location)
         {
-            _agent = new TrapAgent(posX, posY);
+            _agent = new TrapAgent(location);
         }
 
         public void Kill()

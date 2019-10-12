@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class Goriya : IEnemy
     {
         private readonly GoriyaAgent _agent;
 
-        public Goriya(int posX, int posY)
+        public Goriya(Point location)
         {
-            _agent = new GoriyaAgent(posX, posY);
+            _agent = new GoriyaAgent(location);
         }
 
         public void Kill()

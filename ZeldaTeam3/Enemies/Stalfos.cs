@@ -1,12 +1,14 @@
-﻿namespace Zelda.Enemies
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda.Enemies
 {
     public class Stalfos : IEnemy
     {
         private readonly StalfosAgent _agent;
 
-        public Stalfos(int posX, int posY)
+        public Stalfos(Point location)
         {
-            _agent = new StalfosAgent(posX, posY);
+            _agent = new StalfosAgent(location);
         }
 
         public void Kill()
