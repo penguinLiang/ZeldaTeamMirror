@@ -74,7 +74,7 @@
     <Compile Include="Commands\LinkMoveRight.cs" />
     <Compile Include="Commands\LinkMoveUp.cs" />
     <Compile Include="Commands\SpawnableDamage.cs" />
-    <Compile Include="Commands\LinkSecondaryAction.cs" />
+    <Compile Include="Commands\LinkKnockback.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />

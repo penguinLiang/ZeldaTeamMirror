@@ -6,7 +6,7 @@ namespace Zelda.Player
     internal class MovementStateMachine : IHaltable
     {
         private readonly FrameDelay _movementDelay = new FrameDelay(1);
-        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(60);
+        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(20);
 
         public Direction Facing { get; private set; } = Direction.Right;
         public bool Idling { get; private set; } = true;
@@ -54,6 +54,7 @@ namespace Zelda.Player
 
         public void Knockback()
         {
+            Idling = false;
             Knockedback = true;
 
             switch (Facing)
@@ -68,7 +69,7 @@ namespace Zelda.Player
                     _moving = Direction.Right;
                     break;
                 case Direction.Right:
-                    _moving = Direction.Right;
+                    _moving = Direction.Left;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -92,7 +93,7 @@ namespace Zelda.Player
             if (_disableKnockbackDelay.Delayed) return;
             _disableKnockbackDelay.Pause();
             Knockedback = false;
-            Facing = _moving;
+            _moving = Facing;
         }
     }
 }

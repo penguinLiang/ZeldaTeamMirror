@@ -27,7 +27,7 @@ namespace Zelda.Player
 
         public void Knockback()
         {
-            _movementStateMachine.Halt();
+            _movementStateMachine.Knockback();
         }
 
         public void Halt()
