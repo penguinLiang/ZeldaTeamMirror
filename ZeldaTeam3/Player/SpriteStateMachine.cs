@@ -168,6 +168,7 @@ namespace Zelda.Player
                 }
                else if(DyingFrames>=20 && DyingFrames<25){
                     //Death Sparkle
+                    Sprite = LinkSpriteFactory.Instance.CreateLinkDeathSparkle();
                     System.Diagnostics.Debug.WriteLine("Death Sparkle");
                 }
                  else {

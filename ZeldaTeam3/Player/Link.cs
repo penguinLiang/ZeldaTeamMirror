@@ -34,17 +34,6 @@ namespace Zelda.Player
         {
             _movementStateMachine.Halt();
         }
-
-        public void Heal()
-        {
-            _healthStateMachine.Heal();
-        }
-
-        public void FullHeal()
-        {
-            _healthStateMachine.FullHeal();
-        }
-
         
         public void Heal()
         {
@@ -76,6 +65,7 @@ namespace Zelda.Player
                if(_spriteStateMachine.Dying){
                  _spriteStateMachine.Kill();
                 }
+        }
 
         public void Stun()
         {
