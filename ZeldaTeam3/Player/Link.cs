@@ -68,6 +68,17 @@ namespace Zelda.Player
             if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveRight();
         }
 
+        
+        public void Heal()
+        {
+            _healthStateMachine.Heal();
+        }
+
+        public void FullHeal()
+        {
+            _healthStateMachine.FullHeal();
+        }
+
         public void Spawn()
         {
             _healthStateMachine.Spawn();
@@ -84,12 +95,9 @@ namespace Zelda.Player
 
         public void Kill()
         {     
-            if(_spriteStateMachine.DyingFrames<16&&!_spriteStateMachine.Dying) {
+            //if(!_spriteStateMachine.Dying) {
                 _spriteStateMachine.Dying = true;
-}
-            //TODO:  Health Checks
-            //TODO: Fix health so it takes in a value
-
+                //}
                if(_spriteStateMachine.Dying){
                  _spriteStateMachine.Kill();
                 }

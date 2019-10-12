@@ -6,7 +6,8 @@ namespace Zelda.Player
     {
         // 50/60 frames = ~5/6s and ~1 full animation
         private const int AttackResetDelay = 50;
-        private const int DeathFrameDelay = 7;
+        private const int DeathFrameDelay = 3;
+        //Right now, the only way to get this to display all frames is to use 3 as the delay. Still figuring that one out
 
         public ISprite Sprite { get; private set; }
         public bool UsingSecondaryItem { get; private set; }
@@ -57,6 +58,7 @@ namespace Zelda.Player
             set {
                 if(!Dying) return;
                 _deathAnimationFramesDelayed = value;
+
                 }
         }
         private void ChangePrimaryItemSprite(Direction direction)
@@ -125,23 +127,26 @@ namespace Zelda.Player
         }
 
         public void Kill(){
-            UsingPrimaryItem = false;
-            UsingSecondaryItem = false;
-            _lastFacing = _facing;
+                _lastFacing = _facing;
+
+                if(DyingFrames == 0){
+                _lastFacing = Direction.Down;
+                }
+
 
                 switch (_lastFacing) 
                 {
-                    case Direction.Right:
+                    case Direction.Left:
                     _facing = Direction.Up;
                     break;
                     case Direction.Up:
-                    _facing = Direction.Left;
+                    _facing = Direction.Right;
                     break;
-                    case Direction.Left:
+                    case Direction.Right:
                     _facing = Direction.Down;
                     break;
                     case Direction.Down:
-                    _facing = Direction.Right;
+                    _facing = Direction.Left;
                      break;
                 }
 
@@ -149,18 +154,27 @@ namespace Zelda.Player
             //DeathFrameDelayed == how many updates have passed?
             //DeathFrameDelay == how many frames pass before you move on to the next dying frame
 
+           // System.Diagnostics.Debug.WriteLine("DeathAnimationFramesDelayed: "+DeathAnimationFramesDelayed);
             if(DeathAnimationFramesDelayed == DeathFrameDelay) {
-                DyingFrames++;
+                //With diff delay numbers, this never triggers? Potential bug with the way I'm updating the numbers?
+                System.Diagnostics.Debug.WriteLine("DyingFrames: " + DyingFrames);
                 _deathAnimationFramesDelayed = 0;
-                ChangeSprite(_facing);  
-            if(DyingFrames > 15) {
-            Dying = false;
-            //TODO: Add in 'Death Sparkle'
-            //Add in Link fading to gray
-            //Add in Link Sprite disappearing
-
-            return;
-            }
+            if(DyingFrames < 17) {
+                     ChangeSprite(_facing);
+                    }
+             else if(DyingFrames>=17 && DyingFrames<20){
+                    Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Down);
+                    //fade to gray
+                }
+               else if(DyingFrames>=20 && DyingFrames<25){
+                    //Death Sparkle
+                    System.Diagnostics.Debug.WriteLine("Death Sparkle");
+                }
+                 else {
+                    Sprite.Hide();
+                   Dying = false;
+                }
+                            DyingFrames++;
             }
           }   
 

@@ -11,7 +11,8 @@
         public bool Alive { get; private set; } = true;
         public bool Visible { get; private set; } = true;
         public bool Hurt { get; private set; }
-        public int _health {get; private set; } = 3;
+        public int MaxHealth = 6;
+        private int _health;
 
         private int _dyingFramesDelayed;
         private int _respawnFramesDelayed;
@@ -60,11 +61,18 @@
             }
         }
 
+
+        public HealthStateMachine(){
+            MaxHealth = 6;
+            _health = 6;
+        }
+
         public void Spawn()
         {
             Alive = true;
             Visible = true;
-            _health = 3;
+            _health = 6;
+            System.Diagnostics.Debug.WriteLine("HEALTH? "+ _health);
         }
 
         public void TakeDamage()
@@ -72,8 +80,9 @@
             if(Alive){
                 _health--;
                 Hurt = true;
+                System.Diagnostics.Debug.WriteLine("HEALTH? "+ _health);
+
             }
-            //Health = Health - Enemy Attack Value
             
             if(_health<=0){
                 Kill();
@@ -93,6 +102,21 @@
             DyingFramesDelayed++;
             RespawnFramesDelayed++;
             HurtFramesDelayed++;
+        }
+
+                public void FullHeal()
+        {
+            _health = MaxHealth;
+        }
+
+        public void Heal()
+        {
+            if(_health<MaxHealth-1){
+            _health+=2;
+            }
+             else {
+                     _health = MaxHealth;
+                }
         }
     }
 }
