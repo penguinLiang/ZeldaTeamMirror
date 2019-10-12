@@ -1,19 +1,19 @@
 ﻿namespace Zelda.Commands
 {
-    internal class LinkDamage : ICommand
+    internal class LinkMoveUp : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkDamage(IPlayer link)
+        public LinkMoveUp(IPlayer link)
         {
             _link = link;
         }
 
         public void Execute()
         {
-            _link.TakeDamage();
+            _link.Move(Direction.Up);
         }
 
-        public override string ToString() => "Link: Take damage";
+        public override string ToString() => "Link: Move up";
     }
 }

@@ -70,9 +70,9 @@
             Hurt = true;
         }
 
-        public void Kill()
+        public void Stun()
         {
-            Alive = false;
+            throw new System.NotImplementedException();
         }
 
         public void Update()

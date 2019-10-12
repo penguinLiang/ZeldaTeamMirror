@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    public interface IController
+    public interface IUpdatable
     {
         void Update();
     }

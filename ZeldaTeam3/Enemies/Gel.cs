@@ -11,9 +11,16 @@ namespace Zelda.Enemies
             _agent = new GelAgent(location);
         }
 
-        public void Kill()
+        public bool Alive { get; } = true;
+
+        public void Knockback()
         {
-            _agent.Kill();
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void MoveDown()
@@ -44,6 +51,11 @@ namespace Zelda.Enemies
         public void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()

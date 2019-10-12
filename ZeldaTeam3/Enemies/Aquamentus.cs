@@ -11,10 +11,7 @@ namespace Zelda.Enemies
             _agent = new AquamentusAgent(location);
         }
 
-        public void Kill()
-        {
-            _agent.Kill();
-        }
+        public bool Alive { get; } = true;
 
         public void MoveDown()
         {
@@ -31,6 +28,16 @@ namespace Zelda.Enemies
             _agent.MoveRight();
         }
 
+        public void Knockback()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void MoveUp()
         {
             _agent.MoveUp();
@@ -44,6 +51,11 @@ namespace Zelda.Enemies
         public void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()

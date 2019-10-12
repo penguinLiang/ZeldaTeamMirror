@@ -1,18 +1,17 @@
 ﻿namespace Zelda.Commands
 {
-    internal class LinkLeft : ICommand
+    internal class LinkMoveLeft : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkLeft(IPlayer link)
+        public LinkMoveLeft(IPlayer link)
         {
             _link = link;
         }
 
         public void Execute()
         {
-            _link.FaceLeft();
-            _link.MoveLeft();
+            _link.Move(Direction.Left);
         }
 
         public override string ToString() => "Link: Face/move left";

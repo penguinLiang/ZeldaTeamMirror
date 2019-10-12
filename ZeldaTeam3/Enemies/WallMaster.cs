@@ -11,6 +11,8 @@ namespace Zelda.Enemies
             _agent = new WallMasterAgent(location);
         }
 
+        public bool Alive { get; }
+
         public void Kill()
         {
             _agent.Kill();
@@ -31,6 +33,16 @@ namespace Zelda.Enemies
             _agent.MoveRight();
         }
 
+        public void Knockback()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void MoveUp()
         {
             _agent.MoveUp();
@@ -44,6 +56,11 @@ namespace Zelda.Enemies
         public void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()

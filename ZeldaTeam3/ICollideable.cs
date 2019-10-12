@@ -7,6 +7,6 @@ namespace Zelda
         bool CollidesWith(Rectangle rect);
         ICommand PlayerEffect(IPlayer player);
         ICommand EnemyEffect(IEnemy enemy);
-        ICommand ProjectileEffect();
+        ICommand ProjectileEffect(IHaltable projectile);
     }
 }

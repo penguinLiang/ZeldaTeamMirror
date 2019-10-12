@@ -7,64 +7,32 @@ namespace Zelda.Player
         private readonly MovementStateMachine _movementStateMachine;
         private readonly SpriteStateMachine _spriteStateMachine;
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
-        private readonly SecondaryItemAgent _secondaryItemAgent;
+        private readonly SecondaryItemAgent _secondaryItemAgent = new SecondaryItemAgent();
 
         public Inventory Inventory { get; } = new Inventory();
+        public bool Alive => _healthStateMachine.Alive;
 
-        public Link(Vector2 location)
+        public Link(Point location)
         {
             _movementStateMachine = new MovementStateMachine(location);
-            _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
-            _secondaryItemAgent = new SecondaryItemAgent();
         }
 
-        public void FaceUp()
+        public void Move(Direction direction)
         {
             if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceUp();
+            _movementStateMachine.Move(direction);
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
 
-        public void FaceDown()
+        public void Knockback()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceDown();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
+            _movementStateMachine.Halt();
         }
 
-        public void FaceLeft()
+        public void Halt()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceLeft();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
-        }
-
-        public void FaceRight()
-        {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceRight();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
-        }
-
-        public void MoveUp()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveUp();
-        }
-
-        public void MoveDown()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveDown();
-        }
-
-        public void MoveLeft()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveLeft();
-        }
-
-        public void MoveRight()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveRight();
+            _movementStateMachine.Halt();
         }
 
         public void Heal()
@@ -87,9 +55,10 @@ namespace Zelda.Player
             _healthStateMachine.TakeDamage();
         }
 
-        public void Kill()
+        public void Stun()
         {
-            _healthStateMachine.Kill();
+            _movementStateMachine.Halt();
+            _spriteStateMachine.Sprite.PaletteShift();
         }
 
         public void UsePrimaryItem()
@@ -103,11 +72,6 @@ namespace Zelda.Player
             if (_spriteStateMachine.UsingItem) return;
             _spriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
-        }
-
-        public void AssignPrimaryItem(Items.Primary item)
-        {
-            _spriteStateMachine.AssignPrimaryItem(item);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
