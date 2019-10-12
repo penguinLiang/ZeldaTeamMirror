@@ -11,9 +11,8 @@ namespace Zelda.Items
 
         public DroppedHeart(Point location)
         {
-            var (x, y) = location;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
-            _drawLocation = new Vector2(x + 8, y + 8);
+            _bounds = new Rectangle(location.X + 8, location.Y, 8, 8);
+            _drawLocation = new Vector2(location.X + 8, location.Y + 8);
         }
 
         public bool CollidesWith(Rectangle rect)
