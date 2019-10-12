@@ -101,7 +101,7 @@
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
-    <Compile Include="Items\Heart.cs" />
+    <Compile Include="Items\DroppedHeart.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />

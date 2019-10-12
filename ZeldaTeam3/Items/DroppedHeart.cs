@@ -3,17 +3,17 @@ using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class Fairy : ICollideable, IDrawable
+    internal class DroppedHeart : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateFairy();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
-        public Fairy(Point location)
+        public DroppedHeart(Point location)
         {
             var (x, y) = location;
-            _bounds = new Rectangle(x + 8, y, 8, 16);
-            _drawLocation = _bounds.Location.ToVector2();
+            _bounds = new Rectangle(x + 8, y, 8, 8);
+            _drawLocation = new Vector2(x + 8, y + 8);
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -23,7 +23,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new LinkFullHeal(player);
+            return new LinkHeal(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
@@ -31,7 +31,7 @@ namespace Zelda.Items
             return NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable haltable)
+        public ICommand ProjectileEffect(IHaltable projectile)
         {
             return NoOp.Instance;
         }
