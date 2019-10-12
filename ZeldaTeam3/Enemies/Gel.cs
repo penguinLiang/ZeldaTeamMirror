@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -6,14 +6,21 @@ namespace Zelda.Enemies
     {
         private readonly GelAgent _agent;
 
-        public Gel(SpriteBatch spriteBatch, int posX, int posY)
+        public Gel(Point location)
         {
-            _agent = new GelAgent(spriteBatch, posX, posY);
+            _agent = new GelAgent(location);
         }
 
-        public void Kill()
+        public bool Alive { get; } = true;
+
+        public void Knockback()
         {
-            _agent.Kill();
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void MoveDown()
@@ -44,6 +51,11 @@ namespace Zelda.Enemies
         public void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()

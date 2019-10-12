@@ -11,8 +11,6 @@ namespace Zelda.Projectiles
 
         public static ProjectileSpriteFactory Instance { get; } = new ProjectileSpriteFactory();
 
-        private ProjectileSpriteFactory() { }
-
         public void LoadAllTextures(ContentManager content)
         {
             _fieldWeaponsSpriteSheet = content.Load<Texture2D>("FieldWeapons");

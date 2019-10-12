@@ -3,110 +3,97 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Player
 {
-    internal class MovementStateMachine : IMoveable
+    internal class MovementStateMachine : IHaltable
     {
-        // Frame delay: 1/60 fps = ~1/60s
-        private const int FrameDelay = 1;
+        private readonly FrameDelay _movementDelay = new FrameDelay(1);
+        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(20);
+
         public Direction Facing { get; private set; } = Direction.Right;
-        public Direction Moving { get; private set; } = Direction.Right;
         public bool Idling { get; private set; } = true;
-        public Vector2 Location { get; private set; }
+        public bool Knockedback { get; private set; }
+        public Point Location { get; private set; }
 
-        private int _framesDelayed;
+        private Direction _moving;
 
-        public MovementStateMachine(Vector2 location)
+        public MovementStateMachine(Point location)
         {
             Location = location;
+            _disableKnockbackDelay.Pause();
         }
 
         private void AdvanceLocation()
         {
-            switch (Moving)
+            if (Idling || _movementDelay.Delayed) return;
+
+            switch (_moving)
             {
                 case Direction.Up:
-                    Location = new Vector2(Location.X, Location.Y - 1);
+                    Location = new Point(Location.X, Location.Y - 1);
                     break;
                 case Direction.Down:
-                    Location = new Vector2(Location.X, Location.Y + 1);
+                    Location = new Point(Location.X, Location.Y + 1);
                     break;
                 case Direction.Left:
-                    Location = new Vector2(Location.X - 1, Location.Y);
+                    Location = new Point(Location.X - 1, Location.Y);
                     break;
                 case Direction.Right:
-                    Location = new Vector2(Location.X + 1, Location.Y);
+                    Location = new Point(Location.X + 1, Location.Y);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private int FramesDelayed
+        public void Move(Direction direction)
         {
-            get => _framesDelayed;
-            set
+            if (Knockedback) return;
+
+            Facing = _moving = direction;
+            Idling = false;
+        }
+
+        public void Knockback()
+        {
+            Idling = false;
+            Knockedback = true;
+
+            switch (Facing)
             {
-                if (Idling) return;
-                _framesDelayed = value;
-
-                if (_framesDelayed != FrameDelay) return;
-                AdvanceLocation();
-                _framesDelayed = 0;
+                case Direction.Up:
+                    _moving = Direction.Down;
+                    break;
+                case Direction.Down:
+                    _moving = Direction.Up;
+                    break;
+                case Direction.Left:
+                    _moving = Direction.Right;
+                    break;
+                case Direction.Right:
+                    _moving = Direction.Left;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+            _disableKnockbackDelay.Resume();
         }
 
-        public void FaceUp()
-        {
-            Facing = Direction.Up;
-        }
-
-        public void FaceDown()
-        {
-            Facing = Direction.Down;
-        }
-
-        public void FaceLeft()
-        {
-            Facing = Direction.Left;
-        }
-
-        public void FaceRight()
-        {
-            Facing = Direction.Right;
-        }
-
-        public void MoveUp()
-        {
-            Moving = Direction.Up;
-            Idling = false;
-        }
-
-        public void MoveDown()
-        {
-            Moving = Direction.Down;
-            Idling = false;
-        }
-
-        public void MoveLeft()
-        {
-            Moving = Direction.Left;
-            Idling = false;
-        }
-
-        public void MoveRight()
-        {
-            Moving = Direction.Right;
-            Idling = false;
-        }
-
-        public void Idle()
+        public void Halt()
         {
             Idling = true;
         }
 
         public void Update()
         {
-            FramesDelayed++;
-            Idling = true;
+            _disableKnockbackDelay.Update();
+            _movementDelay.Update();
+            AdvanceLocation();
+
+            if (!Knockedback) Idling = true;
+
+            if (_disableKnockbackDelay.Delayed) return;
+            _disableKnockbackDelay.Pause();
+            Knockedback = false;
+            _moving = Facing;
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿namespace Zelda.Commands
 {
-    internal class LinkDamage : ICommand
+    internal class LinkKnockback : ICommand
     {
         private readonly IPlayer _link;
 
-        public LinkDamage(IPlayer link)
+        public LinkKnockback(IPlayer link)
         {
             _link = link;
         }
 
         public void Execute()
         {
-            _link.TakeDamage();
+            _link.Knockback();
         }
-
-        public override string ToString() => "Link: Take damage";
+        public override string ToString() => "Link: Knockback";
     }
 }

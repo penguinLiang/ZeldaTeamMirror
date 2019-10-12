@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Projectiles
 {
@@ -12,16 +10,14 @@ namespace Zelda.Projectiles
         private const int NumberOfOuterExplosionSprites = 3;
 
         private readonly Vector2 _location;
-        private readonly SpriteBatch _spriteBatch;
-        private Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
+        private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
         private ISprite _sprite;
         private int _framesDelayed;
 
-        public Bomb(SpriteBatch spriteBatch, Vector2 location)
+        public Bomb(Point location)
         {
-            _location = location;
+            _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
-            _spriteBatch = spriteBatch;
         }
 
         private void SetExplosionSpriteLocations()
@@ -58,13 +54,12 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, _location);
-            if (_framesDelayed >= FramesToExplosion)
+            _sprite.Draw(_location);
+
+            if (_framesDelayed < FramesToExplosion) return;
+            foreach (var spriteLocation in _outerExplosionSpriteLocations)
             {
-                foreach (var spriteLocation in _outerExplosionSpriteLocations)
-                {
-                    _sprite.Draw(_spriteBatch, spriteLocation);
-                }
+                _sprite.Draw( spriteLocation);
             }
         }
     }
