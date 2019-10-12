@@ -115,5 +115,10 @@ namespace Zelda.Player
         {
             return new Sprite(_useSecondarySpritesheet, Width, Height, UseSecondaryFrameCount, _useSecondaryOffset[direction], FrameDelay, SwordPaletteHeight, PaletteCount);
         }
+
+        public ISprite CreateDeadLink()
+        {
+            return new Sprite(_noWeaponSpritesheet, 16, 16, 1, new Point(0, 272));
+        }
     }
 }

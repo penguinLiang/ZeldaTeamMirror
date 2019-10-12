@@ -163,7 +163,7 @@ namespace Zelda.Player
                      ChangeSprite(_facing);
                     }
              else if(DyingFrames>=17 && DyingFrames<20){
-                    Sprite = LinkSpriteFactory.Instance.CreateNoWeapon(Direction.Down);
+                    Sprite = LinkSpriteFactory.Instance.CreateDeadLink();
                     //fade to gray
                 }
                else if(DyingFrames>=20 && DyingFrames<25){
