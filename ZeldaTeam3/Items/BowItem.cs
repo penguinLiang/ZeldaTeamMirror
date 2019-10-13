@@ -6,7 +6,7 @@ namespace Zelda.Items
 {
     internal class BowItem : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateBow();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 

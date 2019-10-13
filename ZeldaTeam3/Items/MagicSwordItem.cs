@@ -6,7 +6,7 @@ namespace Zelda.Items
 {
     internal class MagicSwordItem : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateMagicSword();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
