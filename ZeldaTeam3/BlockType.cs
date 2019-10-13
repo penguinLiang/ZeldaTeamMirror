@@ -1,0 +1,34 @@
+﻿namespace Zelda
+{
+    public enum BlockType
+    {
+      Water,
+      Sand,
+      FishStatue,
+      DragonStatue,
+      ImmovableBlock,
+      PushableBlock,
+      Block2_1,
+      DoorUp,
+      DoorDown,
+      DoorRight,
+      DoorLeft,
+      DoorLockedUp,
+      DoorLockedLeft,
+      DoorLockedDown,
+      DoorLockedRight,
+      DoorSpecialLeft2_1,
+      DoorSpecialRight3_1,
+      WallLeft,
+      WallRight,
+      WallTop,
+      WallBottom,
+      BombableWallLeft,
+      BombableWallRight,
+      BombableWallTop,
+      BombableWallBottom,
+      Stair1,
+      Stair2,
+      Fire
+    }
+}
