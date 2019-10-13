@@ -4,13 +4,13 @@ using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class Compass : ICollideable, IDrawable
+    internal class Triforce : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateCompass();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateTriforcePiece();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
-        public Compass(Point location)
+        public Triforce(Point location)
         {
             var (x, y) = location;
             _bounds = new Rectangle(x + 8, y, 8, 8);

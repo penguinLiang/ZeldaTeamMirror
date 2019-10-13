@@ -24,7 +24,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return NoO.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
