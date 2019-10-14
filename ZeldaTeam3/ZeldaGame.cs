@@ -25,7 +25,7 @@ namespace Zelda
             // Use 2x size of NES window
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 512, PreferredBackBufferHeight = 488
+                PreferredBackBufferWidth = 512, PreferredBackBufferHeight = 448
             };
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";

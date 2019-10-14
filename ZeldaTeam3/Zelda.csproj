@@ -116,9 +116,11 @@
     <Compile Include="Player\Inventory.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
+    <Compile Include="JumpMap.cs" />
     <Compile Include="BlockType.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="DummyScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
