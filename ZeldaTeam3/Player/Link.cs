@@ -5,7 +5,8 @@ namespace Zelda.Player
     public class Link : IPlayer
     {
         private readonly MovementStateMachine _movementStateMachine;
-        private readonly SpriteStateMachine _spriteStateMachine;
+        private readonly AliveSpriteStateMachine _aliveSpriteStateMachine;
+        private readonly DeadSpriteStateMachine _deadSpriteStateMachine = new DeadSpriteStateMachine();
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
         private readonly SecondaryItemAgent _secondaryItemAgent = new SecondaryItemAgent();
 
@@ -15,14 +16,15 @@ namespace Zelda.Player
         public Link(Point location)
         {
             _movementStateMachine = new MovementStateMachine(location);
-            _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
+            _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
         }
 
         public void Move(Direction direction)
         {
-            if (_spriteStateMachine.UsingItem) return;
+            if (!Alive || _aliveSpriteStateMachine.UsingItem) return;
             _movementStateMachine.Move(direction);
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
+            _aliveSpriteStateMachine.Aim(direction);
+            _deadSpriteStateMachine.Aim(direction);
         }
 
         public void Knockback()
@@ -34,7 +36,7 @@ namespace Zelda.Player
         {
             _movementStateMachine.Halt();
         }
-
+        
         public void Heal()
         {
             _healthStateMachine.Heal();
@@ -45,60 +47,68 @@ namespace Zelda.Player
             _healthStateMachine.FullHeal();
         }
 
+        public void AddHeart()
+        {
+            _healthStateMachine.AddHeart();
+        }
+
         public void Spawn()
         {
-            _healthStateMachine.Spawn();
+            // NO-OP: No appearance animation
         }
 
         public void TakeDamage()
         {
+            if(_healthStateMachine.Hurt) return;
             _healthStateMachine.TakeDamage();
+            _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
 
         public void Stun()
         {
             _movementStateMachine.Halt();
-            _spriteStateMachine.Sprite.PaletteShift();
+            _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
 
         public void UsePrimaryItem()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _spriteStateMachine.UsePrimaryItem();
+            if (_aliveSpriteStateMachine.UsingItem) return;
+            _aliveSpriteStateMachine.UsePrimaryItem(Inventory.SwordLevel);
         }
 
         public void UseSecondaryItem()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _spriteStateMachine.UseSecondaryItem();
+            if (_aliveSpriteStateMachine.UsingItem) return;
+            _aliveSpriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
-            _spriteStateMachine.AssignSecondaryItem(item);
             _secondaryItemAgent.AssignSecondaryItem(item);
         }
 
         public void Update()
         {
-            if (!_spriteStateMachine.UsingItem && _movementStateMachine.Idling)
+            if (!Alive)
             {
-                _spriteStateMachine.Sprite.PauseAnimation();
+                _deadSpriteStateMachine.Update();
+                return;
+            }
+
+            if (!_aliveSpriteStateMachine.UsingItem && _movementStateMachine.Idling)
+            {
+                _aliveSpriteStateMachine.Sprite.PauseAnimation();
             }
             else
             {
-                _spriteStateMachine.Sprite.PlayAnimation();
+                _aliveSpriteStateMachine.Sprite.PlayAnimation();
             }
 
-            if (_healthStateMachine.Hurt)
-            {
-                _spriteStateMachine.Sprite.PaletteShift();
-            }
-
-            _spriteStateMachine.Update();
+            _aliveSpriteStateMachine.Update();
             _secondaryItemAgent.Update();
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.Update();
+
+            if (!_aliveSpriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
         }
 
@@ -107,7 +117,7 @@ namespace Zelda.Player
         private Vector2 AdjustedDrawLocation()
         {
             var drawLocation = _movementStateMachine.Location.ToVector2();
-            if (!_spriteStateMachine.UsingPrimaryItem) return drawLocation;
+            if (!_aliveSpriteStateMachine.UsingPrimaryItem) return drawLocation;
 
             if (_movementStateMachine.Facing == Direction.Left)
             {
@@ -124,7 +134,14 @@ namespace Zelda.Player
         public void Draw()
         {
             _secondaryItemAgent.Draw();
-            _spriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
+            if (Alive)
+            {
+                _aliveSpriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
+            }
+            else
+            {
+                _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
+            }
         }
     }
 }

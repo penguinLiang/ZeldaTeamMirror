@@ -1,95 +1,63 @@
-﻿namespace Zelda.Player
+﻿using System;
+
+namespace Zelda.Player
 {
-    internal class HealthStateMachine : ISpawnable
+    /*
+     * Manages the state of Link's health and hurt status
+     */
+    internal class HealthStateMachine : IUpdatable
     {
-        // 60/60 frames = ~1s
-        private const int DeathFrameDelay = 60;
-        // 120/60 frames = ~2s
-        private const int RespawnFrameDelay = 120;
-        private const int HurtResetDelay = 120;
-
-        public bool Alive { get; private set; } = true;
-        public bool Visible { get; private set; } = true;
         public bool Hurt { get; private set; }
+        public bool Alive => Health > 0;
 
-        private int _dyingFramesDelayed;
-        private int _respawnFramesDelayed;
-        private int _hurtFramesDelayed;
+        // Health is countable as half hearts, so 6 is 3 full hearts
+        public int MaxHealth { get; private set; } = 6;
+        public int Health;
 
-        private int DyingFramesDelayed
+        private readonly FrameDelay _hurtResetDelay = new FrameDelay(60);
+
+        public HealthStateMachine()
         {
-            get => _dyingFramesDelayed;
-            set
-            {
-                if (Alive) return;
-                _dyingFramesDelayed = value;
-
-                if (_dyingFramesDelayed != DeathFrameDelay) return;
-                Visible = false;
-                _dyingFramesDelayed = 0;
-            }
-        }
-
-        private int RespawnFramesDelayed
-        {
-            get => _respawnFramesDelayed;
-            set
-            {
-                if (Alive) return;
-                _respawnFramesDelayed = value;
-
-                if (_respawnFramesDelayed != RespawnFrameDelay) return;
-                Alive = true;
-                Visible = true;
-                _respawnFramesDelayed = 0;
-            }
-        }
-
-        private int HurtFramesDelayed
-        {
-            get => _hurtFramesDelayed;
-            set
-            {
-                if (!Hurt) return;
-                _hurtFramesDelayed = value;
-
-                if (_hurtFramesDelayed != HurtResetDelay) return;
-                Hurt = false;
-                _hurtFramesDelayed = 0;
-            }
-        }
-
-        public void Spawn()
-        {
-            Alive = true;
-            Visible = true;
+            Health = MaxHealth;
+            _hurtResetDelay.Pause();
         }
 
         public void TakeDamage()
         {
-            Hurt = true;
-        }
-
-        public void Stun()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update()
-        {
-            DyingFramesDelayed++;
-            RespawnFramesDelayed++;
-            HurtFramesDelayed++;
+            if (Alive)
+            {
+                Health--;
+                Hurt = true;
+                _hurtResetDelay.Resume();
+            }
+            else
+            {
+                Hurt = false;
+            }
         }
 
         public void FullHeal()
         {
-            throw new System.NotImplementedException();
+            Health = MaxHealth;
         }
 
         public void Heal()
         {
-            throw new System.NotImplementedException();
+            Health = Math.Min(Health + 2, MaxHealth);
+        }
+
+        public void AddHeart()
+        {
+            MaxHealth += 2;
+        }
+
+        public void Update()
+        {
+            _hurtResetDelay.Update();
+
+            if (_hurtResetDelay.Delayed) return;
+            _hurtResetDelay.Pause();
+            Hurt = false;
         }
     }
 }
