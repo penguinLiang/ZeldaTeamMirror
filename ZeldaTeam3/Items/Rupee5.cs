@@ -4,13 +4,13 @@ using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class MagicSwordItem : ICollideable, IDrawable
+    internal class Rupee5 : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateMagicSword();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.Create1Rupee();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
-        public MagicSwordItem(Point location)
+        public Rupee5(Point location)
         {
             var (x, y) = location;
             _bounds = new Rectangle(x + 8, y, 8, 8);
@@ -24,7 +24,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new UpgradeSword(player, Items.Primary.MagicalSword);
+            return new Add5Rupee(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
