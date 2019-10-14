@@ -1,14 +1,14 @@
 ﻿namespace Zelda
 {
-    public interface IPlayer : IMoveable, ISpawnable, IDrawable
+    public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
+        Player.Inventory Inventory { get; }
+
+        void Move(Direction direction);
         void UsePrimaryItem();
         void UseSecondaryItem();
-        void AssignPrimaryItem(Items.Primary item);
         void AssignSecondaryItem(Items.Secondary item);
-        void FaceUp();
-        void FaceRight();
-        void FaceLeft();
-        void FaceDown();
+        void Heal();
+        void FullHeal();
     }
 }

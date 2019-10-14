@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -8,24 +7,22 @@ namespace Zelda.Enemies
         private ISprite _sprite;
 
         private int _health;
-        private int _posX;
-        private int _posY;
         private int _clock;
         private bool _alive;
         private bool _isImmobile;
         private bool _isDying;
-        private readonly SpriteBatch _spriteBatch;
 
+        private Point _location;
 
-        public WallMasterAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public WallMasterAgent(Point location)
         {
-            _posX = posX;
-            _posY = posY;
-            _alive = false;
-            _spriteBatch = spriteBatch;
+            _location = location;
+            _alive = true;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
             _sprite.Hide();
+            _isImmobile = true;
+            _isDying = false;
         }
 
         public void Kill()
@@ -41,24 +38,24 @@ namespace Zelda.Enemies
             _alive = false;
         }
 
-        public void MoveDown()
-        {
-            if (!_isImmobile)
-            {
-                _posY += 1;
-            }
-        }
-
         public void UseAttack()
         {
-            // NO-OP: Attack has no animation
+            // NO OP
+        }
+
+        public void MoveDown()
+        {
+            if (_isImmobile)
+            {
+                _location.Y += 1;
+            }
         }
 
         public void MoveLeft()
         {
             if (!_isImmobile)
             {
-                _posX -= 1;
+                _location.X -= 1;
             }
         }
 
@@ -66,7 +63,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _posX += 1;
+                _location.X += 1;
             }
         }
 
@@ -74,7 +71,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _posY -= 1;
+                _location.Y -= 1;
             }
         }
 
@@ -103,7 +100,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(_location.ToVector2());
         }
 
         public void Update()

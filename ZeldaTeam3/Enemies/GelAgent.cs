@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -7,21 +6,15 @@ namespace Zelda.Enemies
     {
         private ISprite _sprite;
 
-        private int _posX;
-        private int _posY;
         private bool _isImmobile;
         private bool _isDying;
         private bool _alive;
         private int _clock;
+        private Point _location;
 
-        private readonly SpriteBatch _spriteBatch;
-
-
-        public GelAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public GelAgent(Point location)
         {
-            _posX = posX;
-            _posY = posY;
-            _spriteBatch = spriteBatch;
+            _location = location;
             _sprite = EnemySpriteFactory.Instance.CreateGel();
             _sprite.Hide();
             _isImmobile = true;
@@ -41,24 +34,24 @@ namespace Zelda.Enemies
             _alive = false;
         }
 
+        public void UseAttack()
+        {
+            // NO-OP: Attack has no animation
+        }
+
         public void MoveDown()
         {
             if (!_isImmobile)
             {
-                _posY += 1;
+                _location.Y += 1;
             }
-        }
-
-        public void UseAttack()
-        {
-            // NO-OP: Attack has no animation
         }
 
         public void MoveLeft()
         {
             if (!_isImmobile)
             {
-                _posX -= 1;
+                _location.X -= 1;
             }
         }
 
@@ -66,7 +59,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _posX += 1;
+                _location.X += 1;
             }
         }
 
@@ -74,7 +67,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _posY -= 1;
+                _location.Y -= 1;
             }
         }
 
@@ -93,7 +86,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(_location.ToVector2());
         }
 
         public void Update()

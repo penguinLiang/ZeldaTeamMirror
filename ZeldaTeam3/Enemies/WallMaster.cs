@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -6,10 +6,12 @@ namespace Zelda.Enemies
     {
         private readonly WallMasterAgent _agent;
 
-        public WallMaster(SpriteBatch spriteBatch, int posX, int posY)
+        public WallMaster(Point location)
         {
-            _agent = new WallMasterAgent(spriteBatch, posX, posY);
+            _agent = new WallMasterAgent(location);
         }
+
+        public bool Alive { get; }
 
         public void Kill()
         {
@@ -31,6 +33,16 @@ namespace Zelda.Enemies
             _agent.MoveRight();
         }
 
+        public void Knockback()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void MoveUp()
         {
             _agent.MoveUp();
@@ -44,6 +56,11 @@ namespace Zelda.Enemies
         public void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void UseAttack()

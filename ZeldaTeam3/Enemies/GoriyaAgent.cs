@@ -1,37 +1,36 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
     public class GoriyaAgent
     {
         private ISprite _sprite;
-        private bool _isImmobile;
+        
         private const int BoomerangDuration = 40;
+        private Projectiles.ThrownBoomerang _boomerang;
 
-        private bool _updateSpriteFlag;
         private bool _alive;
+        private bool _isDying;
+        private bool _isImmobile;
+        private bool _updateSpriteFlag;
+
+        private Point _location;
 
         private Direction _statusDirection;
 
         private int _health;
         private int _clock;
-        private int _posX;
-        private int _posY;
         private int _timeSinceBoomerangThrown;
-        private Projectiles.ThrownBoomerang _boomerang;
-        private bool _isDying;
-        private readonly SpriteBatch _spriteBatch;
+        
+        
 
-        public GoriyaAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public GoriyaAgent(Point location)
         {
             _updateSpriteFlag = false;
-            _posX = posX;
-            _posY = posY;
+            _location = location;
             _timeSinceBoomerangThrown = BoomerangDuration;
             _alive = false;
-            _spriteBatch = spriteBatch;
             _statusDirection = Direction.Down;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
@@ -53,25 +52,25 @@ namespace Zelda.Enemies
 
         public void UseAttack()
         {
-            Vector2 boomerangLocation = new Vector2(_posX + 4, _posY + 4);
+            var boomerangeOffset = new Point(4, 4);
             switch (_statusDirection)
             {
                 case Direction.Up:
-                    boomerangLocation.Y -= 16;
+                    boomerangeOffset.Y -= 16;
                     break;
                 case Direction.Down:
-                    boomerangLocation.Y += 16;
+                    boomerangeOffset.Y += 16;
                     break;
                 case Direction.Left:
-                    boomerangLocation.X -= 16;
+                    boomerangeOffset.X -= 16;
                     break;
                 case Direction.Right:
-                    boomerangLocation.X += 16;
+                    boomerangeOffset.X += 16;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _boomerang = new Projectiles.ThrownBoomerang(_spriteBatch, boomerangLocation, _statusDirection);
+            _boomerang = new Projectiles.ThrownBoomerang(_location + boomerangeOffset, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -80,7 +79,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Left);
-                _posX -= 1;
+                _location.X -= 1;
             }
         }
 
@@ -89,7 +88,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Right);
-                _posX += 1;
+                _location.X += 1;
             }
         }
 
@@ -98,7 +97,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Up);
-                _posY -= 1;
+                _location.Y -= 1;
             }
         }
 
@@ -107,7 +106,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Down);
-                _posY += 1;
+                _location.Y += 1;
             }
         }
 
@@ -137,11 +136,8 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
-            if (_boomerang != null)
-            {
-                _boomerang.Draw();
-            }
+            _sprite.Draw(_location.ToVector2());
+            _boomerang?.Draw();
         }
 
         public void Update()
@@ -163,11 +159,7 @@ namespace Zelda.Enemies
             }
 
             _sprite.Update();
-
-            if (_boomerang != null)
-            {
-                _boomerang.Update();
-            }
+            _boomerang?.Update();
         }
 
         public void UpdateDirection(Direction direction)
@@ -178,7 +170,6 @@ namespace Zelda.Enemies
 
         private void UpdateSprite()
         {
-
             switch (_statusDirection)
             {
                 case Direction.Down:

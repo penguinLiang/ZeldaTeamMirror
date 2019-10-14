@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Projectiles
 {
@@ -10,18 +9,16 @@ namespace Zelda.Projectiles
         private const int DistancePerFrame = 5;
 
         private Vector2 _location;
-        private readonly SpriteBatch _spriteBatch;
         private readonly ISprite _sprite;
 
         private int _currentDistanceAway;
         private Direction _direction;
 
-        public ThrownBoomerang(SpriteBatch spriteBatch, Vector2 location, Direction direction)
+        public ThrownBoomerang(Point location, Direction direction)
         {
             _direction = direction;
-            _location = location;
+            _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
-            _spriteBatch = spriteBatch;
             _currentDistanceAway = 0;
         }
 
@@ -80,7 +77,7 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, _location);
+            _sprite.Draw(_location);
         }
     }
 }

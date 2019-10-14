@@ -1,6 +1,4 @@
-﻿using System.Net;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Enemies
 {
@@ -9,21 +7,16 @@ namespace Zelda.Enemies
         private ISprite _sprite;
 
         private int _health;
-
         private bool _alive;
-        private int _posX;
-        private int _posY;
+        private Point _location;
         private int _clock;
         private bool _isImmobile;
         private bool _isDying;
-        private readonly SpriteBatch _spriteBatch;
 
-        public StalfosAgent(SpriteBatch spriteBatch, int posX, int posY)
+        public StalfosAgent(Point location)
         {
-            _posX = posX;
-            _posY = posY;
+            _location = location;
             _alive = false;
-            _spriteBatch = spriteBatch;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateStalfos();
             _sprite.Hide();
@@ -44,42 +37,40 @@ namespace Zelda.Enemies
             _alive = false;
         }
 
-        public void MoveDown()
-        {
-            if (!_isImmobile)
-            {
-                _posY += 1;
-            }
-        }
-
         public void UseAttack()
         {
             // NO-OP: Attack has no animation
+        }
+
+        public void MoveDown()
+        {
+            if (_isImmobile)
+            {
+                _location.Y += 1;
+            }
         }
 
         public void MoveLeft()
         {
             if (!_isImmobile)
             {
-                _posX -= 1;
+                _location.X -= 1;
             }
-                
         }
 
         public void MoveRight()
         {
             if (!_isImmobile)
             {
-                _posX += 1;
+                _location.X += 1;
             }
-                
         }
 
         public void MoveUp()
         {
             if (!_isImmobile)
             {
-                _posY -= 1;
+                _location.Y -= 1;
             }
         }
 
@@ -108,7 +99,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_spriteBatch, new Vector2(_posX, _posY));
+            _sprite.Draw(_location.ToVector2());
         }
 
         public void Update()

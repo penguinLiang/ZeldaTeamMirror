@@ -70,9 +70,9 @@
             Hurt = true;
         }
 
-        public void Kill()
+        public void Stun()
         {
-            Alive = false;
+            throw new System.NotImplementedException();
         }
 
         public void Update()
@@ -80,6 +80,16 @@
             DyingFramesDelayed++;
             RespawnFramesDelayed++;
             HurtFramesDelayed++;
+        }
+
+        public void FullHeal()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Heal()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

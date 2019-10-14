@@ -1,71 +1,48 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Player
 {
     public class Link : IPlayer
     {
-        private readonly SpriteBatch _spriteBatch;
         private readonly MovementStateMachine _movementStateMachine;
         private readonly SpriteStateMachine _spriteStateMachine;
         private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
-        private readonly SecondaryItemAgent _secondaryItemAgent;
+        private readonly SecondaryItemAgent _secondaryItemAgent = new SecondaryItemAgent();
 
-        public Link(SpriteBatch spriteBatch, Vector2 location)
+        public Inventory Inventory { get; } = new Inventory();
+        public bool Alive => _healthStateMachine.Alive;
+
+        public Link(Point location)
         {
-            _spriteBatch = spriteBatch;
             _movementStateMachine = new MovementStateMachine(location);
-            _movementStateMachine.Idle();
             _spriteStateMachine = new SpriteStateMachine(_movementStateMachine.Facing);
-            _secondaryItemAgent = new SecondaryItemAgent(_spriteBatch);
         }
 
-        public void FaceUp()
+        public void Move(Direction direction)
         {
             if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceUp();
+            _movementStateMachine.Move(direction);
             _spriteStateMachine.Aim(_movementStateMachine.Facing);
         }
 
-        public void FaceDown()
+        public void Knockback()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceDown();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
+            _movementStateMachine.Knockback();
         }
 
-        public void FaceLeft()
+        public void Halt()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceLeft();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
+            _movementStateMachine.Halt();
         }
 
-        public void FaceRight()
+        public void Heal()
         {
-            if (_spriteStateMachine.UsingItem) return;
-            _movementStateMachine.FaceRight();
-            _spriteStateMachine.Aim(_movementStateMachine.Facing);
+            _healthStateMachine.Heal();
         }
 
-        public void MoveUp()
+        public void FullHeal()
         {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveUp();
-        }
-
-        public void MoveDown()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveDown();
-        }
-
-        public void MoveLeft()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveLeft();
-        }
-
-        public void MoveRight()
-        {
-            if (!_spriteStateMachine.UsingItem) _movementStateMachine.MoveRight();
+            _healthStateMachine.FullHeal();
         }
 
         public void Spawn()
@@ -78,9 +55,10 @@ namespace Zelda.Player
             _healthStateMachine.TakeDamage();
         }
 
-        public void Kill()
+        public void Stun()
         {
-            _healthStateMachine.Kill();
+            _movementStateMachine.Halt();
+            _spriteStateMachine.Sprite.PaletteShift();
         }
 
         public void UsePrimaryItem()
@@ -94,11 +72,6 @@ namespace Zelda.Player
             if (_spriteStateMachine.UsingItem) return;
             _spriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
-        }
-
-        public void AssignPrimaryItem(Items.Primary item)
-        {
-            _spriteStateMachine.AssignPrimaryItem(item);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
@@ -133,7 +106,7 @@ namespace Zelda.Player
         // this was chosen in contrast to making every sprite 32x32 and calculating the origin of the bounding box for all directions
         private Vector2 AdjustedDrawLocation()
         {
-            var drawLocation = _movementStateMachine.Location;
+            var drawLocation = _movementStateMachine.Location.ToVector2();
             if (!_spriteStateMachine.UsingPrimaryItem) return drawLocation;
 
             if (_movementStateMachine.Facing == Direction.Left)
@@ -151,7 +124,7 @@ namespace Zelda.Player
         public void Draw()
         {
             _secondaryItemAgent.Draw();
-            _spriteStateMachine.Sprite.Draw(_spriteBatch, AdjustedDrawLocation());
+            _spriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
         }
     }
 }

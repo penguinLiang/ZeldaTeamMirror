@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -6,14 +6,26 @@ namespace Zelda.Enemies
     {
         private readonly OldManAgent _agent;
 
-        public OldMan(SpriteBatch spriteBatch, int posX, int posY)
+        public OldMan(Point location)
         {
-            _agent = new OldManAgent(spriteBatch, posX, posY);
+            _agent = new OldManAgent(location);
         }
 
-        public void Kill()
+        public bool Alive { get; } = true;
+
+        public void Spawn()
         {
-            _agent.Kill();
+            _agent.Spawn();
+        }
+
+        public void TakeDamage()
+        {
+            _agent.TakeDamage();
+        }
+
+        public void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void MoveDown()
@@ -36,16 +48,6 @@ namespace Zelda.Enemies
             _agent.MoveUp();
         }
 
-        public void Spawn()
-        {
-            _agent.Spawn();
-        }
-
-        public void TakeDamage()
-        {
-            _agent.TakeDamage();
-        }
-
         public void UseAttack()
         {
             _agent.UseAttack();
@@ -59,6 +61,16 @@ namespace Zelda.Enemies
         public void Update()
         {
             _agent.Update();
+        }
+
+        public void Knockback()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Halt()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
