@@ -351,3 +351,23 @@
 /processorParam:TextureFormat=Color
 /build:Tiles.png
 
+#begin Rooms/3-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/3-5.csv
+
+#begin Rooms/4-0.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/4-0.csv
+
+#begin Rooms/4-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/4-5.csv
+
+#begin Rooms/5-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/5-5.csv
+
