@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.Commands;
+using Zelda.Enemies;
 
 namespace Zelda.Player
 {
-    public class Link : IPlayer
+    internal class Link : IPlayer
     {
         private readonly MovementStateMachine _movementStateMachine;
         private readonly SpriteStateMachine _spriteStateMachine;
@@ -11,6 +13,9 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+
+        // Link only collides with the bottom half of his sprite, hence the offset by 8 in the y and the height only being 8
+        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location.X, _movementStateMachine.Location.Y + 8, 16, 8);
 
         public Link(Point location)
         {
@@ -53,6 +58,7 @@ namespace Zelda.Player
         public void TakeDamage()
         {
             _healthStateMachine.TakeDamage();
+            Knockback();
         }
 
         public void Stun()
@@ -125,6 +131,26 @@ namespace Zelda.Player
         {
             _secondaryItemAgent.Draw();
             _spriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
+        }
+
+        public bool CollidesWith(Rectangle rect)
+        {
+            return Bounds.Intersects(rect);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            return new SpawnableDamage(this);
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return new SpawnableDamage(this);
         }
     }
 }

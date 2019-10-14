@@ -2,7 +2,7 @@
 
 namespace Zelda
 {
-    interface ICollideable
+    public interface ICollideable
     {
         bool CollidesWith(Rectangle rect);
         ICommand PlayerEffect(IPlayer player);

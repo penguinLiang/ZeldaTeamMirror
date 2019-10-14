@@ -8,14 +8,14 @@ namespace Zelda.Enemies
 
         private int _health;
         private bool _alive;
-        private Point _location;
+        public Point Location { get; private set; }
         private int _clock;
         private bool _isImmobile;
         private bool _isDying;
 
         public StalfosAgent(Point location)
         {
-            _location = location;
+            Location = location;
             _alive = false;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateStalfos();
@@ -46,7 +46,9 @@ namespace Zelda.Enemies
         {
             if (_isImmobile)
             {
-                _location.Y += 1;
+                var location = Location;
+                location.Y += 1;
+                Location = location;
             }
         }
 
@@ -54,7 +56,8 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X -= 1;
+                var location = Location;
+                location.X -= 1;
             }
         }
 
@@ -62,7 +65,8 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X += 1;
+                var location = Location;
+                location.X += 1;
             }
         }
 
@@ -70,7 +74,8 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.Y -= 1;
+                var location = Location;
+                location.Y -= 1;
             }
         }
 
@@ -99,7 +104,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            _sprite.Draw(Location.ToVector2());
         }
 
         public void Update()

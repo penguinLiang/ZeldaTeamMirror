@@ -1,10 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
     public class Stalfos : IEnemy
     {
         private readonly StalfosAgent _agent;
+
+        public Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
 
         public Stalfos(Point location)
         {
@@ -70,7 +73,10 @@ namespace Zelda.Enemies
 
         public void Update()
         {
+            
             _agent.Update();
         }
+
+        
     }
 }

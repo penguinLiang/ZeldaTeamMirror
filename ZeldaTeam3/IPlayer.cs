@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    public interface IPlayer : IHaltable, ISpawnable, IDrawable
+    public interface IPlayer : IHaltable, ISpawnable, IDrawable, ICollideable
     {
         Player.Inventory Inventory { get; }
 

@@ -28,16 +28,16 @@ namespace Zelda.Player
             switch (_moving)
             {
                 case Direction.Up:
-                    Location = new Point(Location.X, Location.Y - 1);
+                    Location = new Point(Location.X, Location.Y - 2);
                     break;
                 case Direction.Down:
-                    Location = new Point(Location.X, Location.Y + 1);
+                    Location = new Point(Location.X, Location.Y + 2);
                     break;
                 case Direction.Left:
-                    Location = new Point(Location.X - 1, Location.Y);
+                    Location = new Point(Location.X - 2, Location.Y);
                     break;
                 case Direction.Right:
-                    Location = new Point(Location.X + 1, Location.Y);
+                    Location = new Point(Location.X + 2, Location.Y);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
