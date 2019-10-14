@@ -78,6 +78,7 @@
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
+    <Compile Include="Commands\SceneTransitionCommand.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="DungeonRoom.cs" />
     <Compile Include="IDrawable.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="DummyScene.cs" />
+    <Compile Include="MouseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
