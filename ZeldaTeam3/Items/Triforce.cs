@@ -26,6 +26,7 @@ namespace Zelda.Items
         public ICommand PlayerEffect(IPlayer player)
         {
             _sprite.Hide();
+            _bounds = new Rectangle(0, 0, 0, 0);
             return NoOp.Instance;
         }
 
