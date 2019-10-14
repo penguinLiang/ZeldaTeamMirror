@@ -41,8 +41,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\Add1Rupee.cs" />
+    <Compile Include="Commands\Add5Rupee.cs" />
+    <Compile Include="Commands\AddArrow.cs" />
+    <Compile Include="Commands\AddCompass.cs" />
+    <Compile Include="Commands\AddKey.cs" />
+    <Compile Include="Commands\AddMap.cs" />
+    <Compile Include="Commands\AddSecondaryItem.cs" />
     <Compile Include="Commands\MoveableHalt.cs" />
     <Compile Include="Commands\NoOp.cs" />
+    <Compile Include="Commands\UpgradeSword.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
