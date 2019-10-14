@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
+
 namespace Zelda.Blocks
 {
     internal class MovableBlock : ICollideable, IDrawable
@@ -12,7 +13,8 @@ namespace Zelda.Blocks
 
         public MovableBlock(Point location)
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
@@ -39,7 +41,11 @@ namespace Zelda.Blocks
 
         public void Update()
         {
+<<<<<<< HEAD
             _sprite.Update()
+=======
+            _sprite.Update();
+>>>>>>> master
         }
 
         public void Draw()
@@ -49,21 +55,37 @@ namespace Zelda.Blocks
 
         public void MoveLeft()
         {
+<<<<<<< HEAD
             return NoOp.Instance;
+=======
+
+>>>>>>> master
         }
 
         public void MoveRight()
         {
+<<<<<<< HEAD
             return NoOp.Instance;
+=======
+
+>>>>>>> master
         }
 
         public void MoveDown()
         {
+<<<<<<< HEAD
             NoOp.Instance();
         }
         public void MoveUp()
         {
             NoOp.Instance();
+=======
+
+        }
+        public void MoveUp()
+        {
+
+>>>>>>> master
         }
     }
 }

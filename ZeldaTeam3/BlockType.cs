@@ -9,6 +9,7 @@
       ImmovableBlock,
       PushableBlock,
       Block2_1,
+      InvisibleBlock,
       DoorUp,
       DoorDown,
       DoorRight,
@@ -19,6 +20,7 @@
       DoorLockedRight,
       DoorSpecialLeft2_1,
       DoorSpecialRight3_1,
+      DoorSpecialUp1_1,
       WallLeft,
       WallRight,
       WallTop,
@@ -29,6 +31,8 @@
       BombableWallBottom,
       Stair1,
       Stair2,
+      DungeonStair,
+      BasementStair,
       Fire
     }
 }

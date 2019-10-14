@@ -1,31 +1,20 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-<<<<<<< HEAD
 
-namespace Zelda.Blocks
+namespace Zelda.Items
 {
-    internal class DoorsAndStairs : ICollideable, IDrawable, IActivatable, IUpdatable
-=======
-using Zelda.Items;
-
-namespace Zelda.Blocks
-{
-    internal class DoorsAndStairs : ICollideable, IDrawable, IActivatable
->>>>>>> master
+    internal class Compass : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateRightOpenDoor();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateCompass();
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
-        private BlockType _block;
 
-        public DoorsAndStairs(Point location, BlockType block)
+        public Compass(Point location)
         {
             var (x, y) = location;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
-            _block = block;
-            //Create the sprite from the block
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -56,11 +45,6 @@ namespace Zelda.Blocks
         public void Draw()
         {
             _sprite.Draw(_drawLocation);
-        }
-
-        public void Activate()
-        {
-            NoOp.Instance;
         }
     }
 }

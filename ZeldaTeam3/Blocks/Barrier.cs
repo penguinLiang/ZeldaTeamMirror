@@ -6,15 +6,23 @@ namespace Zelda.Blocks
 {
     internal class Barrier : ICollideable, IDrawable, IUpdatable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
+        private readonly ISprite _sprite;
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
 
-        public Barrier(Point location)
+      
+        private BlockType _block;
+
+        public Barrier(Point location, BlockType block)
+
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
+
+            _block = block;
+
         }
 
         public bool CollidesWith(Rectangle rect)
