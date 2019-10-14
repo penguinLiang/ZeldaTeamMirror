@@ -19,6 +19,7 @@ namespace Zelda
         private SpriteFont _font;
         private IUpdatable[] _controllers;
         private string _controlsDescription = "";
+        private JumpMap _jumpMap;
 
         public ZeldaGame()
         {
@@ -43,6 +44,8 @@ namespace Zelda
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
+
+            _jumpMap = new JumpMap(_spriteBatch,Content);
 
             Link = new Link(new Point(128, 122));
 
@@ -99,6 +102,8 @@ namespace Zelda
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(5,5), Color.White);
           
             _spriteBatch.End();
+
+            _jumpMap.Draw();
 
             base.Draw(gameTime);
         }

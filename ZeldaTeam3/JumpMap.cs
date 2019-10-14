@@ -17,13 +17,14 @@ namespace Zelda
         {
             _spriteBatch = spriteBatch;
             _content = content;
-            image = content.Load<Texture2D>("JumpMap");
-            
+            image = content.Load<Texture2D>("JumpMap");            
         }
 
-        public Update()
+        public void Draw()
         {
-            _spriteBatch.Draw(image, new Rectangle(0, 0, 512, 448), Color.White);
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(image, new Rectangle(0, 0, 512, 448), Color.Black);
+            _spriteBatch.End();
         }
     }
 }

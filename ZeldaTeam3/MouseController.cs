@@ -57,7 +57,7 @@ namespace Zelda
         public void Update()
         {
             var mouseState = Mouse.GetState();
-            Point mousePos = new Point(mouseState.X, mouseState.y);
+            Point mousePos = new Point(mouseState.X, mouseState.Y);
             foreach (Rectangle room in _roommap)
             {
                 if(mouseState.LeftButton == ButtonState.Pressed && room.Contains(mousePos))
@@ -122,12 +122,7 @@ namespace Zelda
 
         public override string ToString()
         {
-            var result = "";
-            foreach (Rectangle keyCommand in _keymap)
-            {
-                result += KeyListing(keyCommand);
-            }
-            result += "\n";
+            var result = "MouseController tostring: Click with left mouse button on a room to teleport to it.";
 
             return result;
         }
