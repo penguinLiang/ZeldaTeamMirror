@@ -7,27 +7,22 @@ namespace Zelda.Enemies
     public class GoriyaAgent
     {
         private ISprite _sprite;
-
+        private bool _isImmobile;
         private const int BoomerangDuration = 40;
 
         private bool _updateSpriteFlag;
-        private StatusHealth _statusHealth;
+        private bool _alive;
 
         private Direction _statusDirection;
 
         private int _health;
+        private int _clock;
         private int _posX;
         private int _posY;
         private int _timeSinceBoomerangThrown;
         private Projectiles.ThrownBoomerang _boomerang;
-
+        private bool _isDying;
         private readonly SpriteBatch _spriteBatch;
-
-        private enum StatusHealth
-        {
-            Alive,
-            Dead
-        }
 
         public GoriyaAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
@@ -35,7 +30,7 @@ namespace Zelda.Enemies
             _posX = posX;
             _posY = posY;
             _timeSinceBoomerangThrown = BoomerangDuration;
-            _statusHealth = StatusHealth.Alive;
+            _alive = false;
             _spriteBatch = spriteBatch;
             _statusDirection = Direction.Down;
             _health = 0;
@@ -45,8 +40,15 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
+            if (!_alive)
+            {
+                return;
+            }
             _sprite.Hide();
-            _statusHealth = StatusHealth.Dead;
+            _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
+            _clock = 32;
+            _isDying = true;
+            _alive = false;
         }
 
         public void UseAttack()
@@ -75,7 +77,7 @@ namespace Zelda.Enemies
 
         public void MoveLeft()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Left);
                 _posX -= 1;
@@ -84,7 +86,7 @@ namespace Zelda.Enemies
 
         public void MoveRight()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Right);
                 _posX += 1;
@@ -93,7 +95,7 @@ namespace Zelda.Enemies
 
         public void MoveUp()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Up);
                 _posY -= 1;
@@ -102,7 +104,7 @@ namespace Zelda.Enemies
 
         public void MoveDown()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration)
+            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Down);
                 _posY += 1;
@@ -111,15 +113,17 @@ namespace Zelda.Enemies
 
         public void Spawn()
         {
-            _sprite.Show();
-            _statusHealth = StatusHealth.Alive;
-            UpdateDirection(Direction.Down);
+            _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
+            _isImmobile = true;
+            _alive = true;
+            _clock = 30;
             _health = 10;
+            UpdateDirection(Direction.Down);
         }
 
         public void TakeDamage()
         {
-            if (_statusHealth == StatusHealth.Alive)
+            if (_alive)
             {
                 _health--;
                 _sprite.PaletteShift();
@@ -144,12 +148,22 @@ namespace Zelda.Enemies
         {
             _timeSinceBoomerangThrown++;
 
+            if (_clock > 0)
+            {
+                _clock--;
+                if (_clock == 0)
+                {
+                    CheckFlags();
+                }
+            }
+            
             if (_updateSpriteFlag)
             {
                 UpdateSprite();
             }
 
             _sprite.Update();
+
             if (_boomerang != null)
             {
                 _boomerang.Update();
@@ -183,10 +197,27 @@ namespace Zelda.Enemies
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (_statusHealth == StatusHealth.Dead)
+            if (!_alive)
             {
                 _sprite.Hide();
-                
+            }
+
+            _updateSpriteFlag = false;
+        }
+
+        private void CheckFlags()
+        {
+            if (_isImmobile)
+            {
+                _updateSpriteFlag = true;
+                _isImmobile = false;
+            }
+
+            if (_isDying)
+            {
+                _sprite = EnemySpriteFactory.Instance.CreateStalfos();
+                _sprite.Hide();
+                _isDying = false;
             }
         }
     }

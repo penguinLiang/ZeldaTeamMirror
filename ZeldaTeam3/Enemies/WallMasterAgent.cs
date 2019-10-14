@@ -5,27 +5,23 @@ namespace Zelda.Enemies
 {
     public class WallMasterAgent
     {
-        private readonly ISprite _sprite;
-
-        private StatusHealth _statusHealth;
+        private ISprite _sprite;
 
         private int _health;
         private int _posX;
         private int _posY;
-
+        private int _clock;
+        private bool _alive;
+        private bool _isImmobile;
+        private bool _isDying;
         private readonly SpriteBatch _spriteBatch;
-
-        private enum StatusHealth
-        {
-            Alive, Dead
-        }
 
 
         public WallMasterAgent(SpriteBatch spriteBatch, int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _statusHealth = StatusHealth.Alive;
+            _alive = false;
             _spriteBatch = spriteBatch;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
@@ -34,13 +30,23 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
+            if (!_alive)
+            {
+                return;
+            }
             _sprite.Hide();
-            _statusHealth = StatusHealth.Dead;
+            _clock = 32;
+            _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
+            _isDying = true;
+            _alive = false;
         }
 
         public void MoveDown()
         {
-            _posY += 1;
+            if (!_isImmobile)
+            {
+                _posY += 1;
+            }
         }
 
         public void UseAttack()
@@ -50,29 +56,40 @@ namespace Zelda.Enemies
 
         public void MoveLeft()
         {
-            _posX -= 1;
+            if (!_isImmobile)
+            {
+                _posX -= 1;
+            }
         }
 
         public void MoveRight()
         {
-            _posX += 1;
+            if (!_isImmobile)
+            {
+                _posX += 1;
+            }
         }
 
         public void MoveUp()
         {
-            _posY -= 1;
+            if (!_isImmobile)
+            {
+                _posY -= 1;
+            }
         }
 
         public void Spawn()
         {
-            _sprite.Show();
+            _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
+            _isImmobile = true;
+            _clock = 30;
             _health = 10;
-            _statusHealth = StatusHealth.Alive;
+            _alive = true;
         }
 
         public void TakeDamage()
         {
-            if (_statusHealth == StatusHealth.Alive)
+            if (_alive)
             {
                 _health--;
                 _sprite.PaletteShift();
@@ -91,7 +108,31 @@ namespace Zelda.Enemies
 
         public void Update()
         {
+            if (_clock > 0)
+            {
+                _clock--;
+                if (_clock == 0)
+                {
+                    CheckFlags();
+                }
+            }
             _sprite.Update();
+        }
+
+        private void CheckFlags()
+        {
+            if (_isImmobile)
+            {
+                _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
+                _isImmobile = false;
+            }
+
+            if (_isDying)
+            {
+                _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
+                _sprite.Hide();
+                _isDying = false;
+            }
         }
     }
 }
