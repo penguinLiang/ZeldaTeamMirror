@@ -14,7 +14,7 @@ namespace Zelda.Items
         {
             var x = location.X;
             var y = location.Y;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
+            _bounds = new Rectangle(x + 8, y, 8, 16);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
 
