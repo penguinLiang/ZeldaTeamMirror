@@ -93,13 +93,14 @@
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
     <Compile Include="Items\DroppedHeart.cs" />
+    <Compile Include="Player\DeadSpriteStateMachine.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
     <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
     <Compile Include="Projectiles\ThrownBoomerang.cs" />
-    <Compile Include="Player\SpriteStateMachine.cs" />
+    <Compile Include="Player\AliveSpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />
     <Compile Include="Player\Link.cs" />
     <Compile Include="Player\LinkSpriteFactory.cs" />
