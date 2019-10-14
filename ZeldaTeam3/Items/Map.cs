@@ -12,15 +12,9 @@ namespace Zelda.Items
 
         public Map(Point location)
         {
-<<<<<<< HEAD
-            int x = location.X;
-            int y = location.Y;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
-=======
             var x = location.X;
             var y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 16);
->>>>>>> master
             _drawLocation = new Vector2(x + 8, y + 8);
         }
 
