@@ -1,18 +1,10 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-<<<<<<< HEAD
 
 namespace Zelda.Blocks
 {
     internal class DoorsAndStairs : ICollideable, IDrawable, IActivatable, IUpdatable
-=======
-using Zelda.Items;
-
-namespace Zelda.Blocks
-{
-    internal class DoorsAndStairs : ICollideable, IDrawable, IActivatable
->>>>>>> master
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateRightOpenDoor();
         private readonly Vector2 _drawLocation;
@@ -21,7 +13,8 @@ namespace Zelda.Blocks
 
         public DoorsAndStairs(Point location, BlockType block)
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
             _block = block;
@@ -60,7 +53,7 @@ namespace Zelda.Blocks
 
         public void Activate()
         {
-            NoOp.Instance;
+            return;
         }
     }
 }

@@ -41,11 +41,7 @@ namespace Zelda.Blocks
 
         public void Update()
         {
-<<<<<<< HEAD
-            _sprite.Update()
-=======
             _sprite.Update();
->>>>>>> master
         }
 
         public void Draw()
@@ -55,37 +51,21 @@ namespace Zelda.Blocks
 
         public void MoveLeft()
         {
-<<<<<<< HEAD
-            return NoOp.Instance;
-=======
-
->>>>>>> master
+            return; 
         }
 
         public void MoveRight()
         {
-<<<<<<< HEAD
-            return NoOp.Instance;
-=======
-
->>>>>>> master
+            return;
         }
 
         public void MoveDown()
         {
-<<<<<<< HEAD
-            NoOp.Instance();
+            return;
         }
         public void MoveUp()
         {
-            NoOp.Instance();
-=======
-
-        }
-        public void MoveUp()
-        {
-
->>>>>>> master
+            return;
         }
     }
 }

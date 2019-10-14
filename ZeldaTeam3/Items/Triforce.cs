@@ -12,7 +12,8 @@ namespace Zelda.Items
 
         public Triforce(Point location)
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
