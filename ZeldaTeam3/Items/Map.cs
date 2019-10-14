@@ -12,7 +12,7 @@ namespace Zelda.Items
 
         public Map(Point location)
         {
-               var x = location.X;
+            var x = location.X;
             var y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
@@ -25,6 +25,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
+             _sprite.Hide();
             return new AddMap(player);
         }
 

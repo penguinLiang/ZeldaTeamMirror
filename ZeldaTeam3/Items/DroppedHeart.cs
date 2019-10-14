@@ -22,6 +22,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            _sprite.Hide();
             return new LinkHeal(player);
         }
 

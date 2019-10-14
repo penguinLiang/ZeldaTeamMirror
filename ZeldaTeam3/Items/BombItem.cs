@@ -12,7 +12,8 @@ namespace Zelda.Items
 
         public BombItem(Point location)
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
@@ -24,6 +25,7 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            _sprite.Hide();
             return new AddSecondaryItem(player, Items.Secondary.Bomb);
         }
 

@@ -12,7 +12,8 @@ namespace Zelda.Items
 
         public WhiteSwordItem(Point location)
         {
-            var (x, y) = location;
+            int x = location.X;
+            int y = location.Y;
             _bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
@@ -24,7 +25,8 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new UpgradeSword(Items.Primary.WhiteSword);
+            _sprite.Hide();
+            return new UpgradeSword(player, Items.Primary.WhiteSword);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
