@@ -10,5 +10,6 @@
         void AssignSecondaryItem(Items.Secondary item);
         void Heal();
         void FullHeal();
+        void AddHeart();
     }
 }

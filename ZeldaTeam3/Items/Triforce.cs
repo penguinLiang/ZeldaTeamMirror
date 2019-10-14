@@ -12,9 +12,9 @@ namespace Zelda.Items
 
         public Triforce(Point location)
         {
-            int x = location.X;
-            int y = location.Y;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
+            var x = location.X;
+            var y = location.Y;
+            _bounds = new Rectangle(x, y, 16, 16);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
 
@@ -25,6 +25,8 @@ namespace Zelda.Items
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            _sprite.Hide();
+            _bounds = new Rectangle(0, 0, 0, 0);
             return NoOp.Instance;
         }
 

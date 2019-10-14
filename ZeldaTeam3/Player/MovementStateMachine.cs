@@ -3,7 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Player
 {
-    internal class MovementStateMachine : IHaltable
+    /*
+     * Manages Link's
+     *  - Facing/movement direction
+     *  - Location from movement
+     *  - Whether or not idle
+     */
+    internal class MovementStateMachine : IHaltable, IUpdatable
     {
         private readonly FrameDelay _movementDelay = new FrameDelay(1);
         private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(20);
