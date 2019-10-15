@@ -1,7 +1,8 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Items;
+using System.Collections.Generic;
+using Zelda;
 
 namespace Zelda.Blocks
 {
@@ -11,12 +12,36 @@ namespace Zelda.Blocks
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
         private BlockType _block;
+        private LinkedList<BlockType> _allDoorsList;
+        private LinkedList<BlockType> _allStairsList;
 
         public DoorsAndStairs(Point location, BlockType block)
         {
+            _allDoorsList = new LinkedList<BlockType>();
+            _allDoorsList.Add(BlockType.DoorUp);
+            _allDoorsList.Add(BlockType.DoorDown);
+            _allDoorsList.Add(BlockType.DoorRight);
+            _allDoorsList.Add(BlockType.DoorLeft);
+            _allDoorsList.Add(BlockType.DoorSpecialLeft2_1);
+            _allDoorsList.Add(BlockType.DoorSpecialRight3_1);
+            _allDoorsList.Add(BlockType.DoorSpecialUp1_1);
+
+            _allStairsList = new LinkedList<BlockType>();
+            _allStairsList.Add(BlockType.Stair1);
+            _allStairsList.Add(BlockType.Stair2);
+            _allStairsList.Add(BlockType.DungeonStair);
+            _allStairsList.Add(BlockType.BasementStair);
+
             var x = location.X;
             var y = location.Y;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
+            if (_allDoorsList.Contains(block))
+            {
+                _bounds = new Rectangle(x, y, 32, 32);
+            }
+            if (_allStairsList.Contains(block))
+            {
+                _bounds = new Rectangle(x, y, 16, 16);
+            }
             _drawLocation = new Vector2(x + 8, y + 8);
             _block = block;
             //Create the sprite from the block
@@ -29,17 +54,17 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return NoOp.Instance;
+            return new LinkKnockback(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IHaltable projectile)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(projectile);
         }
 
         public void Update()
