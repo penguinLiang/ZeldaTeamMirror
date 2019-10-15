@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
+using Zelda.Dungeon;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Player;
@@ -43,6 +44,7 @@ namespace Zelda
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
+            BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
 
             Link = new Link(new Point(128, 122));
 
