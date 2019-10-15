@@ -54,7 +54,7 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new Commands.SpawnableDamage(player, 2);
+            return new Commands.SpawnableDamage(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

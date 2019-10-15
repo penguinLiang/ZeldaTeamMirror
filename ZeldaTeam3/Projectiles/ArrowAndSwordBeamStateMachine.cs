@@ -10,13 +10,12 @@ namespace Zelda.Projectiles
 
         private readonly Direction _direction;
         private int _currentFrame;
-        private int damage;
         private Point _location;
         private Rectangle _bounds;
 
         public Point Location => _location;
 
-        public ArrowAndSwordBeamStateMachine(Point location, Direction direction, int damage)
+        public ArrowAndSwordBeamStateMachine(Point location, Direction direction)
         {
             _currentFrame = 0;
             _direction = direction;

@@ -62,7 +62,7 @@ namespace Zelda.Projectiles
             Type type = enemy.GetType();
             if (type.Equals(typeof(Enemies.Keese)) || type.Equals(typeof(Enemies.Gel)) || type.Equals(typeof(Enemies.OldMan)))
             {
-                return new Commands.SpawnableDamage(enemy, 1);
+                return new Commands.SpawnableDamage(enemy);
             }
             else if (type.Equals(typeof(Enemies.Stalfos)) || type.Equals(typeof(Enemies.Goriya)) || type.Equals(typeof(Enemies.WallMaster)))
             {

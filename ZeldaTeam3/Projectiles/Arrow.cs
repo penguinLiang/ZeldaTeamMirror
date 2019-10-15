@@ -31,7 +31,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, 2);
+            _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -48,7 +48,7 @@ namespace Zelda.Projectiles
         {
             _sprite.Hide();
             _arrowStateMachine.ClearBounds();
-            return new Commands.SpawnableDamage(enemy, 2);
+            return new Commands.SpawnableDamage(enemy);
         }
 
         public ICommand ProjectileEffect(IHaltable projectile)

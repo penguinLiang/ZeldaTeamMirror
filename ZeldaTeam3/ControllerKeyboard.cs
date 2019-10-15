@@ -22,7 +22,7 @@ namespace Zelda
             var boomerangassign = new Commands.LinkBoomerangAssign(zeldaGame.Link);
             var bombassign = new Commands.LinkBombAssign(zeldaGame.Link);
 
-            var damage = new Commands.SpawnableDamage(zeldaGame.Link, 1);
+            var damage = new Commands.SpawnableDamage(zeldaGame.Link);
             var up = new Commands.LinkMoveUp(zeldaGame.Link);
             var down = new Commands.LinkMoveDown(zeldaGame.Link);
             var right = new Commands.LinkMoveRight(zeldaGame.Link);
