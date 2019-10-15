@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Arrow : IDrawable
+    internal class Arrow : ICollideable, IDrawable
     {
         private const int FramesToDisappear = 140;
 
@@ -31,7 +31,29 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
+            _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, 2);
+        }
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return _arrowStateMachine.CollidesWith(rectangle);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            _sprite.Hide();
+            _arrowStateMachine.ClearBounds();
+            return new Commands.SpawnableDamage(enemy, 2);
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return Commands.NoOp.Instance;
         }
 
         public void Update()

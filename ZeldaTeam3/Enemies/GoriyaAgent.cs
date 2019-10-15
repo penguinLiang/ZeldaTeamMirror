@@ -17,7 +17,7 @@ namespace Zelda.Enemies
         private int _health;
         private Point _location;
         private int _timeSinceBoomerangThrown;
-        private Projectiles.ThrownBoomerang _boomerang;
+        private Projectiles.GoriyaBoomerang _boomerang;
 
         private enum StatusHealth
         {
@@ -63,7 +63,7 @@ namespace Zelda.Enemies
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _boomerang = new Projectiles.ThrownBoomerang(_location + boomerangeOffset, _statusDirection);
+            _boomerang = new Projectiles.GoriyaBoomerang(_location + boomerangeOffset, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 

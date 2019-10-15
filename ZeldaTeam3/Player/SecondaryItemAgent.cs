@@ -42,7 +42,7 @@ namespace Zelda.Player
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
-                    _drawables.Add(new Projectiles.ThrownBoomerang(location, facing));
+                    _drawables.Add(new Projectiles.PlayerBoomerang(location, facing));
                     break;
                 case Items.Secondary.Bomb:
                     _drawables.Add(new Projectiles.Bomb(location));

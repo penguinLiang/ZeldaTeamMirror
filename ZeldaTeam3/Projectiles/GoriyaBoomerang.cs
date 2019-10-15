@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class ThrownBoomerang : IDrawable
+    internal class GoriyaBoomerang : ICollideable, IDrawable
     {
         private const int ReturnDistance = 100;
         private const int DistancePerFrame = 5;
@@ -13,10 +13,12 @@ namespace Zelda.Projectiles
 
         private int _currentDistanceAway;
         private Direction _direction;
+        private Rectangle _bounds;
 
-        public ThrownBoomerang(Point location, Direction direction)
+        public GoriyaBoomerang(Point location, Direction direction)
         {
             _direction = direction;
+            _bounds = new Rectangle(location.X, location.Y, 8, 8);
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
             _currentDistanceAway = 0;
@@ -43,6 +45,26 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return _bounds.Intersects(rectangle);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return new Commands.SpawnableDamage(player, 2);
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return Commands.NoOp.Instance;
         }
 
         public void Update()
