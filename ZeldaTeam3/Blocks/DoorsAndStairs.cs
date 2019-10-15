@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
@@ -15,39 +16,45 @@ namespace Zelda.Blocks
         private readonly Vector2 _drawLocation;
         private Rectangle _bounds;
         private BlockType _block;
-        private LinkedList<BlockType> _allDoorsList;
-        private LinkedList<BlockType> _allStairsList;
+        private BlockType[] _allDoorsList;
+        private BlockType[] _allStairsList;
 
         public DoorsAndStairs(Point location, BlockType block)
         {
-            _allDoorsList = new LinkedList<BlockType>();
-            _allDoorsList.Add(BlockType.DoorUp);
-            _allDoorsList.Add(BlockType.DoorDown);
-            _allDoorsList.Add(BlockType.DoorRight);
-            _allDoorsList.Add(BlockType.DoorLeft);
-            _allDoorsList.Add(BlockType.DoorSpecialLeft2_1);
-            _allDoorsList.Add(BlockType.DoorSpecialRight3_1);
-            _allDoorsList.Add(BlockType.DoorSpecialUp1_1);
+            string designation = "None";
+            _allDoorsList = new BlockType[] { BlockType.DoorUp, BlockType.DoorDown, BlockType.DoorRight, BlockType.DoorLeft
+                , BlockType.DoorSpecialLeft2_1, BlockType.DoorSpecialRight3_1, BlockType.DoorSpecialUp1_1};
 
-            _allStairsList = new LinkedList<BlockType>();
-            _allStairsList.Add(BlockType.Stair1);
-            _allStairsList.Add(BlockType.Stair2);
-            _allStairsList.Add(BlockType.DungeonStair);
-            _allStairsList.Add(BlockType.BasementStair);
+            _allStairsList = new BlockType[] { BlockType.Stair1, BlockType.Stair2, BlockType.DungeonStair, BlockType.BasementStair};
 
             var x = location.X;
             var y = location.Y;
-            if (_allDoorsList.Contains(block))
+            foreach(BlockType door in _allDoorsList)
+            {
+                if(door == block)
+                {
+                    designation = "door";
+                    break;
+                }
+            }
+            foreach (BlockType stair in _allStairsList)
+            {
+                if (stair == block)
+                {
+                    designation = "stair";
+                    break;
+                }
+            }
+            if (designation == "door")
             {
                 _bounds = new Rectangle(x, y, 32, 32);
             }
-            if (_allStairsList.Contains(block))
+            if (designation == "stair")
             {
                 _bounds = new Rectangle(x, y, 16, 16);
             }
             _drawLocation = new Vector2(x + 8, y + 8);
             _block = block;
-            //Create the sprite from the block
         }
 
         public bool CollidesWith(Rectangle rect)
