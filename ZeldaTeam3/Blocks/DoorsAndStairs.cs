@@ -1,12 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Enemies;
 using Zelda.Items;
-using System.Collections.Generic;
+using Zelda.Blocks;
 using Zelda;
 
 namespace Zelda.Blocks
 {
-    internal class DoorsAndStairs : ICollideable, IDrawable, IActivatable
+    class DoorsAndStairs : ICollideable, IDrawable, IActivatable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateRightOpenDoor();
         private readonly Vector2 _drawLocation;
