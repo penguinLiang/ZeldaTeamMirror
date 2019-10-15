@@ -10,6 +10,9 @@ namespace Zelda.Player
      */
     internal class AliveSpriteStateMachine : IUpdatable
     {
+        // 50/60 frames = ~5/6s and ~1 full animation
+        private readonly FrameDelay _attackResetDelay = new FrameDelay(50);
+
         public ISprite Sprite { get; private set; }
         public bool UsingSecondaryItem { get; private set; }
         public bool UsingPrimaryItem { get; private set; }
@@ -25,6 +28,7 @@ namespace Zelda.Player
             _facing = facing;
             _lastFacing = _facing;
             ChangeSprite(_facing);
+            _attackResetDelay.Pause();
         }
 
         public bool UsingItem => UsingPrimaryItem || UsingSecondaryItem;
@@ -77,16 +81,29 @@ namespace Zelda.Player
             _primaryItem = primaryItem;
             UsingPrimaryItem = true;
             ChangeSprite(_facing);
+            _attackResetDelay.Resume();
         }
 
         public void UseSecondaryItem()
         {
             UsingSecondaryItem = true;
             ChangeSprite(_facing);
+            _attackResetDelay.Resume();
+        }
+
+        private void AttackUpdate()
+        {
+            _attackResetDelay.Update();
+            if (!UsingItem || _attackResetDelay.Delayed) return;
+            UsingPrimaryItem = false;
+            UsingSecondaryItem = false;
+            ChangeSprite(_facing);
+            _attackResetDelay.Pause();
         }
 
         public void Update()
         {
+            AttackUpdate();
             Sprite.Update();
         }
     }
