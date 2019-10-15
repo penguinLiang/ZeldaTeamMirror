@@ -51,7 +51,8 @@ namespace Zelda
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IUpdatable[]{
-                new ControllerKeyboard(this)
+                new ControllerKeyboard(this),
+                new MouseController(this)
             };
 
             foreach (var controller in _controllers)

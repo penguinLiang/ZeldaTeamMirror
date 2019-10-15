@@ -23,7 +23,7 @@ namespace Zelda
         public void Draw()
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(image, new Rectangle(0, 0, 512, 448), Color.Black);
+            _spriteBatch.Draw(image, new Rectangle(0, 0, 512, 448), Color.White);
             _spriteBatch.End();
         }
     }
