@@ -2,7 +2,7 @@
 
 namespace Zelda
 {
-    interface ICollideable
+    public interface ICollideable
     {
         Rectangle Bounds { get; }
 

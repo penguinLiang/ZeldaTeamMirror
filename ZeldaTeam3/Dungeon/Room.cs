@@ -7,7 +7,7 @@ using Zelda.Items;
 
 namespace Zelda.Dungeon
 {
-    internal class Room
+    public class Room
     {
         private const int TileWidthHeight = 16;
 
@@ -26,7 +26,7 @@ namespace Zelda.Dungeon
             {
                 for (var col = 0; col < tiles[row].Length; col++)
                 {
-                    var location = new Point(row * TileWidthHeight, col * TileWidthHeight);
+                    var location = new Point(col * TileWidthHeight, row * TileWidthHeight);
                     var tile = (MapTile) tiles[row][col];
 
                     if (!TryAddBarrier(tile, location) && !TryAddDoorOrStair(tile, location) &&
