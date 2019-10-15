@@ -19,13 +19,14 @@ namespace Zelda
         private SpriteFont _font;
         private IUpdatable[] _controllers;
         private string _controlsDescription = "";
+        private JumpMap _jumpMap;
 
         public ZeldaGame()
         {
             // Use 2x size of NES window
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 512, PreferredBackBufferHeight = 488
+                PreferredBackBufferWidth = 512, PreferredBackBufferHeight = 448
             };
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
@@ -44,11 +45,14 @@ namespace Zelda
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
 
+            _jumpMap = new JumpMap(_spriteBatch,Content);
+
             Link = new Link(new Point(128, 122));
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IUpdatable[]{
-                new ControllerKeyboard(this)
+                new ControllerKeyboard(this),
+                new MouseController(this)
             };
 
             foreach (var controller in _controllers)
@@ -99,6 +103,8 @@ namespace Zelda
             _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(5,5), Color.White);
           
             _spriteBatch.End();
+
+            _jumpMap.Draw();
 
             base.Draw(gameTime);
         }
