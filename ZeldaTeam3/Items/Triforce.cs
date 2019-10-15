@@ -8,25 +8,25 @@ namespace Zelda.Items
     {
         private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateTriforcePiece();
         private readonly Vector2 _drawLocation;
-        private Rectangle _bounds;
+        public Rectangle Bounds { get; private set; }
 
         public Triforce(Point location)
         {
             var x = location.X;
             var y = location.Y;
-            _bounds = new Rectangle(x, y, 16, 16);
+            Bounds = new Rectangle(x, y, 16, 16);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _bounds.Intersects(rect);
+            return Bounds.Intersects(rect);
         }
 
         public ICommand PlayerEffect(IPlayer player)
         {
             _sprite.Hide();
-            _bounds = new Rectangle(0, 0, 0, 0);
+            Bounds = new Rectangle(0, 0, 0, 0);
             return NoOp.Instance;
         }
 
