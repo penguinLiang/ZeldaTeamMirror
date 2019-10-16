@@ -38,7 +38,7 @@ Henry implemented the Block classes, and implemented the keyboard input and comm
   
 
 ## Sprint 3 Details
-In total: 35 cards were created
+In total: 35 cards were created  
 (28-C)(24-S)(23-J)(22-H)(26-Q) Points were recorded, formally or informally
 
 Chase did a majority of the initial code reviews. He also created the initial design pattern and blueprint for all of us to work off of. It was invaluable to getting the project done. Chase created tilesets, the Scene Controller, and the room CSV parsing. In addition, Chase fixed a lot of bugs that came up and integrated the scene controller with everything else.
