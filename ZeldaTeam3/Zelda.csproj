@@ -49,6 +49,7 @@
     <Compile Include="Commands\AddKey.cs" />
     <Compile Include="Commands\AddMap.cs" />
     <Compile Include="Commands\AddSecondaryItem.cs" />
+    <Compile Include="Commands\LinkAddHeart.cs" />
     <Compile Include="Commands\MoveableHalt.cs" />
     <Compile Include="Commands\NoOp.cs" />
     <Compile Include="Commands\ShowJumpMap.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Items\ArrowItem.cs" />
     <Compile Include="Items\BombItem.cs" />
     <Compile Include="Items\BoomerangItem.cs" />
+    <Compile Include="Items\HeartContainer.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
