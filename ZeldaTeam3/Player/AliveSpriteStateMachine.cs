@@ -2,11 +2,14 @@
 
 namespace Zelda.Player
 {
-    internal class SpriteStateMachine
+    /*
+     * Manages the sprite used for Link while alive given:
+     *  - Direction
+     *  - Primary weapon
+     *  - Using an item
+     */
+    internal class AliveSpriteStateMachine : IUpdatable
     {
-        // 50/60 frames = ~5/6s and ~1 full animation
-        private const int AttackResetDelay = 50;
-
         public ISprite Sprite { get; private set; }
         public bool UsingSecondaryItem { get; private set; }
         public bool UsingPrimaryItem { get; private set; }
@@ -17,9 +20,7 @@ namespace Zelda.Player
         // Memoizing the direction prevents sprite thrashing
         private Direction _lastFacing;
 
-        private int _attackResetFramesDelayed;
-
-        public SpriteStateMachine(Direction facing)
+        public AliveSpriteStateMachine(Direction facing)
         {
             _facing = facing;
             _lastFacing = _facing;
@@ -27,23 +28,6 @@ namespace Zelda.Player
         }
 
         public bool UsingItem => UsingPrimaryItem || UsingSecondaryItem;
-
-        private int AttackResetFramesDelayed
-        {
-            get => _attackResetFramesDelayed;
-            set
-            {
-                if (!UsingItem) return;
-                _attackResetFramesDelayed = value;
-
-                if (_attackResetFramesDelayed != AttackResetDelay) return;
-                UsingPrimaryItem = false;
-                UsingSecondaryItem = false;
-                ChangeSprite(_facing);
-
-                _attackResetFramesDelayed = 0;
-            }
-        }
 
         private void ChangePrimaryItemSprite(Direction direction)
         {
@@ -88,18 +72,9 @@ namespace Zelda.Player
             _lastFacing = _facing;
         }
 
-        public void AssignPrimaryItem(Items.Primary item)
+        public void UsePrimaryItem(Items.Primary primaryItem)
         {
-            _primaryItem = item;
-        }
-
-        public void AssignSecondaryItem(Items.Secondary item)
-        {
-            // NO-OP: The sprite maintains the same apperance regardless of item
-        }
-
-        public void UsePrimaryItem()
-        {
+            _primaryItem = primaryItem;
             UsingPrimaryItem = true;
             ChangeSprite(_facing);
         }
@@ -112,7 +87,6 @@ namespace Zelda.Player
 
         public void Update()
         {
-            AttackResetFramesDelayed++;
             Sprite.Update();
         }
     }

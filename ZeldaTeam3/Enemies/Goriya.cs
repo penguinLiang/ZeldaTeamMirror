@@ -1,10 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
     public class Goriya : IEnemy
     {
         private readonly GoriyaAgent _agent;
+
+
+        public Projectiles.ThrownBoomerang Boomerang => _agent.Boomerang;
+        public Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
 
         public Goriya(Point location)
         {

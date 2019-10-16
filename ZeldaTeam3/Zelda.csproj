@@ -41,8 +41,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\Add1Rupee.cs" />
+    <Compile Include="Commands\Add5Rupee.cs" />
+    <Compile Include="Commands\AddArrow.cs" />
+    <Compile Include="Commands\AddCompass.cs" />
+    <Compile Include="Commands\AddKey.cs" />
+    <Compile Include="Commands\AddMap.cs" />
+    <Compile Include="Commands\AddSecondaryItem.cs" />
     <Compile Include="Commands\MoveableHalt.cs" />
     <Compile Include="Commands\NoOp.cs" />
+    <Compile Include="Commands\UpgradeSword.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
@@ -63,6 +71,9 @@
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="FrameDelay.cs" />
     <Compile Include="ICollideable.cs" />
+    <Compile Include="Items\ArrowItem.cs" />
+    <Compile Include="Items\BombItem.cs" />
+    <Compile Include="Items\BoomerangItem.cs" />
     <Compile Include="Items\ItemSpriteFactory.cs" />
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
@@ -91,12 +102,17 @@
     <Compile Include="IPlayer.cs" />
     <Compile Include="IHaltable.cs" />
     <Compile Include="ICommand.cs" />
+    <Compile Include="Items\MagicSwordItem.cs" />
+    <Compile Include="Items\Rupee.cs" />
+    <Compile Include="Items\Rupee5.cs" />
+    <Compile Include="Items\WhiteSwordItem.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="ControllerKeyboard.cs" />
     <Compile Include="Items\Primary.cs" />
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
     <Compile Include="Items\DroppedHeart.cs" />
+    <Compile Include="Player\DeadSpriteStateMachine.cs" />
     <Compile Include="Items\Triforce.cs" />
     <Compile Include="Items\Key.cs" />
     <Compile Include="Items\Compass.cs" />
@@ -108,7 +124,7 @@
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
     <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
     <Compile Include="Projectiles\ThrownBoomerang.cs" />
-    <Compile Include="Player\SpriteStateMachine.cs" />
+    <Compile Include="Player\AliveSpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />
     <Compile Include="Player\Link.cs" />
     <Compile Include="Player\LinkSpriteFactory.cs" />

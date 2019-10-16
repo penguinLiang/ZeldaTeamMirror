@@ -8,7 +8,7 @@ namespace Zelda.Enemies
 
         private int _health;
         private bool _alive;
-        public Point Location { get; private set; }
+        public Point Location;
         private int _clock;
         private bool _isImmobile;
         private bool _isDying;
@@ -46,9 +46,7 @@ namespace Zelda.Enemies
         {
             if (_isImmobile)
             {
-                var location = Location;
-                location.Y += 1;
-                Location = location;
+                Location.Y += 1;
             }
         }
 
@@ -56,8 +54,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                var location = Location;
-                location.X -= 1;
+                Location.X -= 1;
             }
         }
 
@@ -65,8 +62,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                var location = Location;
-                location.X += 1;
+                Location.X += 1;
             }
         }
 
@@ -74,8 +70,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                var location = Location;
-                location.Y -= 1;
+                Location.Y -= 1;
             }
         }
 

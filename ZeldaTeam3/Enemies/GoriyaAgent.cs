@@ -8,14 +8,14 @@ namespace Zelda.Enemies
         private ISprite _sprite;
         
         private const int BoomerangDuration = 40;
-        private Projectiles.ThrownBoomerang _boomerang;
+        public Projectiles.ThrownBoomerang Boomerang;
 
         private bool _alive;
         private bool _isDying;
         private bool _isImmobile;
         private bool _updateSpriteFlag;
 
-        private Point _location;
+        public Point Location;
 
         private Direction _statusDirection;
 
@@ -28,7 +28,7 @@ namespace Zelda.Enemies
         public GoriyaAgent(Point location)
         {
             _updateSpriteFlag = false;
-            _location = location;
+            Location = location;
             _timeSinceBoomerangThrown = BoomerangDuration;
             _alive = false;
             _statusDirection = Direction.Down;
@@ -70,7 +70,7 @@ namespace Zelda.Enemies
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _boomerang = new Projectiles.ThrownBoomerang(_location + boomerangeOffset, _statusDirection);
+            Boomerang = new Projectiles.ThrownBoomerang(Location + boomerangeOffset, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -79,7 +79,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Left);
-                _location.X -= 1;
+                Location.X -= 1;
             }
         }
 
@@ -88,7 +88,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Right);
-                _location.X += 1;
+                Location.X += 1;
             }
         }
 
@@ -97,7 +97,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Up);
-                _location.Y -= 1;
+                Location.Y -= 1;
             }
         }
 
@@ -106,7 +106,7 @@ namespace Zelda.Enemies
             if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
             {
                 UpdateDirection(Direction.Down);
-                _location.Y += 1;
+                Location.Y += 1;
             }
         }
 
@@ -136,8 +136,8 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
-            _boomerang?.Draw();
+            _sprite.Draw(Location.ToVector2());
+            Boomerang?.Draw();
         }
 
         public void Update()
@@ -159,7 +159,7 @@ namespace Zelda.Enemies
             }
 
             _sprite.Update();
-            _boomerang?.Update();
+            Boomerang?.Update();
         }
 
         public void UpdateDirection(Direction direction)

@@ -36,6 +36,7 @@ namespace Zelda.Player
         private Texture2D _swordWhiteSpritesheet;
         private Texture2D _swordMagicalSpritesheet;
         private Texture2D _useSecondarySpritesheet;
+        private Texture2D _characterDeathSpritesheet;
 
         public static LinkSpriteFactory Instance { get; } = new LinkSpriteFactory();
 
@@ -89,6 +90,7 @@ namespace Zelda.Player
             _swordWhiteSpritesheet = content.Load<Texture2D>("LinkSwordWhite");
             _swordMagicalSpritesheet = content.Load<Texture2D>("LinkSwordMagical");
             _useSecondarySpritesheet = content.Load<Texture2D>("LinkUseSecondary");
+            _characterDeathSpritesheet = content.Load<Texture2D>("CharacterDeath");
         }
 
         public ISprite CreateNoWeapon(Direction direction)
@@ -115,5 +117,15 @@ namespace Zelda.Player
         {
             return new Sprite(_useSecondarySpritesheet, Width, Height, UseSecondaryFrameCount, _useSecondaryOffset[direction], FrameDelay, SwordPaletteHeight, PaletteCount);
         }
+
+        public ISprite CreateDeadLink()
+        {
+            return new Sprite(_noWeaponSpritesheet, 16, 16, 1, new Point(0, 272));
+        }
+
+        public ISprite CreateLinkDeathSparkle() {
+            return new Sprite(_characterDeathSpritesheet, 16, 16, 8, new Point(0,0));
+        }
+
     }
 }

@@ -57,9 +57,18 @@ namespace Zelda.Player
             HasCompass = true;
         }
 
-        public void AddRupee()
+        public void Add1Rupee()
         {
             RupeeCount = Math.Min(RupeeCount + 1, MaxRupeeCount);
+        }
+
+        public void Add5Rupee(){
+            if(MaxRupeeCount-RupeeCount>=5){
+                RupeeCount = MaxRupeeCount;
+            }
+            else {
+                RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
+            }
         }
 
         public void AddKey()

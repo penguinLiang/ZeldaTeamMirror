@@ -14,7 +14,7 @@ namespace Zelda
         public bool Resetting { get; set; }
         public IPlayer Link { get; private set; }
 
-        public Stalfos DebugStalfos { get; private set; }
+        public Goriya DebugEnemy { get; private set; }
         public static int DebugCount;
 
         private readonly GraphicsDeviceManager _graphics;
@@ -49,8 +49,8 @@ namespace Zelda
 
             Link = new Link(new Point(128, 122));
             //TODO: REMOVE
-            DebugStalfos = new Stalfos(new Point(158, 122));
-            DebugStalfos.Spawn();
+            DebugEnemy = new Goriya(new Point(158, 122));
+            DebugEnemy.Spawn();
 
             // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IUpdatable[]{
@@ -86,15 +86,7 @@ namespace Zelda
             {
                 controller.Update();
             }
-            //TODO: REMOVE DEBUG CODE
-            if(Link.CollidesWith(DebugStalfos.Bounds))
-            {
-                DebugCount++;
-                Console.WriteLine("INTERSECTION: "+DebugCount);
-                Link.EnemyEffect(DebugStalfos).Execute();
-            }
-            //TODO: REMOVE
-            DebugStalfos.Update();
+            DebugEnemy.Update();
             Link.Update();
             base.Update(gameTime);
         }
@@ -104,8 +96,9 @@ namespace Zelda
             GraphicsDevice.Clear(Color.Black);
             
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f));
+            
+            DebugEnemy.Draw();
             Link.Draw();
-            DebugStalfos.Draw();
             _spriteBatch.End();
 
             _spriteBatch.Begin();
