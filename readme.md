@@ -15,6 +15,11 @@ We are then using a State Machine for the individual enemy groups, in addition t
   
 We have broken up our implementation by __nouns__, such as 'enemies', 'items', 'projectiles'. This was done to seperate the concerns of each of these sprite groups, and to break up the work into distinct pieces.  
   
+__new:__
+As a team, we decided to use the command pattern for all collisions
+After talking to Boggus and the Grader, we determined that projectiles, while implemented, did not need to explicitly do damage yet.
+The Enemies have a basic AI
+
 ## Sprint 2 Details  
   
 Chase created base interfaces for the rest of us to use-- IMoveable, ISpawnable, IEnemy, ISprite, IPlayer, and INonPlayerCharacter. Chase has also implemented the player class, and refactored the sprite implementation.  
@@ -27,6 +32,10 @@ Quinn created the Readme, implemented item classes and implemented projectiles.
   
 Henry implemented the Block classes, and implemented the keyboard input and commands. Henry has also provided support for Chase.  
   
+
+## Sprint 3 Details
+
+
 ## Code Reviews  
   
 The team, as a whole, has decided that Code Reviews will be kept in a central branch on each sprint. This central branch will get merged at the end of every sprint.  
