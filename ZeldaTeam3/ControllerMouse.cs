@@ -74,7 +74,7 @@ namespace Zelda
                 var column = mouseState.X / 85;
 
                 _zeldaGame.JumpMap.Visible = false;
-                _zeldaGame.Scene.TransitionToRoom(row, column);
+                _zeldaGame.DungeonManager.TransitionToRoom(row, column);
             }
 
         }

@@ -1,22 +1,22 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Dungeon
 {
     public class Scene : IDrawable, IScene
     {
-        private readonly SceneController _controller;
+        private readonly DungeonManager _manager;
         private readonly Room _room;
         private readonly IPlayer _player;
         private int _enemyCount = -1;
 
-        private ISprite _background = BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-
-        public Scene(SceneController controller, Room room, IPlayer player)
+        public Scene(DungeonManager manager, Room room, IPlayer player)
         {
-            _controller = controller;
+            _manager = manager;
             _room = room;
+        }
 
+        public void SpawnEnemies()
+        {
             if (_enemyCount == -1) _enemyCount = _room.Enemies.Count;
             for (var i = 0; i < _enemyCount; i++)
             {
@@ -26,7 +26,7 @@ namespace Zelda.Dungeon
 
         public void TransitionToRoom(int row, int column)
         {
-            _controller.TransitionToRoom(row, column);
+            _manager.TransitionToRoom(row, column);
         }
 
         public void Update()
@@ -73,8 +73,6 @@ namespace Zelda.Dungeon
 
         public void Draw()
         {
-            _background.Draw(Vector2.Zero);
-
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Draw();
@@ -84,14 +82,6 @@ namespace Zelda.Dungeon
             {
                 roomEnemy.Draw();
             }
-        }
-    }
-
-    public class SceneController
-    {
-        public void TransitionToRoom(int row, int column)
-        {
-            Console.WriteLine("Dummy called! Row is " + row + ". Column is " + column + ".");
         }
     }
 }
