@@ -16,13 +16,13 @@ We are then using a State Machine for the individual enemy groups, in addition t
 We have broken up our implementation by __nouns__, such as 'enemies', 'items', 'projectiles'. This was done to seperate the concerns of each of these sprite groups, and to break up the work into distinct pieces.  
   
 __new:__
-As a team, we decided to use the command pattern for all collisions
-After talking to Boggus and the Grader, we determined that projectiles, while implemented, did not need to explicitly do damage yet.
-The Enemies have a basic AI implemented
-We decided to use a program known as Tiled to simplify the creation of maps and csv files. 
-Large classes were broken into smaller, more mangeable classes. 
-Implemented basic design for Doors, and Barriers. 
-Created Every room and a few DEBUG rooms
+As a team, we decided to use the command pattern for all collisions  
+After talking to Boggus and the Grader, we determined that projectiles, while implemented, did not need to explicitly do damage yet.  
+The Enemies have a basic AI implemented  
+We decided to use a program known as Tiled to simplify the creation of maps and csv files.   
+Large classes were broken into smaller, more mangeable classes.   
+Implemented basic design for Doors, and Barriers.   
+Created Every room and a few DEBUG rooms  
 
 ## Sprint 2 Details  
   
@@ -56,11 +56,11 @@ Henry created classes for doors and stairs, the Room Loader, and the Jump Mini-M
 The team, as a whole, has decided that Code Reviews will be kept in a central branch on each sprint. This central branch will get merged at the end of every sprint.  
 Every major code review will be a file, consisting of both a review for readability and maintainability. The code review file will be broken down by file.  
   
-~~__Major Code Reviews__ take place on a pull request. This code review will be labeled like so:  
+~~__Major Code Reviews__ take place on a pull request. This code review will be labeled like so:  ~~
   
-PR#-NameOfPRBranch  
+~~PR#-NameOfPRBranch  ~~
   
-Every code review file will have every file that was in the particular PR listed and detailed, file by file. ~~
+~~Every code review file will have every file that was in the particular PR listed and detailed, file by file. ~~
 
 __new:__ For this sprint, most of our code reviews were done directly on PRs. Instead of doing Major Code Reviews on each PR, each team member did an in-depth review of a single file. These reviews are in the Sprint3 folder.
   
@@ -92,15 +92,15 @@ __E__: Apply Damage
 __M__: Open up the map (Click on each room to teleport to the room)
 __K__: Apply Knockback to Link
 
-~~__2__: Assign and Use the White Sword as the Primary Weapon
-__3__: Assign and Use the Magic Sword as the Primary Weapon~~
-~~__U__: Move all enemies up 
-__H__: Move all enemies left
-__J__: Move all enemies down
-__K__: Move all enemies right
-__T__: Spawn all enemies.
-__Y__: Damage* all enemies.
-__I__: Kill all enemies.~~
+~~__2__: Assign and Use the White Sword as the Primary Weapon~~
+~~__3__: Assign and Use the Magic Sword as the Primary Weapon~~
+~~__U__: Move all enemies up ~~
+~~__H__: Move all enemies left~~
+~~__J__: Move all enemies down~~
+~~__K__: Move all enemies right~~
+~~__T__: Spawn all enemies.~~
+~~__Y__: Damage* all enemies.~~
+~~__I__: Kill all enemies.~~
   
   
 ## Frame Rates  
