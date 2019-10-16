@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IDrawable
+    public class Bomb : IDrawable, ICollideable
     {
         private const int FramesToExplosion = 100;
         private const int FramesToDisappear = 160;
@@ -13,6 +13,8 @@ namespace Zelda.Projectiles
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
         private ISprite _sprite;
         private int _framesDelayed;
+        public Rectangle Bounds { get; private set; }
+
 
         public Bomb(Point location)
         {
@@ -50,6 +52,27 @@ namespace Zelda.Projectiles
             {
                 _sprite.Hide();
             }
+        }
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return Bounds.Intersects(rectangle);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            _sprite.Hide();
+            return new Commands.SpawnableDamage(enemy);
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return Commands.NoOp.Instance;
         }
 
         public void Draw()
