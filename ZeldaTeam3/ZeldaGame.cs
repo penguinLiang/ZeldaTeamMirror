@@ -14,14 +14,13 @@ namespace Zelda
     {
         public bool Resetting { get; set; }
         public IPlayer Link { get; private set; }
-        public Scene Scene { get; private set; }
+        public DungeonManager DungeonManager { get; } = new DungeonManager();
         public JumpMap JumpMap { get; private set; }
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IUpdatable[] _controllers;
-        private string _controlsDescription = "";
 
         public ZeldaGame()
         {
@@ -57,27 +56,8 @@ namespace Zelda
                 new ControllerMouse(this)
             };
 
-            foreach (var controller in _controllers)
-            {
-                _controlsDescription += controller + "\n";
-            }
-
-            /* SHOULD BE REMOVED! ONLY FOR PROOF */
-            var result = Content.Load<int[][]>("Rooms/5-3");
-            for (var row = 0; row < result.Length; row++)
-            {
-                Console.Write($"Row {row,2}: ");
-                for (var col = 0; col < result[row].Length; col++)
-                {
-                    Console.Write($"{result[row][col],3},");
-                }
-                Console.WriteLine();
-            }
-            /* END REMOVE */
-
-            var sceneController = new SceneController();
-            var room = new Room(result, 5);
-            Scene = new Scene(sceneController, room, Link);
+            DungeonManager.LoadDungeonContent(Content, Link);
+            DungeonManager.TransitionToRoom(5,2);
         }
 
         protected override void UnloadContent()
@@ -91,18 +71,18 @@ namespace Zelda
                 controller.Update();
             }
 
+            DungeonManager.Update();
             Link.Update();
-            Scene.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f));
 
-            Scene.Draw();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f) * Matrix.CreateTranslation(0.0f, 96.0f, 0.0f));
+
+            DungeonManager.Draw();
             Link.Draw();
 
             _spriteBatch.End();

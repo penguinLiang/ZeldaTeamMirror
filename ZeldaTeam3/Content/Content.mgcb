@@ -81,6 +81,21 @@
 /processorParam:TextureFormat=Color
 /build:DungeonBackground.png
 
+#begin DungeonEnabledRooms.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonEnabledRooms.csv
+
+#begin DungeonEnemies.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonEnemies.csv
+
+#begin DungeonRoomBackgrounds.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonRoomBackgrounds.csv
+
 #begin EnemyGoriya.png
 /importer:TextureImporter
 /processor:TextureProcessor
