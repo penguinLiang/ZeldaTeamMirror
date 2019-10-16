@@ -1,24 +1,34 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Items;
 
 namespace Zelda.Blocks
 {
     internal class Barrier : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
-        private readonly Vector2 _drawLocation;
         public Rectangle Bounds { get; }
-        private BlockType _block;
+
+        private readonly ISprite _sprite;
 
         public Barrier(Point location, BlockType block)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x + 8, y, 8, 8);
-            _drawLocation = new Vector2(x + 8, y + 8);
-            _block = block;
+            Bounds = CalculateBounds(location, block);
+            _sprite = BlockTypeSprite.Sprite(block);
+        }
+
+        private static Rectangle CalculateBounds(Point location, BlockType block)
+        {
+            // ReSharper disable once SwitchStatementMissingSomeCases (Most barriers are 32,32)
+            switch (block)
+            {
+                case BlockType.FishStatue:
+                case BlockType.Fire:
+                case BlockType.ImmovableBlock:
+                case BlockType.InvisibleBlock:
+                case BlockType.Water:
+                    return new Rectangle(location, new Point(16, 16));
+                default:
+                    return new Rectangle(location, new Point(32, 32));
+            }
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -28,27 +38,27 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IHaltable projectile)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(projectile);
         }
 
         public void Update()
         {
-            _sprite.Update();
+            _sprite?.Update();
         }
 
         public void Draw()
         {
-            _sprite.Draw(_drawLocation);
+            _sprite?.Draw(Bounds.Location.ToVector2());
         }
     }
 }

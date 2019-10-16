@@ -1,22 +1,18 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Items;
+
 
 namespace Zelda.Blocks
 {
     internal class MovableBlock : ICollideable, IDrawable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
-        private readonly Vector2 _drawLocation;
         public Rectangle Bounds { get; }
 
         public MovableBlock(Point location)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x + 8, y, 8, 8);
-            _drawLocation = new Vector2(x + 8, y + 8);
+            Bounds = new Rectangle(location, new Point(16, 16));
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -46,26 +42,26 @@ namespace Zelda.Blocks
 
         public void Draw()
         {
-            _sprite.Draw(_drawLocation);
+            _sprite.Draw(Bounds.Location.ToVector2());
         }
 
         public void MoveLeft()
         {
-
+            return; 
         }
 
         public void MoveRight()
         {
-
+            return;
         }
 
         public void MoveDown()
         {
-
+            return;
         }
         public void MoveUp()
         {
-
+            return;
         }
     }
 }

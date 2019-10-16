@@ -12,6 +12,7 @@ namespace Zelda.Items
 
         public BowItem(Point location)
         {
+
             var x = location.X;
             var y = location.Y;
             Bounds = new Rectangle(x + 8, y, 8, 16);
