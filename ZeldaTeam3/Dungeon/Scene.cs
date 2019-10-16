@@ -13,6 +13,7 @@ namespace Zelda.Dungeon
         {
             _manager = manager;
             _room = room;
+            _player = player;
         }
 
         public void SpawnEnemies()
@@ -44,16 +45,16 @@ namespace Zelda.Dungeon
                 {
                     /* Enemy bounds not implemented
                     if (roomCollidable.CollidesWith(roomEnemy.Bounds))
-                        roomCollidable.EnemyEffect(roomEnemy);
+                        roomCollidable.EnemyEffect(roomEnemy).Execute();
                     */
                 }
 
                 /* Player collision not implemented
                     if (_player.CollidesWith(roomEnemy.Bounds))
-                        _player.EnemyEffect(roomEnemy);
+                        _player.EnemyEffect(roomEnemy).Execute();
 
                     if (roomEnemy.CollidesWith(_player.Bounds))
-                        roomEnemy.PlayerEffect(roomEnemy);
+                        roomEnemy.PlayerEffect(roomEnemy).Execute();
                 */
 
                 if (!roomEnemy.Alive)
@@ -64,10 +65,8 @@ namespace Zelda.Dungeon
 
             foreach (var roomCollidable in _room.Collidables)
             {
-                /* Player collision not implemented
-                    if (roomCollidable.CollidesWith(roomEnemy.Bounds))
-                        _player.PlayerEffect(roomEnemy);
-                */
+                if (roomCollidable.CollidesWith(_player.Bounds))
+                    roomCollidable.PlayerEffect(_player).Execute();
             }
         }
 
