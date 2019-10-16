@@ -107,18 +107,21 @@ namespace Zelda.Dungeon
                 case MapTile.SpawnEnemy:
                     Enemies.Add(MakeEnemy(location));
                     break;
-                case MapTile.BlackOverlay:
-                    break;
                 case MapTile.Sand:
                     break;
-                case MapTile.BasementBricks:
-                    break;
-                case MapTile.BlackBarrier:
-                    break;
                 case MapTile.Heart:
+                    var heart = new HeartContainer(location);
+                    Collidables.Add(heart);
+                    Drawables.Add(heart);
                     break;
                 case MapTile.Boomerang:
+                    var boomerang = new BoomerangItem(location);
+                    Collidables.Add(boomerang);
+                    Drawables.Add(boomerang);
                     break;
+                case MapTile.BasementBricks:
+                case MapTile.BlackBarrier:
+                case MapTile.BlackOverlay:
                 case MapTile.None:
                     break;
                 default:
