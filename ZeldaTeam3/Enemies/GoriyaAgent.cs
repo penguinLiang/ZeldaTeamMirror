@@ -23,12 +23,6 @@ namespace Zelda.Enemies
         private int _clock;
         private int _timeSinceBoomerangThrown;
 
-        private enum StatusHealth
-        {
-            Alive,
-            Dead
-        }
-
         public GoriyaAgent(Point location)
         {
             _updateSpriteFlag = false;
