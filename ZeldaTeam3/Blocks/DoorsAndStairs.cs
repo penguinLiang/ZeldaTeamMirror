@@ -26,7 +26,6 @@ namespace Zelda.Blocks
         {
             BlockType.DoorUp,
             BlockType.DoorDown,
-            BlockType.DoorSpecialUp1_1,
             BlockType.DoorLockedUp,
             BlockType.DoorLockedDown,
             BlockType.BombableWallTop,
@@ -36,7 +35,8 @@ namespace Zelda.Blocks
         private readonly HashSet<BlockType> _allStairSet = new HashSet<BlockType>
         {
             BlockType.DungeonStair,
-            BlockType.BasementStair
+            BlockType.BasementStair,
+            BlockType.DoorSpecialUp1_1
         };
 
         private readonly Vector2 _drawLocation;
@@ -88,12 +88,12 @@ namespace Zelda.Blocks
 
         public void Update()
         {
-            _sprite.Update();
+            _sprite?.Update();
         }
 
         public void Draw()
         {
-            _sprite.Draw(_drawLocation);
+            _sprite?.Draw(_drawLocation);
         }
 
         public void Activate()

@@ -7,6 +7,7 @@ namespace Zelda.Dungeon
     {
         public Scene Scene { get; private set; }
         private ISprite _background;
+        private IPlayer _player;
         private Scene[][] _scenes;
         private BackgroundId[][] _backgroundIds;
 
@@ -38,6 +39,7 @@ namespace Zelda.Dungeon
 
         public void LoadDungeonContent(ContentManager content, IPlayer player)
         {
+            _player = player;
             var enabledRooms = content.Load<int[][]>("DungeonEnabledRooms");
             var enemies = content.Load<int[][]>("DungeonEnemies");
             var backgrounds = content.Load<int[][]>("DungeonRoomBackgrounds");
@@ -78,6 +80,7 @@ namespace Zelda.Dungeon
         public void TransitionToRoom(int row, int column)
         {
             SetBackground(_backgroundIds[row][column]);
+            _player.TeleportToEntrance(Direction.Down);
             Scene = _scenes[row][column];
             Scene.SpawnEnemies();
         }
