@@ -64,7 +64,6 @@ namespace Zelda.Player
         public void Knockback()
         {
             Idling = false;
-            _halted = true;
             Knockedback = true;
 
             switch (Facing)
