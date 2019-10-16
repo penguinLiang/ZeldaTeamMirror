@@ -9,19 +9,19 @@ namespace Zelda.Blocks
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
         private readonly Vector2 _drawLocation;
-        private Rectangle _bounds;
+        public Rectangle Bounds { get; }
 
         public MovableBlock(Point location)
         {
             var x = location.X;
             var y = location.Y;
-            _bounds = new Rectangle(x + 8, y, 8, 8);
+            Bounds = new Rectangle(x + 8, y, 8, 8);
             _drawLocation = new Vector2(x + 8, y + 8);
         }
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _bounds.Intersects(rect);
+            return Bounds.Intersects(rect);
         }
 
         public ICommand PlayerEffect(IPlayer player)

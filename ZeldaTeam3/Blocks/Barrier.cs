@@ -8,26 +8,18 @@ namespace Zelda.Blocks
     {
         private ISprite _sprite;
         private readonly Vector2 _drawLocation;
-        private Rectangle _bounds;
-        //        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateArrow();
-
-
+        public Rectangle Bounds { get; private set; }
         private BlockType _block;
         private int _locationx;
         private int _locationy;
 
         public Barrier(Point location, BlockType block)
-
         {
-            _locationx = location.X;
-           _locationy = location.Y;
-            _bounds = new Rectangle(_locationx, _locationy, 32, 32);
-            _drawLocation = new Vector2(_locationx + 8, _locationy + 8);
-
+            Bounds = new Rectangle(location.X, location.Y, 32, 32);
+            _drawLocation = new Vector2(location.X + 8, location.Y + 8);
             _block = block;
 
             GetSpriteAndBounds();
-
         }
 
         private void GetSpriteAndBounds()
@@ -99,7 +91,7 @@ namespace Zelda.Blocks
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _bounds.Intersects(rect);
+            return Bounds.Intersects(rect);
         }
 
         public ICommand PlayerEffect(IPlayer player)

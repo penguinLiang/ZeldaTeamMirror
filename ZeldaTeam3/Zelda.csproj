@@ -50,7 +50,12 @@
     <Compile Include="Commands\AddSecondaryItem.cs" />
     <Compile Include="Commands\MoveableHalt.cs" />
     <Compile Include="Commands\NoOp.cs" />
+    <Compile Include="Commands\ShowJumpMap.cs" />
     <Compile Include="Commands\UpgradeSword.cs" />
+    <Compile Include="Dungeon\EnemyType.cs" />
+    <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
+    <Compile Include="Dungeon\MapTile.cs" />
+    <Compile Include="Dungeon\DungeonManager.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
@@ -89,8 +94,9 @@
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
+    <Compile Include="Commands\SceneTransition.cs" />
     <Compile Include="Direction.cs" />
-    <Compile Include="DungeonRoom.cs" />
+    <Compile Include="Dungeon\Room.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="Enemies\Stalfos.cs" />
     <Compile Include="IEnemy.cs" />
@@ -130,11 +136,14 @@
     <Compile Include="Player\LinkSpriteFactory.cs" />
     <Compile Include="Player\MovementStateMachine.cs" />
     <Compile Include="Player\Inventory.cs" />
+    <Compile Include="Dungeon\Scene.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
+    <Compile Include="JumpMap.cs" />
     <Compile Include="BlockType.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ControllerMouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

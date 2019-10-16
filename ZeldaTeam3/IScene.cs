@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface IScene
+    public interface IScene
     {
         void TransitionToRoom(int row, int column);
     }

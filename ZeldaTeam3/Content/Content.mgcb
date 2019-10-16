@@ -21,6 +21,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin BasementBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BasementBackground.png
+
 #begin Boss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -68,6 +80,21 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DungeonBackground.png
+
+#begin DungeonEnabledRooms.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonEnabledRooms.csv
+
+#begin DungeonEnemies.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonEnemies.csv
+
+#begin DungeonRoomBackgrounds.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:DungeonRoomBackgrounds.csv
 
 #begin EnemyGoriya.png
 /importer:TextureImporter
@@ -225,6 +252,18 @@
 /processorParam:TextureFormat=Color
 /build:OldMan.png
 
+#begin OldManBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:OldManBackground.png
+
 #begin Particles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -307,10 +346,25 @@
 /processor:PassThroughProcessor
 /build:Rooms/3-3.csv
 
+#begin Rooms/3-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/3-5.csv
+
+#begin Rooms/4-0.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/4-0.csv
+
 #begin Rooms/4-2.csv
 /importer:CSVMapImporter
 /processor:PassThroughProcessor
 /build:Rooms/4-2.csv
+
+#begin Rooms/4-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/4-5.csv
 
 #begin Rooms/5-1.csv
 /importer:CSVMapImporter
@@ -326,6 +380,11 @@
 /importer:CSVMapImporter
 /processor:PassThroughProcessor
 /build:Rooms/5-3.csv
+
+#begin Rooms/5-5.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/5-5.csv
 
 #begin SpawnExplosion.png
 /importer:TextureImporter
@@ -350,24 +409,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles.png
-
-#begin Rooms/3-5.csv
-/importer:CSVMapImporter
-/processor:PassThroughProcessor
-/build:Rooms/3-5.csv
-
-#begin Rooms/4-0.csv
-/importer:CSVMapImporter
-/processor:PassThroughProcessor
-/build:Rooms/4-0.csv
-
-#begin Rooms/4-5.csv
-/importer:CSVMapImporter
-/processor:PassThroughProcessor
-/build:Rooms/4-5.csv
-
-#begin Rooms/5-5.csv
-/importer:CSVMapImporter
-/processor:PassThroughProcessor
-/build:Rooms/5-5.csv
 
