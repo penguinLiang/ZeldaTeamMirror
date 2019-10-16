@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\BlockTypeSprite.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
     <Compile Include="Commands\AddArrow.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap.cs" />
-    <Compile Include="BlockType.cs" />
+    <Compile Include="Blocks\BlockType.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ControllerMouse.cs" />

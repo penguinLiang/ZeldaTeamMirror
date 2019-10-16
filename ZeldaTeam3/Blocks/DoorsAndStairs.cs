@@ -1,12 +1,5 @@
-﻿﻿using System.Collections.Generic;
-using System.Collections;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Enemies;
-using Zelda.Items;
-using Zelda.Blocks;
-using Zelda;
 
 namespace Zelda.Blocks
 {
@@ -25,7 +18,7 @@ namespace Zelda.Blocks
             _allDoorsList = new BlockType[] { BlockType.DoorUp, BlockType.DoorDown, BlockType.DoorRight, BlockType.DoorLeft
                 , BlockType.DoorSpecialLeft2_1, BlockType.DoorSpecialRight3_1, BlockType.DoorSpecialUp1_1};
 
-            _allStairsList = new BlockType[] { BlockType.Stair1, BlockType.Stair2, BlockType.DungeonStair, BlockType.BasementStair};
+            _allStairsList = new BlockType[] { BlockType.DungeonStair, BlockType.BasementStair};
 
             var x = location.X;
             var y = location.Y;
