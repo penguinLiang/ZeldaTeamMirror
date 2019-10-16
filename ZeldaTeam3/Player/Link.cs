@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.Commands;
 
 namespace Zelda.Player
 {
@@ -142,6 +143,28 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
             }
+        }
+
+        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location + new Point(0, 9), new Point(14, 8));
+
+        public bool CollidesWith(Rectangle rect)
+        {
+            return Bounds.Intersects(rect);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            return NoOp.Instance;
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return NoOp.Instance;
         }
     }
 }

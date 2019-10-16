@@ -1,54 +1,69 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
     class DoorsAndStairs : ICollideable, IDrawable, IActivatable
     {
-        private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateRightOpenDoor();
-        private readonly Vector2 _drawLocation;
+        private readonly ISprite _sprite;
         public Rectangle Bounds { get; private set; }
-        private BlockType _block;
-        private BlockType[] _allDoorsList;
-        private BlockType[] _allStairsList;
+
+        private readonly HashSet<BlockType> _leftRightDoors = new HashSet<BlockType>
+        {
+            BlockType.DoorLockedRight,
+            BlockType.DoorLockedLeft,
+            BlockType.BombableWallLeft,
+            BlockType.BombableWallRight,
+            BlockType.DoorSpecialLeft2_1,
+            BlockType.DoorSpecialRight3_1,
+            BlockType.DoorRight,
+            BlockType.DoorLeft,
+        };
+
+        private readonly HashSet<BlockType> _upDownDoors = new HashSet<BlockType>
+        {
+            BlockType.DoorUp,
+            BlockType.DoorDown,
+            BlockType.DoorSpecialUp1_1,
+            BlockType.DoorLockedUp,
+            BlockType.DoorLockedDown,
+            BlockType.BombableWallTop,
+            BlockType.BombableWallBottom,
+        };
+
+        private readonly HashSet<BlockType> _allStairSet = new HashSet<BlockType>
+        {
+            BlockType.DungeonStair,
+            BlockType.BasementStair
+        };
+
+        private readonly Vector2 _drawLocation;
 
         public DoorsAndStairs(Point location, BlockType block)
         {
-            string designation = "None";
-            _allDoorsList = new BlockType[] { BlockType.DoorUp, BlockType.DoorDown, BlockType.DoorRight, BlockType.DoorLeft
-                , BlockType.DoorSpecialLeft2_1, BlockType.DoorSpecialRight3_1, BlockType.DoorSpecialUp1_1};
+            if (_leftRightDoors.Contains(block))
+            {
+                Bounds = new Rectangle(location, new Point(32, 48));
+                _drawLocation = new Vector2(location.X, location.Y + 8);
+            }
+            else if (_upDownDoors.Contains(block))
+            {
+                Bounds = new Rectangle(location, new Point(32, 32));
+                _drawLocation = location.ToVector2();
+            }
+            else if (_allStairSet.Contains(block))
+            {
+                Bounds = new Rectangle(location, new Point(16, 16));
+                _drawLocation = location.ToVector2();
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"Expected Door or Stair, got {block}");
+            }
 
-            _allStairsList = new BlockType[] { BlockType.DungeonStair, BlockType.BasementStair};
-
-            var x = location.X;
-            var y = location.Y;
-
-            foreach(BlockType door in _allDoorsList)
-            {
-                if(door == block)
-                {
-                    designation = "door";
-                    break;
-                }
-            }
-            foreach (BlockType stair in _allStairsList)
-            {
-                if (stair == block)
-                {
-                    designation = "stair";
-                    break;
-                }
-            }
-            if (designation == "door")
-            {
-                Bounds = new Rectangle(x, y, 32, 32);
-            }
-            if (designation == "stair")
-            {
-                Bounds = new Rectangle(x, y, 16, 16);
-            }
-            _drawLocation = new Vector2(x + 8, y + 8);
-            _block = block;
+            _sprite = BlockTypeSprite.Sprite(block);
         }
 
         public bool CollidesWith(Rectangle rect)

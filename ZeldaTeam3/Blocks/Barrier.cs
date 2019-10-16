@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
@@ -20,10 +21,11 @@ namespace Zelda.Blocks
             // ReSharper disable once SwitchStatementMissingSomeCases (Most barriers are 32,32)
             switch (block)
             {
+                case BlockType.DragonStatue:
                 case BlockType.FishStatue:
-                case BlockType.Fire:
                 case BlockType.ImmovableBlock:
                 case BlockType.InvisibleBlock:
+                case BlockType.Fire:
                 case BlockType.Water:
                     return new Rectangle(location, new Point(16, 16));
                 default:

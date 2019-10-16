@@ -20,16 +20,19 @@ namespace Zelda.Player
         public Point Location { get; private set; }
 
         private Direction _moving;
+        private bool _halted;
+        private Point _lastLocation;
 
         public MovementStateMachine(Point location)
         {
-            Location = location;
+            Location = _lastLocation = location;
             _disableKnockbackDelay.Pause();
         }
 
         private void AdvanceLocation()
         {
-            if (Idling || _movementDelay.Delayed) return;
+            if (Idling || _halted || _movementDelay.Delayed) return;
+            _lastLocation = Location;
 
             switch (_moving)
             {
@@ -52,7 +55,7 @@ namespace Zelda.Player
 
         public void Move(Direction direction)
         {
-            if (Knockedback) return;
+            if (Knockedback || _halted) return;
 
             Facing = _moving = direction;
             Idling = false;
@@ -61,6 +64,7 @@ namespace Zelda.Player
         public void Knockback()
         {
             Idling = false;
+            _halted = true;
             Knockedback = true;
 
             switch (Facing)
@@ -85,7 +89,9 @@ namespace Zelda.Player
 
         public void Halt()
         {
+            _halted = true;
             Idling = true;
+            Location = _lastLocation;
         }
 
         public void Update()
@@ -95,6 +101,7 @@ namespace Zelda.Player
             AdvanceLocation();
 
             if (!Knockedback) Idling = true;
+            _halted = false;
 
             if (_disableKnockbackDelay.Delayed) return;
             _disableKnockbackDelay.Pause();
