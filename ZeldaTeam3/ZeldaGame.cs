@@ -15,13 +15,13 @@ namespace Zelda
         public bool Resetting { get; set; }
         public IPlayer Link { get; private set; }
         public Scene Scene { get; private set; }
+        public JumpMap JumpMap { get; private set; }
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IUpdatable[] _controllers;
         private string _controlsDescription = "";
-        private JumpMap _jumpMap;
 
         public ZeldaGame()
         {
@@ -48,13 +48,13 @@ namespace Zelda
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _jumpMap = new JumpMap(_spriteBatch,Content);
+            JumpMap = new JumpMap(_spriteBatch,Content);
 
             Link = new Link(new Point(128, 122));
 
             _controllers = new IUpdatable[]{
                 new ControllerKeyboard(this),
-                new MouseController(this)
+                new ControllerMouse(this)
             };
 
             foreach (var controller in _controllers)
@@ -109,11 +109,9 @@ namespace Zelda
 
             _spriteBatch.Begin();
 
-            //_spriteBatch.DrawString(_font, _controlsDescription, new Vector2(5,5), Color.White);
+            JumpMap.Draw();
           
             _spriteBatch.End();
-
-            _jumpMap.Draw();
 
             base.Draw(gameTime);
         }

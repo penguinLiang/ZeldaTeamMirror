@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Dungeon
 {
@@ -90,7 +91,7 @@ namespace Zelda.Dungeon
     {
         public void TransitionToRoom(int row, int column)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("Dummy called! Row is " + row + ". Column is " + column + ".");
         }
     }
 }
