@@ -56,10 +56,19 @@ namespace Zelda
             if (!_zeldaGame.JumpMap.Visible) return;
 
             var mouseState = Mouse.GetState();
+            if (mouseState.LeftButton != ButtonState.Pressed) return;
+
             var mousePos = new Point(mouseState.X, mouseState.Y);
+
+            if (mousePos.Y < 47 || mousePos.Y > 354)
+            {
+                _zeldaGame.JumpMap.Visible = false;
+                return;
+            }
+
             foreach (var room in _roommap)
             {
-                if (mouseState.LeftButton != ButtonState.Pressed || !room.Contains(mousePos)) continue;
+                if (!room.Contains(mousePos)) continue;
 
                 var row = (mouseState.Y - 47) / 59;
                 var column = mouseState.X / 85;
