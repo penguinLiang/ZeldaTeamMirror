@@ -60,7 +60,7 @@ namespace Zelda
 
             var mousePos = new Point(mouseState.X, mouseState.Y);
 
-            if (mousePos.Y < 47 || mousePos.Y > 354)
+            if (mousePos.Y < 47 || mousePos.Y > 413)
             {
                 _zeldaGame.JumpMap.Visible = false;
                 return;
