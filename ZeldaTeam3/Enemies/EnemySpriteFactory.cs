@@ -14,6 +14,8 @@ namespace Zelda.Enemies
         private Texture2D _goriyaTexture2D;
         private Texture2D _aquamentusTexture2D;
         private Texture2D _oldManTexture2D;
+        private Texture2D _spawnExplosionTexture2D;
+        private Texture2D _deathSparkleTexture2D;
 
         public void LoadAllTextures(ContentManager content)
         {
@@ -23,6 +25,18 @@ namespace Zelda.Enemies
             _goriyaTexture2D = content.Load<Texture2D>("EnemyGoriya");
             _aquamentusTexture2D = content.Load<Texture2D>("Boss");
             _oldManTexture2D = content.Load<Texture2D>("OldMan");
+            _spawnExplosionTexture2D = content.Load<Texture2D>("SpawnExplosion");
+            _deathSparkleTexture2D = content.Load<Texture2D>("CharacterDeath");
+        }
+
+        public ISprite CreateSpawnExplosion()
+        {
+            return new Sprite(_spawnExplosionTexture2D, 16, 16, 3, new Point(0, 0), 10);
+        }
+
+        public ISprite CreateDeathSparkle()
+        {
+            return new Sprite(_deathSparkleTexture2D, 16, 16, 8, new Point(0, 0), 4);
         }
 
         public ISprite CreateStalfos()
