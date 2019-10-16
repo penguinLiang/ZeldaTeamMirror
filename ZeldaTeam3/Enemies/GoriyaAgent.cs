@@ -8,7 +8,7 @@ namespace Zelda.Enemies
         private ISprite _sprite;
         
         private const int BoomerangDuration = 40;
-        private Projectiles.ThrownBoomerang _boomerang;
+        private Projectiles.GoriyaBoomerang _boomerang;
 
         private bool _alive;
         private bool _isDying;
@@ -22,8 +22,6 @@ namespace Zelda.Enemies
         private int _health;
         private int _clock;
         private int _timeSinceBoomerangThrown;
-        
-        
 
         public GoriyaAgent(Point location)
         {
@@ -70,7 +68,7 @@ namespace Zelda.Enemies
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _boomerang = new Projectiles.ThrownBoomerang(_location + boomerangeOffset, _statusDirection);
+            _boomerang = new Projectiles.GoriyaBoomerang(_location + boomerangeOffset, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 

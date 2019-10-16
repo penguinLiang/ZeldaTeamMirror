@@ -3,12 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Arrow : IDrawable
+    internal class Arrow : ICollideable, IDrawable
     {
         private const int FramesToDisappear = 140;
 
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
+        public Rectangle Bounds { get; private set; }
 
         private int _framesDelayed;
 
@@ -32,6 +33,28 @@ namespace Zelda.Projectiles
                     throw new ArgumentOutOfRangeException();
             }
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
+        }
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return _arrowStateMachine.CollidesWith(rectangle);
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            _sprite.Hide();
+            _arrowStateMachine.ClearBounds();
+            return new Commands.SpawnableDamage(enemy);
+        }
+
+        public ICommand ProjectileEffect(IHaltable projectile)
+        {
+            return Commands.NoOp.Instance;
         }
 
         public void Update()

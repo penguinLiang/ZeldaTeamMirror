@@ -11,6 +11,7 @@ namespace Zelda.Projectiles
         private readonly Direction _direction;
         private int _currentFrame;
         private Point _location;
+        private Rectangle _bounds;
 
         public Point Location => _location;
 
@@ -19,6 +20,29 @@ namespace Zelda.Projectiles
             _currentFrame = 0;
             _direction = direction;
             _location = location;
+            switch (direction)
+            {
+                case Direction.Up:
+                case Direction.Down:
+                    _bounds = new Rectangle(location.X + 4, location.Y, 8, 16);
+                    break;
+                case Direction.Left:
+                case Direction.Right:
+                    _bounds = new Rectangle(location.X, location.Y + 4, 16, 8);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return _bounds.Intersects(rectangle);
+        }
+
+        public void ClearBounds()
+        {
+            _bounds = new Rectangle(0, 0, 0, 0);
         }
 
         public void Update()
