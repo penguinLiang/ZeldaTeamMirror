@@ -1,21 +1,19 @@
-﻿
+
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class Compass : ICollideable, IDrawable
+    internal class HeartContainer : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateCompass();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateHeartContainer();
         private readonly Vector2 _drawLocation;
         public Rectangle Bounds { get; private set; }
 
-        public Compass(Point location)
+        public HeartContainer(Point location)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x, y, 16, 16);
-            _drawLocation = new Vector2(x, y);
+            Bounds = new Rectangle(location.X, location.Y, 16, 16);
+            _drawLocation = new Vector2(location.X, location.Y);
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -27,7 +25,7 @@ namespace Zelda.Items
         {
             _sprite.Hide();
             Bounds = new Rectangle(0, 0, 0, 0);
-            return new AddCompass(player);
+            return new LinkAddHeart(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

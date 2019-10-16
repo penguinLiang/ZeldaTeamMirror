@@ -13,7 +13,7 @@ namespace Zelda.Items
         public ArrowItem(Point location)
         {
             Bounds = new Rectangle(location.X + 8, location.Y, 8, 16);
-            _drawLocation = new Vector2(location.X + 8, location.Y + 8);
+            _drawLocation = new Vector2(location.X + 4, location.Y);
         }
 
         public bool CollidesWith(Rectangle rect)

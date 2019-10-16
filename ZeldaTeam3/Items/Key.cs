@@ -15,7 +15,7 @@ namespace Zelda.Items
             var x = location.X;
             var y = location.Y;
             Bounds = new Rectangle(x + 8, y, 8, 16);
-            _drawLocation = new Vector2(x + 8, y + 8);
+            _drawLocation = new Vector2(x + 4, y );
         }
 
         public bool CollidesWith(Rectangle rect)
