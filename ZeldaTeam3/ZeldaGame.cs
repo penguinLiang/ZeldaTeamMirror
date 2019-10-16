@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
+using Zelda.Dungeon;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Player;
@@ -13,13 +14,14 @@ namespace Zelda
     {
         public bool Resetting { get; set; }
         public IPlayer Link { get; private set; }
+        public Scene Scene { get; private set; }
+        public JumpMap JumpMap { get; private set; }
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IUpdatable[] _controllers;
         private string _controlsDescription = "";
-        private JumpMap _jumpMap;
 
         public ZeldaGame()
         {
@@ -44,15 +46,15 @@ namespace Zelda
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
+            BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
 
-            _jumpMap = new JumpMap(_spriteBatch,Content);
+            JumpMap = new JumpMap(_spriteBatch,Content);
 
             Link = new Link(new Point(128, 122));
 
-            // Controller instanciation expects that IPlayer and IEnemy exist
             _controllers = new IUpdatable[]{
                 new ControllerKeyboard(this),
-                new MouseController(this)
+                new ControllerMouse(this)
             };
 
             foreach (var controller in _controllers)
@@ -61,7 +63,7 @@ namespace Zelda
             }
 
             /* SHOULD BE REMOVED! ONLY FOR PROOF */
-            var result = Content.Load<int[][]>("Rooms/0-1");
+            var result = Content.Load<int[][]>("Rooms/5-3");
             for (var row = 0; row < result.Length; row++)
             {
                 Console.Write($"Row {row,2}: ");
@@ -72,6 +74,10 @@ namespace Zelda
                 Console.WriteLine();
             }
             /* END REMOVE */
+
+            var sceneController = new SceneController();
+            var room = new Room(result, 5);
+            Scene = new Scene(sceneController, room, Link);
         }
 
         protected override void UnloadContent()
@@ -86,6 +92,7 @@ namespace Zelda
             }
 
             Link.Update();
+            Scene.Update();
             base.Update(gameTime);
         }
 
@@ -94,17 +101,17 @@ namespace Zelda
             GraphicsDevice.Clear(Color.Black);
             
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f));
+
+            Scene.Draw();
             Link.Draw();
 
             _spriteBatch.End();
 
             _spriteBatch.Begin();
 
-            _spriteBatch.DrawString(_font, _controlsDescription, new Vector2(5,5), Color.White);
+            JumpMap.Draw();
           
             _spriteBatch.End();
-
-            _jumpMap.Draw();
 
             base.Draw(gameTime);
         }

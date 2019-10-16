@@ -1,6 +1,4 @@
-﻿using System;
-using Zelda;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -8,23 +6,20 @@ namespace Zelda
 {
     public class JumpMap
     {
-        private Texture2D image;
-        private SpriteBatch _spriteBatch;
-        private ContentManager _content;
+        private readonly Texture2D _image;
+        private readonly SpriteBatch _spriteBatch;
 
+        public bool Visible;
 
         public JumpMap(SpriteBatch spriteBatch, ContentManager content)
         {
             _spriteBatch = spriteBatch;
-            _content = content;
-            image = content.Load<Texture2D>("JumpMap");            
+            _image = content.Load<Texture2D>("JumpMap");
         }
 
         public void Draw()
         {
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(image, new Rectangle(0, 0, 512, 448), Color.White);
-            _spriteBatch.End();
+            if (Visible) _spriteBatch.Draw(_image, new Rectangle(0, 0, 512, 448), Color.White);
         }
     }
 }

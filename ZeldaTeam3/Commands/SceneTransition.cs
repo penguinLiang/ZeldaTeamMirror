@@ -1,12 +1,12 @@
 ﻿namespace Zelda.Commands
 {
-    internal class SceneTransitionCommand : ICommand
+    internal class SceneTransition : ICommand
     {
         private readonly IScene _scene;
-        private int _row;
-        private int _column;
+        private readonly int _row;
+        private readonly int _column;
 
-        public SceneTransitionCommand(IScene scene, int row, int column)
+        public SceneTransition(IScene scene, int row, int column)
         {
             _scene = scene;
             _row = row;

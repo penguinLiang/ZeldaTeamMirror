@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -14,7 +14,7 @@ namespace Zelda.Blocks
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateRightOpenDoor();
         private readonly Vector2 _drawLocation;
-        private Rectangle _bounds;
+        public Rectangle Bounds { get; private set; }
         private BlockType _block;
         private BlockType[] _allDoorsList;
         private BlockType[] _allStairsList;
@@ -29,6 +29,7 @@ namespace Zelda.Blocks
 
             var x = location.X;
             var y = location.Y;
+
             foreach(BlockType door in _allDoorsList)
             {
                 if(door == block)
@@ -47,11 +48,11 @@ namespace Zelda.Blocks
             }
             if (designation == "door")
             {
-                _bounds = new Rectangle(x, y, 32, 32);
+                Bounds = new Rectangle(x, y, 32, 32);
             }
             if (designation == "stair")
             {
-                _bounds = new Rectangle(x, y, 16, 16);
+                Bounds = new Rectangle(x, y, 16, 16);
             }
             _drawLocation = new Vector2(x + 8, y + 8);
             _block = block;
@@ -59,7 +60,7 @@ namespace Zelda.Blocks
 
         public bool CollidesWith(Rectangle rect)
         {
-            return _bounds.Intersects(rect);
+            return Bounds.Intersects(rect);
         }
 
         public ICommand PlayerEffect(IPlayer player)

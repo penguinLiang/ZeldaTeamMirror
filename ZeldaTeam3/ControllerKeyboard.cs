@@ -44,7 +44,10 @@ namespace Zelda
                 { Keys.NumPad4, bowassign },
                 { Keys.NumPad5, boomerangassign },
                 { Keys.NumPad6, bombassign },
-                {Keys.K, new Commands.LinkKnockback(zeldaGame.Link) }
+
+                {Keys.K, new Commands.LinkKnockback(zeldaGame.Link) },
+
+                {Keys.M, new Commands.ShowJumpMap(zeldaGame) }
             };
 
             _playerDirections = new Dictionary<Keys, ICommand>
