@@ -13,12 +13,12 @@ namespace Zelda.Projectiles
 
         private int _currentDistanceAway;
         private Direction _direction;
-        private Rectangle _bounds;
+        public Rectangle Bounds { get; private set; }
 
         public PlayerBoomerang(Point location, Direction direction)
         {
             _direction = direction;
-            _bounds = new Rectangle(location.X, location.Y, 8, 8);
+           Bounds = new Rectangle(location.X, location.Y, 8, 8);
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
             _currentDistanceAway = 0;
@@ -49,7 +49,7 @@ namespace Zelda.Projectiles
 
         public bool CollidesWith(Rectangle rectangle)
         {
-            return _bounds.Intersects(rectangle);
+            return Bounds.Intersects(rectangle);
         }
 
         public ICommand PlayerEffect(IPlayer player)
