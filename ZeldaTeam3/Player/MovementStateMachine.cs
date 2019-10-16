@@ -6,7 +6,7 @@ namespace Zelda.Player
     /*
      * Manages Link's
      *  - Facing/movement direction
-     *  - Location from movement
+     *  - Location from movement/teleportation
      *  - Whether or not idle
      */
     internal class MovementStateMachine : IHaltable, IUpdatable
@@ -106,6 +106,29 @@ namespace Zelda.Player
             _disableKnockbackDelay.Pause();
             Knockedback = false;
             _moving = Facing;
+        }
+
+        public void TeleportToEntrance(Direction entranceDirection)
+        {
+            Idling = true;
+            _halted = false;
+            switch (entranceDirection)
+            {
+                case Direction.Up:
+                    _lastLocation = Location = new Point(16 * 8, 16 * 2);
+                    break;
+                case Direction.Down:
+                    _lastLocation = Location = new Point(16 * 8, 16 * 8);
+                    break;
+                case Direction.Left:
+                    _lastLocation = Location = new Point(16 * 2,16 * 5);
+                    break;
+                case Direction.Right:
+                    _lastLocation = Location = new Point(16 * 13,16 * 5);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

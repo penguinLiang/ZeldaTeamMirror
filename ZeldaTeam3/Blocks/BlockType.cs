@@ -27,6 +27,7 @@
         BombableWallBottom,
         DungeonStair,
         BasementStair,
-        Fire
+        Fire,
+        BlackBarrier,
     }
 }

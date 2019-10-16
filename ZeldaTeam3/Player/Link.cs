@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Security.Permissions;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Player
@@ -145,7 +146,7 @@ namespace Zelda.Player
             }
         }
 
-        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location + new Point(0, 9), new Point(14, 8));
+        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location + new Point(0, 8), new Point(14, 8));
 
         public bool CollidesWith(Rectangle rect)
         {
@@ -165,6 +166,11 @@ namespace Zelda.Player
         public ICommand ProjectileEffect(IHaltable projectile)
         {
             return NoOp.Instance;
+        }
+
+        public void TeleportToEntrance(Direction entranceDirection)
+        {
+            _movementStateMachine.TeleportToEntrance(entranceDirection);
         }
     }
 }

@@ -11,5 +11,6 @@
         void Heal();
         void FullHeal();
         void AddHeart();
+        void TeleportToEntrance(Direction entranceDirection);
     }
 }

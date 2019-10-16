@@ -120,7 +120,6 @@ namespace Zelda.Dungeon
                     Drawables.Add(boomerang);
                     break;
                 case MapTile.BasementBricks:
-                case MapTile.BlackBarrier:
                 case MapTile.BlackOverlay:
                 case MapTile.None:
                     break;
@@ -206,22 +205,25 @@ namespace Zelda.Dungeon
             switch (tile)
             {
                 case MapTile.InvisibleWall:
-                     blockType = BlockType.InvisibleBlock;
+                    blockType = BlockType.InvisibleBlock;
                     break;
                 case MapTile.Fire:
-                     blockType = BlockType.Fire;
+                    blockType = BlockType.Fire;
                     break;
                 case MapTile.Water:
-                     blockType = BlockType.Water;
+                    blockType = BlockType.Water;
                     break;
                 case MapTile.FishStatue:
-                     blockType = BlockType.FishStatue;
+                    blockType = BlockType.FishStatue;
                     break;
                 case MapTile.DragonStatue:
-                     blockType = BlockType.DragonStatue;
+                    blockType = BlockType.DragonStatue;
                     break;
                 case MapTile.ImmovableBlock:
-                     blockType = BlockType.ImmovableBlock;
+                    blockType = BlockType.ImmovableBlock;
+                    break;
+                case MapTile.BlackBarrier:
+                    blockType = BlockType.BlackBarrier;
                     break;
                 default:
                     return false;

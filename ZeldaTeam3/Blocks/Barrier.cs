@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
@@ -28,6 +27,8 @@ namespace Zelda.Blocks
                 case BlockType.Fire:
                 case BlockType.Water:
                     return new Rectangle(location, new Point(16, 16));
+                case BlockType.BlackBarrier:
+                    return new Rectangle(location, new Point(16, 24));
                 default:
                     return new Rectangle(location, new Point(32, 32));
             }

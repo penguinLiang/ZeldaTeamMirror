@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
- <tileset firstgid="1" source="MapTileset.tsx"/>
+ <tileset firstgid="1" source="../../../Tiled Resources/MapTileset.tsx"/>
  <imagelayer id="2" name="Background" locked="1">
   <image source="../BasementBackground.png" width="256" height="176"/>
  </imagelayer>
  <layer id="1" name="Tiles" width="16" height="11">
   <data encoding="csv">
-0,0,9,59,9,0,0,0,0,0,0,0,0,0,0,0,
-9,9,9,0,9,9,9,9,9,9,9,9,9,9,9,9,
+0,0,9,0,9,0,0,0,0,0,0,0,0,0,0,0,
+9,9,9,59,9,9,9,9,9,9,9,9,9,9,9,9,
 0,0,9,0,9,0,0,0,0,0,0,0,0,0,0,0,
 0,0,9,0,9,0,0,0,0,0,0,0,0,0,0,0,
-0,0,9,0,9,0,9,9,9,9,9,9,9,9,9,0,
+0,0,9,0,9,0,9,16,16,16,16,16,16,16,9,0,
 0,1,9,0,9,1,9,0,20,0,1,0,0,1,9,0,
 0,9,9,0,9,0,9,9,9,9,9,0,9,9,9,0,
-0,9,9,0,9,9,9,9,9,9,9,0,9,9,9,0,
+0,9,16,0,16,16,16,16,16,16,16,0,16,16,9,0,
 0,9,0,0,0,0,0,0,0,0,0,0,0,0,9,0,
 0,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
