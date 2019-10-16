@@ -47,6 +47,7 @@ namespace Zelda.Projectiles
             {
                 _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
                 SetExplosionSpriteLocations();
+                Bounds  = new Rectangle((int)_location.X,(int) _location.Y, (int)_location.X - 16, (int)_location.Y - 16);
             }
             else if (_framesDelayed == FramesToDisappear)
             {
