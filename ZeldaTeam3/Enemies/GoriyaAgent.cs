@@ -8,7 +8,7 @@ namespace Zelda.Enemies
         private ISprite _sprite;
         
         private const int BoomerangDuration = 40;
-        private Projectiles.ThrownBoomerang _boomerang;
+        private Projectiles.GoriyaBoomerang _boomerang;
 
         private bool _alive;
         private bool _isDying;
@@ -22,7 +22,6 @@ namespace Zelda.Enemies
         private int _health;
         private int _clock;
         private int _timeSinceBoomerangThrown;
-        private Projectiles.GoriyaBoomerang _boomerang;
 
         private enum StatusHealth
         {
