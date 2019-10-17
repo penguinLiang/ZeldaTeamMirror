@@ -9,7 +9,7 @@ namespace Zelda.Projectiles
 
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
 
