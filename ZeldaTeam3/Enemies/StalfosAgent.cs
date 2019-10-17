@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
@@ -23,8 +22,7 @@ namespace Zelda.Enemies
         private AgentStates _agentStatus;
 
         private const int ActionDelay = 16;
-        private static Random rng = new Random();
-        
+        private static readonly Random Rng = new Random();
 
         //Must be a factor of 16 (grid like movement)
         private const int Velocity = 1;
@@ -196,10 +194,10 @@ namespace Zelda.Enemies
 
         public void UpdateAction()
         {
-            _agentStatus = (AgentStates) (rng.Next(3));
+            _agentStatus = (AgentStates) (Rng.Next(3));
             if (_agentStatus == AgentStates.Moving)
             {
-                _currentDirection = (Direction) (rng.Next(4));
+                _currentDirection = (Direction) (Rng.Next(4));
             }
             _agentClock = ActionDelay;
 
@@ -243,23 +241,7 @@ namespace Zelda.Enemies
 
         private void FlipDirection()
         {
-            switch (_currentDirection)
-            {
-                case Direction.Up:
-                    _currentDirection = Direction.Down;
-                    break;
-                case Direction.Down:
-                    _currentDirection = Direction.Up;
-                    break;
-                case Direction.Left:
-                    _currentDirection = Direction.Right;
-                    break;
-                case Direction.Right:
-                    _currentDirection = Direction.Left;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
     }
 }

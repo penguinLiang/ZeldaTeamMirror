@@ -55,6 +55,7 @@
     <Compile Include="Commands\NoOp.cs" />
     <Compile Include="Commands\ShowJumpMap.cs" />
     <Compile Include="Commands\UpgradeSword.cs" />
+    <Compile Include="DirectionUtility.cs" />
     <Compile Include="Dungeon\EnemyType.cs" />
     <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
     <Compile Include="Dungeon\MapTile.cs" />

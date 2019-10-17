@@ -5,7 +5,7 @@ namespace Zelda.Enemies
     public class Gel : Enemy
     {
         private readonly GelAgent _agent;
-        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        public override Rectangle Bounds => new Rectangle(_agent.Location.X + 4, _agent.Location.Y + 7, 8, 9);
         public override bool Alive => _agent.Alive;
 
         public Gel(Point location)
