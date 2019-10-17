@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AgentStates.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Enemies\StalfosAgent.cs" />
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="FrameDelay.cs" />
+    <Compile Include="IAgent.cs" />
     <Compile Include="ICollideable.cs" />
     <Compile Include="Items\ArrowItem.cs" />
     <Compile Include="Items\BombItem.cs" />

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Zelda.Enemies
 {
@@ -6,19 +7,48 @@ namespace Zelda.Enemies
     {
         private ISprite _sprite;
 
+        public bool Alive { get; private set; }
+
+        public Point Location;
+
         private bool _isImmobile;
         private bool _isDying;
-        public bool Alive { get; private set; }
-        private int _clock;
-        public Point Location;
+
+        private int _clockDelay;
+        private int _health;
+        private int _agentClock;
+
+        private Direction _currentDirection;
+        private AgentStates _agentStatus;
+
+        private const int ActionDelay = 16;
+        private static Random rng = new Random();
+
+
+        //Must be a factor of 16 (grid like movement)
+        private const int Velocity = 1;
 
         public GelAgent(Point location)
         {
             Location = location;
+            Alive = false;
+            _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGel();
             _sprite.Hide();
             _isImmobile = true;
             _isDying = false;
+
+            _agentStatus = AgentStates.Ready;
+        }
+
+        public void Spawn()
+        {
+            _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
+            _isImmobile = true;
+            _clockDelay = 30;
+            _health = 2;
+            Alive = true;
+            _currentDirection = Direction.Down;
         }
 
         public void Kill()
@@ -28,7 +58,7 @@ namespace Zelda.Enemies
                 return;
             }
             _sprite.Hide();
-            _clock = 32;
+            _clockDelay = 32;
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _isDying = true;
             Alive = false;
@@ -39,44 +69,43 @@ namespace Zelda.Enemies
             // NO-OP: Attack has no animation
         }
 
-        public void MoveDown()
+        public void Move(Direction direction)
         {
-            if (!_isImmobile)
+            switch (direction)
             {
-                Location.Y += 1;
+                case Direction.Up:
+                    MoveUp();
+                    return;
+                case Direction.Left:
+                    MoveLeft();
+                    return;
+                case Direction.Right:
+                    MoveRight();
+                    return;
+                case Direction.Down:
+                    MoveDown();
+                    return;
             }
         }
 
-        public void MoveLeft()
+        private void MoveDown()
         {
-            if (!_isImmobile)
-            {
-                Location.X -= 1;
-            }
+            Location.Y += Velocity;
         }
 
-        public void MoveRight()
+        private void MoveLeft()
         {
-            if (!_isImmobile)
-            {
-                Location.X += 1;
-            }
+            Location.X -= Velocity;
         }
 
-        public void MoveUp()
+        private void MoveRight()
         {
-            if (!_isImmobile)
-            {
-                Location.Y -= 1;
-            }
+            Location.X += Velocity;
         }
 
-        public void Spawn()
+        private void MoveUp()
         {
-            _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
-            _isImmobile = true;
-            _clock = 30;
-            Alive = true;
+            Location.Y -= Velocity;
         }
 
         public void TakeDamage()
@@ -91,15 +120,79 @@ namespace Zelda.Enemies
 
         public void Update()
         {
-            if (_clock > 0)
+            if (_clockDelay > 0)
             {
-                _clock--;
-                if (_clock == 0)
+                _clockDelay--;
+                if (_clockDelay == 0)
                 {
                     CheckFlags();
                 }
             }
+            else
+            {
+                ExecuteAction();
+            }
+
             _sprite.Update();
+
+        }
+
+        public void ExecuteAction()
+        {
+            if (_agentClock > 0)
+            {
+                _agentClock--;
+            }
+
+            switch (_agentStatus)
+            {
+                case AgentStates.Ready: //determine next action
+                    UpdateAction();
+                    break;
+                case AgentStates.Halted:
+                    if (_agentClock == 0)
+                    {
+                        _agentStatus = AgentStates.Ready;
+                    }
+
+                    break;
+                case AgentStates.Knocked:
+                    if (_agentClock != 0)
+                    {
+                        Move(_currentDirection);
+                    }
+                    else
+                    {
+                        FlipDirection();
+                        _agentStatus = AgentStates.Ready;
+                    }
+
+                    break;
+                case AgentStates.Moving:
+                    if (_agentClock != 0)
+                    {
+                        Move(_currentDirection);
+                    }
+                    else
+                    {
+                        _agentStatus = AgentStates.Ready;
+                    }
+
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        public void UpdateAction()
+        {
+            _agentStatus = (AgentStates)(rng.Next(3));
+            if (_agentStatus == AgentStates.Moving)
+            {
+                _currentDirection = (Direction)(rng.Next(4));
+            }
+            _agentClock = ActionDelay;
+
         }
 
         private void CheckFlags()
@@ -115,6 +208,47 @@ namespace Zelda.Enemies
                 _sprite = EnemySpriteFactory.Instance.CreateGel();
                 _sprite.Hide();
                 _isDying = false;
+            }
+        }
+
+        public void Knockback()
+        {
+            _agentStatus = AgentStates.Knocked;
+            _agentClock = ActionDelay / 2;
+            FlipDirection();
+        }
+
+        public void Halt()
+        {
+            _agentStatus = AgentStates.Halted;
+            _agentClock = ActionDelay*3;
+            FlipDirection();
+            Move(_currentDirection);
+        }
+
+        public void Stun()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FlipDirection()
+        {
+            switch (_currentDirection)
+            {
+                case Direction.Up:
+                    _currentDirection = Direction.Down;
+                    break;
+                case Direction.Down:
+                    _currentDirection = Direction.Up;
+                    break;
+                case Direction.Left:
+                    _currentDirection = Direction.Right;
+                    break;
+                case Direction.Right:
+                    _currentDirection = Direction.Left;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

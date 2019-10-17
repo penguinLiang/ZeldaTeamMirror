@@ -48,7 +48,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unmoved && TrySetBlockDirection(player.Bounds))
+            if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
                 _moving = true;
                 _unmoved = false;

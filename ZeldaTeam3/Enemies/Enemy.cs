@@ -22,7 +22,7 @@ namespace Zelda.Enemies
 
         public virtual ICommand EnemyEffect(IEnemy enemy)
         {
-            return NoOp.Instance;
+            return new MoveableHalt(enemy);
         }
 
         public virtual ICommand ProjectileEffect(IHaltable projectile)
