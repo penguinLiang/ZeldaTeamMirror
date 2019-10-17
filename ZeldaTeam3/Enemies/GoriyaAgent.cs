@@ -115,7 +115,7 @@ namespace Zelda.Enemies
             _isImmobile = true;
             Alive = true;
             _clock = 30;
-            _health = 10;
+            _health = 3;
             UpdateDirection(Direction.Down);
         }
 
