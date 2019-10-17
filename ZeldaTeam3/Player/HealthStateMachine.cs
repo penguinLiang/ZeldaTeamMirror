@@ -11,7 +11,7 @@ namespace Zelda.Player
         public bool Alive => Health > 0;
 
         // Health is countable as half hearts, so 6 is 3 full hearts
-        public int MaxHealth { get; private set; } = 1;
+        public int MaxHealth { get; private set; } = 6;
         public int Health;
 
         private readonly FrameDelay _hurtResetDelay = new FrameDelay(60);
