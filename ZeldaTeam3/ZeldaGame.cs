@@ -70,8 +70,8 @@ namespace Zelda
                 controller.Update();
             }
 
-            DungeonManager.Update();
             Link.Update();
+            DungeonManager.Update();
             base.Update(gameTime);
         }
 
@@ -83,6 +83,7 @@ namespace Zelda
 
             DungeonManager.Draw();
             Link.Draw();
+
             _spriteBatch.End();
 
             _spriteBatch.Begin();
