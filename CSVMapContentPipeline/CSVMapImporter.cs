@@ -6,36 +6,25 @@ namespace CSVMapContentPipeline
     [ContentImporter(".csv", DefaultProcessor = "PassThroughProcessor", DisplayName = "CSV Map Importer - ZeldaTeam3")]
     public class CSVMapImporter : ContentImporter<int[][]>
     {
-        public const int Columns = 16;
-        public const int Rows = 11;
-
         public override int[][] Import(string filename, ContentImporterContext context)
         {
-            var result = new int[Rows][];
             context.Logger.LogMessage("Importing CSV map: {0}", filename);
 
             var fileStream = new StreamReader(filename);
-            for (var row = 0; row < Rows; row++)
+            var rowStrings = fileStream.ReadToEnd().Trim().Split('\n');
+            var result = new int[rowStrings.Length][];
+            fileStream.Close();
+
+            for (var row = 0; row < rowStrings.Length; row++)
             {
-                var colStrings = fileStream.ReadLine()?.Split(',');
-                if (colStrings == null)
-                {
-                    throw new InvalidContentException($"CSV map file {filename} does not contain ${Rows} rows");
-                }
+                var colStrings = rowStrings[row].Split(',');
+                result[row] = new int[colStrings.Length];
 
-                if (colStrings.Length != Columns)
+                for (var col = 0; col < colStrings.Length; col++)
                 {
-                    throw new InvalidContentException($"CSV map file {filename}, row ${row} does not contain ${Columns} columns");
-                }
-
-                result[row] = new int[Columns];
-
-                for (var col = 0; col < Columns; col++)
-                {
-                    result[row][col] = int.Parse(colStrings[col]);
+                    result[row][col] = int.Parse(colStrings[col].Trim());
                 }
             }
-            fileStream.Close();
 
             return result;
         }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Enemies;
 
 namespace Zelda.Player
 {
@@ -15,8 +14,11 @@ namespace Zelda.Player
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
 
-        // Link only collides with the bottom half of his sprite, hence the offset by 8 in the y and the height only being 8
-        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location.X, _movementStateMachine.Location.Y + 8, 16, 8);
+        public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
+
+        public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
+
+        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine);
 
         public Link(Point location)
         {
@@ -149,26 +151,6 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
             }
-        }
-
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
-
-        public ICommand PlayerEffect(IPlayer player)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IHaltable projectile)
-        {
-            return new MoveableHalt(projectile);
         }
     }
 }

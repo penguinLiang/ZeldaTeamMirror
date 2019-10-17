@@ -3,14 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
-    public class GoriyaAgent
+    internal class GoriyaAgent
     {
         private ISprite _sprite;
-        
-        private const int BoomerangDuration = 40;
-        public Projectiles.ThrownBoomerang Boomerang;
 
-        private bool _alive;
+        internal Projectiles.GoriyaBoomerang Boomerang;
+
+        public bool Alive { get; private set; }
         private bool _isDying;
         private bool _isImmobile;
         private bool _updateSpriteFlag;
@@ -22,15 +21,14 @@ namespace Zelda.Enemies
         private int _health;
         private int _clock;
         private int _timeSinceBoomerangThrown;
-        
-        
+        private const int BoomerangDuration = 40;
 
         public GoriyaAgent(Point location)
         {
             _updateSpriteFlag = false;
             Location = location;
             _timeSinceBoomerangThrown = BoomerangDuration;
-            _alive = false;
+            Alive = false;
             _statusDirection = Direction.Down;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
@@ -39,7 +37,7 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
-            if (!_alive)
+            if (!Alive)
             {
                 return;
             }
@@ -47,30 +45,31 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _clock = 32;
             _isDying = true;
-            _alive = false;
+            Alive = false;
         }
 
         public void UseAttack()
         {
-            var boomerangeOffset = new Point(4, 4);
+            var boomerangOffset = new Point(4, 4);
             switch (_statusDirection)
             {
                 case Direction.Up:
-                    boomerangeOffset.Y -= 16;
+                    boomerangOffset.Y -= 16;
                     break;
                 case Direction.Down:
-                    boomerangeOffset.Y += 16;
+                    boomerangOffset.Y += 16;
                     break;
                 case Direction.Left:
-                    boomerangeOffset.X -= 16;
+                    boomerangOffset.X -= 16;
                     break;
                 case Direction.Right:
-                    boomerangeOffset.X += 16;
+                    boomerangOffset.X += 16;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            Boomerang = new Projectiles.ThrownBoomerang(Location + boomerangeOffset, _statusDirection);
+
+            Boomerang = new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection);
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -114,7 +113,7 @@ namespace Zelda.Enemies
         {
             _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _isImmobile = true;
-            _alive = true;
+            Alive = true;
             _clock = 30;
             _health = 10;
             UpdateDirection(Direction.Down);
@@ -122,7 +121,7 @@ namespace Zelda.Enemies
 
         public void TakeDamage()
         {
-            if (_alive)
+            if (Alive)
             {
                 _health--;
                 _sprite.PaletteShift();
@@ -188,7 +187,7 @@ namespace Zelda.Enemies
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (!_alive)
+            if (!Alive)
             {
                 _sprite.Hide();
             }

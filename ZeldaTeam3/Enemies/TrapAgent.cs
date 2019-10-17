@@ -6,11 +6,11 @@ namespace Zelda.Enemies
     {
         private readonly ISprite _sprite;
 
-        private Point _location;
+        public Point Location;
 
         public TrapAgent(Point location)
         {
-            _location = location;
+            Location = location;
             _sprite = EnemySpriteFactory.Instance.CreateTrap();
             _sprite.Hide();
         }
@@ -27,22 +27,22 @@ namespace Zelda.Enemies
 
         public void MoveDown()
         {
-            _location.Y += 1;
+            Location.Y += 1;
         }
 
         public void MoveLeft()
         {
-            _location.X -= 1;
+            Location.X -= 1;
         }
 
         public void MoveRight()
         {
-            _location.X += 1;
+            Location.X += 1;
         }
 
         public void MoveUp()
         {
-            _location.Y -= 1;
+            Location.Y -= 1;
         }
 
         public void Spawn()
@@ -52,7 +52,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            _sprite.Draw(Location.ToVector2());
         }
 
         public void Update()

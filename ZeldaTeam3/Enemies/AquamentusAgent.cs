@@ -7,7 +7,7 @@ namespace Zelda.Enemies
         private ISprite _sprite;
 
         private int _health;
-        private bool _alive;
+        public bool Alive { get; private set; }
         private int _clock;
         private bool _isImmobile;
         private bool _isDying;
@@ -16,7 +16,7 @@ namespace Zelda.Enemies
         public AquamentusAgent(Point location)
         {
             Location = location;
-            _alive = true;
+            Alive = true;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateAquamentusIdle();
             _sprite.Hide();
@@ -26,7 +26,7 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
-            if (!_alive)
+            if (!Alive)
             {
                 return;
             }
@@ -34,7 +34,7 @@ namespace Zelda.Enemies
             _clock = 32;
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _isDying = true;
-            _alive = false;
+            Alive = false;
         }
 
         public void UseAttack()
@@ -80,12 +80,12 @@ namespace Zelda.Enemies
             _isImmobile = true;
             _clock = 30;
             _health = 10;
-            _alive = true;
+            Alive = true;
         }
 
         public void TakeDamage()
         {
-            if (_alive)
+            if (Alive)
             {
                 _health--;
                 _sprite.PaletteShift();

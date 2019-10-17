@@ -3,77 +3,34 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
-    public class Goriya : IEnemy
+    internal class Goriya : Enemy
     {
         private readonly GoriyaAgent _agent;
-
-
-        public Projectiles.ThrownBoomerang Boomerang => _agent.Boomerang;
-        public Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        public Projectiles.GoriyaBoomerang Boomerang => _agent.Boomerang;
+        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        public override bool Alive => _agent.Alive;
 
         public Goriya(Point location)
         {
             _agent = new GoriyaAgent(location);
         }
 
-        public bool Alive { get; }
-
-        public void MoveDown()
-        {
-            _agent.MoveDown();
-        }
-
-        public void MoveLeft()
-        {
-            _agent.MoveLeft();
-        }
-
-        public void MoveRight()
-        {
-            _agent.MoveRight();
-        }
-
-        public void Knockback()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Halt()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void MoveUp()
-        {
-            _agent.MoveUp();
-        }
-
-        public void Spawn()
+        public override void Spawn()
         {
             _agent.Spawn();
         }
 
-        public void TakeDamage()
+        public override void TakeDamage()
         {
             _agent.TakeDamage();
         }
 
-        public void Stun()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UseAttack()
-        {
-            _agent.UseAttack();
-        }
-
-        public void Draw()
+        public override void Draw()
         {
             _agent.Draw();
         }
 
-        public void Update()
+        public override void Update()
         {
             _agent.Update();
         }

@@ -1,8 +1,12 @@
 ﻿namespace Zelda
 {
-    public interface IPlayer : IHaltable, ISpawnable, IDrawable, ICollideable
+    public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
         Player.Inventory Inventory { get; }
+
+        ICollideable BodyCollision { get; }
+        ICollideable SwordCollision { get; }
+        bool UsingPrimaryItem { get; }
 
         void Move(Direction direction);
         void UsePrimaryItem();
