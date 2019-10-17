@@ -1,16 +1,15 @@
-﻿using System.Security.Permissions;
+﻿using System;
 using Microsoft.Xna.Framework;
-using Zelda.Commands;
 
 namespace Zelda.Player
 {
     internal class Link : IPlayer
     {
         private readonly MovementStateMachine _movementStateMachine;
-        private readonly AliveSpriteStateMachine _aliveSpriteStateMachine;
-        private readonly DeadSpriteStateMachine _deadSpriteStateMachine = new DeadSpriteStateMachine();
-        private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
-        private readonly SecondaryItemAgent _secondaryItemAgent = new SecondaryItemAgent();
+        private AliveSpriteStateMachine _aliveSpriteStateMachine;
+        private DeadSpriteStateMachine _deadSpriteStateMachine;
+        private HealthStateMachine _healthStateMachine;
+        private SecondaryItemAgent _secondaryItemAgent ;
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
@@ -24,7 +23,7 @@ namespace Zelda.Player
         public Link(Point location)
         {
             _movementStateMachine = new MovementStateMachine(location);
-            _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
+            Spawn();
         }
 
         public void Move(Direction direction)
@@ -62,7 +61,10 @@ namespace Zelda.Player
 
         public void Spawn()
         {
-            // NO-OP: No appearance animation
+            _healthStateMachine = new HealthStateMachine();
+            _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
+            _deadSpriteStateMachine = new DeadSpriteStateMachine();
+            _secondaryItemAgent = new SecondaryItemAgent();
         }
 
         public void TakeDamage()
@@ -150,13 +152,30 @@ namespace Zelda.Player
             }
             else
             {
-                _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
+                _deadSpriteStateMachine.Sprite?.Draw(_movementStateMachine.Location.ToVector2());
             }
         }
 
         public void TeleportToEntrance(Direction entranceDirection)
         {
             _movementStateMachine.TeleportToEntrance(entranceDirection);
+            switch (entranceDirection)
+            {
+                case Direction.Up:
+                    _aliveSpriteStateMachine.Aim(Direction.Down);
+                    break;
+                case Direction.Down:
+                    _aliveSpriteStateMachine.Aim(Direction.Up);
+                    break;
+                case Direction.Left:
+                    _aliveSpriteStateMachine.Aim(Direction.Right);
+                    break;
+                case Direction.Right:
+                    _aliveSpriteStateMachine.Aim(Direction.Left);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

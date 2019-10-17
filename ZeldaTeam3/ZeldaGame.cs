@@ -20,6 +20,7 @@ namespace Zelda
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         private IUpdatable[] _controllers;
+        private int _aliveReset = 160;
 
         public ZeldaGame()
         {
@@ -71,6 +72,13 @@ namespace Zelda
             }
 
             Link.Update();
+            if (!Link.Alive && _aliveReset-- == 0)
+            {
+                DungeonManager.Reset();
+                Link.Spawn();
+                DungeonManager.TransitionToRoom(5, 2);
+                _aliveReset = 160;
+            }
             DungeonManager.Update();
             base.Update(gameTime);
         }
@@ -81,7 +89,7 @@ namespace Zelda
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f) * Matrix.CreateTranslation(0.0f, 96.0f, 0.0f));
 
-            DungeonManager.Draw();
+            if (Link.Alive) DungeonManager.Draw();
             Link.Draw();
 
             _spriteBatch.End();

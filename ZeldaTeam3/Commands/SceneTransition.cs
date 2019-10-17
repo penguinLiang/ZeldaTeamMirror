@@ -1,21 +1,23 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.Dungeon;
+
+namespace Zelda.Commands
 {
     internal class SceneTransition : ICommand
     {
-        private readonly IScene _scene;
+        private readonly DungeonManager _dungeonManager;
         private readonly int _row;
         private readonly int _column;
 
-        public SceneTransition(IScene scene, int row, int column)
+        public SceneTransition(DungeonManager dungeonManager, int row, int column)
         {
-            _scene = scene;
+            _dungeonManager = dungeonManager;
             _row = row;
             _column = column;
         }
 
         public void Execute()
         {
-            _scene.TransitionToRoom(_row, _column);
+            _dungeonManager.TransitionToRoom(_row, _column);
         }
 
         public override string ToString() => "Scene Transition to specific row/column";
