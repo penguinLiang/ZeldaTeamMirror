@@ -32,5 +32,10 @@ namespace Zelda.Enemies
         {
             _agent.Update();
         }
+
+        public override void Halt()
+        {
+            // NO-OP: Keese fly through walls!
+        }
     }
 }
