@@ -38,8 +38,13 @@ Henry implemented the Block classes, and implemented the keyboard input and comm
   
 
 ## Sprint 3 Details
+<<<<<<< HEAD
 In total: 35 cards were created
 (28-C)(25-S)(23-J)(22-H)(26-Q) Points were recorded, formally or informally
+=======
+In total: 35 cards were created  
+(28-C)(24-S)(23-J)(22-H)(26-Q) Points were recorded, formally or informally
+>>>>>>> 3885fdc2aae009dfdf62450042ef5025d1ba72ee
 
 Chase did a majority of the initial code reviews. He also created the initial design pattern and blueprint for all of us to work off of. It was invaluable to getting the project done. Chase created tilesets, the Scene Controller, and the room CSV parsing. In addition, Chase fixed a lot of bugs that came up and integrated the scene controller with everything else.
 
@@ -56,8 +61,18 @@ Henry created classes for doors and stairs, the Room Loader, and the Jump Mini-M
 The team, as a whole, has decided that Code Reviews will be kept in a central branch on each sprint. This central branch will get merged at the end of every sprint.  
 Every major code review will be a file, consisting of both a review for readability and maintainability. The code review file will be broken down by file.  
   
+<<<<<<< HEAD
 __NEW:__  
 For this sprint, most of our code reviews were done directly on PRs. Instead of doing Major Code Reviews on each PR, each team member did an in-depth review of a single file. These reviews are in the Sprint3 folder.
+=======
+~~__Major Code Reviews__ take place on a pull request. This code review will be labeled like so:~~  
+  
+~~PR#-NameOfPRBranch~~   
+  
+~~Every code review file will have every file that was in the particular PR listed and detailed, file by file.~~  
+
+__new:__ For this sprint, most of our code reviews were done directly on PRs. Instead of doing Major Code Reviews on each PR, each team member did an in-depth review of a single file. These reviews are in the Sprint3 folder.
+>>>>>>> 3885fdc2aae009dfdf62450042ef5025d1ba72ee
   
 In addition, every Sprint will have it's own subfolder in the CodeReview folder.   
   
@@ -73,6 +88,7 @@ Code Analysis results before and after fixes for each sprint can be found under 
   
 ## Controls  
 
+<<<<<<< HEAD
 __N__: Primary Attack (Sword) 
 __Z__: Primary Attack (Sword)
 __1__: Assign and Use Sword as Primary Weapon
@@ -86,6 +102,32 @@ __D/RIGHT__:  Move Link Right
 __E__: Apply Damage
 __M__: Open up the map (Click on each room to teleport to the room)
 __K__: Apply Knockback to Link
+=======
+__N__: Primary Attack (Sword)   
+__Z__: Primary Attack (Sword)  
+__1__: Assign and Use Sword as Primary Weapon  
+__4__: Assign and Use the Bow as the Secondary Weapon  
+__5__: Assign and Use the Boomerang as the Secondary Weapon  
+__6__: Assign and Use the Bomb as the Secondary Weapon  
+__W/UP__: Move Link Up  
+__A/LEFT__: Move Link Left  
+__S/DOWN__: Move Link Down  
+__D/RIGHT__:  Move Link Right  
+__E__: Apply Damage (6 hits to die, unless you pick up a heart container)    
+__M__: Open up the map (Click on each room to teleport to the room)  
+__K__: Apply Knockback to Link  
+  
+~~__2__: Assign and Use the White Sword as the Primary Weapon~~  
+~~__3__: Assign and Use the Magic Sword as the Primary Weapon~~  
+~~__U__: Move all enemies up~~  
+~~__H__: Move all enemies left~~   
+~~__J__: Move all enemies down~~    
+~~__K__: Move all enemies right~~    
+~~__T__: Spawn all enemies.~~    
+~~__Y__: Damage* all enemies.~~   
+~~__I__: Kill all enemies.~~    
+  
+>>>>>>> 3885fdc2aae009dfdf62450042ef5025d1ba72ee
   
 ## Frame Rates  
 __Normal Frame Rate__: Frame rate usually used to cycle between animation frames of a sprite  
@@ -160,3 +202,4 @@ __NEW:__
 	We have a Scene Creater, Manager, and Controller
 	We broke down the Sprint into goals, then tasks, and then assigned point values to each task and ensured that the points were roughly evenly distributed  
 	Interfaces were broken down by usage rather than by type-- any shared utility was split into another interface.  
+
