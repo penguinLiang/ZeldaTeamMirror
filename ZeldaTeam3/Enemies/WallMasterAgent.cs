@@ -8,16 +8,16 @@ namespace Zelda.Enemies
 
         private int _health;
         private int _clock;
-        private bool _alive;
+        public bool Alive { get; private set; }
         private bool _isImmobile;
         private bool _isDying;
 
-        private Point _location;
+        public Point Location;
 
         public WallMasterAgent(Point location)
         {
-            _location = location;
-            _alive = true;
+            Location = location;
+            Alive = true;
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateWallMaster();
             _sprite.Hide();
@@ -27,7 +27,7 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
-            if (!_alive)
+            if (!Alive)
             {
                 return;
             }
@@ -35,7 +35,7 @@ namespace Zelda.Enemies
             _clock = 32;
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _isDying = true;
-            _alive = false;
+            Alive = false;
         }
 
         public void UseAttack()
@@ -47,7 +47,7 @@ namespace Zelda.Enemies
         {
             if (_isImmobile)
             {
-                _location.Y += 1;
+                Location.Y += 1;
             }
         }
 
@@ -55,7 +55,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X -= 1;
+                Location.X -= 1;
             }
         }
 
@@ -63,7 +63,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X += 1;
+                Location.X += 1;
             }
         }
 
@@ -71,7 +71,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.Y -= 1;
+                Location.Y -= 1;
             }
         }
 
@@ -81,12 +81,12 @@ namespace Zelda.Enemies
             _isImmobile = true;
             _clock = 30;
             _health = 10;
-            _alive = true;
+            Alive = true;
         }
 
         public void TakeDamage()
         {
-            if (_alive)
+            if (Alive)
             {
                 _health--;
                 _sprite.PaletteShift();
@@ -100,7 +100,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            _sprite.Draw(Location.ToVector2());
         }
 
         public void Update()

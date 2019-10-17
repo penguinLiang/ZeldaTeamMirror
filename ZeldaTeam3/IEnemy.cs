@@ -1,6 +1,8 @@
-﻿namespace Zelda
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda
 {
-    public interface IEnemy : IHaltable, ISpawnable, IDrawable
+    public interface IEnemy : IHaltable, ISpawnable, IDrawable, ICollideable
     {
     }
 }

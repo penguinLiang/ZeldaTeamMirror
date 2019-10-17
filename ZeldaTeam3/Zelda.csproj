@@ -58,6 +58,7 @@
     <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
     <Compile Include="Dungeon\MapTile.cs" />
     <Compile Include="Dungeon\DungeonManager.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
@@ -121,6 +122,8 @@
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
     <Compile Include="Items\DroppedHeart.cs" />
+    <Compile Include="Player\PlayerSwordCollision.cs" />
+    <Compile Include="Player\PlayerBodyCollision.cs" />
     <Compile Include="Player\DeadSpriteStateMachine.cs" />
     <Compile Include="Items\Triforce.cs" />
     <Compile Include="Items\Key.cs" />

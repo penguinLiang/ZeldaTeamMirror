@@ -1,12 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Zelda.Dungeon
 {
     public class Scene : IDrawable, IScene
     {
+        private const int ThrottleFrameDuration = 50;
         private readonly DungeonManager _manager;
         private readonly Room _room;
         private readonly IPlayer _player;
+        private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private int _enemyCount = -1;
 
         public Scene(DungeonManager manager, Room room, IPlayer player)
@@ -43,19 +47,21 @@ namespace Zelda.Dungeon
 
                 foreach (var roomCollidable in _room.Collidables)
                 {
-                    /* Enemy bounds not implemented
-                    if (roomCollidable.CollidesWith(roomEnemy.Bounds))
-                        roomCollidable.EnemyEffect(roomEnemy).Execute();
-                    */
+                    if (!roomCollidable.CollidesWith(roomEnemy.Bounds)) continue;
+
+                    roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
-                /* Player collision not implemented
-                    if (_player.CollidesWith(roomEnemy.Bounds))
-                        _player.EnemyEffect(roomEnemy).Execute();
+                if (_player.Alive && _player.UsingPrimaryItem && !_enemiesAttackThrottle.ContainsKey(roomEnemy) && _player.SwordCollision.CollidesWith(roomEnemy.Bounds))
+                {
+                    _player.SwordCollision.EnemyEffect(roomEnemy).Execute();
+                    _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
+                }
 
-                    if (roomEnemy.CollidesWith(_player.Bounds))
-                        roomEnemy.PlayerEffect(roomEnemy).Execute();
-                */
+                if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
+                {
+                    roomEnemy.PlayerEffect(_player).Execute();
+                }
 
                 if (!roomEnemy.Alive)
                 {
@@ -65,8 +71,14 @@ namespace Zelda.Dungeon
 
             foreach (var roomCollidable in _room.Collidables)
             {
-                if (roomCollidable.CollidesWith(_player.Bounds))
+                if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
+            }
+
+            // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (LINQ is slow here)
+            foreach (var key in _enemiesAttackThrottle.Keys.ToList())
+            {
+                if (_enemiesAttackThrottle[key]-- == 0) _enemiesAttackThrottle.Remove(key);
             }
         }
 

@@ -8,13 +8,13 @@ namespace Zelda.Enemies
 
         private bool _isImmobile;
         private bool _isDying;
-        private bool _alive;
+        public bool Alive { get; private set; }
         private int _clock;
-        private Point _location;
+        public Point Location;
 
         public GelAgent(Point location)
         {
-            _location = location;
+            Location = location;
             _sprite = EnemySpriteFactory.Instance.CreateGel();
             _sprite.Hide();
             _isImmobile = true;
@@ -23,7 +23,7 @@ namespace Zelda.Enemies
 
         public void Kill()
         {
-            if (!_alive)
+            if (!Alive)
             {
                 return;
             }
@@ -31,7 +31,7 @@ namespace Zelda.Enemies
             _clock = 32;
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _isDying = true;
-            _alive = false;
+            Alive = false;
         }
 
         public void UseAttack()
@@ -43,7 +43,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.Y += 1;
+                Location.Y += 1;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X -= 1;
+                Location.X -= 1;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.X += 1;
+                Location.X += 1;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Zelda.Enemies
         {
             if (!_isImmobile)
             {
-                _location.Y -= 1;
+                Location.Y -= 1;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _isImmobile = true;
             _clock = 30;
-            _alive = true;
+            Alive = true;
         }
 
         public void TakeDamage()
@@ -86,7 +86,7 @@ namespace Zelda.Enemies
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            _sprite.Draw(Location.ToVector2());
         }
 
         public void Update()

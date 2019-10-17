@@ -4,7 +4,7 @@ using Zelda.Commands;
 
 namespace Zelda.Player
 {
-    public class Link : IPlayer
+    internal class Link : IPlayer
     {
         private readonly MovementStateMachine _movementStateMachine;
         private readonly AliveSpriteStateMachine _aliveSpriteStateMachine;
@@ -14,6 +14,12 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+
+        public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
+
+        public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
+
+        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine);
 
         public Link(Point location)
         {
@@ -62,7 +68,9 @@ namespace Zelda.Player
         public void TakeDamage()
         {
             if(_healthStateMachine.Hurt) return;
+            Halt();
             _healthStateMachine.TakeDamage();
+            _movementStateMachine.Knockback();
             _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
 
@@ -144,28 +152,6 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
             }
-        }
-
-        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location + new Point(0, 8), new Point(14, 8));
-
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
-
-        public ICommand PlayerEffect(IPlayer player)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IHaltable projectile)
-        {
-            return NoOp.Instance;
         }
 
         public void TeleportToEntrance(Direction entranceDirection)
