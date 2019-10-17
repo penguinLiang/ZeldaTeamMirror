@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Security.Permissions;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Player
@@ -151,6 +152,11 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Sprite.Draw(_movementStateMachine.Location.ToVector2());
             }
+        }
+
+        public void TeleportToEntrance(Direction entranceDirection)
+        {
+            _movementStateMachine.TeleportToEntrance(entranceDirection);
         }
     }
 }
