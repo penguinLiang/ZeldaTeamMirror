@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Zelda.Dungeon
 {
-    public class Scene : IDrawable, IScene
+    public class Scene : IDrawable
     {
         private const int ThrottleFrameDuration = 50;
-        private readonly DungeonManager _manager;
         private readonly Room _room;
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private int _enemyCount = -1;
 
-        public Scene(DungeonManager manager, Room room, IPlayer player)
+        public Scene(Room room, IPlayer player)
         {
-            _manager = manager;
             _room = room;
             _player = player;
+        }
+
+        public void Reset()
+        {
+            _enemyCount = _room.Enemies.Count;
         }
 
         public void SpawnEnemies()
@@ -27,11 +29,6 @@ namespace Zelda.Dungeon
             {
                 _room.Enemies[i].Spawn();
             }
-        }
-
-        public void TransitionToRoom(int row, int column)
-        {
-            _manager.TransitionToRoom(row, column);
         }
 
         public void Update()

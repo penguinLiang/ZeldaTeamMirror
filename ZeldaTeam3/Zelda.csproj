@@ -60,7 +60,6 @@
     <Compile Include="Dungeon\DungeonManager.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="IActivatable.cs" />
-    <Compile Include="IScene.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\AquamentusAgent.cs" />
     <Compile Include="Enemies\Gel.cs" />

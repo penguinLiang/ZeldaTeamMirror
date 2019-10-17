@@ -7,9 +7,9 @@ namespace Zelda.Player
     {
         private readonly MovementStateMachine _movementStateMachine;
         private AliveSpriteStateMachine _aliveSpriteStateMachine;
-        private readonly DeadSpriteStateMachine _deadSpriteStateMachine = new DeadSpriteStateMachine();
-        private readonly HealthStateMachine _healthStateMachine = new HealthStateMachine();
-        private readonly SecondaryItemAgent _secondaryItemAgent = new SecondaryItemAgent();
+        private DeadSpriteStateMachine _deadSpriteStateMachine;
+        private HealthStateMachine _healthStateMachine;
+        private SecondaryItemAgent _secondaryItemAgent ;
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
@@ -23,7 +23,7 @@ namespace Zelda.Player
         public Link(Point location)
         {
             _movementStateMachine = new MovementStateMachine(location);
-            _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
+            Spawn();
         }
 
         public void Move(Direction direction)
@@ -61,8 +61,10 @@ namespace Zelda.Player
 
         public void Spawn()
         {
+            _healthStateMachine = new HealthStateMachine();
             _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
-            _healthStateMachine.FullHeal();
+            _deadSpriteStateMachine = new DeadSpriteStateMachine();
+            _secondaryItemAgent = new SecondaryItemAgent();
         }
 
         public void TakeDamage()

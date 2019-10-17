@@ -74,8 +74,9 @@ namespace Zelda
             Link.Update();
             if (!Link.Alive && _aliveReset-- == 0)
             {
+                DungeonManager.Reset();
+                Link.Spawn();
                 DungeonManager.TransitionToRoom(5, 2);
-                Link.FullHeal();
                 _aliveReset = 160;
             }
             DungeonManager.Update();

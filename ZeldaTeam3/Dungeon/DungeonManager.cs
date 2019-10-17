@@ -71,8 +71,19 @@ namespace Zelda.Dungeon
                     }
 
                     var room = new Room(content.Load<int[][]>($"Rooms/{row}-{col}"), enemyId);
-                    _scenes[row][col] = new Scene(this, room, player);
+                    _scenes[row][col] = new Scene(room, player);
                     _backgroundIds[row][col] = backgroundId;
+                }
+            }
+        }
+
+        public void Reset()
+        {
+            for (var row = 0; row < _scenes.Length; row++)
+            {
+                for (var col = 0; col < _scenes[row].Length; col++)
+                {
+                    _scenes[row][col]?.Reset();
                 }
             }
         }
