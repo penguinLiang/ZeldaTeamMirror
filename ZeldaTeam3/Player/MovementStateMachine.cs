@@ -12,7 +12,7 @@ namespace Zelda.Player
     internal class MovementStateMachine : IHaltable, IUpdatable
     {
         private readonly FrameDelay _movementDelay = new FrameDelay(1);
-        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(20);
+        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(10);
 
         public Direction Facing { get; private set; } = Direction.Right;
         public bool Idling { get; private set; } = true;
