@@ -15,6 +15,15 @@ We are then using a State Machine for the individual enemy groups, in addition t
   
 We have broken up our implementation by __nouns__, such as 'enemies', 'items', 'projectiles'. This was done to seperate the concerns of each of these sprite groups, and to break up the work into distinct pieces.  
   
+__NEW:__
+- As a team, we decided to use the command pattern for all collision effects
+- After talking to Dr. Boggus and Ian, we determined that projectiles, while implemented, did not need to have collisions in sprint 3.
+- The Enemies have a basic AI implemented
+- Used the game mapping program Tiled to create our maps and export them as CSVs
+- Large classes were broken into smaller, more manageable classes.
+- Implemented basic design for Doors, and Barriers
+- Created every room and a few debug rooms
+
 ## Sprint 2 Details  
   
 Chase created base interfaces for the rest of us to use-- IMoveable, ISpawnable, IEnemy, ISprite, IPlayer, and INonPlayerCharacter. Chase has also implemented the player class, and refactored the sprite implementation.  
@@ -27,20 +36,35 @@ Quinn created the Readme, implemented item classes and implemented projectiles.
   
 Henry implemented the Block classes, and implemented the keyboard input and commands. Henry has also provided support for Chase.  
   
+
+## Sprint 3 Details
+
+Chase did a majority of the initial code reviews. He also created the initial design pattern and blueprint for all of us to work off of. It was invaluable to getting the project done. Chase created tilesets, the Dungeon Manager, Scene, and CSV asset pipeline library for MonoGame. In addition, Chase fixed a lot of bugs that came up and integrated the scene controller with everything else. Also designed the collision loop system and implemented item collision handling.
+
+Jarred noticed a couple of visual bugs at the start of the sprint ⁠— items weren't aligned to the center of the box grid, and we were missing a few dungeon tiles. Jarred added an inventory system to Link to manage items. Jarred also worked on the projectile collisions and the behavior for the boomerang when thrown by the player and the Goriya. Jarred discovered a few other minor bugs and provided solutions that could be implemented.
+
+Steven worked mainly on Enemies this sprint. He implemented the death and spawn effects, a basic enemy AI, created an agent for the Stalfos enemy, and ensured that both the player and the enemies could collide and interact with the current room. Steven also designed the Agent pattern. Both Steven and Chase determined how the scene would interact with both the player and enemies.
+
+Quinn designed the command pattern for use with the Collideables, implemented Player Death and health checks, and implemented all item collisions. Quinn also created classes for all of the barriers and helped debug when needed. Quinn split up the sprint into main tasks and created most of the initial cards. Quinn did a lot of regression testing and double checking to ensure they were using the correct patterns.
+
+Henry created classes for doors and stairs, the Room Loader, and the Jump Mini-Map Screen. The Jump Mini-Map Screen was a major component of this sprint, and required a lot of moving parts to be implemented before Henry could work on it. Henry also reviewed a lot of the pull requests as they happened. 
+
 ## Code Reviews  
   
 The team, as a whole, has decided that Code Reviews will be kept in a central branch on each sprint. This central branch will get merged at the end of every sprint.  
 Every major code review will be a file, consisting of both a review for readability and maintainability. The code review file will be broken down by file.  
   
-__Major Code Reviews__ take place on a pull request. This code review will be labeled like so:  
+~~__Major Code Reviews__ take place on a pull request. This code review will be labeled like so:~~  
   
-PR#-NameOfPRBranch  
+~~PR#-NameOfPRBranch~~   
   
-Every code review file will have every file that was in the particular PR listed and detailed, file by file.   
+~~Every code review file will have every file that was in the particular PR listed and detailed, file by file.~~  
+
+__NEW:__ For this sprint, most of our code reviews were done directly on PRs. Instead of doing Major Code Reviews on each PR, each team member did an in-depth review of a single file. These reviews are in the Sprint3 folder.
   
 In addition, every Sprint will have it's own subfolder in the CodeReview folder.   
   
-__Further__ the team has agreed that all members of the team should attempt to look at the PR, and one member will be assigned the in depth code review. As a member is looking at the PR, they are able to comment on specific lines of code for clarification, changes, or suggestions. These comments are kept in the PR, and typically short enough that they are not included in the Major Code Review file for that PR unless a change was made.  
+Further, the team has agreed that all members of the team should attempt to look at the PR, and one member will be assigned the in depth code review. As a member is looking at the PR, they are able to comment on specific lines of code for clarification, changes, or suggestions. These comments are kept in the PR, and typically short enough that they are not included in the Major Code Review file for that PR unless a change was made.  
 
 ## Code Analysis
 
@@ -52,27 +76,19 @@ Code Analysis results before and after fixes for each sprint can be found under 
   
 ## Controls  
 
-__N__: Primary Attack (Sword) 
-__Z__: Primary Attack (Sword)
-__1__: Assign and Use Sword as Primary Weapon
-__2__: Assign and Use the White Sword as the Primary Weapon
-__3__: Assign and Use the Magic Sword as the Primary Weapon
-__4__: Assign and Use the Bow as the Secondary Weapon
-__5__: Assign and Use the Boomerang as the Secondary Weapon
-__6__: Assign and Use the Bomb as the Secondary Weapon
-__W/UP__: Move Link Up
-__A/LEFT__: Move Link Left
-__S/DOWN__: Move Link Down
-__D/RIGHT__:  Move Link Right
-__E__: Apply Damage
-__U__: Move all enemies up 
-__H__: Move all enemies left
-__J__: Move all enemies down
-__K__: Move all enemies right
-__T__: Spawn all enemies.
-__Y__: Damage* all enemies.
-__I__: Kill all enemies.
-  
+__N__: Primary Attack (Sword)  
+__Z__: Primary Attack (Sword)  
+__1__: Assign and Use Sword as Primary Weapon  
+__4__: Assign and Use the Bow as the Secondary Weapon  
+__5__: Assign and Use the Boomerang as the Secondary Weapon  
+__6__: Assign and Use the Bomb as the Secondary Weapon  
+__W/UP__: Move Link Up  
+__A/LEFT__: Move Link Left  
+__S/DOWN__: Move Link Down  
+__D/RIGHT__:  Move Link Right  
+__E__: Apply Damage  
+__M__: Open up the map. _Click on each room to teleport to the room_  
+__K__: Apply Knockback to Link
   
 ## Frame Rates  
 __Normal Frame Rate__: Frame rate usually used to cycle between animation frames of a sprite  
@@ -98,46 +114,49 @@ Old Man (16 X 64), individual frame: 16 X 16
 Particles (64 X 120), individual frame: 16 X 16  
 Tiles (32 X 80), individual frame: 16 X 16  
   
-### Note on Sprite Animation: The Sprite method takes in the Spritesheet, the width and height of the specific sprite, the frame count for animations, the offset from the spritesheet, and optionally takes in a frame delay, palette height, palette count, and palette shift delay.   
+__Note on Sprite Animation__: The Sprite method takes in the Spritesheet, the width and height of the specific sprite, the frame count for animations, the offset from the spritesheet, and optionally takes in a frame delay, palette height, palette count, and palette shift delay.   
   Palette shifts most often occur when an entity is damaged, and thus not a required parameter for most sprites. 
 
 ## Enemies  
-All enemies were implemented as closely to the source as possibly.   
-In regard to current design, each monster has its own class which then has its own "agent" class.   
-The agent class is roughly an expanded state machine geared towards AI / logic, and a few of the monsters share very similar and redundant agent code (e.g. KeeseAgent.cs and GelAgent.cs).  
-This is purposeful and temporary as going forward there will be logic / AI implemented within the agent which will be specific to each monster and uses the current quasi skeleton code.   
-It would be a waste to make a BasicAgent.cs only to delete it for the next sprint albeit there will be redundant code temporarily.  
-__This was approved by the grader.__  
+In regard to current design, each monster has its own class which then has its own agent class.   
+The agent class is roughly an expanded state machine that includes the drawing logic based on the state.  
    
-The following are all the monsters currently implemented with their behavior explained.  
-__Stalfos__: The skeleton. Has a damaged sprite. Constant animation.  
-__Keese__: The bat. Dies instantly, no damaged sprite. Constant animation.  
-__WallMaster__: The hand. Has a damaged sprite. Constant animation.  
-__Goriya__: The goblin. Has four different sprites for each direction and constant animation. Has a damaged sprite.  
-__Trap__: The blue cross. Has no health and can't be damaged, still sprite.  
-__Aquamentus__: The dragon. Faces only one direction in the game.  
-__Gel__: The gel drop. Dies instantly, no damaged sprite. Constant animation.  
-__Old_Man__: The old man. No animation, but a damaged sprite. Won't die from damage.  
+The following are all the monsters currently implemented with their behavior explained:  
+ - __Stalfos__: The skeleton. Dies instantly.
+ - __Keese__: The bat. Dies instantly.
+ - __Wall Master__: The hand. Has no health and can't be damaged.
+ - __Goriya__: The goblin. Takes 3 hits and dies.
+ - __Trap__: The blue cross. Has no health and can't be damaged.
+ - __Aquamentus__: The dragon. Faces only one direction in the game.  
+ - __Gel__: The gel drop. Dies instantly.
+ - __Old Man__: The old man. Takes damage but is immortal.
   
 ## Bugs
 Please check out our [bug report](bugs.md)
-    
   
 ## Sprite Resources  
   
-__Link__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8366/  
-__Dungeon Enemies__:  https://www.spriters-resource.com/nes/legendofzelda/sheet/31806/  
-__Items and Weapons__: https://www.spriters-resource.com/nes/legendofzelda/sheet/54720/  
-__NPCs__: https://www.spriters-resource.com/nes/legendofzelda/sheet/21189/  
-__Bosses__: https://www.spriters-resource.com/nes/legendofzelda/sheet/36632/  
-__Dungeon Tileset__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8376/  
+- __Link__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8366/  
+- __Dungeon Enemies__:  https://www.spriters-resource.com/nes/legendofzelda/sheet/31806/  
+- __Items and Weapons__: https://www.spriters-resource.com/nes/legendofzelda/sheet/54720/  
+- __NPCs__: https://www.spriters-resource.com/nes/legendofzelda/sheet/21189/  
+- __Bosses__: https://www.spriters-resource.com/nes/legendofzelda/sheet/36632/  
+- __Dungeon Tileset__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8376/  
   
     
 ## Extra Processes  
   
-Our method for pull requests and reviews have been expanded from the default of the class.   
-We are using an expanded form of the State Machine.  
-We are using Git, and all of the tools associated with Git.   
-All spritesheets have been configured to be texture atlasses.   
-We are meeting outside of class at least 2 times a week, for around an hour per meeting.  
-We have included more items and enemies than the default.  
+- Our method for pull requests and reviews have been expanded from the default of the class.   
+- We are using an expanded form of the State Machine.  
+- We are using Git, and all of the tools associated with Git.   
+- All spritesheets have been configured to be texture atlasses.   
+- We are meeting outside of class at least 2 times a week, for around an hour per meeting.  
+- We have included more items and enemies than the default. 
+
+__NEW:__
+- We have augmented the state machines further with agents
+- We are using the command pattern for collision effects
+- We have a Dungeon Room loader, Manager, and Scene to implement the game world
+- We broke down the Sprint into goals, then tasks, and then assigned point values to each task and ensured that the points were roughly evenly distributed  
+- Interfaces were broken down by usage rather than by type ⁠— allowing shared utility to be implemented in separate concrete classes.  
+
