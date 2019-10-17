@@ -8,9 +8,9 @@ namespace Zelda.Blocks
     internal class MovableBlock : ICollideable, IDrawable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
-        public Point Location { get; private set; }
         public Rectangle Bounds { get; private set; }
 
+        private Point _location;
         private Direction _pushDirection;
         private int _distanceMoved;
 
@@ -19,7 +19,7 @@ namespace Zelda.Blocks
 
         public MovableBlock(Point location)
         {
-            Location = location;
+            _location = location;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
         }
 
@@ -33,25 +33,11 @@ namespace Zelda.Blocks
             Rectangle overlap = Rectangle.Intersect(Bounds, playerBounds);
             if (overlap.Width > overlap.Height)
             {
-                if (Bounds.Y < playerBounds.Y)
-                {
-                    _pushDirection = Direction.Up;
-                }
-                else
-                {
-                    _pushDirection = Direction.Down;
-                }
+                _pushDirection = Bounds.Y < playerBounds.Y ? Direction.Up : Direction.Down;
             }
             else if (overlap.Width < overlap.Height)
             {
-                if (Bounds.X < playerBounds.X)
-                {
-                    _pushDirection = Direction.Left;
-                }
-                else
-                {
-                    _pushDirection = Direction.Right;
-                }
+                _pushDirection = Bounds.X < playerBounds.X ? Direction.Left : Direction.Right;
             }
             else
             {
@@ -87,20 +73,20 @@ namespace Zelda.Blocks
                 switch (_pushDirection)
                 {
                     case Direction.Up:
-                        Location = new Point(Location.X, Location.Y - 1);
-                        Bounds = new Rectangle(Location.X, Location.Y, 16, 16);
+                        _location = new Point(_location.X, _location.Y - 1);
+                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                         break;
                     case Direction.Down:
-                        Location = new Point(Location.X, Location.Y + 1);
-                        Bounds = new Rectangle(Location.X, Location.Y, 16, 16);
+                        _location = new Point(_location.X, _location.Y + 1);
+                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                         break;
                     case Direction.Left:
-                        Location = new Point(Location.X - 1, Location.Y);
-                        Bounds = new Rectangle(Location.X, Location.Y, 16, 16);
+                        _location = new Point(_location.X - 1, _location.Y);
+                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                         break;
                     case Direction.Right:
-                        Location = new Point(Location.X + 1, Location.Y);
-                        Bounds = new Rectangle(Location.X, Location.Y, 16, 16);
+                        _location = new Point(_location.X + 1, _location.Y);
+                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -117,7 +103,7 @@ namespace Zelda.Blocks
 
         public void Draw()
         {
-            _sprite.Draw(Location.ToVector2());
+            _sprite.Draw(_location.ToVector2());
         }
     }
 }
