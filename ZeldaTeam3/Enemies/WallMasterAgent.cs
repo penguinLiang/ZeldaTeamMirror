@@ -19,7 +19,7 @@ namespace Zelda.Enemies
         private int _agentClock;
 
         private Direction _currentDirection;
-        private AgentStates _agentStatus;
+        private AgentState _agentStatus;
 
         private const int ActionDelay = 16;
         private static Random rng = new Random();
@@ -38,7 +38,7 @@ namespace Zelda.Enemies
             _isImmobile = true;
             _isDying = false;
 
-            _agentStatus = AgentStates.Ready;
+            _agentStatus = AgentState.Ready;
         }
 
         public void Spawn()
@@ -152,17 +152,17 @@ namespace Zelda.Enemies
 
             switch (_agentStatus)
             {
-                case AgentStates.Ready:
+                case AgentState.Ready:
                     UpdateAction();
                     break;
-                case AgentStates.Halted:
+                case AgentState.Halted:
                     if (_agentClock == 0)
                     {
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
 
                     break;
-                case AgentStates.Knocked:
+                case AgentState.Knocked:
                     if (_agentClock != 0)
                     {
                         Move(_currentDirection);
@@ -170,18 +170,18 @@ namespace Zelda.Enemies
                     else
                     {
                         FlipDirection();
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
 
                     break;
-                case AgentStates.Moving:
+                case AgentState.Moving:
                     if (_agentClock != 0)
                     {
                         Move(_currentDirection);
                     }
                     else
                     {
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
 
                     break;
@@ -192,8 +192,8 @@ namespace Zelda.Enemies
 
         public void UpdateAction()
         {
-            _agentStatus = (AgentStates)(rng.Next(3));
-            if (_agentStatus == AgentStates.Moving)
+            _agentStatus = (AgentState)(rng.Next(3));
+            if (_agentStatus == AgentState.Moving)
             {
                 _currentDirection = (Direction)(rng.Next(4));
             }
@@ -219,14 +219,14 @@ namespace Zelda.Enemies
 
         public void Knockback()
         {
-            _agentStatus = AgentStates.Knocked;
+            _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;
             FlipDirection();
         }
 
         public void Halt()
         {
-            _agentStatus = AgentStates.Halted;
+            _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
             FlipDirection();
             Move(_currentDirection);

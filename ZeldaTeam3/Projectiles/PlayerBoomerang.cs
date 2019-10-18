@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.Enemies;
 
 namespace Zelda.Projectiles
 {
@@ -59,22 +60,21 @@ namespace Zelda.Projectiles
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            Type type = enemy.GetType();
-            if (type.Equals(typeof(Enemies.Keese)) || type.Equals(typeof(Enemies.Gel)) || type.Equals(typeof(Enemies.OldMan)))
+            switch (enemy)
             {
-                return new Commands.SpawnableDamage(enemy);
-            }
-            else if (type.Equals(typeof(Enemies.Stalfos)) || type.Equals(typeof(Enemies.Goriya)) || type.Equals(typeof(Enemies.WallMaster)))
-            {
-                return new Commands.MoveableHalt(enemy);
-            }
-            else if (type.Equals(typeof(Enemies.Aquamentus)) || type.Equals(typeof(Enemies.Trap)))
-            {
-                return Commands.NoOp.Instance;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException();
+                case Keese _:
+                case Gel _:
+                case OldMan _:
+                    return new Commands.SpawnableDamage(enemy);
+                case Stalfos _:
+                case Goriya _:
+                case WallMaster _:
+                    return new Commands.MoveableHalt(enemy);
+                case Aquamentus _:
+                case Trap _:
+                    return Commands.NoOp.Instance;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

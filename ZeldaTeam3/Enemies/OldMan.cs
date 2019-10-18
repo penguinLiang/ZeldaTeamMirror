@@ -3,12 +3,28 @@ using Zelda.Commands;
 
 namespace Zelda.Enemies
 {
-    public class OldMan : Enemy
+    public class OldMan : EnemyAgent
     {
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+
+        public override void Knockback()
+        {
+            // NO-OP
+        }
+
+        public override void Halt()
+        {
+            // NO-OP
+        }
+
+        public override void Stun()
+        {
+            // NO-OP
+        }
+
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
         public override bool Alive => true;
         private readonly ISprite _sprite;
-        public Point Location { get; private set; }
 
         public OldMan(Point location)
         {

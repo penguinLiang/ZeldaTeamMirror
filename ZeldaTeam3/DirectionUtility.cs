@@ -2,8 +2,11 @@
 
 namespace Zelda
 {
-    class DirectionUtility
+    internal class DirectionUtility
     {
+        private const int NumDirections = 4;
+        private static readonly Random Rng = new Random();
+
         public static Direction Flip(Direction direction)
         {
             switch (direction)
@@ -38,21 +41,9 @@ namespace Zelda
             }
         }
 
-        public static Direction RotateAnticlockwise(Direction direction)
+        public static Direction RandomDirection()
         {
-            switch (direction)
-            {
-                case Direction.Up:
-                    return Direction.Left;
-                case Direction.Down:
-                    return Direction.Right;
-                case Direction.Left:
-                    return Direction.Down;
-                case Direction.Right:
-                    return Direction.Up;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return (Direction) Rng.Next(NumDirections);
         }
     }
 }

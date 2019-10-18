@@ -2,10 +2,11 @@
 
 namespace Zelda.Enemies
 {
-    public class Gel : Enemy
+    public class Gel : EnemyAgent
     {
         private readonly GelAgent _agent;
         public override Rectangle Bounds => new Rectangle(_agent.Location.X + 4, _agent.Location.Y + 7, 8, 9);
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateGel();
         public override bool Alive => _agent.Alive;
 
         public Gel(Point location)
@@ -21,6 +22,11 @@ namespace Zelda.Enemies
         public override void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public override void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void Draw()

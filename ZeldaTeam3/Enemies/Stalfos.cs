@@ -1,13 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
-    public class Stalfos : Enemy
+    public class Stalfos : EnemyAgent
     {
         private readonly StalfosAgent _agent;
 
         public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateStalfos();
         public override bool Alive => _agent.Alive;
 
         public Stalfos(Point location)
@@ -23,6 +23,11 @@ namespace Zelda.Enemies
         public override void TakeDamage()
         {
             _agent.TakeDamage();
+        }
+
+        public override void Stun()
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void Draw()

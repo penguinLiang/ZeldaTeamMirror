@@ -25,7 +25,7 @@ namespace Zelda.Enemies
         private const int BoomerangDuration = 40;
         private const int ActionDelay = 30;
         private const int Velocity = 1;
-        private AgentStates _agentStatus;
+        private AgentState _agentStatus;
         private static Random rng = new Random();
 
         public GoriyaAgent(Point location)
@@ -39,7 +39,7 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
             _sprite.Hide();
 
-            _agentStatus = AgentStates.Ready;
+            _agentStatus = AgentState.Ready;
         }
 
         public void Kill()
@@ -51,7 +51,7 @@ namespace Zelda.Enemies
             _sprite.Hide();
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _agentClock = 0;
-            _agentStatus = AgentStates.Ready;
+            _agentStatus = AgentState.Ready;
             _delayClock = 32;
             _isDying = true;
             Alive = false;
@@ -187,7 +187,7 @@ namespace Zelda.Enemies
         }
         public void Halt()
         {
-            _agentStatus = AgentStates.Halted;
+            _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
             FlipDirection();
             Move(_statusDirection);
@@ -202,17 +202,17 @@ namespace Zelda.Enemies
 
             switch (_agentStatus)
             {
-                case AgentStates.Ready:
+                case AgentState.Ready:
                     UpdateAction();
                     break;
-                case AgentStates.Attacking: // Intentional case overflow. Reduces code redundancy.
-                case AgentStates.Halted:
+                case AgentState.Attacking: // Intentional case overflow. Reduces code redundancy.
+                case AgentState.Halted:
                     if (_agentClock == 0)
                     {
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
                     break;
-                case AgentStates.Knocked:
+                case AgentState.Knocked:
                     if (_agentClock != 0)
                     {
                         Move(_statusDirection);
@@ -220,18 +220,18 @@ namespace Zelda.Enemies
                     else
                     {
                         FlipDirection();
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
 
                     break;
-                case AgentStates.Moving:
+                case AgentState.Moving:
                     if (_agentClock != 0)
                     {
                         Move(_statusDirection);
                     }
                     else
                     {
-                        _agentStatus = AgentStates.Ready;
+                        _agentStatus = AgentState.Ready;
                     }
 
                     break;
@@ -242,17 +242,17 @@ namespace Zelda.Enemies
 
         public void UpdateAction()
         {
-            _agentStatus = (AgentStates)(rng.Next(4));
+            _agentStatus = (AgentState)(rng.Next(4));
             switch (_agentStatus)
             {
-                case AgentStates.Moving:
+                case AgentState.Moving:
                     UpdateDirection((Direction)(rng.Next(4)));
                     _agentClock = ActionDelay;
                     break;
-                case AgentStates.Halted:
+                case AgentState.Halted:
                     _agentClock = 2 * ActionDelay;
                     break;
-                case AgentStates.Attacking:
+                case AgentState.Attacking:
                     UseAttack();
                     _agentClock = BoomerangDuration;
                     break;

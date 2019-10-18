@@ -41,7 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AgentStates.cs" />
+    <Compile Include="Enemies\AgentState.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
@@ -60,10 +60,10 @@
     <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
     <Compile Include="Dungeon\MapTile.cs" />
     <Compile Include="Dungeon\DungeonManager.cs" />
-    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\AgentStateUtility.cs" />
+    <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
-    <Compile Include="Enemies\AquamentusAgent.cs" />
     <Compile Include="Enemies\Gel.cs" />
     <Compile Include="Enemies\GelAgent.cs" />
     <Compile Include="Enemies\Goriya.cs" />

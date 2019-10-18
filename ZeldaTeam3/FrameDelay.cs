@@ -8,8 +8,9 @@
 
         public bool Delayed => _framesDelayed != 0 || _paused;
 
-        public FrameDelay(int frames)
+        public FrameDelay(int frames, bool paused = false)
         {
+            _paused = paused;
             _frames = frames;
         }
 

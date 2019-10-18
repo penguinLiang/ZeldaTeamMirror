@@ -2,10 +2,11 @@
 
 namespace Zelda.Enemies
 {
-    public class Trap : Enemy
+    public class Trap : EnemyAgent
     {
         private readonly TrapAgent _agent;
         public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateTrap();
         public override bool Alive => true;
 
         public Trap(Point location)
@@ -23,6 +24,11 @@ namespace Zelda.Enemies
             //No-Op: Can't be damaged
         }
 
+        public override void Stun()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void Draw()
         {
             _agent.Draw();
@@ -31,6 +37,11 @@ namespace Zelda.Enemies
         public override void Update()
         {
             _agent.Update();
+        }
+
+        public override void Knockback()
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void Halt()

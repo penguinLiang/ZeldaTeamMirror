@@ -7,6 +7,8 @@ namespace Zelda
     {
         public static SpriteBatch SpriteBatch { private get; set; }
 
+        public bool AnimationFinished { get; private set; }
+
         // 20/60 fps
         private const int DefaultFrameDelay = 20;
         // 4/60 fps, 1/5 of frame delay
@@ -49,6 +51,7 @@ namespace Zelda
             {
                 if (_frameCount == 0 || _frameDelay.Delayed) return;
                 _currentFrame = value % _frameCount;
+                if (_currentFrame == 0) AnimationFinished = true;
             }
         }
 
