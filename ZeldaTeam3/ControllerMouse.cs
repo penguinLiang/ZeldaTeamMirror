@@ -53,14 +53,12 @@ namespace Zelda
 
         public void Update()
         {
-            if (!_zeldaGame.JumpMap.Visible) return;
-
             var mouseState = Mouse.GetState();
-            if (mouseState.LeftButton != ButtonState.Pressed) return;
+            if (!_zeldaGame.JumpMap.Visible || mouseState.LeftButton != ButtonState.Pressed) return;
 
-            var mousePos = new Point(mouseState.X, mouseState.Y);
+            var mousePos = mouseState.Position;
 
-            if (mousePos.Y < 47 || mousePos.Y > 413)
+            if (mousePos.Y < 47 || mousePos.Y > 47 + 59*6)
             {
                 _zeldaGame.JumpMap.Visible = false;
                 return;

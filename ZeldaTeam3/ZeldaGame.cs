@@ -66,6 +66,7 @@ namespace Zelda
 
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             foreach (var controller in _controllers)
             {
                 controller.Update();
@@ -80,7 +81,6 @@ namespace Zelda
                 _aliveReset = 160;
             }
             DungeonManager.Update();
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
