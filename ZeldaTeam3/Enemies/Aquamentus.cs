@@ -16,7 +16,6 @@ namespace Zelda.Enemies
         };
 
         private const int ActionDelay = 16;
-
         private int _agentClock;
 
         private Direction _currentDirection;

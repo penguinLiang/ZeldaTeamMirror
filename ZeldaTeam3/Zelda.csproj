@@ -65,7 +65,6 @@
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\Gel.cs" />
-    <Compile Include="Enemies\GelAgent.cs" />
     <Compile Include="Enemies\Goriya.cs" />
     <Compile Include="Enemies\Keese.cs" />
     <Compile Include="Enemies\GoriyaAgent.cs" />
