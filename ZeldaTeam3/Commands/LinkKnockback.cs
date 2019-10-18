@@ -11,6 +11,7 @@
 
         public void Execute()
         {
+            _link.Halt();
             _link.Knockback();
         }
         public override string ToString() => "Link: Knockback";
