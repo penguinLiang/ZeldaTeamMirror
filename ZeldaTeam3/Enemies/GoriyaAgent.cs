@@ -264,7 +264,7 @@ namespace Zelda.Enemies
 
         public void UpdateDirection(Direction direction)
         {
-            _updateSpriteFlag = _statusDirection != direction;
+            _updateSpriteFlag = _statusDirection == direction;
             _statusDirection = direction;
         }
 
