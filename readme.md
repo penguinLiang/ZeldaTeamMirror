@@ -130,6 +130,10 @@ The following are all the monsters currently implemented with their behavior exp
  - __Aquamentus__: The dragon. Faces only one direction in the game.  
  - __Gel__: The gel drop. Dies instantly.
  - __Old Man__: The old man. Takes damage but is immortal.
+
+## Doors
+As we have yet to implement Link's ability to walk between rooms, the ability to walk through doors has not yet been implemented.
+For the time being, if Link collides with a door, he will simply be knocked back.
   
 ## Bugs
 Please check out our [bug report](bugs.md)
