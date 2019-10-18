@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Blocks\BlockTypeSprite.cs" />
+    <Compile Include="Blocks\LeftRightDoor.cs" />
+    <Compile Include="Blocks\UpDownDoor.cs" />
+    <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
     <Compile Include="Commands\AddArrow.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Dungeon\MapTile.cs" />
     <Compile Include="Dungeon\DungeonManager.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\OldManAgent.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\AquamentusAgent.cs" />
@@ -69,7 +73,6 @@
     <Compile Include="Enemies\GoriyaAgent.cs" />
     <Compile Include="Enemies\KeeseAgent.cs" />
     <Compile Include="Enemies\OldMan.cs" />
-    <Compile Include="Enemies\OldManAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
     <Compile Include="Enemies\TrapAgent.cs" />
     <Compile Include="Enemies\WallMaster.cs" />
