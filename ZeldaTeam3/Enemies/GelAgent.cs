@@ -15,7 +15,6 @@ namespace Zelda.Enemies
         private bool _isDying;
 
         private int _clockDelay;
-        private int _health;
         private int _agentClock;
 
         private Direction _currentDirection;
@@ -32,7 +31,6 @@ namespace Zelda.Enemies
         {
             Location = location;
             Alive = false;
-            _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGel();
             _sprite.Hide();
             _isImmobile = true;
@@ -46,7 +44,6 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _isImmobile = true;
             _clockDelay = 30;
-            _health = 2;
             Alive = true;
             _currentDirection = Direction.Down;
         }
@@ -62,11 +59,6 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
             _isDying = true;
             Alive = false;
-        }
-
-        public void UseAttack()
-        {
-            // NO-OP: Attack has no animation
         }
 
         public void Move(Direction direction)

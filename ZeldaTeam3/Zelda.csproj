@@ -70,7 +70,6 @@
     <Compile Include="Enemies\GoriyaAgent.cs" />
     <Compile Include="Enemies\KeeseAgent.cs" />
     <Compile Include="Enemies\OldMan.cs" />
-    <Compile Include="Enemies\OldManAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
     <Compile Include="Enemies\TrapAgent.cs" />
     <Compile Include="Enemies\WallMaster.cs" />

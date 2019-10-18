@@ -65,11 +65,6 @@ namespace Zelda.Enemies
             Alive = false;
         }
 
-        public void UseAttack()
-        {
-            // NO-OP: Attack has no animation
-        }
-
         public void Move(Direction direction)
         {
             switch (direction)
@@ -130,6 +125,7 @@ namespace Zelda.Enemies
 
         public void Update()
         {
+            
             if (_clockDelay > 0)
             {
                 _clockDelay--;
@@ -140,7 +136,8 @@ namespace Zelda.Enemies
             }
             else
             {
-                ExecuteAction();
+                if (Alive)
+                    ExecuteAction();
             }
 
             _sprite.Update();
@@ -156,7 +153,7 @@ namespace Zelda.Enemies
 
             switch (_agentStatus)
             {
-                case AgentStates.Ready: //determine next action
+                case AgentStates.Ready:
                     UpdateAction();
                     break;
                 case AgentStates.Halted:

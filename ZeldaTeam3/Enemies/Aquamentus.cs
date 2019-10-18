@@ -37,5 +37,10 @@ namespace Zelda.Enemies
         {
             _agent.Update();
         }
+
+        public override void Halt()
+        {
+            _agent.Halt();
+        }
     }
 }

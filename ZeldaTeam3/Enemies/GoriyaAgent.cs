@@ -19,9 +19,14 @@ namespace Zelda.Enemies
         private Direction _statusDirection;
 
         private int _health;
-        private int _clock;
+        private int _delayClock;
+        private int _agentClock;
         private int _timeSinceBoomerangThrown;
         private const int BoomerangDuration = 40;
+        private const int ActionDelay = 30;
+        private const int Velocity = 1;
+        private AgentStates _agentStatus;
+        private static Random rng = new Random();
 
         public GoriyaAgent(Point location)
         {
@@ -33,6 +38,8 @@ namespace Zelda.Enemies
             _health = 0;
             _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
             _sprite.Hide();
+
+            _agentStatus = AgentStates.Ready;
         }
 
         public void Kill()
@@ -43,7 +50,9 @@ namespace Zelda.Enemies
             }
             _sprite.Hide();
             _sprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
-            _clock = 32;
+            _agentClock = 0;
+            _agentStatus = AgentStates.Ready;
+            _delayClock = 32;
             _isDying = true;
             Alive = false;
         }
@@ -73,39 +82,50 @@ namespace Zelda.Enemies
             _timeSinceBoomerangThrown = 0;
         }
 
-        public void MoveLeft()
+        private void MoveDown()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
-            {
-                UpdateDirection(Direction.Left);
-                Location.X -= 1;
-            }
+            Location.Y += Velocity;
         }
 
-        public void MoveRight()
+        private void MoveLeft()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
-            {
-                UpdateDirection(Direction.Right);
-                Location.X += 1;
-            }
+            Location.X -= Velocity;
         }
 
-        public void MoveUp()
+        private void MoveRight()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
-            {
-                UpdateDirection(Direction.Up);
-                Location.Y -= 1;
-            }
+            Location.X += Velocity;
         }
 
-        public void MoveDown()
+        private void MoveUp()
         {
-            if (_timeSinceBoomerangThrown > BoomerangDuration && !_isImmobile)
+            Location.Y -= Velocity;
+        }
+
+        public void Move(Direction direction)
+        {
+            if (_timeSinceBoomerangThrown <= BoomerangDuration || _isImmobile)
             {
-                UpdateDirection(Direction.Down);
-                Location.Y += 1;
+                return;
+            }
+
+            UpdateDirection(direction);
+            switch (direction)
+            {
+                case Direction.Up:
+                    MoveUp();
+                    return;
+                case Direction.Left:
+                    MoveLeft();
+                    return;
+                case Direction.Right:
+                    MoveRight();
+                    return;
+                case Direction.Down:
+                    MoveDown();
+                    return;
+                default:
+                    throw new NotImplementedException();
             }
         }
 
@@ -114,7 +134,7 @@ namespace Zelda.Enemies
             _sprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _isImmobile = true;
             Alive = true;
-            _clock = 30;
+            _delayClock = 30;
             _health = 3;
             UpdateDirection(Direction.Down);
         }
@@ -143,13 +163,18 @@ namespace Zelda.Enemies
         {
             _timeSinceBoomerangThrown++;
 
-            if (_clock > 0)
+            if (_delayClock > 0)
             {
-                _clock--;
-                if (_clock == 0)
+                _delayClock--;
+                if (_delayClock == 0)
                 {
                     CheckFlags();
                 }
+            }
+            else
+            {
+                if (Alive)
+                    ExecuteAction();
             }
             
             if (_updateSpriteFlag)
@@ -159,6 +184,82 @@ namespace Zelda.Enemies
 
             _sprite.Update();
             Boomerang?.Update();
+        }
+        public void Halt()
+        {
+            _agentStatus = AgentStates.Halted;
+            _agentClock = ActionDelay;
+            FlipDirection();
+            Move(_statusDirection);
+        }
+
+        public void ExecuteAction()
+        {
+            if (_agentClock > 0)
+            {
+                _agentClock--;
+            }
+
+            switch (_agentStatus)
+            {
+                case AgentStates.Ready:
+                    UpdateAction();
+                    break;
+                case AgentStates.Attacking: // Intentional case overflow. Reduces code redundancy.
+                case AgentStates.Halted:
+                    if (_agentClock == 0)
+                    {
+                        _agentStatus = AgentStates.Ready;
+                    }
+                    break;
+                case AgentStates.Knocked:
+                    if (_agentClock != 0)
+                    {
+                        Move(_statusDirection);
+                    }
+                    else
+                    {
+                        FlipDirection();
+                        _agentStatus = AgentStates.Ready;
+                    }
+
+                    break;
+                case AgentStates.Moving:
+                    if (_agentClock != 0)
+                    {
+                        Move(_statusDirection);
+                    }
+                    else
+                    {
+                        _agentStatus = AgentStates.Ready;
+                    }
+
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        public void UpdateAction()
+        {
+            _agentStatus = (AgentStates)(rng.Next(4));
+            switch (_agentStatus)
+            {
+                case AgentStates.Moving:
+                    UpdateDirection((Direction)(rng.Next(4)));
+                    _agentClock = ActionDelay;
+                    break;
+                case AgentStates.Halted:
+                    _agentClock = 2 * ActionDelay;
+                    break;
+                case AgentStates.Attacking:
+                    UseAttack();
+                    _agentClock = BoomerangDuration;
+                    break;
+                default:
+                    _agentClock = ActionDelay;
+                    break;
+            }
         }
 
         public void UpdateDirection(Direction direction)
@@ -208,6 +309,27 @@ namespace Zelda.Enemies
                 _sprite = EnemySpriteFactory.Instance.CreateStalfos();
                 _sprite.Hide();
                 _isDying = false;
+            }
+        }
+
+        private void FlipDirection()
+        {
+            switch (_statusDirection)
+            {
+                case Direction.Up:
+                    UpdateDirection(Direction.Down);
+                    break;
+                case Direction.Down:
+                    UpdateDirection(Direction.Up);
+                    break;
+                case Direction.Left:
+                    UpdateDirection(Direction.Right);
+                    break;
+                case Direction.Right:
+                    UpdateDirection(Direction.Left);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

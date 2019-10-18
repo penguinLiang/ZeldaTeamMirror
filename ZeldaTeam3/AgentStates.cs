@@ -14,7 +14,7 @@ namespace Zelda
         Ready,
         Moving,
         Halted,
-        Knocked,
         Attacking,
+        Knocked
     }
 }

@@ -5,13 +5,16 @@ namespace Zelda.Enemies
 {
     public class OldMan : Enemy
     {
-        private readonly OldManAgent _agent;
-        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
         public override bool Alive => true;
+        private readonly ISprite _sprite;
+        public Point Location { get; private set; }
 
         public OldMan(Point location)
         {
-            _agent = new OldManAgent(location);
+            Location = location;
+            _sprite = EnemySpriteFactory.Instance.CreateOldMan();
+            _sprite.Hide();
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -21,22 +24,22 @@ namespace Zelda.Enemies
 
         public override void Spawn()
         {
-            _agent.Spawn();
+            _sprite.Show();
         }
 
         public override void TakeDamage()
         {
-            _agent.TakeDamage();
+            _sprite.PaletteShift();
         }
 
         public override void Draw()
         {
-            _agent.Draw();
+            _sprite.Draw(Location.ToVector2());
         }
 
         public override void Update()
         {
-            _agent.Update();
+            _sprite.Update();
         }
     }
 }
