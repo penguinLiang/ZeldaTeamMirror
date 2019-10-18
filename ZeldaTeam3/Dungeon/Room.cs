@@ -29,7 +29,8 @@ namespace Zelda.Dungeon
                     var location = new Point(col * TileWidthHeight, row * TileWidthHeight);
                     var tile = (MapTile) tiles[row][col];
 
-                    if (!TryAddBarrier(tile, location) && !TryAddDoorOrStair(tile, location) &&
+                    if (!TryAddBarrier(tile, location) && !TryAddLeftRightDoor(tile, location) 
+                        && !TryAddUpDownDoor(tile, location) && !TryAddStair(tile, location) &&
                         !TryAddNonStandardTiles(tile, location))
                     {
                         throw new ArgumentOutOfRangeException();
@@ -130,32 +131,20 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        private bool TryAddDoorOrStair(MapTile tile, Point location)
+        private bool TryAddLeftRightDoor(MapTile tile, Point location)
         {
             BlockType blockType;
-            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
+
             switch (tile)
             {
-                case MapTile.DoorUp:
-                    blockType = BlockType.DoorUp;
-                    break;
-                case MapTile.DoorDown:
-                    blockType = BlockType.DoorDown;
-                    break;
                 case MapTile.DoorRight:
                     blockType = BlockType.DoorRight;
                     break;
                 case MapTile.DoorLeft:
                     blockType = BlockType.DoorLeft;
                     break;
-                case MapTile.DoorLockedUp:
-                    blockType = BlockType.DoorLockedUp;
-                    break;
                 case MapTile.DoorLockedLeft:
                     blockType = BlockType.DoorLockedLeft;
-                    break;
-                case MapTile.DoorLockedDown:
-                    blockType = BlockType.DoorLockedDown;
                     break;
                 case MapTile.DoorLockedRight:
                     blockType = BlockType.DoorLockedRight;
@@ -166,23 +155,8 @@ namespace Zelda.Dungeon
                 case MapTile.DoorSpecialRight3_1:
                     blockType = BlockType.DoorSpecialRight3_1;
                     break;
-                case MapTile.DoorSpecialUp1_1:
-                    blockType = BlockType.DoorSpecialUp1_1;
-                    break;
-                case MapTile.DungeonStairs:
-                    blockType = BlockType.DungeonStair;
-                    break;
-                case MapTile.BasementStairs:
-                    blockType = BlockType.BasementStair;
-                    break;
-                case MapTile.DoorBombableUp:
-                    blockType = BlockType.BombableWallTop;
-                    break;
                 case MapTile.DoorBombableLeft:
                     blockType = BlockType.BombableWallLeft;
-                    break;
-                case MapTile.DoorBombableDown:
-                    blockType = BlockType.BombableWallBottom;
                     break;
                 case MapTile.DoorBombableRight:
                     blockType = BlockType.BombableWallRight;
@@ -191,9 +165,69 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var doorOrStairs = new DoorsAndStairs(location, blockType);
-            Collidables.Add(doorOrStairs);
-            Drawables.Add(doorOrStairs);
+            var leftRightDoors = new LeftRightDoor(location, blockType);
+            Collidables.Add(leftRightDoors);
+            Drawables.Add(leftRightDoors);
+
+            return true;
+        }
+
+        private bool TryAddUpDownDoor(MapTile tile, Point location)
+        {
+            BlockType blockType;
+
+            switch (tile)
+            {
+                case MapTile.DoorUp:
+                    blockType = BlockType.DoorUp;
+                    break;
+                case MapTile.DoorDown:
+                    blockType = BlockType.DoorDown;
+                    break;
+                case MapTile.DoorLockedUp:
+                    blockType = BlockType.DoorLockedUp;
+                    break;
+                case MapTile.DoorLockedDown:
+                    blockType = BlockType.DoorLockedDown;
+                    break;
+                case MapTile.DoorSpecialUp1_1:
+                    blockType = BlockType.DoorSpecialUp1_1;
+                    break;
+                case MapTile.DoorBombableUp:
+                    blockType = BlockType.BombableWallTop;
+                    break;
+                case MapTile.DoorBombableDown:
+                    blockType = BlockType.BombableWallBottom;
+                    break;
+                default:
+                    return false;
+            }
+
+            var upDownDoors = new UpDownDoor(location, blockType);
+            Collidables.Add(upDownDoors);
+            Drawables.Add(upDownDoors);
+
+            return true;
+        }
+        private bool TryAddStair(MapTile tile, Point location)
+        {
+            BlockType blockType;
+
+            switch (tile)
+            {
+                case MapTile.DungeonStairs:
+                    blockType = BlockType.DungeonStair;
+                    break;
+                case MapTile.BasementStairs:
+                    blockType = BlockType.BasementStair;
+                    break;
+                default:
+                    return false;
+            }
+
+            var stairs = new Stair(location, blockType);
+            Collidables.Add(stairs);
+            Drawables.Add(stairs);
 
             return true;
         }
