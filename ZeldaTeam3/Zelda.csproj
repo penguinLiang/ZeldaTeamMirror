@@ -108,7 +108,6 @@
     <Compile Include="IEnemy.cs" />
     <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="Blocks\Barrier.cs" />
-    <Compile Include="Blocks\DoorsAndStairs.cs" />
     <Compile Include="Blocks\MovableBlock.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
