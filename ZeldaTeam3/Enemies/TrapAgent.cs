@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -7,42 +8,16 @@ namespace Zelda.Enemies
         private readonly ISprite _sprite;
 
         public Point Location;
+        private Point _lastLocation;
+        private Direction _moving = Direction.Right;
+        private bool _halted;
+        private int _distance;
 
         public TrapAgent(Point location)
         {
             Location = location;
             _sprite = EnemySpriteFactory.Instance.CreateTrap();
             _sprite.Hide();
-        }
-
-        public void Kill()
-        {
-            _sprite.Hide();
-        }
-
-        public void UseAttack()
-        {
-            // NO-OP: Attack has no animation
-        }
-
-        public void MoveDown()
-        {
-            Location.Y += 1;
-        }
-
-        public void MoveLeft()
-        {
-            Location.X -= 1;
-        }
-
-        public void MoveRight()
-        {
-            Location.X += 1;
-        }
-
-        public void MoveUp()
-        {
-            Location.Y -= 1;
         }
 
         public void Spawn()
@@ -57,7 +32,49 @@ namespace Zelda.Enemies
 
         public void Update()
         {
-            _sprite.Update();
+            if (_halted)
+            {
+                Location = _lastLocation;
+                _distance = 0;
+                _halted = false;
+                _moving = DirectionUtility.RotateClockwise(_moving);
+                return;
+            }
+
+            _lastLocation = Location;
+            switch (_moving)
+            {
+                case Direction.Up:
+                    Location.Y -= 1;
+                    break;
+                case Direction.Down:
+                    Location.Y += 1;
+                    break;
+                case Direction.Left:
+                    Location.X -= 1;
+                    break;
+                case Direction.Right:
+                    Location.X += 1;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
+            if (_distance == 30)
+            {
+                _distance = 0;
+                _moving = DirectionUtility.RotateClockwise(_moving);
+            }
+            else
+            {
+                _distance++;
+            }
+        }
+
+        public void Halt()
+        {
+            _halted = true;
         }
     }
 }
