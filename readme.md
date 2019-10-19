@@ -78,7 +78,6 @@ Code Analysis results before and after fixes for each sprint can be found under 
 
 __N__: Primary Attack (Sword)  
 __Z__: Primary Attack (Sword)  
-__1__: Assign and Use Sword as Primary Weapon  
 __4__: Assign and Use the Bow as the Secondary Weapon  
 __5__: Assign and Use the Boomerang as the Secondary Weapon  
 __6__: Assign and Use the Bomb as the Secondary Weapon  
@@ -120,14 +119,15 @@ __Note on Sprite Animation__: The Sprite method takes in the Spritesheet, the wi
 ## Enemies  
 In regard to current design, each monster has its own class which then has its own agent class.   
 The agent class is roughly an expanded state machine that includes the drawing logic based on the state.  
+Stalfos and Goriya are meant to be knocked back when they take damage from Link, but they currently do not. This will be amended in Sprint 4.
    
 The following are all the monsters currently implemented with their behavior explained:  
- - __Stalfos__: The skeleton. Dies instantly.
+ - __Stalfos__: The skeleton. Takes 2 hits and dies.
  - __Keese__: The bat. Dies instantly.
- - __Wall Master__: The hand. Has no health and can't be damaged.
- - __Goriya__: The goblin. Takes 3 hits and dies.
+ - __Wall Master__: The hand. Takes 2 hits and dies.
+ - __Goriya__: The goblin. Takes 3 hits and dies. Can throw a boomerang.
  - __Trap__: The blue cross. Has no health and can't be damaged.
- - __Aquamentus__: The dragon. Faces only one direction in the game.  
+ - __Aquamentus__: The dragon. Faces only one direction in the game. Takes six hits and dies.
  - __Gel__: The gel drop. Dies instantly.
  - __Old Man__: The old man. Takes damage but is immortal.
   
