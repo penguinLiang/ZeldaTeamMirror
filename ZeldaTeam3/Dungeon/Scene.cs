@@ -52,17 +52,13 @@ namespace Zelda.Dungeon
                 if (_player.Alive && _player.UsingPrimaryItem && !_enemiesAttackThrottle.ContainsKey(roomEnemy) && _player.SwordCollision.CollidesWith(roomEnemy.Bounds))
                 {
                     _player.SwordCollision.EnemyEffect(roomEnemy).Execute();
+                    if (!roomEnemy.Alive) _enemyCount--;
                     _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
                 }
 
                 if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
                 {
                     roomEnemy.PlayerEffect(_player).Execute();
-                }
-
-                if (!roomEnemy.Alive)
-                {
-                    _enemyCount--;
                 }
             }
 
