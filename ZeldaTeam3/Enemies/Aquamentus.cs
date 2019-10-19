@@ -1,41 +1,135 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
-    public class Aquamentus : Enemy
+    public class Aquamentus : EnemyAgent
     {
-        private readonly AquamentusAgent _agent;
-        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 24, 32);
-        public override bool Alive => _agent.Alive;
+        private const int ActionDelay = 16;
+
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
+        public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
+        private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
+        {
+            AgentState.Ready,
+            AgentState.Moving,
+            AgentState.Halted
+        };
+
+        private readonly Point _origin;
+
+        private int _agentClock;
+        private Direction _currentDirection;
+        private AgentState _agentStatus;
 
         public Aquamentus(Point location)
         {
-            _agent = new AquamentusAgent(location);
+            _origin  = location;
         }
 
         public override void Spawn()
         {
-            _agent.Spawn();
+            base.Spawn();
+
+            _sprite = EnemySpriteFactory.Instance.CreateAquamentusIdle();
+            Location = _origin;
+            Health = 6;
+            _currentDirection = Direction.Down;
+            _agentStatus = AgentState.Ready;
         }
 
-        public override void TakeDamage()
+        private void ExecuteAction()
         {
-            _agent.TakeDamage();
+            if (_agentClock > 0)
+            {
+                _agentClock--;
+            }
+
+            switch (_agentStatus)
+            {
+                case AgentState.Ready:
+                    UpdateAction();
+                    break;
+                case AgentState.Halted:
+                    if (_agentClock == 0)
+                    {
+                        _agentStatus = AgentState.Ready;
+                    }
+
+                    break;
+                case AgentState.Knocked:
+                    if (_agentClock == 0)
+                    {
+                        FlipDirection();
+                        _agentStatus = AgentState.Ready;
+                    }
+                    else
+                    {
+                        Move(_currentDirection);
+                    }
+
+                    break;
+                case AgentState.Moving:
+                    if (_agentClock == 0)
+                    {
+                        _agentStatus = AgentState.Ready;
+                    }
+                    else
+                    {
+                        Move(_currentDirection);
+                    }
+
+                    break;
+                case AgentState.Attacking:
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
-        public void UseAttack()
+        private void UpdateAction()
         {
-            _agent.UseAttack();
+            _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
+            if (_agentStatus == AgentState.Moving)
+            {
+                _currentDirection = DirectionUtility.RandomDirection();
+            }
+            _agentClock = ActionDelay;
         }
 
-        public override void Draw()
+        public override void Knockback()
         {
-            _agent.Draw();
+            _agentStatus = AgentState.Knocked;
+            _agentClock = ActionDelay / 2;
+            FlipDirection();
+        }
+
+        public override void Halt()
+        {
+            _agentStatus = AgentState.Halted;
+            _agentClock = ActionDelay;
+            FlipDirection();
+            Move(_currentDirection);
+        }
+
+        public override void Stun()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FlipDirection()
+        {
+            _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
         public override void Update()
         {
-            _agent.Update();
+            base.Update();
+
+            if (Alive && CanMove)
+                ExecuteAction();
         }
     }
 }

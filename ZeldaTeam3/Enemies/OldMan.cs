@@ -3,15 +3,20 @@ using Zelda.Commands;
 
 namespace Zelda.Enemies
 {
-    public class OldMan : Enemy
+    public class OldMan : EnemyAgent
     {
-        private readonly OldManAgent _agent;
-        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
+        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
         public override bool Alive => true;
+
+        public override void Halt()
+        {
+            // NO-OP: Old man doesn't move
+        }
 
         public OldMan(Point location)
         {
-            _agent = new OldManAgent(location);
+            Location = location + new Point(8, 0);
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -19,24 +24,19 @@ namespace Zelda.Enemies
             return new MoveableHalt(player);
         }
 
-        public override void Spawn()
-        {
-            _agent.Spawn();
-        }
-
         public override void TakeDamage()
         {
-            _agent.TakeDamage();
-        }
-
-        public override void Draw()
-        {
-            _agent.Draw();
+            Sprite.PaletteShift();
         }
 
         public override void Update()
         {
-            _agent.Update();
+            Sprite.Update();
+        }
+
+        public override void Draw()
+        {
+            Sprite.Draw(Location.ToVector2());
         }
     }
 }

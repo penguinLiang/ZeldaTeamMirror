@@ -27,7 +27,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new LinkKnockback(player);
+            return new DoorLinkKnockback(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
@@ -14,8 +12,8 @@ namespace Zelda.Blocks
 
         public UpDownDoor(Point location, BlockType block)
         {
-                Bounds = new Rectangle(location, new Point(32, 32));
-                _drawLocation = location.ToVector2();
+            Bounds = new Rectangle(location, new Point(32, 32));
+            _drawLocation = location.ToVector2();
             _sprite = BlockTypeSprite.Sprite(block);
         }
 
@@ -26,7 +24,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new LinkKnockback(player);
+            return new DoorLinkKnockback(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

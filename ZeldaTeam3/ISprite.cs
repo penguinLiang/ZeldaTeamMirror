@@ -4,6 +4,7 @@ namespace Zelda
 {
     public interface ISprite
     {
+        bool AnimationFinished { get; }
         void Update();
         void Draw(Vector2 location);
         void Show();

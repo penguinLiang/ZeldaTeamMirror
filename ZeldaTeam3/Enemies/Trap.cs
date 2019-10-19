@@ -2,35 +2,61 @@
 
 namespace Zelda.Enemies
 {
-    public class Trap : Enemy
+    public class Trap : EnemyAgent
     {
-        private readonly TrapAgent _agent;
-        public override Rectangle Bounds => new Rectangle(_agent.Location.X, _agent.Location.Y, 16, 16);
-        public override bool Alive => true;
+        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
+        private readonly Point _origin;
+
+        private Point _lastLocation;
+        private Direction _moving;
+        private bool _halted;
+        private int _distance;
 
         public Trap(Point location)
         {
-            _agent = new TrapAgent(location);
+            _origin = location;
         }
 
         public override void Spawn()
         {
-            _agent.Spawn();
+            base.Spawn();
+
+            _sprite = EnemySpriteFactory.Instance.CreateTrap();
+            Location = _origin;
+            _moving = Direction.Right;
         }
 
         public override void TakeDamage()
         {
-            //No-Op: Can't be damaged
+            // NO-OP: No damage
         }
 
-        public override void Draw()
+        public override void Halt()
         {
-            _agent.Draw();
+            _halted = true;
         }
 
         public override void Update()
         {
-            _agent.Update();
+            base.Update();
+            if (_halted)
+            {
+                Location = _lastLocation;
+                _distance = 0;
+                _halted = false;
+                _moving = DirectionUtility.RotateClockwise(_moving);
+                return;
+            }
+
+            if (!CanMove) return;
+            _lastLocation = Location;
+            Move(_moving);
+
+            if (_distance++ != 30) return;
+            _distance = 0;
+            _moving = DirectionUtility.RotateClockwise(_moving);
         }
     }
 }

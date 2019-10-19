@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
@@ -17,7 +15,7 @@ namespace Zelda.Blocks
             Bounds = new Rectangle(location.X, location.Y, 32, 48);
             _sprite = BlockTypeSprite.Sprite(block);
             _drawLocation = new Vector2(location.X, location.Y + 8);
-                  }
+        }
 
         public bool CollidesWith(Rectangle rect)
         {
@@ -26,7 +24,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new LinkKnockback(player);
+            return new DoorLinkKnockback(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
