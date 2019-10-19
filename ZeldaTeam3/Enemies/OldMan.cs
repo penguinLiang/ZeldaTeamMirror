@@ -5,32 +5,18 @@ namespace Zelda.Enemies
 {
     public class OldMan : EnemyAgent
     {
+        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
-
-        public override void Knockback()
-        {
-            // NO-OP
-        }
+        public override bool Alive => true;
 
         public override void Halt()
         {
-            // NO-OP
+            // NO-OP: Old man doesn't move
         }
-
-        public override void Stun()
-        {
-            // NO-OP
-        }
-
-        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
-        public override bool Alive => true;
-        private readonly ISprite _sprite;
 
         public OldMan(Point location)
         {
-            Location = location;
-            _sprite = EnemySpriteFactory.Instance.CreateOldMan();
-            _sprite.Hide();
+            Location = location + new Point(8, 0);
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -38,24 +24,19 @@ namespace Zelda.Enemies
             return new MoveableHalt(player);
         }
 
-        public override void Spawn()
-        {
-            _sprite.Show();
-        }
-
         public override void TakeDamage()
         {
-            _sprite.PaletteShift();
-        }
-
-        public override void Draw()
-        {
-            _sprite.Draw(Location.ToVector2());
+            Sprite.PaletteShift();
         }
 
         public override void Update()
         {
-            _sprite.Update();
+            Sprite.Update();
+        }
+
+        public override void Draw()
+        {
+            Sprite.Draw(Location.ToVector2());
         }
     }
 }

@@ -55,25 +55,25 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Knocked:
-                    if (_agentClock != 0)
-                    {
-                        Move(_currentDirection);
-                    }
-                    else
+                    if (_agentClock == 0)
                     {
                         FlipDirection();
                         _agentStatus = AgentState.Ready;
                     }
-
-                    break;
-                case AgentState.Moving:
-                    if (_agentClock != 0)
+                    else
                     {
                         Move(_currentDirection);
                     }
-                    else
+
+                    break;
+                case AgentState.Moving:
+                    if (_agentClock == 0)
                     {
                         _agentStatus = AgentState.Ready;
+                    }
+                    else
+                    {
+                        Move(_currentDirection);
                     }
 
                     break;

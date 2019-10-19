@@ -41,7 +41,7 @@ namespace Zelda.Enemies
             }
         }
 
-        protected void Move(Direction direction)
+        protected virtual void Move(Direction direction)
         {
             switch (direction)
             {
@@ -105,9 +105,17 @@ namespace Zelda.Enemies
             return new MoveableHalt(projectile);
         }
 
+        public virtual void Knockback()
+        {
+            // NO-OP: Most enemies are 1-hit kills
+        }
+
+        public virtual void Stun()
+        {
+            // NO-OP: Most enemies are 1-hit kills
+        }
+
         public abstract Rectangle Bounds { get; }
-        public abstract void Knockback();
         public abstract void Halt();
-        public abstract void Stun();
     }
 }

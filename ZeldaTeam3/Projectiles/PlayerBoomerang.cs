@@ -6,7 +6,7 @@ namespace Zelda.Projectiles
 {
     internal class PlayerBoomerang : ICollideable, IDrawable
     {
-        private const int ReturnDistance = 100;
+        private const int ReturnDistance = 80;
         private const int DistancePerFrame = 5;
 
         private Vector2 _location;
