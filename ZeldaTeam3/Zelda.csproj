@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Enemies\AgentState.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
     <Compile Include="Blocks\LeftRightDoor.cs" />
