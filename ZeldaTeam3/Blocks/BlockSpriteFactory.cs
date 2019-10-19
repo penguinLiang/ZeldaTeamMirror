@@ -17,26 +17,6 @@ namespace Zelda.Blocks
             _tileSpritesheet = content.Load<Texture2D>("Tiles");
         }
 
-        public ISprite CreateTopWall()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(0,0));
-        }
-
-        public ISprite CreateLeftWall()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(0, 32));
-        }
-
-        public ISprite CreateRightWall()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(0, 64));
-        }
-
-        public ISprite CreateBottomWall()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(0, 96));
-        }
-
         public ISprite CreateTopOpenDoor()
         {
             return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(32, 0));
@@ -150,11 +130,6 @@ namespace Zelda.Blocks
         public ISprite CreateStairs2()
         {
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 48));
-        }
-
-        public ISprite CreateBrickBlock()
-        {
-            return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(16, 48));
         }
 
         public ISprite CreateFire()

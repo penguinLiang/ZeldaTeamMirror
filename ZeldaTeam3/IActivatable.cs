@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    interface IActivatable
+    internal interface IActivatable
     {
         void Activate();
     }

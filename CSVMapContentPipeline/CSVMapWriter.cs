@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 namespace CSVMapContentPipeline
 {
-    class CSVMapWriter : ContentTypeWriter<int[][]>
+    internal class CSVMapWriter : ContentTypeWriter<int[][]>
     {
         public override string GetRuntimeType(TargetPlatform targetPlatform)
         {

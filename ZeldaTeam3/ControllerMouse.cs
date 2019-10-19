@@ -47,7 +47,7 @@ namespace Zelda
                 new Rectangle(85,342,85,59),
                 new Rectangle(170,342,85,59),
                 new Rectangle(255,342,85,59),
-                new Rectangle(425,342,85,59),
+                new Rectangle(425,342,85,59)
             };
         }
 

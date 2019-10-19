@@ -135,6 +135,7 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
+            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {
                 case MapTile.DoorRight:
@@ -176,6 +177,7 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
+            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {
                 case MapTile.DoorUp:
@@ -213,6 +215,7 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
+            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other 
             switch (tile)
             {
                 case MapTile.DungeonStairs:

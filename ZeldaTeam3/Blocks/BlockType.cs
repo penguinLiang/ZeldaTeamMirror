@@ -28,6 +28,6 @@
         DungeonStair,
         BasementStair,
         Fire,
-        BlackBarrier,
+        BlackBarrier
     }
 }

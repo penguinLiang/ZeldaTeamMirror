@@ -1,0 +1,57 @@
+﻿Solution ZeldaTeam3.sln
+    Project CSVMapContentPipeline - This is a library used by MonoGame Pipeline, all "never used" warnings are false positives
+      CSVMapContentPipeline\CSVMapImporter.cs:7 Class 'CSVMapImporter' is never used
+      CSVMapContentPipeline\CSVMapReader.cs:5 Class 'CSVMapReader' is never used
+      CSVMapContentPipeline\CSVMapWriter.cs:6 Class 'CSVMapWriter' is never used
+    
+    Project Zelda - The following "never used" will be used in the next sprint
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs: Method 'CreateBottomWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs: Method 'CreateBrickBlock' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs: Method 'CreateLeftWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs: Method 'CreateRightWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs: Method 'CreateTopWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:60 Method 'CreateTopBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:75 Method 'CreateBottomBlockedDoor' is never used
+      ZeldaTeam3\Blocks\MovableBlock.cs:51 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Commands\SceneTransition.cs:5 Class 'SceneTransition' is never used
+      ZeldaTeam3\ControllerKeyboard.cs:91 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\ControllerKeyboard.cs:97 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\Dungeon\DungeonManager.cs:82 For-loop can be converted into foreach-loop
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:77 Method 'CreateAquamentusFiring' is never used
+      ZeldaTeam3\IActivatable.cs:5 Method 'Activate' is never used
+      ZeldaTeam3\ICollideable.cs:12 Method 'ProjectileEffect' is never used
+      ZeldaTeam3\ISpawnable.cs:9 Method 'Stun' is never used
+      ZeldaTeam3\ISprite.cs:10 Method 'Show' is never used
+      ZeldaTeam3\Items\ArrowItem.cs:7 Class 'ArrowItem' is never used
+      ZeldaTeam3\Items\BombItem.cs:7 Class 'BombItem' is never used
+      ZeldaTeam3\Items\DroppedHeart.cs:6 Class 'DroppedHeart' is never used
+      ZeldaTeam3\Items\Fairy.cs:6 Class 'Fairy' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:38 Method 'Create5Rupee' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:53 Method 'CreateRedRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:57 Method 'CreateBlueRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:67 Method 'CreateClock' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:72 Method 'CreateWoodSword' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:86 Method 'CreateWoodShield' is never used
+      ZeldaTeam3\Items\MagicSwordItem.cs:7 Class 'MagicSwordItem' is never used
+      ZeldaTeam3\Items\Rupee.cs:7 Class 'Rupee' is never used
+      ZeldaTeam3\Items\Rupee5.cs:7 Class 'Rupee5' is never used
+      ZeldaTeam3\Items\WhiteSwordItem.cs:6 Class 'WhiteSwordItem' is never used
+      ZeldaTeam3\Player\Inventory.cs:74 Method 'TryRemoveBomb' is never used
+      ZeldaTeam3\Player\Inventory.cs:81 Method 'TryRemoveRupee' is never used
+      ZeldaTeam3\Player\Inventory.cs:88 Method 'TryRemoveKey' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:37 Method 'CreateFireball' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:57 Method 'CreateWoodSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:61 Method 'CreateWoodSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:65 Method 'CreateWoodSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:69 Method 'CreateWoodSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:73 Method 'CreateWhiteSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:77 Method 'CreateWhiteSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:81 Method 'CreateWhiteSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:85 Method 'CreateWhiteSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:89 Method 'CreateMagicSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:93 Method 'CreateMagicSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:97 Method 'CreateMagicSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:101 Method 'CreateMagicSwordBeamDown' is never used
+      ZeldaTeam3\ZeldaGame.cs:19 The field is always assigned before being used and can be converted to local variable
+    
+  

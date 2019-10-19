@@ -1,0 +1,134 @@
+﻿Solution ZeldaTeam3.sln
+    Project CSVMapContentPipeline
+      CSVMapContentPipeline\CSVMapImporter.cs:7 Class 'CSVMapImporter' is never used
+      CSVMapContentPipeline\CSVMapReader.cs:5 Class 'CSVMapReader' is never used
+      CSVMapContentPipeline\CSVMapReader.cs:5 Inconsistent modifiers style: missing 'internal' modifier
+      CSVMapContentPipeline\CSVMapWriter.cs:6 Class 'CSVMapWriter' is never used
+      CSVMapContentPipeline\CSVMapWriter.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      CSVMapContentPipeline\Properties\AssemblyInfo.cs:2 Using directive is not required by the code and can be safely removed
+    
+    Project Zelda
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:20 Method 'CreateTopWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:25 Method 'CreateLeftWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:30 Method 'CreateRightWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:35 Method 'CreateBottomWall' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:80 Method 'CreateTopBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:95 Method 'CreateBottomBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:155 Method 'CreateBrickBlock' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:165 Method 'CreateBlackTile' is never used
+      ZeldaTeam3\Blocks\BlockType.cs:11 Name 'Block2_1' does not match rule 'Enum members'. Suggested name is 'Block21'.
+      ZeldaTeam3\Blocks\BlockType.cs:21 Name 'DoorSpecialLeft2_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialLeft21'.
+      ZeldaTeam3\Blocks\BlockType.cs:22 Name 'DoorSpecialRight3_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialRight31'.
+      ZeldaTeam3\Blocks\BlockType.cs:23 Name 'DoorSpecialUp1_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialUp11'.
+      ZeldaTeam3\Blocks\BlockType.cs:31 Redundant comma in enum declaration
+      ZeldaTeam3\Blocks\BlockTypeSprite.cs:7 Some values of the enum are not processed inside switch: BlackBarrier, 
+      ZeldaTeam3\Blocks\LeftRightDoor.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Blocks\LeftRightDoor.cs:9 Auto-property can be made get-only
+      ZeldaTeam3\Blocks\LeftRightDoor.cs:52 Redundant control flow jump statement
+      ZeldaTeam3\Blocks\MovableBlock.cs:33 Use 'var' (simple types)
+      ZeldaTeam3\Blocks\MovableBlock.cs:33 Use deconstruction
+      ZeldaTeam3\Blocks\MovableBlock.cs:51 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\Stair.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\Stair.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\Stair.cs:8 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Blocks\Stair.cs:11 Auto-property can be made get-only
+      ZeldaTeam3\Blocks\UpDownDoor.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Blocks\UpDownDoor.cs:9 Auto-property can be made get-only
+      ZeldaTeam3\Blocks\UpDownDoor.cs:52 Redundant control flow jump statement
+      ZeldaTeam3\Commands\SceneTransition.cs:5 Class 'SceneTransition' is never used
+      ZeldaTeam3\Commands\ShowJumpMap.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\ControllerKeyboard.cs:91 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\ControllerKeyboard.cs:97 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\ControllerMouse.cs:50 Redundant comma in collection initializer
+      ZeldaTeam3\Dungeon\DungeonManager.cs:18 Redundant comma in enum declaration
+      ZeldaTeam3\Dungeon\DungeonManager.cs:82 For-loop can be converted into foreach-loop
+      ZeldaTeam3\Dungeon\MapTile.cs:35 Name 'Room2_1Block' does not match rule 'Enum members'. Suggested name is 'Room21Block'.
+      ZeldaTeam3\Dungeon\MapTile.cs:56 Name 'DoorSpecialLeft2_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialLeft21'.
+      ZeldaTeam3\Dungeon\MapTile.cs:57 Name 'DoorSpecialRight3_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialRight31'.
+      ZeldaTeam3\Dungeon\MapTile.cs:58 Name 'DoorSpecialUp1_1' does not match rule 'Enum members'. Suggested name is 'DoorSpecialUp11'.
+      ZeldaTeam3\Dungeon\Room.cs:138 Some values of the enum are not processed inside switch: None, SpawnEnemy, BlackOverlay...
+      ZeldaTeam3\Dungeon\Room.cs:179 Some values of the enum are not processed inside switch: None, SpawnEnemy, BlackOverlay...
+      ZeldaTeam3\Dungeon\Room.cs:216 Some values of the enum are not processed inside switch: None, SpawnEnemy, BlackOverlay...
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:77 Method 'CreateAquamentusFiring' is never used
+      ZeldaTeam3\IActivatable.cs:3 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\IActivatable.cs:5 Method 'Activate' is never used
+      ZeldaTeam3\IAgent.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IAgent.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IAgent.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IAgent.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IAgent.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IAgent.cs:9 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\IAgent.cs:9 Interface 'IAgent' is never used
+      ZeldaTeam3\ICollideable.cs:12 Method 'ProjectileEffect' is never used
+      ZeldaTeam3\IEnemy.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\ISpawnable.cs:9 Method 'Stun' is never used
+      ZeldaTeam3\ISprite.cs:10 Method 'Show' is never used
+      ZeldaTeam3\Items\ArrowItem.cs:7 Class 'ArrowItem' is never used
+      ZeldaTeam3\Items\BombItem.cs:7 Class 'BombItem' is never used
+      ZeldaTeam3\Items\BombItem.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\BombItem.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\BombItem.cs:30 Qualifier is redundant
+      ZeldaTeam3\Items\BoomerangItem.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\BoomerangItem.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\BoomerangItem.cs:30 Qualifier is redundant
+      ZeldaTeam3\Items\BowItem.cs:31 Qualifier is redundant
+      ZeldaTeam3\Items\DroppedHeart.cs:6 Class 'DroppedHeart' is never used
+      ZeldaTeam3\Items\Fairy.cs:6 Class 'Fairy' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:38 Method 'Create5Rupee' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:53 Method 'CreateRedRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:57 Method 'CreateBlueRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:67 Method 'CreateClock' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:72 Method 'CreateWoodSword' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:86 Method 'CreateWoodShield' is never used
+      ZeldaTeam3\Items\MagicSwordItem.cs:7 Class 'MagicSwordItem' is never used
+      ZeldaTeam3\Items\MagicSwordItem.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\MagicSwordItem.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\MagicSwordItem.cs:30 Qualifier is redundant
+      ZeldaTeam3\Items\Rupee.cs:7 Class 'Rupee' is never used
+      ZeldaTeam3\Items\Rupee.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\Rupee.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\Rupee5.cs:7 Class 'Rupee5' is never used
+      ZeldaTeam3\Items\Rupee5.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\Rupee5.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\WhiteSwordItem.cs:7 Class 'WhiteSwordItem' is never used
+      ZeldaTeam3\Items\WhiteSwordItem.cs:15 Use 'var' (built-in types)
+      ZeldaTeam3\Items\WhiteSwordItem.cs:16 Use 'var' (built-in types)
+      ZeldaTeam3\Items\WhiteSwordItem.cs:30 Qualifier is redundant
+      ZeldaTeam3\Player\Inventory.cs:66 Convert to '?:' expression
+      ZeldaTeam3\Player\Inventory.cs:79 Method 'TryRemoveBomb' is never used
+      ZeldaTeam3\Player\Inventory.cs:81 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Player\Inventory.cs:89 Method 'TryRemoveRupee' is never used
+      ZeldaTeam3\Player\Inventory.cs:91 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Player\Inventory.cs:99 Method 'TryRemoveKey' is never used
+      ZeldaTeam3\Player\Inventory.cs:101 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Player\Link.cs:134 Convert 'if' statement to 'switch' statement
+      ZeldaTeam3\Player\PlayerBodyCollision.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerBodyCollision.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerBodyCollision.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerBodyCollision.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerBodyCollision.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerBodyCollision.cs:13 Field can be made readonly
+      ZeldaTeam3\Player\PlayerSwordCollision.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerSwordCollision.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerSwordCollision.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\PlayerSwordCollision.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\Bomb.cs:27 Use 'var' (simple types)
+      ZeldaTeam3\Projectiles\GoriyaBoomerang.cs:16 Auto-property can be made get-only
+      ZeldaTeam3\Projectiles\PlayerBoomerang.cs:17 Auto-property can be made get-only
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:37 Method 'CreateFireball' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:57 Method 'CreateWoodSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:61 Method 'CreateWoodSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:65 Method 'CreateWoodSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:69 Method 'CreateWoodSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:73 Method 'CreateWhiteSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:77 Method 'CreateWhiteSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:81 Method 'CreateWhiteSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:85 Method 'CreateWhiteSwordBeamDown' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:89 Method 'CreateMagicSwordBeamUp' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:93 Method 'CreateMagicSwordBeamRight' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:97 Method 'CreateMagicSwordBeamLeft' is never used
+      ZeldaTeam3\Projectiles\ProjectileSpriteFactory.cs:101 Method 'CreateMagicSwordBeamDown' is never used
+      ZeldaTeam3\ZeldaGame.cs:19 The field is always assigned before being used and can be converted to local variable
+      ZeldaTeam3\ZeldaGame.cs:21 Field '_font' is assigned but its value is never used
+    
+  

@@ -24,7 +24,7 @@ namespace Zelda.Projectiles
 
         private void SetExplosionSpriteLocations()
         {
-            Random rand = new Random();
+            var rand = new Random();
             if (rand.Next(2) == 0)
             {
                 _outerExplosionSpriteLocations[0] = new Vector2(_location.X - 8, _location.Y - 16);

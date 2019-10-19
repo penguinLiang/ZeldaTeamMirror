@@ -55,6 +55,8 @@
                 case BlockType.Block2_1:
                 case BlockType.PushableBlock:
                     return BlockSpriteFactory.Instance.CreateSolidBlock();
+                case BlockType.BlackBarrier:
+                    return BlockSpriteFactory.Instance.CreateBlackTile();
                 case BlockType.InvisibleBlock:
                     return null;
                 default:

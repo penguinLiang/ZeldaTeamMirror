@@ -2,7 +2,7 @@
 
 namespace CSVMapContentPipeline
 {
-    class CSVMapReader : ContentTypeReader<int[][]>
+    internal class CSVMapReader : ContentTypeReader<int[][]>
     {
         protected override int[][] Read(ContentReader input, int[][] existingInstance)
         {

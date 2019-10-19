@@ -131,6 +131,7 @@ namespace Zelda.Player
             var drawLocation = _movementStateMachine.Location.ToVector2();
             if (!_aliveSpriteStateMachine.UsingPrimaryItem) return drawLocation;
 
+            // ReSharper disable once ConvertIfStatementToSwitchStatement (Makes less sense as switch)
             if (_movementStateMachine.Facing == Direction.Left)
             {
                 drawLocation.X -= 16;

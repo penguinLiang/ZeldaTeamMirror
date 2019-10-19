@@ -13,7 +13,7 @@ namespace Zelda.Projectiles
 
         private int _currentDistanceAway;
         private Direction _direction;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; }
 
 
         public GoriyaBoomerang(Point location, Direction direction)

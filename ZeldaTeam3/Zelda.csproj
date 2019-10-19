@@ -76,7 +76,6 @@
     <Compile Include="Enemies\WallMaster.cs" />
     <Compile Include="Enemies\EnemySpriteFactory.cs" />
     <Compile Include="FrameDelay.cs" />
-    <Compile Include="IAgent.cs" />
     <Compile Include="ICollideable.cs" />
     <Compile Include="Items\ArrowItem.cs" />
     <Compile Include="Items\BombItem.cs" />

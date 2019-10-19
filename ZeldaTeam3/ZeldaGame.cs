@@ -18,7 +18,6 @@ namespace Zelda
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private SpriteFont _font;
         private IUpdatable[] _controllers;
         private int _aliveReset = 160;
 
@@ -38,7 +37,6 @@ namespace Zelda
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Sprite.SpriteBatch = _spriteBatch;
-            _font = Content.Load<SpriteFont>("Arial");
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);

@@ -30,7 +30,7 @@ namespace Zelda.Blocks
 
         private bool TrySetBlockDirection(Rectangle playerBounds)
         {
-            Rectangle overlap = Rectangle.Intersect(Bounds, playerBounds);
+            var overlap = Rectangle.Intersect(Bounds, playerBounds);
             if (overlap.Width > overlap.Height)
             {
                 _pushDirection = Bounds.Y < playerBounds.Y ? Direction.Up : Direction.Down;

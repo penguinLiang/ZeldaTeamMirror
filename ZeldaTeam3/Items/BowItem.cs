@@ -28,7 +28,7 @@ namespace Zelda.Items
         {
             _sprite.Hide();
             Bounds = new Rectangle(0, 0, 0, 0);
-            return new AddSecondaryItem(player, Items.Secondary.Bow);
+            return new AddSecondaryItem(player, Secondary.Bow);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

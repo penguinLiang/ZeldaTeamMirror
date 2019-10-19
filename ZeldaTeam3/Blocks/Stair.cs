@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
-    class Stair : ICollideable, IDrawable
+    internal class Stair : ICollideable, IDrawable
     {
         private readonly ISprite _sprite;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; }
 
         private readonly Vector2 _drawLocation;
 
         public Stair(Point location, BlockType block)
-        { 
-                Bounds = new Rectangle(location, new Point(16, 16));
-                _drawLocation = location.ToVector2();
+        {
+            Bounds = new Rectangle(location, new Point(16, 16));
+            _drawLocation = location.ToVector2();
 
             _sprite = BlockTypeSprite.Sprite(block);
         }

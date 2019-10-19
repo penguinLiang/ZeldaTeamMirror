@@ -63,12 +63,7 @@ namespace Zelda.Player
         }
 
         public void Add5Rupee(){
-            if(MaxRupeeCount-RupeeCount>=5){
-                RupeeCount = MaxRupeeCount;
-            }
-            else {
-                RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
-            }
+            RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
         }
 
         public void AddKey()
@@ -78,32 +73,23 @@ namespace Zelda.Player
 
         public bool TryRemoveBomb()
         {
-            if (BombCount > 0)
-            {
-                BombCount--;
-                return true;
-            }
-            return false;
+            if (BombCount <= 0) return false;
+            BombCount--;
+            return true;
         }
 
         public bool TryRemoveRupee()
         {
-            if (RupeeCount > 0)
-            {
-                RupeeCount--;
-                return true;
-            }
-            return false;
+            if (RupeeCount <= 0) return false;
+            RupeeCount--;
+            return true;
         }
 
         public bool TryRemoveKey()
         {
-            if (KeyCount > 0)
-            {
-                KeyCount--;
-                return true;
-            }
-            return false;
+            if (KeyCount <= 0) return false;
+            KeyCount--;
+            return true;
         }
     }
 }

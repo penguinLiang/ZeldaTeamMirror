@@ -3,10 +3,10 @@ using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
-    class UpDownDoor : ICollideable, IDrawable, IActivatable
+    internal class UpDownDoor : ICollideable, IDrawable, IActivatable
     {
         private readonly ISprite _sprite;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; }
 
         private readonly Vector2 _drawLocation;
 
@@ -49,7 +49,7 @@ namespace Zelda.Blocks
 
         public void Activate()
         {
-            return;
+            // NO-OP
         }
     }
 }

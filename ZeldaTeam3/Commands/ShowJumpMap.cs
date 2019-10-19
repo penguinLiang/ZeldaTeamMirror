@@ -1,6 +1,6 @@
 ﻿namespace Zelda.Commands
 {
-    class ShowJumpMap : ICommand
+    internal class ShowJumpMap : ICommand
     {
         private readonly ZeldaGame _game;
 
