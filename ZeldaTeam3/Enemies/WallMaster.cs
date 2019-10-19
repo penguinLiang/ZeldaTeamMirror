@@ -17,19 +17,23 @@ namespace Zelda.Enemies
             AgentState.Halted
         };
 
+        private readonly Point _origin;
+
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
 
         public WallMaster(Point location)
         {
-            Location = location;
-            Health = 2;
+            _origin = location;
         }
 
         public override void Spawn()
         {
             base.Spawn();
+
+            Health = 2;
+            Location = _origin;
             _currentDirection = Direction.Down;
         }
 

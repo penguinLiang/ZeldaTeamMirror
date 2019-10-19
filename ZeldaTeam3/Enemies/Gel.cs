@@ -15,6 +15,8 @@ namespace Zelda.Enemies
             AgentState.Halted
         };
 
+        private readonly Point _origin;
+
         private Direction _currentDirection;
         private AgentState _agentStatus;
 
@@ -23,13 +25,15 @@ namespace Zelda.Enemies
 
         public Gel(Point location)
         {
-            Location = location;
+            _origin = location;
             _agentStatus = AgentState.Ready;
         }
 
         public override void Spawn()
         {
             base.Spawn();
+
+            Location = _origin;
             _currentDirection = Direction.Down;
         }
 

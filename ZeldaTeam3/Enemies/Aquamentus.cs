@@ -6,6 +6,8 @@ namespace Zelda.Enemies
 {
     public class Aquamentus : EnemyAgent
     {
+        private const int ActionDelay = 16;
+
         protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateAquamentusIdle();
         public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
@@ -15,24 +17,25 @@ namespace Zelda.Enemies
             AgentState.Halted
         };
 
-        private const int ActionDelay = 16;
-        private int _agentClock;
+        private readonly Point _origin;
 
+        private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
 
         public Aquamentus(Point location)
         {
-            Location = location;
-            Health = 2;
-
-            _agentStatus = AgentState.Ready;
+            _origin  = location;
         }
 
         public override void Spawn()
         {
             base.Spawn();
+
+            Location = _origin;
+            Health = 6;
             _currentDirection = Direction.Down;
+            _agentStatus = AgentState.Ready;
         }
 
         private void ExecuteAction()

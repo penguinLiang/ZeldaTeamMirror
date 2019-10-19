@@ -20,6 +20,8 @@ namespace Zelda.Enemies
             AgentState.Attacking
         };
 
+        private readonly Point _origin;
+
         private Projectiles.GoriyaBoomerang _boomerang;
         private bool _updateSpriteFlag;
         private Direction _statusDirection;
@@ -30,13 +32,21 @@ namespace Zelda.Enemies
 
         public Goriya(Point location)
         {
-            Health = 3;
-            Location = location;
+            _origin = location;
+        }
 
+        public override void Spawn()
+        {
+            base.Spawn();
+            Location = _origin;
+            Health = 3;
+
+            _agentStatus = AgentState.Ready;
             _timeSinceBoomerangThrown = BoomerangDuration;
             _statusDirection = Direction.Down;
-            _agentStatus = AgentState.Ready;
             _updateSpriteFlag = false;
+
+            UpdateDirection(Direction.Down);
         }
 
         private void UpdateDirection(Direction direction)
@@ -80,12 +90,6 @@ namespace Zelda.Enemies
 
             UpdateDirection(direction);
             base.Move(direction);
-        }
-
-        public override void Spawn()
-        {
-            base.Spawn();
-            UpdateDirection(Direction.Down);
         }
 
         public override void Stun()

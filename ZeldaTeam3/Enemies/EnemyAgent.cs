@@ -25,6 +25,7 @@ namespace Zelda.Enemies
 
         public virtual void Spawn()
         {
+            Health = 1;
             Spawned = true;
         }
 

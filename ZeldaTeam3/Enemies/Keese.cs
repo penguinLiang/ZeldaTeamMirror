@@ -10,12 +10,20 @@ namespace Zelda.Enemies
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
         protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateKeese();
 
+        private readonly Point _origin;
         private uint _movementClock;
         private int _movementPauseClock;
 
         public Keese(Point location)
         {
-            Location = location;
+            _origin = location;
+        }
+
+        public override void Spawn()
+        {
+            base.Spawn();
+
+            Location = _origin;
         }
 
         public override void Halt()
@@ -67,7 +75,8 @@ namespace Zelda.Enemies
 
         public override void Update()
         {
-            AdvanceLocation();
+            if (Alive && CanMove)
+                AdvanceLocation();
             base.Update();
         }
     }
