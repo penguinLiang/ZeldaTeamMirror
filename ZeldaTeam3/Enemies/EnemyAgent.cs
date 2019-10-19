@@ -17,8 +17,8 @@ namespace Zelda.Enemies
 
         public virtual bool Alive => Spawned && Health > 0;
 
-        private readonly ISprite _spawnSprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
-        private readonly ISprite _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
+        private ISprite _spawnSprite;
+        private ISprite _deathSprite;
         private ISprite _drawnSprite;
 
         protected virtual bool CanMove => _spawnSprite.AnimationFinished;
@@ -27,6 +27,8 @@ namespace Zelda.Enemies
         {
             Health = 1;
             Spawned = true;
+            _spawnSprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
+            _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
         }
 
         public virtual void TakeDamage()
