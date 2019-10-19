@@ -63,7 +63,6 @@ namespace Zelda.Player
 
         public void Knockback()
         {
-            if (_halted) return;
             Idling = false;
             Knockedback = true;
 
