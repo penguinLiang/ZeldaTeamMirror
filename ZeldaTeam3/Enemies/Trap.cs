@@ -50,6 +50,7 @@ namespace Zelda.Enemies
                 return;
             }
 
+            if (!CanMove) return;
             _lastLocation = Location;
             Move(_moving);
 
