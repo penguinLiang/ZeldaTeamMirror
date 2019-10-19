@@ -63,6 +63,7 @@ namespace Zelda.Player
 
         public void Knockback()
         {
+            if (_halted) return;
             Idling = false;
             Knockedback = true;
 
@@ -116,15 +117,19 @@ namespace Zelda.Player
             {
                 case Direction.Up:
                     _lastLocation = Location = new Point(16 * 8, 16 * 2);
+                    Facing = _moving = Direction.Down;
                     break;
                 case Direction.Down:
                     _lastLocation = Location = new Point(16 * 8, 16 * 8);
+                    Facing = _moving = Direction.Up;
                     break;
                 case Direction.Left:
                     _lastLocation = Location = new Point(16 * 2,16 * 5);
+                    Facing = _moving = Direction.Right;
                     break;
                 case Direction.Right:
                     _lastLocation = Location = new Point(16 * 13,16 * 5);
+                    Facing = _moving = Direction.Left;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

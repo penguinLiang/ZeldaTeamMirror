@@ -15,6 +15,7 @@ namespace Zelda
             {
                 game = new ZeldaGame();
                 game.Run();
+                game.Dispose();
             } while (game.Resetting);
         }
     }

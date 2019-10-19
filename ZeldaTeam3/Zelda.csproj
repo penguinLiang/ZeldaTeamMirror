@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Enemies\AgentState.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
+    <Compile Include="Blocks\LeftRightDoor.cs" />
+    <Compile Include="Blocks\UpDownDoor.cs" />
+    <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
     <Compile Include="Commands\AddArrow.cs" />
@@ -101,7 +104,6 @@
     <Compile Include="IEnemy.cs" />
     <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="Blocks\Barrier.cs" />
-    <Compile Include="Blocks\DoorsAndStairs.cs" />
     <Compile Include="Blocks\MovableBlock.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
