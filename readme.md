@@ -132,8 +132,10 @@ The following are all the monsters currently implemented with their behavior exp
  - __Old Man__: The old man. Takes damage but is immortal.
 
 ## Doors
-As we have yet to implement Link's ability to walk between rooms, the ability to walk through doors has not yet been implemented.
-For the time being, if Link collides with a door, he will simply be knocked back.
+As we have yet to implement Link's ability to walk between rooms, the ability to walk through doors has not yet been implemented.  
+For the time being, if Link collides with a door, he will simply be knocked back.  
+
+If you need to jump between room use the jump map using the M key. You can click the text at the top to close the jump map.
   
 ## Bugs
 Please check out our [bug report](bugs.md)
