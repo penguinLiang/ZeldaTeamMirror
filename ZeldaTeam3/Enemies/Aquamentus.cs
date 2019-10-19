@@ -8,7 +8,8 @@ namespace Zelda.Enemies
     {
         private const int ActionDelay = 16;
 
-        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateAquamentusIdle();
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
         public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
@@ -32,6 +33,7 @@ namespace Zelda.Enemies
         {
             base.Spawn();
 
+            _sprite = EnemySpriteFactory.Instance.CreateAquamentusIdle();
             Location = _origin;
             Health = 6;
             _currentDirection = Direction.Down;

@@ -10,7 +10,7 @@ namespace Zelda.Enemies
         private const int ActionDelay = 30;
 
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
-        private ISprite _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
+        private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
@@ -38,6 +38,7 @@ namespace Zelda.Enemies
         public override void Spawn()
         {
             base.Spawn();
+            _sprite = EnemySpriteFactory.Instance.CreateGoriyaFaceDown();
             Location = _origin;
             Health = 3;
 

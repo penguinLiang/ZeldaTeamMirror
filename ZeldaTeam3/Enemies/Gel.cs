@@ -6,7 +6,8 @@ namespace Zelda.Enemies
 {
     public class Gel : EnemyAgent
     {
-        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateGel();
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
         public override Rectangle Bounds => new Rectangle(Location.X + 4, Location.Y + 7, 8, 9);
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
@@ -33,6 +34,7 @@ namespace Zelda.Enemies
         {
             base.Spawn();
 
+            _sprite = EnemySpriteFactory.Instance.CreateGel();
             Location = _origin;
             _currentDirection = Direction.Down;
         }

@@ -9,7 +9,8 @@ namespace Zelda.Enemies
         private const int ActionDelay = 16;
 
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
-        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateStalfos();
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
             AgentState.Ready,
@@ -32,6 +33,7 @@ namespace Zelda.Enemies
         {
             base.Spawn();
 
+            _sprite = EnemySpriteFactory.Instance.CreateStalfos();
             Location = _origin;
             Health = 2;
             _agentStatus = AgentState.Ready;

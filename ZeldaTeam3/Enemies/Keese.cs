@@ -8,7 +8,8 @@ namespace Zelda.Enemies
         private static readonly Random Rng = new Random();
 
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
-        protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateKeese();
+        private ISprite _sprite;
+        protected override ISprite Sprite => _sprite;
 
         private readonly Point _origin;
         private uint _movementClock;
@@ -23,6 +24,7 @@ namespace Zelda.Enemies
         {
             base.Spawn();
 
+            _sprite = EnemySpriteFactory.Instance.CreateKeese();
             Location = _origin;
         }
 
