@@ -37,6 +37,10 @@ namespace Zelda.Blocks
             {
                 return new SceneTransition(_dungeonManager, 5, 2);
             }
+            if (_block == BlockType.DoorSpecialUp1_1)
+            {
+                return new SceneTransition(_dungeonManager, 0, 1);
+            }
             return new DoorLinkKnockback(player);
         }
 

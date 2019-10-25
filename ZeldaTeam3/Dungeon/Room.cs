@@ -169,7 +169,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var leftRightDoors = new LeftRightDoor(location, blockType);
+            var leftRightDoors = new LeftRightDoor(_dungeonManager, location, blockType);
             Collidables.Add(leftRightDoors);
             Drawables.Add(leftRightDoors);
 
@@ -208,7 +208,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var upDownDoors = new UpDownDoor(location, blockType);
+            var upDownDoors = new UpDownDoor(_dungeonManager, location, blockType);
             Collidables.Add(upDownDoors);
             Drawables.Add(upDownDoors);
 
