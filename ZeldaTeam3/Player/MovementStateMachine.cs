@@ -135,7 +135,7 @@ namespace Zelda.Player
                     Facing = _moving = Direction.Down;
                     break;
                 case Direction.UpFromBasement:
-                    _lastLocation = Location = new Point(16 * 7, 16 * 5);
+                    _lastLocation = Location = new Point(16 * 6, 16 * 7);
                     Facing = _moving = Direction.Left;
                     break;
                 default:
