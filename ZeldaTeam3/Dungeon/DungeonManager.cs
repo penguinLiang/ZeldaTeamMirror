@@ -6,6 +6,8 @@ namespace Zelda.Dungeon
     public class DungeonManager : IDrawable
     {
         public Scene Scene { get; private set; }
+        public bool[][] EnabledRooms { get; private set; }
+        public Point CurrentRoom { get; private set; } = Point.Zero;
         private ISprite _background;
         private IPlayer _player;
         private Scene[][] _scenes;
@@ -46,15 +48,18 @@ namespace Zelda.Dungeon
             var rows = enabledRooms.Length;
             _scenes = new Scene[rows][];
             _backgroundIds = new BackgroundId[rows][];
+            EnabledRooms = new bool[rows][];
 
             for (var row = 0; row < rows; row++)
             {
                 var cols = enabledRooms[row].Length;
                 _scenes[row] = new Scene[cols];
                 _backgroundIds[row] = new BackgroundId[cols];
+                EnabledRooms[row] = new bool[cols];
 
                 for (var col = 0; col < cols; col++)
                 {
+                    EnabledRooms[row][col] = enabledRooms[row][col] == 1;
                     if (enabledRooms[row][col] != 1) continue;
 
                     var enemyId = -1;
@@ -90,6 +95,7 @@ namespace Zelda.Dungeon
 
         public void TransitionToRoom(int row, int column)
         {
+            CurrentRoom = new Point(row, column);
             SetBackground(_backgroundIds[row][column]);
             _player.TeleportToEntrance(Direction.Down);
             Scene = _scenes[row][column];
