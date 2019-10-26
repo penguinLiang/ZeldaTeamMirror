@@ -11,10 +11,14 @@ namespace Zelda.Dungeon
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private int _enemyCount = -1;
 
-        public Scene(Room room, IPlayer player)
+        public Scene(int row, int col, Room room, IPlayer player)
         {
             _room = room;
             _player = player;
+            if(row == 2 && col == 1) 
+            {
+
+            }
         }
 
         public void Reset()

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-
+using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -13,13 +13,17 @@ namespace Zelda.Blocks
         private Point _location;
         private Direction _pushDirection;
         private int _distanceMoved;
+        private BlockType _block;
+        private Room _room;
 
         private bool _unmoved = true;
         private bool _moving;
 
-        public MovableBlock(Point location)
+        public MovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
+            _block = block;
+            _room = room;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
         }
 
@@ -48,7 +52,21 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            if (_block != BlockType.Block2_1 && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            {
+                _moving = true;
+                _unmoved = false;
+            }
+            bool _atLeastOneAlive = false;
+            foreach(IEnemy _currentEnemy in _room.Enemies) 
+            {
+                if(_currentEnemy.Alive) 
+                {
+                    _atLeastOneAlive = true;
+                    break;
+                }
+            }
+            if (_block == BlockType.Block2_1 && !_atLeastOneAlive && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds)) 
             {
                 _moving = true;
                 _unmoved = false;

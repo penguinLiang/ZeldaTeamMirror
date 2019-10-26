@@ -96,12 +96,12 @@ namespace Zelda.Dungeon
                     Drawables.Add(triforce);
                     break;
                 case MapTile.Room2_1Block:
-                    var room21Block = new MovableBlock(location);
+                    var room21Block = new MovableBlock(this, BlockType.Block2_1, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
                     break;
                 case MapTile.PushableBlock:
-                    var pushableBlock = new MovableBlock(location);
+                    var pushableBlock = new MovableBlock(this, BlockType.PushableBlock, location);
                     Collidables.Add(pushableBlock);
                     Drawables.Add(pushableBlock);
                     break;
