@@ -136,7 +136,7 @@ namespace Zelda.Player
                     break;
                 case Direction.UpFromBasement:
                     _lastLocation = Location = new Point(16 * 6, 16 * 7);
-                    Facing = _moving = Direction.Left;
+                    Facing = _moving = Direction.Down;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
