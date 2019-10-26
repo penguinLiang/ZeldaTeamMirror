@@ -165,6 +165,12 @@ namespace Zelda.Player
                 case Direction.Up:
                     _aliveSpriteStateMachine.Aim(Direction.Down);
                     break;
+                case Direction.UpFromBasement:
+                    _aliveSpriteStateMachine.Aim(Direction.Left);
+                    break;
+                case Direction.DownFromDungeon:
+                    _aliveSpriteStateMachine.Aim(Direction.Down);
+                    break;
                 case Direction.Down:
                     _aliveSpriteStateMachine.Aim(Direction.Up);
                     break;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 
 namespace Zelda.Dungeon
 {
@@ -91,7 +92,21 @@ namespace Zelda.Dungeon
         public void TransitionToRoom(int row, int column)
         {
             SetBackground(_backgroundIds[row][column]);
-            _player.TeleportToEntrance(Direction.Down);
+            bool _specialRoomTP = false;
+            if(row == 0 && column == 1)
+            {
+                _player.TeleportToEntrance(Direction.UpFromBasement);
+                _specialRoomTP = true;
+            }
+            if(row == 1 && column == 1)
+            {
+                _player.TeleportToEntrance(Direction.DownFromDungeon);
+                _specialRoomTP = true;
+            }
+            if(_specialRoomTP == false)
+            {
+                _player.TeleportToEntrance(Direction.Down);
+            }
             Scene = _scenes[row][column];
             Scene.SpawnEnemies();
         }
