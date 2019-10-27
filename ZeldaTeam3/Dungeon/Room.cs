@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
+using Zelda.Dungeon;
 
 namespace Zelda.Dungeon
 {
@@ -16,11 +17,13 @@ namespace Zelda.Dungeon
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
         private readonly EnemyType _enemyType;
+        private DungeonManager _dungeonManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
-        public Room(int[][] tiles, int enemyID)
+        public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
         {
             _enemyType = (EnemyType) enemyID;
+            _dungeonManager = dungeon;
 
             for (var row = 0; row < tiles.Length; row++)
             {
@@ -166,7 +169,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var leftRightDoors = new LeftRightDoor(location, blockType);
+            var leftRightDoors = new LeftRightDoor(_dungeonManager, location, blockType);
             Collidables.Add(leftRightDoors);
             Drawables.Add(leftRightDoors);
 
@@ -205,7 +208,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var upDownDoors = new UpDownDoor(location, blockType);
+            var upDownDoors = new UpDownDoor(_dungeonManager, location, blockType);
             Collidables.Add(upDownDoors);
             Drawables.Add(upDownDoors);
 
@@ -228,7 +231,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var stairs = new Stair(location, blockType);
+            var stairs = new Stair(_dungeonManager, location, blockType);
             Collidables.Add(stairs);
             Drawables.Add(stairs);
 

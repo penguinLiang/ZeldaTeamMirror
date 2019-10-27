@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Dungeon;
+using Zelda.Blocks;
 
 namespace Zelda.Blocks
 {
@@ -7,14 +9,17 @@ namespace Zelda.Blocks
     {
         private readonly ISprite _sprite;
         public Rectangle Bounds { get; }
-
+        private DungeonManager _dungeonManager;
+        private BlockType _block;
         private readonly Vector2 _drawLocation;
 
-        public UpDownDoor(Point location, BlockType block)
+        public UpDownDoor(DungeonManager dungeon, Point location, BlockType block)
         {
             Bounds = new Rectangle(location, new Point(32, 32));
             _drawLocation = location.ToVector2();
             _sprite = BlockTypeSprite.Sprite(block);
+            _dungeonManager = dungeon;
+            _block = block;
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -24,6 +29,10 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            if (_block == BlockType.DoorSpecialUp1_1)
+            {
+                return new SceneTransition(_dungeonManager, 0, 1);
+            }
             return new DoorLinkKnockback(player);
         }
 

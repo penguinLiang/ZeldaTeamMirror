@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -7,14 +8,15 @@ namespace Zelda.Blocks
     {
         private readonly ISprite _sprite;
         public Rectangle Bounds { get; }
-
+        private DungeonManager _dungeonManager;
         private readonly Vector2 _drawLocation;
 
-        public LeftRightDoor(Point location, BlockType block)
+        public LeftRightDoor(DungeonManager dungeon, Point location, BlockType block)
         {
             Bounds = new Rectangle(location.X, location.Y, 32, 48);
             _sprite = BlockTypeSprite.Sprite(block);
             _drawLocation = new Vector2(location.X, location.Y + 8);
+            _dungeonManager = dungeon;
         }
 
         public bool CollidesWith(Rectangle rect)

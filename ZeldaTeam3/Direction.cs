@@ -5,6 +5,8 @@ namespace Zelda
         Up,
         Down,
         Left,
-        Right
+        Right,
+        UpFromBasement,
+        DownFromDungeon
     }
 }
