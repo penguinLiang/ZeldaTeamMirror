@@ -128,6 +128,7 @@
     <Compile Include="Items\Map.cs" />
     <Compile Include="Items\BowItem.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
+    <Compile Include="HUD\HUDSpriteFactory.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Projectiles\GoriyaBoomerang.cs" />

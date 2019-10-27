@@ -156,6 +156,30 @@
 /processorParam:TextureFormat=Color
 /build:FieldWeapons.png
 
+#begin HUD.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUD.png
+
+#begin HUDElements.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUDElements.png
+
 #begin Items.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -275,6 +299,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Particles.png
+
+#begin PauseScreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PauseScreen.png
 
 #begin Rooms/0-1.csv
 /importer:CSVMapImporter
