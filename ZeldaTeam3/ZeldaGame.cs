@@ -5,6 +5,7 @@ using Zelda.Blocks;
 using Zelda.Dungeon;
 using Zelda.Enemies;
 using Zelda.Items;
+using Zelda.Music;
 using Zelda.Player;
 using Zelda.Projectiles;
 
@@ -16,6 +17,7 @@ namespace Zelda
         public IPlayer Link { get; private set; }
         public DungeonManager DungeonManager { get; } = new DungeonManager();
         public JumpMap JumpMap { get; private set; }
+        public MusicManager music; 
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -45,6 +47,8 @@ namespace Zelda
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
+
+            MusicManager.Instance.LoadAllSounds(Content);
 
             JumpMap = new JumpMap(_spriteBatch,Content);
 
