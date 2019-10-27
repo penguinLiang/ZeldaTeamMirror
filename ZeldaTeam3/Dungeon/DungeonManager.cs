@@ -94,6 +94,36 @@ namespace Zelda.Dungeon
             }
         }
 
+        public void Transition(Direction roomDirection) 
+        {
+            int _newRoomRow = CurrentRoom.X;
+            int _newRoomColumn = CurrentRoom.Y;
+            if(roomDirection == Direction.Down) 
+            {
+                _newRoomRow++;
+                _player.TeleportToEntrance(Direction.Up);
+            }
+            if(roomDirection == Direction.Up) 
+            {
+                _newRoomRow--;
+                _player.TeleportToEntrance(Direction.Down);
+            }
+            if(roomDirection == Direction.Left) 
+            {
+                _newRoomColumn--;
+                _player.TeleportToEntrance(Direction.Right);
+            }
+            if(roomDirection == Direction.Right) 
+            {
+                _newRoomColumn++;
+                _player.TeleportToEntrance(Direction.Left);
+            }
+            CurrentRoom = new Point(_newRoomRow,_newRoomColumn);
+            SetBackground(_backgroundIds[_newRoomRow][_newRoomColumn]);
+            Scene = _scenes[_newRoomRow][_newRoomColumn];
+            Scene.SpawnEnemies();
+        }
+
         public void TransitionToRoom(int row, int column)
         {
             CurrentRoom = new Point(row, column);

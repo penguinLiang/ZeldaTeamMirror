@@ -12,6 +12,7 @@ namespace Zelda.Blocks
         private DungeonManager _dungeonManager;
         private BlockType _block;
         private readonly Vector2 _drawLocation;
+        private bool _lockedOrBlocked = false;
 
         public UpDownDoor(DungeonManager dungeon, Point location, BlockType block)
         {
@@ -20,6 +21,11 @@ namespace Zelda.Blocks
             _sprite = BlockTypeSprite.Sprite(block);
             _dungeonManager = dungeon;
             _block = block;
+            if((_block == BlockType.BombableWallTop) || (_block == BlockType.BombableWallBottom)
+                || (_block == BlockType.DoorLockedUp) || (_block == BlockType.DoorLockedDown)) 
+                {
+                    _lockedOrBlocked = true;
+                }
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -29,6 +35,14 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            if(_block == BlockType.DoorUp && _lockedOrBlocked == false) 
+            {
+                return new Transition(_dungeonManager, Direction.Up);
+            }
+            if(_block == BlockType.DoorDown && _lockedOrBlocked == false) 
+            {
+                return new Transition(_dungeonManager, Direction.Down);
+            }
             if (_block == BlockType.DoorSpecialUp1_1)
             {
                 return new SceneTransition(_dungeonManager, 0, 1);

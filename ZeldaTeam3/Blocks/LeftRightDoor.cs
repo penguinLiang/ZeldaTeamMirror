@@ -10,6 +10,8 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; }
         private DungeonManager _dungeonManager;
         private readonly Vector2 _drawLocation;
+        private BlockType _block;
+        private bool _lockedOrBlocked = false;
 
         public LeftRightDoor(DungeonManager dungeon, Point location, BlockType block)
         {
@@ -17,6 +19,12 @@ namespace Zelda.Blocks
             _sprite = BlockTypeSprite.Sprite(block);
             _drawLocation = new Vector2(location.X, location.Y + 8);
             _dungeonManager = dungeon;
+            _block = block;
+            if((_block == BlockType.BombableWallLeft) || (_block == BlockType.BombableWallRight)
+                || (_block == BlockType.DoorLockedLeft) || (_block == BlockType.DoorLockedRight)) 
+                {
+                    _lockedOrBlocked = true;
+                }
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -26,6 +34,14 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            if(_block == BlockType.DoorRight && _lockedOrBlocked == false) 
+            {
+                return new Transition(_dungeonManager, Direction.Right);
+            }
+            if(_block == BlockType.DoorLeft && _lockedOrBlocked == false) 
+            {
+                return new Transition(_dungeonManager, Direction.Left);
+            }
             return new MoveableHalt(player);
         }
 
