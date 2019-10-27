@@ -41,7 +41,7 @@ namespace Zelda.Blocks
             {
                 return new SceneTransition(_dungeonManager, 0, 1);
             }
-            return new DoorLinkKnockback(player);
+            return new MoveableHalt(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
