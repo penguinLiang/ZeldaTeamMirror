@@ -272,5 +272,13 @@ namespace Zelda.Dungeon
 
             return true;
         }
+
+        public void reset2_1Block() 
+        {
+            Point locationBlock = new Point(7 * TileWidthHeight,5 * TileWidthHeight);
+            var room21BlockNew = new MovableBlock(this, BlockType.Block2_1, locationBlock);
+            Collidables.Add(room21BlockNew);
+            Drawables.Add(room21BlockNew);
+        }
     }
 }

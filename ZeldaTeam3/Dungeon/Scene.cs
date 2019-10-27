@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Zelda.Blocks;
 
 namespace Zelda.Dungeon
 {
@@ -17,7 +18,7 @@ namespace Zelda.Dungeon
             _player = player;
             if(row == 2 && col == 1) 
             {
-
+                room.reset2_1Block();
             }
         }
 

@@ -18,17 +18,23 @@ namespace Zelda.Blocks
 
         private bool _unmoved = true;
         private bool _moving;
+        public bool canMove;
 
         public MovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
             _block = block;
             _room = room;
+            canMove = true;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
         }
 
         public bool CollidesWith(Rectangle rect)
         {
+            if(!canMove) 
+            {
+                return false;
+            }
             return Bounds.Intersects(rect);
         }
 
@@ -52,6 +58,10 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
             if (_block != BlockType.Block2_1 && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
                 _moving = true;
@@ -76,17 +86,26 @@ namespace Zelda.Blocks
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
             return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IHaltable projectile)
         {
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
             return new MoveableHalt(projectile);
         }
 
         public void Update()
         {
-            if (_moving)
+            
+            if (_moving && canMove)
             {
                 switch (_pushDirection)
                 {
@@ -116,12 +135,18 @@ namespace Zelda.Blocks
                 }
             }
 
-            _sprite.Update();
+            if(canMove == true) 
+            {
+                _sprite.Update();
+            }
         }
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            if(canMove == true) 
+            {
+                _sprite.Draw(_location.ToVector2());
+            }
         }
     }
 }
