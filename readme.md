@@ -148,6 +148,11 @@ Please check out our [bug report](bugs.md)
 - __NPCs__: https://www.spriters-resource.com/nes/legendofzelda/sheet/21189/  
 - __Bosses__: https://www.spriters-resource.com/nes/legendofzelda/sheet/36632/  
 - __Dungeon Tileset__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8376/  
+
+
+## Sound Resources
+- __Background Music__: https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-nes
+- __Sprite Sound Effects: http://noproblo.dayjo.org/ZeldaSounds/LOZ/index.html
   
     
 ## Extra Processes  
