@@ -542,3 +542,21 @@
 /processorParam:Quality=Best
 /build:Sounds/LOZ_Sword_Slash.wav
 
+#begin Sounds/LOZFDS_Boss_Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZFDS_Boss_Hit.wav
+
+#begin Sounds/LOZFDS_Boss_Scream1_Distant.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZFDS_Boss_Scream1_Distant.wav
+
+#begin Music/06 Triforce.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/06 Triforce.mp3
+

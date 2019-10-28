@@ -25,13 +25,15 @@ namespace Zelda.SoundEffects
         private SoundEffectInstance lowHealthInstance;
             //For looping and stopping the sound
         private SoundEffect _playPickupItem;
-            //Also used for Fairy sound effect
-        private SoundEffect _playPickupTriforce;
+        //Also used for Fairy sound effect
+        private SoundEffect _playPickupNewItem;
         private SoundEffect _playPickupDoppedHeartKey;
         private SoundEffect _playPickupRupee;
         private SoundEffect _playKeyAppear;
         private SoundEffect _playDoorUnlock;
+        private SoundEffect _playBossSpawn;
         private SoundEffect _playBossDead;
+        private SoundEffect _playBossHurt;
         private SoundEffect _playUseStairs;
         private SoundEffect _playPuzzleSolved;
 
@@ -40,7 +42,9 @@ namespace Zelda.SoundEffects
             _playArrowBoomerangShoot = Content.Load<SoundEffect>("Sounds/LOZ_Arrow_Boomerang");
             _playBombDrop = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Drop");
             _playBombExplode = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Blow");
-            _playBossDead = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1");
+            _playBossSpawn = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1");
+            _playBossHurt = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Hit");
+            _playBossDead = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1_Distant");
             _playDoorUnlock = Content.Load<SoundEffect>("Sounds/LOZ_Door_Unlock");
             _playEnemyDie = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Die");
             _playEnemyHit = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Hit");
@@ -50,7 +54,7 @@ namespace Zelda.SoundEffects
             _playPickupDoppedHeartKey = Content.Load<SoundEffect>("Sounds/LOZ_Get_Heart");
             _playPickupItem = Content.Load<SoundEffect>("Sounds/LOZ_Get_Item");
             _playPickupRupee = Content.Load<SoundEffect>("Sounds/LOZ_Get_Rupee");
-            _playPickupTriforce = Content.Load<SoundEffect>("Sounds/LOZ_Fanfare");
+            _playPickupNewItem = Content.Load<SoundEffect>("Sounds/LOZ_Fanfare");
             _playPuzzleSolved = Content.Load<SoundEffect>("Sounds/LOZ_Secret");
             _playSwordShoot = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Shoot");
             _playSwordSlash = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Slash");
@@ -78,6 +82,18 @@ namespace Zelda.SoundEffects
         {
             SoundEffectInstance bombExplodeInstance = _playBombExplode.CreateInstance();
             bombExplodeInstance.Play();
+        }
+
+        public void PlayBossSpawn()
+        {
+            SoundEffectInstance bossSpawnInstance = _playBossSpawn.CreateInstance();
+            bossSpawnInstance.Play();
+        }
+
+        public void PlayBossHurt()
+        {
+            SoundEffectInstance bossHurtInstance = _playBossHurt.CreateInstance();
+            bossHurtInstance.Play();
         }
 
         public void PlayBossDead()
@@ -145,10 +161,10 @@ namespace Zelda.SoundEffects
             pickupRupeeInstance.Play();
         }
 
-        public void PlayPickupTriforce()
+        public void PlayPickupNewItem()
         {
-            SoundEffectInstance pickupTriforceInstance = _playPickupTriforce.CreateInstance();
-            pickupTriforceInstance.Play();
+            SoundEffectInstance pickupNewItem = _playPickupNewItem.CreateInstance();
+            pickupNewItem.Play();
         }
 
         public void PlayPuzzleSolved()

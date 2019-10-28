@@ -16,9 +16,11 @@ namespace Zelda.Music
       private SoundEffect _playLabryinthMusic;
       private SoundEffect _playGameOverMusic;
       private SoundEffect _playWinMusic;
+      private SoundEffect _playTriforceMusic;
       private SoundEffectInstance labryinthMusicInstance;
       private SoundEffectInstance gameOverMusicInstance;
       private SoundEffectInstance winMusicInstance;
+      private SoundEffectInstance triforceMusicInstance;
 
         public static MusicManager Instance { get; } = new MusicManager();
 
@@ -28,10 +30,13 @@ namespace Zelda.Music
             _playLabryinthMusic = Content.Load<SoundEffect>("Music/04_Labyrinth");
             _playGameOverMusic = Content.Load<SoundEffect>("Music/07_Game_Over");
             _playWinMusic = Content.Load<SoundEffect>("Music/10_Ending");
+            _playTriforceMusic = Content.Load<SoundEffect>("Music/06_Triforce");
+
 
             labryinthMusicInstance = _playLabryinthMusic.CreateInstance();
             gameOverMusicInstance = _playGameOverMusic.CreateInstance();
             winMusicInstance = _playWinMusic.CreateInstance();
+            triforceMusicInstance = _playTriforceMusic.CreateInstance();
 
         }
 
@@ -47,6 +52,10 @@ namespace Zelda.Music
                 else if (lastPlaying == MusicType.Win)
                 {
                     winMusicInstance.Stop();
+                }
+                else if (lastPlaying == MusicType.Triforce)
+                {
+                    triforceMusicInstance.Stop();
                 }
                 lastPlaying = MusicType.Labryinth;  
             }
@@ -66,10 +75,14 @@ namespace Zelda.Music
                 {
                     winMusicInstance.Stop();
                 }
+                else if (lastPlaying == MusicType.Triforce)
+                {
+                    triforceMusicInstance.Stop();
+                }
                 lastPlaying = MusicType.Labryinth;
             }
-            gameOverMusicInstance.IsLooped = true;
-            gameOverMusicInstance.Play();
+              gameOverMusicInstance.IsLooped = false;
+              gameOverMusicInstance.Play();
         }
 
         public void PlayWinMusic()
@@ -84,10 +97,46 @@ namespace Zelda.Music
                 {
                     labryinthMusicInstance.Stop();
                 }
+                else if (lastPlaying == MusicType.Triforce)
+                {
+                    triforceMusicInstance.Stop();
+                }
                 lastPlaying = MusicType.Labryinth;
             }
             winMusicInstance.IsLooped = true;
             winMusicInstance.Play();
         }
+
+        public void PlayTriforceMusic()
+        {
+            if (lastPlaying != MusicType.Triforce)
+            {
+                if (lastPlaying == MusicType.GameOver)
+                {
+                    gameOverMusicInstance.Stop();
+                }
+                else if (lastPlaying == MusicType.Labryinth)
+                {
+                    labryinthMusicInstance.Stop();
+                }
+                else if (lastPlaying == MusicType.Win)
+                {
+                    winMusicInstance.Stop();
+                }
+                lastPlaying = MusicType.Triforce;
+            }
+            triforceMusicInstance.IsLooped = false;
+            triforceMusicInstance.Play();
+        }
+
+        public void StopAllMusic()
+        {
+            lastPlaying = MusicType.None;
+            triforceMusicInstance.Stop();
+            winMusicInstance.Stop();
+            gameOverMusicInstance.Stop();
+            labryinthMusicInstance.Stop();
+        }
+
     }
 }

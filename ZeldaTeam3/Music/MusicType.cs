@@ -11,6 +11,7 @@ namespace Zelda.Music
             Labryinth,
             GameOver,
             Win,
+            Triforce,
             None
         }
 }

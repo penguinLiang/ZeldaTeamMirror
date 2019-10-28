@@ -75,6 +75,8 @@ namespace Zelda
             }
             Console.WriteLine("Current Room: {0}", DungeonManager.CurrentRoom);
             // TODO: REMOVE end }
+            MusicManager.Instance.PlayGameOverMusic();
+
         }
 
         protected override void UnloadContent()
