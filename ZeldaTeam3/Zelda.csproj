@@ -120,6 +120,8 @@
     <Compile Include="Items\Secondary.cs" />
     <Compile Include="Items\Fairy.cs" />
     <Compile Include="Items\DroppedHeart.cs" />
+    <Compile Include="Music\MusicManager.cs" />
+    <Compile Include="Music\MusicType.cs" />
     <Compile Include="Player\PlayerSwordCollision.cs" />
     <Compile Include="Player\PlayerBodyCollision.cs" />
     <Compile Include="Player\DeadSpriteStateMachine.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="HUD\HUDSpriteFactory.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
+    <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\GoriyaBoomerang.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
     <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Player\MovementStateMachine.cs" />
     <Compile Include="Player\Inventory.cs" />
     <Compile Include="Dungeon\Scene.cs" />
+    <Compile Include="SoundEffects\SoundEffectManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap.cs" />
