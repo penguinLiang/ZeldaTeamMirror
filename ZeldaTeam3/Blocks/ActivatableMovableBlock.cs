@@ -5,7 +5,7 @@ using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
-    internal class MovableBlock : ICollideable, IDrawable
+    internal class ActivatableMovableBlock : ICollideable, IDrawable, IActivatable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
         public Rectangle Bounds { get; private set; }
@@ -19,20 +19,36 @@ namespace Zelda.Blocks
 
         private bool _unmoved;
         private bool _moving;
+        public bool canMove;
 
-        public MovableBlock(Room room, BlockType block, Point location)
+        public ActivatableMovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
             _origin = location;
             _block = block;
             _room = room;
+            canMove = true;
+            _unmoved = true;
+            Bounds = new Rectangle(location.X, location.Y, 16, 16);
+
+        } 
+
+        public void Reset()
+        {
+            _location = _origin;
+            canMove = true;
             _unmoved = true;
             _moving = false;
-            Bounds = new Rectangle(location.X, location.Y, 16, 16);
-        } 
+            _distanceMoved = 0;
+            Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+        }
 
         public bool CollidesWith(Rectangle rect)
         {
+            if(!canMove) 
+            {
+                return false;
+            }
             return Bounds.Intersects(rect);
         }
 
@@ -56,7 +72,25 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
+            if (_block != BlockType.Block2_1 && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            {
+                _moving = true;
+                _unmoved = false;
+            }
+            bool _atLeastOneAlive = false;
+            foreach(IEnemy _currentEnemy in _room.Enemies) 
+            {
+                if(_currentEnemy.Alive) 
+                {
+                    _atLeastOneAlive = true;
+                    break;
+                }
+            }
+            if (_block == BlockType.Block2_1 && !_atLeastOneAlive && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds)) 
             {
                 _moving = true;
                 _unmoved = false;
@@ -66,18 +100,26 @@ namespace Zelda.Blocks
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
             return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IHaltable projectile)
         {
+            if(!canMove) 
+            {
+                return new NoOp();
+            }
             return new MoveableHalt(projectile);
         }
 
         public void Update()
         {
             
-            if (_moving)
+            if (_moving && canMove)
             {
                 switch (_pushDirection)
                 {
@@ -107,12 +149,23 @@ namespace Zelda.Blocks
                 }
             }
 
-            _sprite.Update();
+            if(canMove == true) 
+            {
+                _sprite.Update();
+            }
         }
 
         public void Draw()
         {
-            _sprite.Draw(_location.ToVector2());
+            if(canMove == true) 
+            {
+                _sprite.Draw(_location.ToVector2());
+            }
+        }
+
+        public void Activate()
+        {
+            
         }
     }
 }

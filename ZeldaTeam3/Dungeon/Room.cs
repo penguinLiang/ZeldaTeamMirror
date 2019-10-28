@@ -14,7 +14,7 @@ namespace Zelda.Dungeon
         public IList<IEnemy> Enemies = new List<IEnemy>();
         public IList<ICollideable> Collidables = new List<ICollideable>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
-        private MovableBlock _21Block = null;
+        private ActivatableMovableBlock _21Block = null;
 
         private readonly EnemyType _enemyType;
 
@@ -97,7 +97,7 @@ namespace Zelda.Dungeon
                     Drawables.Add(triforce);
                     break;
                 case MapTile.Room2_1Block:
-                    var room21Block = new MovableBlock(this, BlockType.Block2_1, location);
+                    var room21Block = new ActivatableMovableBlock(this, BlockType.Block2_1, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
                     _21Block = room21Block;

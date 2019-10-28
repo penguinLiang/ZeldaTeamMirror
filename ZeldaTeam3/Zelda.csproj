@@ -105,6 +105,7 @@
     <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="Blocks\Barrier.cs" />
     <Compile Include="Blocks\MovableBlock.cs" />
+    <Compile Include="Blocks\ActivatableMovableBlock.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IHaltable.cs" />
