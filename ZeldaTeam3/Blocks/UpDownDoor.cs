@@ -14,9 +14,25 @@ namespace Zelda.Blocks
         private readonly Vector2 _drawLocation;
         private bool _lockedOrBlocked = false;
 
+        private Rectangle _upWallOne {get;}
+        private Rectangle _upWallTwo {get;}
+        private Rectangle _upTransitionSpace {get;}
+        private Rectangle _downWallOne {get;}
+        private Rectangle _downWallTwo {get;}
+        private Rectangle _downTransitionSpace {get;}
+
         public UpDownDoor(DungeonManager dungeon, Point location, BlockType block)
         {
             Bounds = new Rectangle(location, new Point(32, 32));
+
+            _upWallOne = new Rectangle(location.X, location.Y + 16, 8, 16);
+            _upWallTwo = new Rectangle(location.X + 24, location.Y + 16, 8, 16);
+            _upTransitionSpace = new Rectangle(location.X + 8, location.Y, 16, 16);
+
+            _downWallOne = new Rectangle(location.X, location.Y, 8, 16);
+            _downWallTwo = new Rectangle(location.X + 24, location.Y, 8, 16);
+            _downTransitionSpace = new Rectangle(location.X + 8, location.Y + 16, 16, 16);
+
             _drawLocation = location.ToVector2();
             _sprite = BlockTypeSprite.Sprite(block);
             _dungeonManager = dungeon;
@@ -37,15 +53,27 @@ namespace Zelda.Blocks
         {
             if(_block == BlockType.DoorUp && _lockedOrBlocked == false) 
             {
-                return new Transition(_dungeonManager, Direction.Up);
+                if(player.BodyCollision.CollidesWith(_upWallOne) || player.BodyCollision.CollidesWith(_upWallTwo))
+                {
+                    return new MoveableHalt(player);
+                }
+                if(player.BodyCollision.CollidesWith(_upTransitionSpace))
+                {
+                    return new Transition(_dungeonManager, Direction.Up);
+                }
+                return new NoOp();
             }
             if(_block == BlockType.DoorDown && _lockedOrBlocked == false) 
             {
-                return new Transition(_dungeonManager, Direction.Down);
-            }
-            if (_block == BlockType.DoorSpecialUp1_1)
-            {
-                return new SceneTransition(_dungeonManager, 0, 1);
+                if(player.BodyCollision.CollidesWith(_downWallOne) || player.BodyCollision.CollidesWith(_downWallTwo))
+                {
+                    return new MoveableHalt(player);
+                }
+                if(player.BodyCollision.CollidesWith(_downTransitionSpace))
+                {
+                    return new Transition(_dungeonManager, Direction.Down);
+                }
+                return new NoOp();
             }
             return new MoveableHalt(player);
         }
