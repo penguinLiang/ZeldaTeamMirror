@@ -34,9 +34,14 @@ namespace Zelda.Projectiles
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 64));
         }
 
-        public ISprite CreateFireball()
+        public ISprite CreateAquamentusFireball()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 96));
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 96), 4);
+        }
+
+        public ISprite CreateOldManFireball()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 112), 4);
         }
 
         public ISprite CreateThrownBoomerang()
