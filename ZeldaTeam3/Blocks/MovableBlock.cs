@@ -11,22 +11,36 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; private set; }
 
         private Point _location;
+        private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
         private BlockType _block;
         private Room _room;
 
-        private bool _unmoved = true;
+        private bool _unmoved;
         private bool _moving;
         public bool canMove;
 
         public MovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
+            _origin = location;
             _block = block;
             _room = room;
             canMove = true;
+            _unmoved = true;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
+
+        } 
+
+        public void Reset()
+        {
+            _location = _origin;
+            canMove = true;
+            _unmoved = true;
+            _moving = false;
+            _distanceMoved = 0;
+            Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
         }
 
         public bool CollidesWith(Rectangle rect)
