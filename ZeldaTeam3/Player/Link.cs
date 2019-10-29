@@ -59,6 +59,16 @@ namespace Zelda.Player
             _healthStateMachine.AddHeart();
         }
 
+        public int getCurrentHealth()
+        {
+          return _healthStateMachine.getCurrentHealth();
+        }
+
+        public int getMaxHealth()
+        {
+          return _healthStateMachine.getMaxHealth();
+        }
+
         public void Spawn()
         {
             _healthStateMachine = new HealthStateMachine();
