@@ -98,6 +98,7 @@
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="Commands\SceneTransition.cs" />
+    <Compile Include="Commands\Transition.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Dungeon\Room.cs" />
     <Compile Include="IDrawable.cs" />
