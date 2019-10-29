@@ -37,9 +37,9 @@ namespace Zelda
         public void Update()
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
+            var state = Keyboard.GetState();
             foreach (var key in keysPressed)
             {
-
                 if (_pauseDirections.ContainsKey(key) && !keysPressed.Contains(_firstPlayerDirection))
                 {
                     _firstPlayerDirection = key;

@@ -44,7 +44,10 @@ namespace Zelda.Pause
                 _spriteBatch.Draw(_image, new Rectangle(0, 0, 512, 352), Color.White);
                 if (_inventory.HasMap)
                 {
-                    //display map and minimap
+                    
+                } else
+                {
+                    _spriteBatch.Draw(_image, new Rectangle(190, 158, 270, 176), Color.Black);
                 }
                 if (_inventory.HasCompass)
                 {
@@ -63,7 +66,14 @@ namespace Zelda.Pause
 
         public void unpause()
         {
-            Visible = false;
+            if(Visible == false)
+            {
+                Visible = true;
+            } else
+            {
+                Visible = false;
+            }
+            System.Threading.Thread.Sleep(100);
         }
 
         public void selectUp()

@@ -66,6 +66,7 @@ namespace Zelda
         public void Update()
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
+
             foreach (var key in keysPressed)
             {
                 if (_keymap.ContainsKey(key)) _keymap[key].Execute();
