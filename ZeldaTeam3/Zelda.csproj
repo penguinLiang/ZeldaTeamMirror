@@ -68,6 +68,7 @@
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
     <Compile Include="Pause\PauseSpriteFactory.cs" />
+    <Compile Include="Pause\PauseMenu.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\Gel.cs" />
