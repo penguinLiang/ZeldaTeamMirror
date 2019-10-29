@@ -67,6 +67,7 @@
     <Compile Include="Enemies\AgentStateUtility.cs" />
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
+    <Compile Include="Pause\PauseSpriteFactory.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\Gel.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Items\Map.cs" />
     <Compile Include="Items\BowItem.cs" />
     <Compile Include="Player\SecondaryItemAgent.cs" />
+    <Compile Include="HUD\HUDSpriteFactory.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
