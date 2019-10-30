@@ -23,6 +23,15 @@ namespace Zelda.Pause
         private int x;
         private int y;
 
+        private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
+        private PauseSpriteFactory _factory2 = PauseSpriteFactory.Instance;
+        private ISprite _compass;
+        private ISprite _arrow;
+        private ISprite _bow;
+        private ISprite _cursorGrid;
+        private ISprite _playerMapDot;
+        private ISprite _map;
+
         public bool Visible;
 
         public PauseMenu(SpriteBatch spriteBatch, ContentManager content, IPlayer player, DungeonManager dungeon)
@@ -35,6 +44,14 @@ namespace Zelda.Pause
             x = 0;
             y = 0;
             _inventory = _player.Inventory;
+
+            _compass = _factory.CreateCompass();
+            _map = _factory.CreateMap();
+            _arrow = _factory.CreateArrow();
+            _bow = _factory.CreateBow();
+
+            _cursorGrid = _factory2.CreateCursorFrame();
+            _playerMapDot = _factory2.CreateLinkIndicator();
         }
 
         public void Draw()
@@ -42,20 +59,24 @@ namespace Zelda.Pause
             if (Visible)
             {
                 _spriteBatch.Draw(_image, new Rectangle(0, 0, 512, 352), Color.White);
+
+                _spriteBatch.End();
+
+                _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f) * Matrix.CreateTranslation(0.0f, 96.0f, 0.0f));
+
+                _cursorGrid.Draw(new Vector2(128 + (24 * x), -8 + (16 * y)));
+
                 if (_inventory.HasMap)
                 {
-                    
-                } else
-                {
-                    _spriteBatch.Draw(_image, new Rectangle(190, 158, 270, 176), Color.Black);
+                    _map.Draw(new Vector2(47, 55));
                 }
                 if (_inventory.HasCompass)
                 {
-                    //display compass
+                    _compass.Draw(new Vector2(43, 95));
                 }
                 if (_inventory.HasArrow)
                 {
-                    //display arrow??
+                    //display arrow?? 
                 }
                 if (_inventory.HasBow)
                 {

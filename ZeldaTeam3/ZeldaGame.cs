@@ -49,6 +49,7 @@ namespace Zelda
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
+            PauseSpriteFactory.Instance.LoadAllTextures(Content);
 
             MusicManager.Instance.LoadAllSounds(Content);
 
