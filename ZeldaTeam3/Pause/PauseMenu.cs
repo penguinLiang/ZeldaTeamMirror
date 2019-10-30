@@ -25,6 +25,8 @@ namespace Zelda.Pause
         private int x;
         private int y;
 
+        public bool[,] _roomsUncovered { get; private set; }
+
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private PauseSpriteFactory _factory2 = PauseSpriteFactory.Instance;
         private ISprite _compass;
@@ -35,6 +37,7 @@ namespace Zelda.Pause
         private ISprite _map;
         private ISprite _boomerang;
         private ISprite _bomb;
+        private ISprite _roomCover;
 
         public bool Visible;
 
@@ -45,6 +48,7 @@ namespace Zelda.Pause
             _player = player;
             _dungeonManager = dungeon;
             Visible = true;
+            _roomsUncovered = new bool[6,6];
             x = 0;
             y = 0;
             _inventory = _player.Inventory;
@@ -58,26 +62,51 @@ namespace Zelda.Pause
 
             _cursorGrid = _factory2.CreateCursorFrame();
             _playerMapDot = _factory2.CreateLinkIndicator();
+            _roomCover = _factory2.CreateMapCoverSquare();
+
+            for (var row = 0; row < 6; row++)
+            {
+                for (var col = 0; col < 6; col++)
+                {
+                    _roomsUncovered[col,row] = false;
+                }
+            }
         }
 
         public void Draw()
         {
             if (Visible)
             {
-                _spriteBatch.Draw(_image, new Rectangle(0, 0, 512, 352), Color.White);
-
                 _spriteBatch.End();
 
                 _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f) * Matrix.CreateTranslation(0.0f, 96.0f, 0.0f));
+
+                _spriteBatch.Draw(_image, new Rectangle(0, -48, 256, 176), Color.White);
 
                 _cursorGrid.Draw(new Vector2(128 + (24 * x), -8 + (16 * y)));
 
                 int _roomX = _dungeonManager.CurrentRoom.X;
                 int _roomY = _dungeonManager.CurrentRoom.Y;
-                if(_roomX != 1 || _roomY != 1)
+                if(!((_roomX == 1 && _roomY == 1) || (_roomX == 3 && _roomY == 5) || (_roomX == 4 && _roomY == 5) || (_roomX == 5 && _roomY == 5) || (_roomX == 4 && _roomY == 0)))
                 {
                     _playerMapDot.Draw(new Vector2(136 + (_roomY * 8), 56 + (_roomX * 8)));
                 }
+
+                for(var row = 0; row < 6; row++)
+                {
+                    for(var col = 0; col < 6; col++)
+                    {
+                        if(col == _roomY &&  row == _roomX && _roomsUncovered[col,row] == false)
+                        {
+                            _roomsUncovered[col,row] = true;
+                        }
+                        if(_roomsUncovered[col,row] != true)
+                        {
+                            _roomCover.Draw(new Vector2(136 + (col * 8), 56 + (row * 8)));
+                        }
+                    }
+                }
+                
 
                 if (_inventory.HasMap)
                 {
