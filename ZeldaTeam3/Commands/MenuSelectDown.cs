@@ -16,6 +16,6 @@ namespace Zelda.Commands
             _pauseMenu.selectDown();
         }
 
-        public override string ToString() => "Scene Transition to specific row/column";
+        public override string ToString() => "Inventory grid down";
     }
 }
