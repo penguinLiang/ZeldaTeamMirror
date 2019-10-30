@@ -9,6 +9,8 @@ using Zelda.Items;
 using Zelda.Music;
 using Zelda.Player;
 using Zelda.Projectiles;
+using Zelda.Commands;
+
 
 namespace Zelda.Pause
 {
@@ -31,6 +33,8 @@ namespace Zelda.Pause
         private ISprite _cursorGrid;
         private ISprite _playerMapDot;
         private ISprite _map;
+        private ISprite _boomerang;
+        private ISprite _bomb;
 
         public bool Visible;
 
@@ -49,6 +53,8 @@ namespace Zelda.Pause
             _map = _factory.CreateMap();
             _arrow = _factory.CreateArrow();
             _bow = _factory.CreateBow();
+            _boomerang = _factory.CreateWoodBoomerang();
+            _bomb = _factory.CreateBomb();
 
             _cursorGrid = _factory2.CreateCursorFrame();
             _playerMapDot = _factory2.CreateLinkIndicator();
@@ -66,6 +72,13 @@ namespace Zelda.Pause
 
                 _cursorGrid.Draw(new Vector2(128 + (24 * x), -8 + (16 * y)));
 
+                int _roomX = _dungeonManager.CurrentRoom.X;
+                int _roomY = _dungeonManager.CurrentRoom.Y;
+                if(_roomX != 1 || _roomY != 1)
+                {
+                    _playerMapDot.Draw(new Vector2(136 + (_roomY * 8), 56 + (_roomX * 8)));
+                }
+
                 if (_inventory.HasMap)
                 {
                     _map.Draw(new Vector2(47, 55));
@@ -76,12 +89,33 @@ namespace Zelda.Pause
                 }
                 if (_inventory.HasArrow)
                 {
-                    //display arrow?? 
+                    _arrow.Draw(new Vector2(128 + 48, -8));
+                    if(x == 2 && y == 0)
+                    {
+                        _arrow.Draw(new Vector2(68, -8));
+                    }
                 }
                 if (_inventory.HasBow)
                 {
-                    //display bow
+                    _bow.Draw(new Vector2(128 + 56, -8));
                 }
+                if (_inventory.HasBoomerang)
+                {
+                    _boomerang.Draw(new Vector2(128 + 3, -8));
+                    if (x == 0 && y == 0)
+                    {
+                        _boomerang.Draw(new Vector2(68, -8));
+                    }
+                }
+                if (_inventory.BombCount >= 1)
+                {
+                    _bomb.Draw(new Vector2(128 + 27, -8));
+                    if (x == 1 && y == 0)
+                    {
+                        _bomb.Draw(new Vector2(68, -8));
+                    }
+                }
+
             }
         }
 
@@ -94,39 +128,63 @@ namespace Zelda.Pause
             {
                 Visible = false;
             }
-            System.Threading.Thread.Sleep(100);
+        }
+
+        private void assignSecondary()
+        {
+            if(Visible)
+            {
+                ICommand assign = new NoOp();
+                if ((x == 0 && y == 0) && _inventory.HasBoomerang)
+                {
+                    assign = new LinkSecondaryAssign(_player, Secondary.Boomerang);
+                }
+                if ((x == 0 && y == 1) && _inventory.BombCount >= 1)
+                {
+                    assign = new LinkSecondaryAssign(_player, Secondary.Bomb);
+                }
+                if ((x == 0 && y == 2) && _inventory.HasBow)
+                {
+                    assign = new LinkSecondaryAssign(_player, Secondary.Bow);
+                }
+                assign.Execute();
+            }
         }
 
         public void selectUp()
         {
-            if(y != 0)
+            if(y != 0 && Visible)
             {
                 y--;
             }
+            assignSecondary();
         }
 
         public void selectDown()
         {
-            if(y != 1)
+            if(y != 1 && Visible)
             {
                 y++;
             }
+            assignSecondary();
         }
 
         public void selectLeft()
         {
-            if (x != 0)
+            if (x != 0 && Visible)
             {
                 x--;
             }
+            assignSecondary();
         }
 
         public void selectRight()
         {
-            if (x != 3)
+            if (x != 3 && Visible)
             {
                 x++;
             }
+            assignSecondary();
         }
     }
 }

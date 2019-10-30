@@ -8,6 +8,7 @@ namespace Zelda
     {
         private readonly Dictionary<Keys, ICommand> _pauseDirections;
 
+        private Keys[] _lastKeys = { };
         private Keys _firstPlayerDirection = Keys.None;
 
         public ControllerPauseKeyboard(ZeldaGame zeldaGame)
@@ -37,19 +38,16 @@ namespace Zelda
         public void Update()
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
-            var state = Keyboard.GetState();
-            foreach (var key in keysPressed)
-            {
-                if (_pauseDirections.ContainsKey(key) && !keysPressed.Contains(_firstPlayerDirection))
-                {
-                    _firstPlayerDirection = key;
-                }
 
-                if (_firstPlayerDirection == key)
+            foreach (var key in _lastKeys)
+            {
+                if (!keysPressed.Contains(key) && _pauseDirections.ContainsKey(key))
                 {
                     _pauseDirections[key].Execute();
                 }
             }
+
+            _lastKeys = keysPressed;
 
         }
 

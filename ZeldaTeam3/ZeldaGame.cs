@@ -57,6 +57,9 @@ namespace Zelda
 
             Link = new Link(new Point(128, 122));
 
+            DungeonManager.LoadDungeonContent(Content, Link);
+            DungeonManager.TransitionToRoom(5,2);
+
             PauseMenu = new PauseMenu(_spriteBatch,Content,Link,DungeonManager);
 
             _controllers = new IUpdatable[]{
@@ -64,9 +67,6 @@ namespace Zelda
                 new ControllerMouse(this),
                 new ControllerPauseKeyboard(this)
             };
-
-            DungeonManager.LoadDungeonContent(Content, Link);
-            DungeonManager.TransitionToRoom(5,2);
 
             // TODO: REMOVE start {
             Console.WriteLine("Enabled Rooms:");

@@ -87,6 +87,7 @@
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
     <Compile Include="Commands\LinkBowAssign.cs" />
+    <Compile Include="Commands\LinkSecondaryAssign.cs" />
     <Compile Include="Commands\LinkMoveDown.cs" />
     <Compile Include="Commands\LinkFullHeal.cs" />
     <Compile Include="Commands\LinkHeal.cs" />
