@@ -8,6 +8,7 @@ using Zelda.Items;
 using Zelda.Music;
 using Zelda.Player;
 using Zelda.Projectiles;
+using Zelda.Pause;
 
 namespace Zelda
 {
@@ -17,6 +18,7 @@ namespace Zelda
         public IPlayer Link { get; private set; }
         public DungeonManager DungeonManager { get; } = new DungeonManager();
         public JumpMap JumpMap { get; private set; }
+        public PauseMenu PauseMenu { get; private set; }
         public MusicManager music; 
 
         private readonly GraphicsDeviceManager _graphics;
@@ -47,6 +49,7 @@ namespace Zelda
             ProjectileSpriteFactory.Instance.LoadAllTextures(Content);
             LinkSpriteFactory.Instance.LoadAllTextures(Content);
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
+            PauseSpriteFactory.Instance.LoadAllTextures(Content);
 
             MusicManager.Instance.LoadAllSounds(Content);
 
@@ -54,13 +57,16 @@ namespace Zelda
 
             Link = new Link(new Point(128, 122));
 
-            _controllers = new IUpdatable[]{
-                new ControllerKeyboard(this),
-                new ControllerMouse(this)
-            };
-
             DungeonManager.LoadDungeonContent(Content, Link);
             DungeonManager.TransitionToRoom(5,2);
+
+            PauseMenu = new PauseMenu(_spriteBatch,Content,Link,DungeonManager);
+
+            _controllers = new IUpdatable[]{
+                new ControllerKeyboard(this),
+                new ControllerMouse(this),
+                new ControllerPauseKeyboard(this)
+            };
 
             // TODO: REMOVE start {
             Console.WriteLine("Enabled Rooms:");
@@ -115,6 +121,8 @@ namespace Zelda
             _spriteBatch.Begin();
 
             JumpMap.Draw();
+
+            PauseMenu.Draw();
           
             _spriteBatch.End();
 

@@ -68,6 +68,7 @@
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
     <Compile Include="Pause\PauseSpriteFactory.cs" />
+    <Compile Include="Pause\PauseMenu.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\Gel.cs" />
@@ -86,12 +87,18 @@
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
     <Compile Include="Commands\LinkBowAssign.cs" />
+    <Compile Include="Commands\LinkSecondaryAssign.cs" />
     <Compile Include="Commands\LinkMoveDown.cs" />
     <Compile Include="Commands\LinkFullHeal.cs" />
     <Compile Include="Commands\LinkHeal.cs" />
     <Compile Include="Commands\LinkMoveLeft.cs" />
     <Compile Include="Commands\LinkMoveRight.cs" />
     <Compile Include="Commands\LinkMoveUp.cs" />
+    <Compile Include="Commands\MenuSelectUp.cs" />
+    <Compile Include="Commands\MenuSelectDown.cs" />
+    <Compile Include="Commands\MenuSelectLeft.cs" />
+    <Compile Include="Commands\MenuSelectRight.cs" />
+    <Compile Include="Commands\MenuUnpause.cs" />
     <Compile Include="Commands\SpawnableDamage.cs" />
     <Compile Include="Commands\LinkKnockback.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
@@ -155,6 +162,7 @@
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ControllerMouse.cs" />
+    <Compile Include="ControllerPauseKeyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
