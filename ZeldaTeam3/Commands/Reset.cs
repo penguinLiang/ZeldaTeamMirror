@@ -1,5 +1,4 @@
-﻿using System;
-using Zelda.GameState;
+﻿using Zelda.GameState;
 
 namespace Zelda.Commands
 {
@@ -14,7 +13,6 @@ namespace Zelda.Commands
 
         public void Execute()
         {
-            Console.WriteLine("WHAT UP BITCHES");
             _agent.Reset();
         }
 
