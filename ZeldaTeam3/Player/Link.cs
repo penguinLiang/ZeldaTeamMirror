@@ -13,6 +13,8 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+        public int Health => _healthStateMachine.Health;
+        public int MaxHealth => _healthStateMachine.MaxHealth;
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
 
@@ -57,16 +59,6 @@ namespace Zelda.Player
         public void AddHeart()
         {
             _healthStateMachine.AddHeart();
-        }
-
-        public int getCurrentHealth()
-        {
-          return _healthStateMachine.getCurrentHealth();
-        }
-
-        public int getMaxHealth()
-        {
-          return _healthStateMachine.getMaxHealth();
         }
 
         public void Spawn()

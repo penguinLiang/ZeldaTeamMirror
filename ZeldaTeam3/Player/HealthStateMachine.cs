@@ -51,16 +51,6 @@ namespace Zelda.Player
             MaxHealth += 2;
         }
 
-        public int getMaxHealth()
-        {
-            return MaxHealth;
-        }
-
-        public int getCurrentHealth()
-        {
-            return Health;
-        }
-
         public void Update()
         {
             _hurtResetDelay.Update();
