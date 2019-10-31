@@ -105,6 +105,7 @@ namespace Zelda
                 _aliveReset = 160;
             }
             DungeonManager.Update();
+            PauseMenu.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -116,13 +117,13 @@ namespace Zelda
             if (Link.Alive) DungeonManager.Draw();
             Link.Draw();
 
+            PauseMenu.Draw();
+
             _spriteBatch.End();
 
             _spriteBatch.Begin();
 
             JumpMap.Draw();
-
-            PauseMenu.Draw();
           
             _spriteBatch.End();
 
