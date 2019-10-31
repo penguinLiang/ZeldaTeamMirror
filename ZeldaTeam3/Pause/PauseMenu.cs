@@ -1,14 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Zelda.Blocks;
 using Zelda.Dungeon;
-using Zelda.Enemies;
 using Zelda.Items;
-using Zelda.Music;
 using Zelda.Player;
-using Zelda.Projectiles;
 using Zelda.Commands;
 
 
@@ -16,19 +11,23 @@ namespace Zelda.Pause
 {
     public class PauseMenu
     {
-        private readonly Texture2D _image;
+        private readonly Texture2D _background;
         private readonly SpriteBatch _spriteBatch;
         private IPlayer _player;
         private DungeonManager _dungeonManager;
 
-        private Inventory _inventory = null;
-        private int x;
-        private int y;
+        private Inventory _inventory;
+        private int _cursorX;
+        private int _cursorY;
+        private bool _visible;
+
+        private int CurrentRoomX => _dungeonManager.CurrentRoom.Y; // SHOULD EQUAL X
+        private int CurrentRoomY => _dungeonManager.CurrentRoom.X; // SHOULD EQUAL Y
 
         public bool[][] _roomsUncovered { get; private set; }
 
-        private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
-        private PauseSpriteFactory _factory2 = PauseSpriteFactory.Instance;
+        private ItemSpriteFactory _itemSpriteFactory = ItemSpriteFactory.Instance;
+        private PauseSpriteFactory _pauseSpriteFactory = PauseSpriteFactory.Instance;
         private ISprite _compass;
         private ISprite _arrow;
         private ISprite _bow;
@@ -39,113 +38,112 @@ namespace Zelda.Pause
         private ISprite _bomb;
         private ISprite _roomCover;
 
-        public bool Visible;
-
         public PauseMenu(SpriteBatch spriteBatch, ContentManager content, IPlayer player, DungeonManager dungeon)
         {
             _spriteBatch = spriteBatch;
-            _image = content.Load<Texture2D>("PauseScreen");
+            _background = content.Load<Texture2D>("PauseScreen");
             _player = player;
             _dungeonManager = dungeon;
-            Visible = true;
-            _roomsUncovered = new bool[6][];
 
+            _roomsUncovered = new bool[6][];
             for(var i = 0; i < 6; i++)
             {
                 _roomsUncovered[i] = new bool[6];
             }
 
-            x = 0;
-            y = 0;
             _inventory = _player.Inventory;
 
-            _compass = _factory.CreateCompass();
-            _map = _factory.CreateMap();
-            _arrow = _factory.CreateArrow();
-            _bow = _factory.CreateBow();
-            _boomerang = _factory.CreateWoodBoomerang();
-            _bomb = _factory.CreateBomb();
+            _compass = _itemSpriteFactory.CreateCompass();
+            _map = _itemSpriteFactory.CreateMap();
+            _arrow = _itemSpriteFactory.CreateArrow();
+            _bow = _itemSpriteFactory.CreateBow();
+            _boomerang = _itemSpriteFactory.CreateWoodBoomerang();
+            _bomb = _itemSpriteFactory.CreateBomb();
 
-            _cursorGrid = _factory2.CreateCursorFrame();
-            _playerMapDot = _factory2.CreateLinkIndicator();
-            _roomCover = _factory2.CreateMapCoverSquare();
+            _cursorGrid = _pauseSpriteFactory.CreateCursorFrame();
+            _playerMapDot = _pauseSpriteFactory.CreateLinkIndicator();
+            _roomCover = _pauseSpriteFactory.CreateMapCoverSquare();
+        }
+
+        public void Update()
+        {
+            if (_visible)
+            {
+                _cursorGrid.Update();
+                _boomerang.Update();
+                _bomb.Update();
+                _arrow.Update();
+                _bow.Update();
+                _map.Update();
+                _compass.Update();
+                _roomCover.Update();
+                _playerMapDot.Update();
+            }
 
             for (var row = 0; row < 6; row++)
             {
                 for (var col = 0; col < 6; col++)
                 {
-                    _roomsUncovered[col][row] = false;
+                    if (!_roomsUncovered[row][col] && col == CurrentRoomX && row == CurrentRoomY)
+                        _roomsUncovered[row][col] = true;
                 }
             }
         }
 
         public void Draw()
         {
-            if (Visible)
+            if (_visible)
             {
-                _spriteBatch.End();
+                _spriteBatch.Draw(_background, new Rectangle(0, -48, 256, 176), Color.White);
 
-                _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(2.0f) * Matrix.CreateTranslation(0.0f, 96.0f, 0.0f));
+                _cursorGrid.Draw(new Vector2(128 + (24 * _cursorX), -8 + (16 * _cursorY)));
 
-                _spriteBatch.Draw(_image, new Rectangle(0, -48, 256, 176), Color.White);
-
-                _cursorGrid.Draw(new Vector2(128 + (24 * x), -8 + (16 * y)));
-
-                int _roomX = _dungeonManager.CurrentRoom.X;
-                int _roomY = _dungeonManager.CurrentRoom.Y;
-                if(!((_roomX == 1 && _roomY == 1) || (_roomX == 3 && _roomY == 5) || (_roomX == 4 && _roomY == 5) || (_roomX == 5 && _roomY == 5) || (_roomX == 4 && _roomY == 0)))
+                if(!((CurrentRoomY == 1 && CurrentRoomX == 1) || (CurrentRoomY == 3 && CurrentRoomX == 5) || (CurrentRoomY == 4 && CurrentRoomX == 0) || (CurrentRoomY == 4 && CurrentRoomX == 5) || (CurrentRoomY == 5 && CurrentRoomX == 5)))
                 {
-                    _playerMapDot.Draw(new Vector2(136 + (_roomY * 8), 56 + (_roomX * 8)));
+                    _playerMapDot.Draw(new Vector2(136 + (CurrentRoomX * 8), 56 + (CurrentRoomY * 8)));
                 }
 
                 for(var row = 0; row < 6; row++)
                 {
                     for(var col = 0; col < 6; col++)
                     {
-                        if(col == _roomY &&  row == _roomX && _roomsUncovered[col][row] == false)
-                        {
-                            _roomsUncovered[col][row] = true;
-                        }
-                        if(_roomsUncovered[col][row] != true)
-                        {
+                        if(!_roomsUncovered[row][col])
                             _roomCover.Draw(new Vector2(136 + (col * 8), 56 + (row * 8)));
-                        }
                     }
                 }
-                
 
                 if (_inventory.HasMap)
                 {
-                    _map.Draw(new Vector2(47, 55));
+                    _map.Draw(new Vector2(48, 52));
                 }
                 if (_inventory.HasCompass)
                 {
-                    _compass.Draw(new Vector2(43, 95));
+                    _compass.Draw(new Vector2(44, 96));
                 }
                 if (_inventory.HasArrow)
                 {
-                    _arrow.Draw(new Vector2(128 + 48, -8));
-                    if(x == 2 && y == 0)
+                    _arrow.Draw(new Vector2(176, -8));
+                    if(_cursorX == 2 && _cursorY == 0)
                     {
                         _arrow.Draw(new Vector2(68, -8));
                     }
                 }
                 if (_inventory.HasBow)
                 {
-                    _bow.Draw(new Vector2(128 + 56, -8));
+                    _bow.Draw(new Vector2(184, -8));
                 }
                 if (_inventory.HasBoomerang)
                 {
-                    _boomerang.Draw(new Vector2(128 + 3, -8));
-                    if (x == 0 && y == 0)
+                    _boomerang.Draw(new Vector2(132, -8));
+                    if (_cursorX == 0 && _cursorY == 0)
                     {
                         _boomerang.Draw(new Vector2(68, -8));
                     }
                 }
                 if (_inventory.BombCount >= 1)
                 {
-                    _bomb.Draw(new Vector2(128 + 27, -8));
-                    if (x == 1 && y == 0)
+                    _bomb.Draw(new Vector2(156, -8));
+                    if (_cursorX == 1 && _cursorY == 0)
                     {
                         _bomb.Draw(new Vector2(68, -8));
                     }
@@ -156,29 +154,29 @@ namespace Zelda.Pause
 
         public void unpause()
         {
-            if(Visible == false)
+            if(!_visible)
             {
-                Visible = true;
+                _visible = true;
             } else
             {
-                Visible = false;
+                _visible = false;
             }
         }
 
         private void assignSecondary()
         {
-            if(Visible)
+            if(_visible)
             {
                 ICommand assign = new NoOp();
-                if ((x == 0 && y == 0) && _inventory.HasBoomerang)
+                if ((_cursorX == 0 && _cursorY == 0) && _inventory.HasBoomerang)
                 {
                     assign = new LinkSecondaryAssign(_player, Secondary.Boomerang);
                 }
-                if ((x == 0 && y == 1) && _inventory.BombCount >= 1)
+                if ((_cursorX == 0 && _cursorY == 1) && _inventory.BombCount >= 1)
                 {
                     assign = new LinkSecondaryAssign(_player, Secondary.Bomb);
                 }
-                if ((x == 0 && y == 2) && _inventory.HasBow)
+                if ((_cursorX == 0 && _cursorY == 2) && _inventory.HasBow)
                 {
                     assign = new LinkSecondaryAssign(_player, Secondary.Bow);
                 }
@@ -188,36 +186,36 @@ namespace Zelda.Pause
 
         public void selectUp()
         {
-            if(y != 0 && Visible)
+            if(_cursorY != 0 && _visible)
             {
-                y--;
+                _cursorY--;
             }
             assignSecondary();
         }
 
         public void selectDown()
         {
-            if(y != 1 && Visible)
+            if(_cursorY != 1 && _visible)
             {
-                y++;
+                _cursorY++;
             }
             assignSecondary();
         }
 
         public void selectLeft()
         {
-            if (x != 0 && Visible)
+            if (_cursorX != 0 && _visible)
             {
-                x--;
+                _cursorX--;
             }
             assignSecondary();
         }
 
         public void selectRight()
         {
-            if (x != 3 && Visible)
+            if (_cursorX != 3 && _visible)
             {
-                x++;
+                _cursorX++;
             }
             assignSecondary();
         }
