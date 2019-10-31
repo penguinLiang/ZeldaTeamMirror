@@ -25,7 +25,7 @@ namespace Zelda.Pause
         private int x;
         private int y;
 
-        public bool[,] _roomsUncovered { get; private set; }
+        public bool[][] _roomsUncovered { get; private set; }
 
         private ItemSpriteFactory _factory = ItemSpriteFactory.Instance;
         private PauseSpriteFactory _factory2 = PauseSpriteFactory.Instance;
@@ -48,7 +48,13 @@ namespace Zelda.Pause
             _player = player;
             _dungeonManager = dungeon;
             Visible = true;
-            _roomsUncovered = new bool[6,6];
+            _roomsUncovered = new bool[6][];
+
+            for(var i = 0; i < 6; i++)
+            {
+                _roomsUncovered[i] = new bool[6];
+            }
+
             x = 0;
             y = 0;
             _inventory = _player.Inventory;
@@ -68,7 +74,7 @@ namespace Zelda.Pause
             {
                 for (var col = 0; col < 6; col++)
                 {
-                    _roomsUncovered[col,row] = false;
+                    _roomsUncovered[col][row] = false;
                 }
             }
         }
@@ -96,11 +102,11 @@ namespace Zelda.Pause
                 {
                     for(var col = 0; col < 6; col++)
                     {
-                        if(col == _roomY &&  row == _roomX && _roomsUncovered[col,row] == false)
+                        if(col == _roomY &&  row == _roomX && _roomsUncovered[col][row] == false)
                         {
-                            _roomsUncovered[col,row] = true;
+                            _roomsUncovered[col][row] = true;
                         }
-                        if(_roomsUncovered[col,row] != true)
+                        if(_roomsUncovered[col][row] != true)
                         {
                             _roomCover.Draw(new Vector2(136 + (col * 8), 56 + (row * 8)));
                         }
