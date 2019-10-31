@@ -89,7 +89,6 @@
     <Compile Include="HUD\HUDScreen.cs" />
     <Compile Include="Music\MusicType.cs" />
     <Compile Include="Pause\PauseMenu.Constants.cs" />
-    <Compile Include="Pause\PauseScreen.cs" />
     <Compile Include="Pause\PauseSpriteFactory.cs" />
     <Compile Include="Pause\PauseMenu.cs" />
     <Compile Include="IActivatable.cs" />

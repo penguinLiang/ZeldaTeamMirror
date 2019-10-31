@@ -37,7 +37,6 @@ namespace Zelda.Blocks
                 case BlockType.StairSpecialUp1_1:
                     return new SceneTransition(_dungeonManager, 0, 1);
                 default:
-                    Console.WriteLine(_block);
                     return new MoveableHalt(player);
             }
         }
