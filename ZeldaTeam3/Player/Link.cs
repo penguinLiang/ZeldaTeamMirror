@@ -13,6 +13,8 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+        public int Health => _healthStateMachine.Health;
+        public int MaxHealth => _healthStateMachine.MaxHealth;
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
 
