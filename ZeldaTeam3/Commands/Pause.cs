@@ -2,18 +2,20 @@
 
 namespace Zelda.Commands
 {
-    internal class ShowJumpMap : ICommand
+    internal class Pause : ICommand
     {
         private readonly GameStateAgent _agent;
 
-        public ShowJumpMap(GameStateAgent agent)
+        public Pause(GameStateAgent agent)
         {
             _agent = agent;
         }
 
         public void Execute()
         {
-            _agent.JumpMap();
+            _agent.Pause();
         }
+
+        public override string ToString() => "Reset the game";
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
-using Zelda.Blocks;
 
 namespace Zelda.Blocks
 {
@@ -12,7 +11,7 @@ namespace Zelda.Blocks
         private DungeonManager _dungeonManager;
         private BlockType _block;
         private readonly Vector2 _drawLocation;
-        private bool _lockedOrBlocked = false;
+        private bool _lockedOrBlocked;
 
         private Rectangle _upWallOne {get;}
         private Rectangle _upWallTwo {get;}
@@ -27,7 +26,7 @@ namespace Zelda.Blocks
 
             _upWallOne = new Rectangle(location.X, location.Y + 16, 8, 16);
             _upWallTwo = new Rectangle(location.X + 24, location.Y + 16, 8, 16);
-            _upTransitionSpace = new Rectangle(location.X + 8, location.Y, 16, 16);
+            _upTransitionSpace = new Rectangle(location.X + 8, location.Y + 8, 16, 16);
 
             _downWallOne = new Rectangle(location.X, location.Y, 8, 16);
             _downWallTwo = new Rectangle(location.X + 24, location.Y, 8, 16);

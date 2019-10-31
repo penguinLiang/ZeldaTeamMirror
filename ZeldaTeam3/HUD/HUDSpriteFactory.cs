@@ -6,6 +6,9 @@ namespace Zelda.HUD
 {
     public class HUDSpriteFactory
     {
+        public const int ScreenHeight = 48;
+        public const int ScreenWidth = 256;
+
         private Texture2D _hudBackground;
         private Texture2D _hudSpriteSheet;
 
@@ -19,7 +22,7 @@ namespace Zelda.HUD
 
         public ISprite CreateBackground()
         {
-            return new Sprite(_hudBackground, 256, 48, 1, new Point(0, 0));
+            return new Sprite(_hudBackground, ScreenWidth, ScreenHeight, 1, new Point(0, 0));
         }
         public ISprite CreateFullHeart()
         {

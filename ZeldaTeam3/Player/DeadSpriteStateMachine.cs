@@ -10,10 +10,10 @@ namespace Zelda.Player
      */
     internal class DeadSpriteStateMachine : IUpdatable
     {
-        private const int MaxSpinCycles = 3;
+        private const int MaxSpinCycles = 5;
         private const int GrayFrame = 1;
         private const int GrayToSparklesFrame = 60;
-        private const int SparkleToHideFrame = 120;
+        private const int SparkleToHideFrame = 200;
         private readonly FrameDelay _spinFrameDelay = new FrameDelay(4);
 
         public ISprite Sprite { get; private set; }
@@ -59,7 +59,7 @@ namespace Zelda.Player
 
         public void PostSpin()
         {
-            if (_spinCycles < 3) return;
+            if (_spinCycles < MaxSpinCycles) return;
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (_transitionFrames++)
             {
