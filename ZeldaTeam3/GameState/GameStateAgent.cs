@@ -15,7 +15,7 @@ namespace Zelda.GameState
         public const float Scale = 2.0f;
 
         public DungeonManager DungeonManager { get; } = new DungeonManager();
-        public HUDScreen HUD { get; } = new HUDScreen(new Point(0, -HUDSpriteFactory.ScreenHeight));
+        public HUDScreen HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
 
@@ -28,6 +28,7 @@ namespace Zelda.GameState
         public GameStateAgent(SpriteBatch spriteBatch)
         {
             _spriteBatch = spriteBatch;
+            HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
         }
 
         public void Play()

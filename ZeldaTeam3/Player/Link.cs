@@ -20,6 +20,7 @@ namespace Zelda.Player
         public int MaxHealth => _healthStateMachine.MaxHealth;
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
+        public Items.Secondary SecondaryItem => _secondaryItemAgent.Item;
 
         public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
 

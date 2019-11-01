@@ -58,6 +58,7 @@
     <Compile Include="GameState\PausedWorld.cs" />
     <Compile Include="GameState\PlayingWorld.cs" />
     <Compile Include="GameState\WorldState.cs" />
+    <Compile Include="HUD\HUDScreen.Constants.cs" />
     <Compile Include="IMenu.cs" />
     <Compile Include="JumpMap\JumpMapControllerKeyboard.cs" />
     <Compile Include="Dungeon\TeleportLocation.cs" />
