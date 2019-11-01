@@ -1,223 +1,143 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Zelda.Dungeon;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Items;
-using Zelda.Player;
 using Zelda.Commands;
-
+using Zelda.GameState;
 
 namespace Zelda.Pause
 {
-    public class PauseMenu
+    public partial class PauseMenu : IDrawable, IMenu
     {
-        private readonly Texture2D _background;
-        private readonly SpriteBatch _spriteBatch;
-        private IPlayer _player;
-        private DungeonManager _dungeonManager;
+        private readonly GameStateAgent _agent;
+        private readonly Vector2 _location;
+        private Point _cursorPosition;
+        private ISprite _selectedItem;
 
-        private Inventory _inventory;
-        private int _cursorX;
-        private int _cursorY;
-        private bool _visible;
-
-        private int CurrentRoomX => _dungeonManager.CurrentRoom.Y; // SHOULD EQUAL X
-        private int CurrentRoomY => _dungeonManager.CurrentRoom.X; // SHOULD EQUAL Y
-
-        public bool[][] _roomsUncovered { get; private set; }
-
-        private ItemSpriteFactory _itemSpriteFactory = ItemSpriteFactory.Instance;
-        private PauseSpriteFactory _pauseSpriteFactory = PauseSpriteFactory.Instance;
-        private ISprite _compass;
-        private ISprite _arrow;
-        private ISprite _bow;
-        private ISprite _cursorGrid;
-        private ISprite _playerMapDot;
-        private ISprite _map;
-        private ISprite _boomerang;
-        private ISprite _bomb;
-        private ISprite _roomCover;
-
-        public PauseMenu(SpriteBatch spriteBatch, ContentManager content, IPlayer player, DungeonManager dungeon)
+        public PauseMenu(GameStateAgent agent, Point location)
         {
-            _spriteBatch = spriteBatch;
-            _background = content.Load<Texture2D>("PauseScreen");
-            _player = player;
-            _dungeonManager = dungeon;
-
-            _roomsUncovered = new bool[6][];
-            for(var i = 0; i < 6; i++)
+            _agent = agent;
+            _location = location.ToVector2();
+            switch (agent.Player.Inventory.SecondaryItem)
             {
-                _roomsUncovered[i] = new bool[6];
+                case Secondary.Bow:
+                    _selectedItem = Arrow;
+                    _cursorPosition = BowPosition;
+                    break;
+                case Secondary.Boomerang:
+                    _selectedItem = Boomerang;
+                    _cursorPosition = BoomerangPosition;
+                    break;
+                case Secondary.Bomb:
+                    _selectedItem = Bomb;
+                    _cursorPosition = BombPosition;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
-            _inventory = _player.Inventory;
-
-            _compass = _itemSpriteFactory.CreateCompass();
-            _map = _itemSpriteFactory.CreateMap();
-            _arrow = _itemSpriteFactory.CreateArrow();
-            _bow = _itemSpriteFactory.CreateBow();
-            _boomerang = _itemSpriteFactory.CreateWoodBoomerang();
-            _bomb = _itemSpriteFactory.CreateBomb();
-
-            _cursorGrid = _pauseSpriteFactory.CreateCursorFrame();
-            _playerMapDot = _pauseSpriteFactory.CreateLinkIndicator();
-            _roomCover = _pauseSpriteFactory.CreateMapCoverSquare();
         }
 
         public void Update()
         {
-            if (_visible)
-            {
-                _cursorGrid.Update();
-                _boomerang.Update();
-                _bomb.Update();
-                _arrow.Update();
-                _bow.Update();
-                _map.Update();
-                _compass.Update();
-                _roomCover.Update();
-                _playerMapDot.Update();
-            }
-
-            for (var row = 0; row < 6; row++)
-            {
-                for (var col = 0; col < 6; col++)
-                {
-                    if (!_roomsUncovered[row][col] && col == CurrentRoomX && row == CurrentRoomY)
-                        _roomsUncovered[row][col] = true;
-                }
-            }
+            CursorGrid.Update();
         }
 
         public void Draw()
         {
-            if (_visible)
+            Background.Draw(_location);
+            CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
+            _selectedItem?.Draw(_location + SelectedItemLocation);
+
+            var currentRoom = _agent.DungeonManager.CurrentRoom;
+            var visitedRooms = _agent.DungeonManager.VisitedRooms;
+            var isUnmapped = _agent.DungeonManager.UnmappedRooms[currentRoom.Y][currentRoom.X];
+            if (!isUnmapped)
             {
-                _spriteBatch.Draw(_background, new Rectangle(0, -48, 256, 176), Color.White);
+                PlayerMapDot.Draw(MapGridCoverSize * currentRoom.ToVector2() + MapGridLocation + _location);
+            }
 
-                _cursorGrid.Draw(new Vector2(128 + (24 * _cursorX), -8 + (16 * _cursorY)));
+            for (var row = 0; row < visitedRooms.Length; row++)
+            {
+                for (var col = 0; col < visitedRooms[row].Length; col++)
+                {
+                    if (!visitedRooms[row][col])
+                        RoomCover.Draw(MapGridCoverSize * new Vector2(col, row) + MapGridLocation + _location);
+                }
+            }
 
-                if(!((CurrentRoomY == 1 && CurrentRoomX == 1) || (CurrentRoomY == 3 && CurrentRoomX == 5) || (CurrentRoomY == 4 && CurrentRoomX == 0) || (CurrentRoomY == 4 && CurrentRoomX == 5) || (CurrentRoomY == 5 && CurrentRoomX == 5)))
-                {
-                    _playerMapDot.Draw(new Vector2(136 + (CurrentRoomX * 8), 56 + (CurrentRoomY * 8)));
-                }
-
-                for(var row = 0; row < 6; row++)
-                {
-                    for(var col = 0; col < 6; col++)
-                    {
-                        if(!_roomsUncovered[row][col])
-                            _roomCover.Draw(new Vector2(136 + (col * 8), 56 + (row * 8)));
-                    }
-                }
-
-                if (_inventory.HasMap)
-                {
-                    _map.Draw(new Vector2(48, 52));
-                }
-                if (_inventory.HasCompass)
-                {
-                    _compass.Draw(new Vector2(44, 96));
-                }
-                if (_inventory.HasArrow)
-                {
-                    _arrow.Draw(new Vector2(176, -8));
-                    if(_cursorX == 2 && _cursorY == 0)
-                    {
-                        _arrow.Draw(new Vector2(68, -8));
-                    }
-                }
-                if (_inventory.HasBow)
-                {
-                    _bow.Draw(new Vector2(184, -8));
-                }
-                if (_inventory.HasBoomerang)
-                {
-                    _boomerang.Draw(new Vector2(132, -8));
-                    if (_cursorX == 0 && _cursorY == 0)
-                    {
-                        _boomerang.Draw(new Vector2(68, -8));
-                    }
-                }
-                if (_inventory.BombCount >= 1)
-                {
-                    _bomb.Draw(new Vector2(156, -8));
-                    if (_cursorX == 1 && _cursorY == 0)
-                    {
-                        _bomb.Draw(new Vector2(68, -8));
-                    }
-                }
-
+            if (_agent.Player.Inventory.HasMap)
+            {
+                Map.Draw(MapLocation + _location);
+            }
+            if (_agent.Player.Inventory.HasCompass)
+            {
+                Compass.Draw(CompassLocation + _location);
+            }
+            if (_agent.Player.Inventory.HasArrow)
+            {
+                Arrow.Draw(ArrowLocation + GridLocation + _location);
+            }
+            if (_agent.Player.Inventory.HasBow)
+            {
+                Bow.Draw(BowLocation + GridLocation + _location);
+            }
+            if (_agent.Player.Inventory.HasBoomerang)
+            {
+                Boomerang.Draw(BoomerangLocation + GridLocation + _location);
+            }
+            if (_agent.Player.Inventory.BombCount >= 1)
+            {
+                Bomb.Draw(BombLocation + GridLocation + _location);
             }
         }
 
-        public void unpause()
+        private void AssignSecondary()
         {
-            if(!_visible)
+            ICommand assign = new NoOp();
+            if (_cursorPosition == BoomerangPosition && _agent.Player.Inventory.HasBoomerang)
             {
-                _visible = true;
-            } else
-            {
-                _visible = false;
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Boomerang);
+                _selectedItem = Boomerang;
             }
+            if (_cursorPosition == BombPosition && _agent.Player.Inventory.BombCount >= 1)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
+                _selectedItem = Bomb;
+            }
+            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
+                _selectedItem = Arrow;
+            }
+            assign.Execute();
         }
 
-        private void assignSecondary()
+        public void Choose()
         {
-            if(_visible)
-            {
-                ICommand assign = new NoOp();
-                if ((_cursorX == 0 && _cursorY == 0) && _inventory.HasBoomerang)
-                {
-                    assign = new LinkSecondaryAssign(_player, Secondary.Boomerang);
-                }
-                if ((_cursorX == 0 && _cursorY == 1) && _inventory.BombCount >= 1)
-                {
-                    assign = new LinkSecondaryAssign(_player, Secondary.Bomb);
-                }
-                if ((_cursorX == 0 && _cursorY == 2) && _inventory.HasBow)
-                {
-                    assign = new LinkSecondaryAssign(_player, Secondary.Bow);
-                }
-                assign.Execute();
-            }
+            // NO-OP: Pause menu selects instantly
         }
 
-        public void selectUp()
+        public void SelectUp()
         {
-            if(_cursorY != 0 && _visible)
-            {
-                _cursorY--;
-            }
-            assignSecondary();
+            _cursorPosition.Y = Math.Max(0, _cursorPosition.Y - 1);
+            AssignSecondary();
         }
 
-        public void selectDown()
+        public void SelectDown()
         {
-            if(_cursorY != 1 && _visible)
-            {
-                _cursorY++;
-            }
-            assignSecondary();
+            _cursorPosition.Y = Math.Min(InventoryGridRows - 1, _cursorPosition.Y + 1);
+            AssignSecondary();
         }
 
-        public void selectLeft()
+        public void SelectLeft()
         {
-            if (_cursorX != 0 && _visible)
-            {
-                _cursorX--;
-            }
-            assignSecondary();
+            _cursorPosition.X = Math.Max(0, _cursorPosition.X - 1);
+            AssignSecondary();
         }
 
-        public void selectRight()
+        public void SelectRight()
         {
-            if (_cursorX != 3 && _visible)
-            {
-                _cursorX++;
-            }
-            assignSecondary();
+            _cursorPosition.X = Math.Min(InventoryGridColumns - 1, _cursorPosition.X + 1);
+            AssignSecondary();
         }
     }
 }

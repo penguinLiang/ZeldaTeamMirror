@@ -1,141 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Music
 {
-  public class MusicManager
+    public class MusicManager
     {
-
-      private SoundEffect _playLabryinthMusic;
-      private SoundEffect _playGameOverMusic;
-      private SoundEffect _playWinMusic;
-      private SoundEffect _playTriforceMusic;
-      private SoundEffectInstance labryinthMusicInstance;
-      private SoundEffectInstance gameOverMusicInstance;
-      private SoundEffectInstance winMusicInstance;
-      private SoundEffectInstance triforceMusicInstance;
+        private SoundEffect _labryinthMusic;
+        private SoundEffect _gameOverMusic;
+        private SoundEffect _winMusic;
+        private SoundEffect _triforceMusic;
+        private SoundEffectInstance _activeMusic;
+        private MusicType _playing = MusicType.None;
 
         public static MusicManager Instance { get; } = new MusicManager();
 
-        private MusicType lastPlaying = MusicType.None;
-        public void LoadAllSounds(ContentManager Content)
+        public void LoadAllSounds(ContentManager content)
         {
-            _playLabryinthMusic = Content.Load<SoundEffect>("Music/04_Labyrinth");
-            _playGameOverMusic = Content.Load<SoundEffect>("Music/07_Game_Over");
-            _playWinMusic = Content.Load<SoundEffect>("Music/10_Ending");
-            _playTriforceMusic = Content.Load<SoundEffect>("Music/06_Triforce");
-
-
-            labryinthMusicInstance = _playLabryinthMusic.CreateInstance();
-            gameOverMusicInstance = _playGameOverMusic.CreateInstance();
-            winMusicInstance = _playWinMusic.CreateInstance();
-            triforceMusicInstance = _playTriforceMusic.CreateInstance();
-
+            _labryinthMusic = content.Load<SoundEffect>("Music/Dungeon");
+            _gameOverMusic = content.Load<SoundEffect>("Music/07_Game_Over");
+            _winMusic = content.Load<SoundEffect>("Music/10_Ending");
+            _triforceMusic = content.Load<SoundEffect>("Music/06_Triforce");
         }
-
 
         public void PlayLabryinthMusic()
         {
-            if (lastPlaying != MusicType.Labryinth)
+            if (_playing == MusicType.Labryinth)
             {
-                if(lastPlaying == MusicType.GameOver)
-                {
-                    gameOverMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Win)
-                {
-                    winMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Triforce)
-                {
-                    triforceMusicInstance.Stop();
-                }
-                lastPlaying = MusicType.Labryinth;  
+                _activeMusic.Resume();
+                return;
             }
-            labryinthMusicInstance.IsLooped = true;
-            labryinthMusicInstance.Play();
+
+            _playing = MusicType.Labryinth;
+            _activeMusic?.Stop();
+            _activeMusic = _labryinthMusic.CreateInstance();
+            _activeMusic.IsLooped = true;
+            _activeMusic.Play();
         }
 
-        public void PlayGameOverMusic() {
-
-            if (lastPlaying != MusicType.GameOver)
+        public void PlayGameOverMusic()
+        {
+            if (_playing == MusicType.GameOver)
             {
-                if (lastPlaying == MusicType.Labryinth)
-                {
-                    labryinthMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Win)
-                {
-                    winMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Triforce)
-                {
-                    triforceMusicInstance.Stop();
-                }
-                lastPlaying = MusicType.Labryinth;
+                _activeMusic.Resume();
+                return;
             }
-              gameOverMusicInstance.IsLooped = false;
-              gameOverMusicInstance.Play();
+
+            _playing = MusicType.GameOver;
+            _activeMusic?.Stop();
+            _activeMusic = _gameOverMusic.CreateInstance();
+            _activeMusic.IsLooped = false;
+            _activeMusic.Play();
         }
 
         public void PlayWinMusic()
         {
-            if (lastPlaying != MusicType.Win)
+            if (_playing == MusicType.Win)
             {
-                if (lastPlaying == MusicType.GameOver)
-                {
-                    gameOverMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Labryinth)
-                {
-                    labryinthMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Triforce)
-                {
-                    triforceMusicInstance.Stop();
-                }
-                lastPlaying = MusicType.Labryinth;
+                _activeMusic.Resume();
+                return;
             }
-            winMusicInstance.IsLooped = true;
-            winMusicInstance.Play();
+
+            _playing = MusicType.Win;
+            _activeMusic?.Stop();
+            _activeMusic = _winMusic.CreateInstance();
+            _activeMusic.IsLooped = true;
+            _activeMusic.Play();
         }
 
         public void PlayTriforceMusic()
         {
-            if (lastPlaying != MusicType.Triforce)
+            if (_playing == MusicType.Triforce)
             {
-                if (lastPlaying == MusicType.GameOver)
-                {
-                    gameOverMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Labryinth)
-                {
-                    labryinthMusicInstance.Stop();
-                }
-                else if (lastPlaying == MusicType.Win)
-                {
-                    winMusicInstance.Stop();
-                }
-                lastPlaying = MusicType.Triforce;
+                _activeMusic.Resume();
+                return;
             }
-            triforceMusicInstance.IsLooped = false;
-            triforceMusicInstance.Play();
+
+            _playing = MusicType.Triforce;
+            _activeMusic?.Stop();
+            _activeMusic = _triforceMusic.CreateInstance();
+            _activeMusic.IsLooped = false;
+            _activeMusic.Play();
         }
 
-        public void StopAllMusic()
+        public void PauseMusic()
         {
-            lastPlaying = MusicType.None;
-            triforceMusicInstance.Stop();
-            winMusicInstance.Stop();
-            gameOverMusicInstance.Stop();
-            labryinthMusicInstance.Stop();
+            _activeMusic?.Pause();
+        }
+
+        public void StopMusic()
+        {
+            _playing = MusicType.None;
         }
 
     }

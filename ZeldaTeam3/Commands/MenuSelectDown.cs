@@ -1,21 +1,17 @@
-﻿using Zelda.Pause;
-
-namespace Zelda.Commands
+﻿namespace Zelda.Commands
 {
     internal class MenuSelectDown : ICommand
     {
-        private PauseMenu _pauseMenu;
+        private readonly IMenu _menu;
 
-        public MenuSelectDown(PauseMenu pause)
+        public MenuSelectDown(IMenu menu)
         {
-            _pauseMenu = pause;
+            _menu = menu;
         }
 
         public void Execute()
         {
-            _pauseMenu.selectDown();
+            _menu.SelectDown();
         }
-
-        public override string ToString() => "Inventory grid down";
     }
 }

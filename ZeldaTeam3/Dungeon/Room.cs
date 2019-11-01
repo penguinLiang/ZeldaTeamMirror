@@ -195,9 +195,6 @@ namespace Zelda.Dungeon
                 case MapTile.DoorLockedDown:
                     blockType = BlockType.DoorLockedDown;
                     break;
-                case MapTile.DoorSpecialUp1_1:
-                    blockType = BlockType.DoorSpecialUp1_1;
-                    break;
                 case MapTile.DoorBombableUp:
                     blockType = BlockType.BombableWallTop;
                     break;
@@ -218,7 +215,7 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
-            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other 
+            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other cases)
             switch (tile)
             {
                 case MapTile.DungeonStairs:
@@ -226,6 +223,9 @@ namespace Zelda.Dungeon
                     break;
                 case MapTile.BasementStairs:
                     blockType = BlockType.BasementStair;
+                    break;
+                case MapTile.StairSpecialUp1_1:
+                    blockType = BlockType.StairSpecialUp1_1;
                     break;
                 default:
                     return false;

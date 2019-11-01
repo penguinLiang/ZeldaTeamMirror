@@ -1,17 +1,19 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.GameState;
+
+namespace Zelda.Commands
 {
     internal class ShowJumpMap : ICommand
     {
-        private readonly ZeldaGame _game;
+        private readonly GameStateAgent _agent;
 
-        public ShowJumpMap(ZeldaGame game)
+        public ShowJumpMap(GameStateAgent agent)
         {
-            _game = game;
+            _agent = agent;
         }
 
         public void Execute()
         {
-            _game.JumpMap.Visible = true;
+            _agent.JumpMap();
         }
     }
 }

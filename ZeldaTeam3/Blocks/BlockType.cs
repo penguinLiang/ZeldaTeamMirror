@@ -20,7 +20,7 @@
         DoorLockedRight,
         DoorSpecialLeft2_1,
         DoorSpecialRight3_1,
-        DoorSpecialUp1_1,
+        StairSpecialUp1_1,
         BombableWallLeft,
         BombableWallRight,
         BombableWallTop,

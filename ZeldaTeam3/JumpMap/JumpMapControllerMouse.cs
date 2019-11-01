@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Zelda.GameState;
 
-namespace Zelda
+namespace Zelda.JumpMap
 {
-    internal class ControllerMouse : IUpdatable
+    internal class JumpMapControllerMouse : IUpdatable
     {
+        private readonly GameStateAgent _gameStateAgent;
         private readonly List<Rectangle> _roommap;
-        private readonly ZeldaGame _zeldaGame;
 
-        public ControllerMouse(ZeldaGame zeldaGame)
+        public JumpMapControllerMouse(GameStateAgent gameStateAgent)
         {
-            _zeldaGame = zeldaGame;
+            _gameStateAgent = gameStateAgent;
 
             _roommap = new List<Rectangle>
             {
@@ -54,13 +55,13 @@ namespace Zelda
         public void Update()
         {
             var mouseState = Mouse.GetState();
-            if (!_zeldaGame.JumpMap.Visible || mouseState.LeftButton != ButtonState.Pressed) return;
+            if (mouseState.LeftButton != ButtonState.Pressed) return;
 
             var mousePos = mouseState.Position;
 
             if (mousePos.Y < 47 || mousePos.Y > 47 + 59*6)
             {
-                _zeldaGame.JumpMap.Visible = false;
+                _gameStateAgent.Play();
                 return;
             }
 
@@ -71,10 +72,8 @@ namespace Zelda
                 var row = (mouseState.Y - 47) / 59;
                 var column = mouseState.X / 85;
 
-                _zeldaGame.JumpMap.Visible = false;
-                _zeldaGame.DungeonManager.TransitionToRoom(row, column);
+                _gameStateAgent.JumpToRoom(row, column);
             }
-
         }
     }
 }

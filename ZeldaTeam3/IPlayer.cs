@@ -1,4 +1,6 @@
-﻿namespace Zelda
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda
 {
     public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
@@ -15,6 +17,6 @@
         void Heal();
         void FullHeal();
         void AddHeart();
-        void TeleportToEntrance(Direction entranceDirection);
+        void Teleport(Point location, Direction entranceDirection);
     }
 }

@@ -1,18 +1,19 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.GameState;
+
+namespace Zelda.Commands
 {
     internal class Reset : ICommand
     {
-        private readonly ZeldaGame _zeldaGame;
+        private readonly GameStateAgent _agent;
 
-        public Reset(ZeldaGame zeldaGame)
+        public Reset(GameStateAgent agent)
         {
-            _zeldaGame = zeldaGame;
+            _agent = agent;
         }
 
         public void Execute()
         {
-            _zeldaGame.Resetting = true;
-            _zeldaGame.Exit();
+            _agent.Reset();
         }
 
         public override string ToString() => "Reset the game";

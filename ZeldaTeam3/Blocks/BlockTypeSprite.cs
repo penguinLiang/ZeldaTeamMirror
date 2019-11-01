@@ -46,7 +46,7 @@
                     return BlockSpriteFactory.Instance.CreateLeftBlockedDoor();
                 case BlockType.DoorSpecialRight3_1:
                     return BlockSpriteFactory.Instance.CreateRightBlockedDoor();
-                case BlockType.DoorSpecialUp1_1:
+                case BlockType.StairSpecialUp1_1:
                     return null;
                 case BlockType.DungeonStair:
                     return BlockSpriteFactory.Instance.CreateStairs1();

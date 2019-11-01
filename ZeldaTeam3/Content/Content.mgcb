@@ -14,13 +14,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Arial.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Arial.spritefont
-
 #begin BasementBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -264,6 +257,30 @@
 /processorParam:TextureFormat=Color
 /build:LinkUseSecondary.png
 
+#begin Music/06_Triforce.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/06_Triforce.mp3
+
+#begin Music/07_Game_Over.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/07_Game_Over.mp3
+
+#begin Music/10_Ending.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/10_Ending.mp3
+
+#begin Music/Dungeon.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/Dungeon.ogg
+
 #begin OldMan.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -311,6 +328,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PauseScreen.png
+
+#begin prstartk.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:prstartk.spritefont
 
 #begin Rooms/0-1.csv
 /importer:CSVMapImporter
@@ -421,48 +445,6 @@
 /importer:CSVMapImporter
 /processor:PassThroughProcessor
 /build:Rooms/5-5.csv
-
-#begin SpawnExplosion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SpawnExplosion.png
-
-#begin Tiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Tiles.png
-
-#begin Music/04_Labyrinth.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/04_Labyrinth.mp3
-
-#begin Music/07_Game_Over.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/07_Game_Over.mp3
-
-#begin Music/10_Ending.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/10_Ending.mp3
 
 #begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
@@ -590,9 +572,27 @@
 /processorParam:Quality=Best
 /build:Sounds/LOZFDS_Boss_Scream1_Distant.wav
 
-#begin Music/06_Triforce.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/06_Triforce.mp3
+#begin SpawnExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpawnExplosion.png
+
+#begin Tiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles.png
 

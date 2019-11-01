@@ -17,7 +17,7 @@ namespace Zelda.Commands
 
         public void Execute()
         {
-            _dungeonManager.TransitionToRoom(_row, _column);
+            _dungeonManager.JumpToRoom(_row, _column);
         }
 
         public override string ToString() => "Scene Transition to specific row/column";

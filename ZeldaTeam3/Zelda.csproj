@@ -42,6 +42,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\DoorLinkKnockback.cs" />
+    <Compile Include="Commands\Win.cs" />
+    <Compile Include="Commands\Play.cs" />
+    <Compile Include="Commands\Resume.cs" />
+    <Compile Include="Commands\Pause.cs" />
+    <Compile Include="DrawnText.cs" />
+    <Compile Include="QuitResetControllerKeyboard.cs" />
+    <Compile Include="GameOver\GameOverScreen.cs" />
+    <Compile Include="GameOver\GameOverControllerKeyboard.cs" />
+    <Compile Include="GameState\GameWinWorld.cs" />
+    <Compile Include="GameState\GameOverWorld.cs" />
+    <Compile Include="GameState\GameWorld.cs" />
+    <Compile Include="GameState\JumpMapWorld.cs" />
+    <Compile Include="GameState\PanningWorld.cs" />
+    <Compile Include="GameState\PausedWorld.cs" />
+    <Compile Include="GameState\PlayingWorld.cs" />
+    <Compile Include="GameState\WorldState.cs" />
+    <Compile Include="IMenu.cs" />
+    <Compile Include="JumpMap\JumpMapControllerKeyboard.cs" />
+    <Compile Include="Dungeon\TeleportLocation.cs" />
     <Compile Include="Enemies\AgentState.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
     <Compile Include="Blocks\LeftRightDoor.cs" />
@@ -67,6 +86,10 @@
     <Compile Include="Enemies\AgentStateUtility.cs" />
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
+    <Compile Include="GameState\GameStateAgent.cs" />
+    <Compile Include="HUD\HUDScreen.cs" />
+    <Compile Include="Music\MusicType.cs" />
+    <Compile Include="Pause\PauseMenu.Constants.cs" />
     <Compile Include="Pause\PauseSpriteFactory.cs" />
     <Compile Include="Pause\PauseMenu.cs" />
     <Compile Include="IActivatable.cs" />
@@ -98,7 +121,6 @@
     <Compile Include="Commands\MenuSelectDown.cs" />
     <Compile Include="Commands\MenuSelectLeft.cs" />
     <Compile Include="Commands\MenuSelectRight.cs" />
-    <Compile Include="Commands\MenuUnpause.cs" />
     <Compile Include="Commands\SpawnableDamage.cs" />
     <Compile Include="Commands\LinkKnockback.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
@@ -129,7 +151,8 @@
     <Compile Include="Items\Fairy.cs" />
     <Compile Include="Items\DroppedHeart.cs" />
     <Compile Include="Music\MusicManager.cs" />
-    <Compile Include="Music\MusicType.cs" />
+    <Compile Include="GameState\PauseState.cs" />
+    <Compile Include="GameState\PauseTransitionStateMachine.cs" />
     <Compile Include="Player\PlayerSwordCollision.cs" />
     <Compile Include="Player\PlayerBodyCollision.cs" />
     <Compile Include="Player\DeadSpriteStateMachine.cs" />
@@ -157,12 +180,12 @@
     <Compile Include="SoundEffects\SoundEffectManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ZeldaGame.cs" />
-    <Compile Include="JumpMap.cs" />
+    <Compile Include="JumpMap\JumpMapScreen.cs" />
     <Compile Include="Blocks\BlockType.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ControllerMouse.cs" />
-    <Compile Include="ControllerPauseKeyboard.cs" />
+    <Compile Include="Pause\ControllerPauseKeyboard.cs" />
+    <Compile Include="JumpMap\JumpMapControllerMouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

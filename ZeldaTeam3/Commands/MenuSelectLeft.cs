@@ -1,21 +1,17 @@
-﻿using Zelda.Pause;
-
-namespace Zelda.Commands
+﻿namespace Zelda.Commands
 {
     internal class MenuSelectLeft : ICommand
     {
-        private PauseMenu _pauseMenu;
+        private readonly IMenu _menu;
 
-        public MenuSelectLeft(PauseMenu pause)
+        public MenuSelectLeft(IMenu menu)
         {
-            _pauseMenu = pause;
+            _menu = menu;
         }
 
         public void Execute()
         {
-            _pauseMenu.selectLeft();
+            _menu.SelectLeft();
         }
-
-        public override string ToString() => "Inventory grid left";
     }
 }
