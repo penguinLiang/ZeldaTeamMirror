@@ -20,7 +20,7 @@ namespace Zelda.GameState
         public bool Quitting { get; private set; }
 
         private readonly SpriteBatch _spriteBatch;
-        private readonly PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
+        private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
 
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
@@ -98,6 +98,7 @@ namespace Zelda.GameState
             _worldState = WorldState.Reset;
 
             Player = new Link(Point.Zero);
+            _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
             DungeonManager.LoadScenes(Player);
             Continue();
