@@ -21,6 +21,8 @@ namespace Zelda.Dungeon
         private Room[][] _rooms;
         private BackgroundId[][] _backgroundIds;
 
+        public bool CurrentRoomMapped => !UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
+
         private enum BackgroundId
         {
             Default = 0,

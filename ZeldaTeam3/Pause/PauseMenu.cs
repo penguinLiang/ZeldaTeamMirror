@@ -47,12 +47,11 @@ namespace Zelda.Pause
             CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
             _selectedItem?.Draw(_location + SelectedItemLocation);
 
-            var currentRoom = _agent.DungeonManager.CurrentRoom;
+            var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
             var visitedRooms = _agent.DungeonManager.VisitedRooms;
-            var isUnmapped = _agent.DungeonManager.UnmappedRooms[currentRoom.Y][currentRoom.X];
-            if (!isUnmapped)
+            if (_agent.DungeonManager.CurrentRoomMapped)
             {
-                PlayerMapDot.Draw(MapGridCoverSize * currentRoom.ToVector2() + MapGridLocation + _location);
+                PlayerMapDot.Draw(MapGridCoverSize * currentRoom + MapGridLocation + _location);
             }
 
             for (var row = 0; row < visitedRooms.Length; row++)

@@ -46,7 +46,7 @@ namespace Zelda.HUD
             {
                 switch (_agent.Player.Inventory.SecondaryItem)
                 {
-                    case Items.Secondary.Bow:
+                    case Items.Secondary.Bow when _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow:
                         return Arrow;
                     case Items.Secondary.Boomerang:
                         return Boomerang;
@@ -71,6 +71,7 @@ namespace Zelda.HUD
         public void Draw()
         {
             Background.Draw(_location);
+
             if (_agent.Player.Inventory.HasMap)
             {
                 MiniMap.Draw(MiniMapLocation + _location);
@@ -79,7 +80,11 @@ namespace Zelda.HUD
             {
                 TriforceDot.Draw(MiniMapLocation + TriforceLocation + _location);
             }
-            PlayerDot.Draw(MiniMapLocation + LinkLocation + _location);
+            if (_agent.DungeonManager.CurrentRoomMapped)
+            {
+                PlayerDot.Draw(MiniMapLocation + LinkLocation + _location);
+            }
+
             Primary?.Draw(PrimaryLocation + _location);
             Secondary?.Draw(SecondaryLocation + _location);
 
