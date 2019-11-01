@@ -9,6 +9,7 @@ namespace Zelda.Player
         private const int MaxKeyCount = 255;
 
         public Items.Primary SwordLevel { get; private set; }
+        public Items.Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
         public bool HasBow { get; private set; }
@@ -22,6 +23,11 @@ namespace Zelda.Player
         {
             if (newSwordLevel > SwordLevel)
                 SwordLevel = newSwordLevel;
+        }
+
+        public void AssignSecondaryItem(Items.Secondary secondaryItem)
+        {
+            SecondaryItem = secondaryItem;
         }
 
         public void AddSecondaryItem(Items.Secondary secondaryItem)

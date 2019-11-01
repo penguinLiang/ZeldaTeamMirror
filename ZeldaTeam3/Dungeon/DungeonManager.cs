@@ -6,11 +6,13 @@ namespace Zelda.Dungeon
 {
     public class DungeonManager : IDrawable
     {
+        private static readonly Point TileSize = new Point(16, 16);
         private static readonly Point BasementAccessRoom = new Point(1, 0);
         private static readonly Point BasementRoom = new Point(1, 1);
 
         public Scene Scene { get; private set; }
         public bool[][] EnabledRooms { get; private set; }
+        public bool[][] UnmappedRooms { get; private set; }
         public bool[][] VisitedRooms { get; private set; }
         public Point CurrentRoom { get; private set; } = Point.Zero;
         private ISprite _background;
@@ -55,6 +57,7 @@ namespace Zelda.Dungeon
             _rooms = new Room[rows][];
             _backgroundIds = new BackgroundId[rows][];
             EnabledRooms = new bool[rows][];
+            UnmappedRooms = new bool[rows][];
             VisitedRooms = new bool[rows][];
 
             for (var row = 0; row < rows; row++)
@@ -64,12 +67,14 @@ namespace Zelda.Dungeon
                 _rooms[row] = new Room[cols];
                 _backgroundIds[row] = new BackgroundId[cols];
                 EnabledRooms[row] = new bool[cols];
+                UnmappedRooms[row] = new bool[cols];
                 VisitedRooms[row] = new bool[cols];
 
                 for (var col = 0; col < cols; col++)
                 {
-                    EnabledRooms[row][col] = enabledRooms[row][col] == 1;
-                    if (enabledRooms[row][col] != 1) continue;
+                    EnabledRooms[row][col] = enabledRooms[row][col] != 0;
+                    UnmappedRooms[row][col] = enabledRooms[row][col] == 2;
+                    if (enabledRooms[row][col] == 0) continue;
 
                     var enemyId = -1;
                     var backgroundId = BackgroundId.Default;
@@ -111,6 +116,7 @@ namespace Zelda.Dungeon
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
                     _scenes[row][col]?.Reset();
+                    VisitedRooms[row][col] = false;
                 }
             }
         }
@@ -146,11 +152,11 @@ namespace Zelda.Dungeon
             SetBackground(_backgroundIds[row][column]);
             if (oldRoom == BasementRoom && CurrentRoom == BasementAccessRoom)
             {
-                _player?.Teleport(new Point(16 * 7, 16 * 5), Direction.Left);
+                _player?.Teleport(TileSize * new Point(6, 7), Direction.Down);
             }
             else if (CurrentRoom == BasementRoom)
             {
-                _player?.Teleport(new Point(16 * 3,16 * 2), Direction.Down);
+                _player?.Teleport(TileSize * new Point(3,2), Direction.Down);
             }
             else
             {

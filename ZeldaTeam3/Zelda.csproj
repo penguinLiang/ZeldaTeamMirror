@@ -47,6 +47,7 @@
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="DrawnText.cs" />
+    <Compile Include="QuitResetControllerKeyboard.cs" />
     <Compile Include="GameOver\GameOverScreen.cs" />
     <Compile Include="GameOver\GameOverControllerKeyboard.cs" />
     <Compile Include="GameState\GameWinWorld.cs" />

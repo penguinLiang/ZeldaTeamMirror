@@ -17,6 +17,23 @@ namespace Zelda.Pause
         {
             _agent = agent;
             _location = location.ToVector2();
+            switch (agent.Player.Inventory.SecondaryItem)
+            {
+                case Secondary.Bow:
+                    _selectedItem = Arrow;
+                    _cursorPosition = BowPosition;
+                    break;
+                case Secondary.Boomerang:
+                    _selectedItem = Boomerang;
+                    _cursorPosition = BoomerangPosition;
+                    break;
+                case Secondary.Bomb:
+                    _selectedItem = Bomb;
+                    _cursorPosition = BombPosition;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Update()
@@ -30,9 +47,13 @@ namespace Zelda.Pause
             CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
             _selectedItem?.Draw(_location + SelectedItemLocation);
 
-            var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
+            var currentRoom = _agent.DungeonManager.CurrentRoom;
             var visitedRooms = _agent.DungeonManager.VisitedRooms;
-            PlayerMapDot.Draw(MapGridCoverSize * currentRoom + MapGridLocation + _location);
+            var isUnmapped = _agent.DungeonManager.UnmappedRooms[currentRoom.Y][currentRoom.X];
+            if (!isUnmapped)
+            {
+                PlayerMapDot.Draw(MapGridCoverSize * currentRoom.ToVector2() + MapGridLocation + _location);
+            }
 
             for (var row = 0; row < visitedRooms.Length; row++)
             {
@@ -85,7 +106,7 @@ namespace Zelda.Pause
             if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
-                _selectedItem = Bow;
+                _selectedItem = Arrow;
             }
             assign.Execute();
         }

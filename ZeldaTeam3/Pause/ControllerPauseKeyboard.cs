@@ -30,6 +30,8 @@ namespace Zelda.Pause
                 {Keys.Right, selectRight},
 
                 {Keys.Space, new Commands.Resume(agent) },
+                {Keys.R, new Commands.Reset(agent) },
+                {Keys.Q, new Commands.Quit(agent) },
             };
         }
 

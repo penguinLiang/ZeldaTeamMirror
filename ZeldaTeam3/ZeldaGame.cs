@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
 using Zelda.Dungeon;
@@ -19,7 +18,6 @@ namespace Zelda
     {
         public GameStateAgent GameStateAgent { get; private set; }
         public IPlayer Link => GameStateAgent.Player;
-        public DungeonManager DungeonManager  => GameStateAgent.DungeonManager;
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -58,21 +56,6 @@ namespace Zelda
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);
             GameStateAgent.Reset();
-
-            // TODO: REMOVE start {
-            Console.WriteLine("Enabled Rooms:");
-            for (var row = 0; row < DungeonManager.EnabledRooms.Length; row++)
-            {
-                for (var col = 0; col < DungeonManager.EnabledRooms[row].Length; col++)
-                {
-                    Console.Write("{0,5}", DungeonManager.EnabledRooms[row][col]);
-                    Console.Write(", ");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("Current Room: {0}", DungeonManager.CurrentRoom);
-            // TODO: REMOVE end }
-
         }
 
         protected override void UnloadContent()

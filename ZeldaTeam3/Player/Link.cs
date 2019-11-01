@@ -100,6 +100,7 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
+            Inventory.AssignSecondaryItem(item);
             _secondaryItemAgent.AssignSecondaryItem(item);
         }
 

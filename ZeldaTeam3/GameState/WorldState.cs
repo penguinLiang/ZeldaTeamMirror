@@ -2,7 +2,7 @@
 {
     internal enum WorldState {
         Playing,
-        Panning,
+        DungeonPanning,
         JumpMap,
         GameOver,
         GameWin,

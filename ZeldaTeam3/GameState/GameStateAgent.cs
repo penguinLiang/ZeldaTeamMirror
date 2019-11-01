@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
 using Zelda.HUD;
 using Zelda.Music;
-using Zelda.Pause;
 using Zelda.Player;
 
 namespace Zelda.GameState
@@ -78,11 +77,11 @@ namespace Zelda.GameState
             Play();
         }
 
-        public void Pan()
+        public void DungeonPan()
         {
-            if (_worldState == WorldState.Panning) return;
+            if (_worldState == WorldState.DungeonPanning) return;
             _world = new PanningWorld(this);
-            _worldState = WorldState.Panning;
+            _worldState = WorldState.DungeonPanning;
         }
 
         public void Continue()
