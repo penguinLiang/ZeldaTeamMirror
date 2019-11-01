@@ -7,11 +7,17 @@ namespace Zelda.HUD
     {
         private readonly GameStateAgent _agent;
         private readonly Vector2 _location;
+        private readonly DrawnText _rupeeCount = new DrawnText() { Location = RuppeeCountLocation };
+        private readonly DrawnText _keyCount = new DrawnText() { Location = KeyCountLocation };
+        private readonly DrawnText _bombCount = new DrawnText() { Location = BombCountLocation };
 
         public HUDScreen(GameStateAgent agent, Point location)
         {
             _agent = agent;
             _location = location.ToVector2();
+            _rupeeCount.Location += location;
+            _keyCount.Location += location;
+            _bombCount.Location += location;
         }
 
         private Vector2 LinkLocation => _agent.DungeonManager.CurrentRoom.ToVector2() * MiniMapCellSize;
@@ -38,10 +44,10 @@ namespace Zelda.HUD
         {
             get
             {
-                switch (_agent.Player.SecondaryItem)
+                switch (_agent.Player.Inventory.SecondaryItem)
                 {
                     case Items.Secondary.Bow:
-                        return Bow;
+                        return Arrow;
                     case Items.Secondary.Boomerang:
                         return Boomerang;
                     case Items.Secondary.Bomb:
@@ -52,9 +58,14 @@ namespace Zelda.HUD
             }
         }
 
+        private static string CountString(int count) => count > 100 ? count.ToString() : "X" + count;
+
         public void Update()
         {
             TriforceDot.Update();
+            _rupeeCount.Text = CountString(_agent.Player.Inventory.RupeeCount);
+            _bombCount.Text = CountString(_agent.Player.Inventory.BombCount);
+            _keyCount.Text = CountString(_agent.Player.Inventory.KeyCount);
         }
 
         public void Draw()
@@ -88,6 +99,10 @@ namespace Zelda.HUD
             {
                 EmptyHeart.Draw(HeartsLocation + _location + HeartOffset * i);
             }
+
+            _rupeeCount.Draw();
+            _bombCount.Draw();
+            _keyCount.Draw();
         }
     }
 }
