@@ -16,7 +16,6 @@ namespace Zelda.Projectiles
         private Direction _direction;
         public Rectangle Bounds { get; }
 
-        public List<IProjectile> Projectiles { get; set; }
 
         public GoriyaBoomerang(Point location, Direction direction)
         {

@@ -16,7 +16,6 @@ namespace Zelda.Projectiles
 
         private Point _location;
             private Direction _direction;
-        public List<IProjectile> Projectiles { get; set; }
 
         public Arrow(Point location, Direction direction)
         {

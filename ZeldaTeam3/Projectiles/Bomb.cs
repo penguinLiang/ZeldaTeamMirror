@@ -14,7 +14,6 @@ namespace Zelda.Projectiles
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
         private ISprite _sprite;
         private int _framesDelayed;
-        public List<IProjectile> Projectiles { get; set; }
         public Rectangle Bounds { get; private set; }
 
 

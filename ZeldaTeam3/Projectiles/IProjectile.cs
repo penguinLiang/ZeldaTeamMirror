@@ -10,20 +10,8 @@ namespace Zelda.Projectiles
 {
     public interface IProjectile:  ICollideable, IHaltable
     {
-        List<IProjectile> Projectiles { get; set; }
         void AddProjectile();
         void RemoveProjectile();
 
     }
 }
-
-//need to be able to get the projectiles
-
-//list the projectiles by type?
-
-// scene should use this
-//secondary item agent should use
-//enemy should use
-
-//Halt destroys projectile
-//
