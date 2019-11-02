@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IProjectile
+    public class Bomb : IProjectile, IDrawable
     {
         private const int FramesToExplosion = 100;
         private const int FramesToDisappear = 160;

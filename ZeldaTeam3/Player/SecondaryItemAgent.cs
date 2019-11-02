@@ -11,6 +11,8 @@ namespace Zelda.Player
 
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
+        
+
 
         public Items.Secondary Item;
 

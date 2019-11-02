@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Arrow : IProjectile
+    internal class Arrow : IProjectile, IDrawable
     {
         private const int FramesToDisappear = 140;
 
@@ -67,16 +67,16 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            removeProjectile();
+            RemoveProjectile();
         }
 
-        public void removeProjectile() {
-
+        public void RemoveProjectile() {
+            Projectiles.Remove(this);
         }
 
         public void AddProjectile()
         {
-
+            Projectiles.Add(this);
         }
 
         public void Update()

@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public interface IProjectile:  ICollideable, IDrawable, IHaltable
+    public interface IProjectile:  ICollideable, IHaltable
     {
         List<IProjectile> Projectiles { get; set; }
         void AddProjectile();
-        void removeProjectile();
+        void RemoveProjectile();
 
     }
 }

@@ -5,7 +5,7 @@ using Zelda.Enemies;
 
 namespace Zelda.Projectiles
 {
-    internal class PlayerBoomerang : IProjectile
+    internal class PlayerBoomerang : IProjectile, IDrawable
     {
         private const int ReturnDistance = 80;
         private const int DistancePerFrame = 5;
@@ -118,12 +118,12 @@ namespace Zelda.Projectiles
 
         public void AddProjectile() { }
 
-        public void removeProjectile() { }
+        public void RemoveProjectile() { }
 
         public void Knockback() { }
 
         public void Halt() {
-            removeProjectile();
+            RemoveProjectile();
         }
 
         public void Draw()

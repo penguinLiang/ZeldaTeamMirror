@@ -8,14 +8,15 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class OldManAttack : IProjectile
+    public class OldManAttack : IProjectile, IDrawable
     {
         public List<IProjectile> Projectiles { get; set; }
         public void AddProjectile() {
            Projectiles.Add(this);
+            
         }
 
-        public void removeProjectile() {
+        public void RemoveProjectile() {
             Projectiles.Remove(this);
         }
 
@@ -63,7 +64,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            removeProjectile();
+            RemoveProjectile();
         }
 
     }

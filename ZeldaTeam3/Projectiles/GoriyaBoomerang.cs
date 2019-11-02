@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class GoriyaBoomerang : IProjectile
+    internal class GoriyaBoomerang : IProjectile, IDrawable
     {
         private const int ReturnDistance = 80;
         private const int DistancePerFrame = 5;
@@ -100,12 +100,12 @@ namespace Zelda.Projectiles
             _sprite.Update();
         }
 
-        public void addProjectile() { }
+        public void AddProjectile() { }
 
-        public void removeProjectile() { }
+        public void RemoveProjectile() { }
 
         public void Halt() {
-            removeProjectile();
+            RemoveProjectile();
         }
 
         public void Knockback() { }
