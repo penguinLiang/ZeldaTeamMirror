@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Arrow : ICollideable, IDrawable
+    internal class Arrow : IProjectile
     {
         private const int FramesToDisappear = 140;
 
@@ -12,6 +13,8 @@ namespace Zelda.Projectiles
         public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
+
+        public List<IProjectile> Projectiles { get; set; }
 
         public Arrow(Point location, Direction direction)
         {
@@ -55,6 +58,25 @@ namespace Zelda.Projectiles
         public ICommand ProjectileEffect(IHaltable projectile)
         {
             return Commands.NoOp.Instance;
+        }
+
+        public void Knockback()
+        {
+
+        }
+
+        public void Halt()
+        {
+
+        }
+
+        public void removeProjectile() {
+
+        }
+
+        public void AddProjectile()
+        {
+
         }
 
         public void Update()

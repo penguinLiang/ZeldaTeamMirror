@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IDrawable, ICollideable
+    public class Bomb : IProjectile
     {
         private const int FramesToExplosion = 100;
         private const int FramesToDisappear = 160;
@@ -13,6 +14,7 @@ namespace Zelda.Projectiles
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
         private ISprite _sprite;
         private int _framesDelayed;
+        public List<IProjectile> Projectiles { get; set; }
         public Rectangle Bounds { get; private set; }
 
 
@@ -74,6 +76,25 @@ namespace Zelda.Projectiles
         public ICommand ProjectileEffect(IHaltable projectile)
         {
             return Commands.NoOp.Instance;
+        }
+
+        public void AddProjectile() {
+
+        }
+
+        public void RemoveProjectile()
+        {
+
+        }
+
+        public void Knockback()
+        {
+
+        }
+
+        public void Halt()
+        {
+
         }
 
         public void Draw()

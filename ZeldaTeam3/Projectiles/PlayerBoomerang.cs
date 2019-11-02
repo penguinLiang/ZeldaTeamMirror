@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Enemies;
 
 namespace Zelda.Projectiles
 {
-    internal class PlayerBoomerang : ICollideable, IDrawable
+    internal class PlayerBoomerang : IProjectile
     {
         private const int ReturnDistance = 80;
         private const int DistancePerFrame = 5;
@@ -15,6 +16,8 @@ namespace Zelda.Projectiles
         private int _currentDistanceAway;
         private Direction _direction;
         public Rectangle Bounds { get; }
+
+        public List<IProjectile> Projectiles { get; set; }
 
         public PlayerBoomerang(Point location, Direction direction)
         {
@@ -112,6 +115,14 @@ namespace Zelda.Projectiles
 
             _sprite.Update();
         }
+
+        public void AddProjectile() { }
+
+        public void removeProjectile() { }
+
+        public void Knockback() { }
+
+        public void Halt() { }
 
         public void Draw()
         {

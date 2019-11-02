@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class GoriyaBoomerang : ICollideable, IDrawable
+    internal class GoriyaBoomerang : IProjectile
     {
         private const int ReturnDistance = 80;
         private const int DistancePerFrame = 5;
@@ -15,6 +16,7 @@ namespace Zelda.Projectiles
         private Direction _direction;
         public Rectangle Bounds { get; }
 
+        public List<IProjectile> Projectiles { get; set; }
 
         public GoriyaBoomerang(Point location, Direction direction)
         {
@@ -97,6 +99,14 @@ namespace Zelda.Projectiles
 
             _sprite.Update();
         }
+
+        public void addProjectile() { }
+
+        public void removeProjectile() { }
+
+        public void Halt() { }
+
+        public void Knockback() { }
 
         public void Draw()
         {
