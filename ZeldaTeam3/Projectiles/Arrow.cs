@@ -82,7 +82,7 @@ namespace Zelda.Projectiles
         public void AddProjectile()
         {
             Projectiles.Add(new Projectiles.Arrow(_location, _direction));
-                        System.Diagnostics.Debug.WriteLine("Did we add projectile? " + Projectiles.ToString());
+                        System.Diagnostics.Debug.WriteLine("Did we add projectile? " + Projectiles.ToArray()[0]);
 
         }
 

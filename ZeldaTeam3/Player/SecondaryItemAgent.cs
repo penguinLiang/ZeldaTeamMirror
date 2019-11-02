@@ -41,6 +41,7 @@ namespace Zelda.Player
                     var Arrow = new Projectiles.Arrow(location, facing);
                     _drawables.Add(Arrow);
                     Arrow.AddProjectile();
+                    System.Diagnostics.Debug.WriteLine("What isi it here? " + Arrow.Projectiles.Count);
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
