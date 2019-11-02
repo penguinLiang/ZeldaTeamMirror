@@ -19,7 +19,6 @@ namespace Zelda.Projectiles
 
         public Arrow(Point location, Direction direction)
         {
-            Projectiles = new List<IProjectile>();
             switch (direction)
             {
                 case Direction.Up:
