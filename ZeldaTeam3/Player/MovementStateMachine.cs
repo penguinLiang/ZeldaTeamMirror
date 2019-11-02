@@ -12,7 +12,7 @@ namespace Zelda.Player
     internal class MovementStateMachine : IHaltable, IUpdatable
     {
         private readonly FrameDelay _movementDelay = new FrameDelay(1);
-        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(10);
+        private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(10, true);
 
         public Direction Facing { get; private set; } = Direction.Right;
         public bool Idling { get; private set; } = true;
@@ -26,7 +26,6 @@ namespace Zelda.Player
         public MovementStateMachine(Point location)
         {
             Location = _lastLocation = location;
-            _disableKnockbackDelay.Pause();
         }
 
         private void AdvanceLocation()
@@ -93,6 +92,14 @@ namespace Zelda.Player
             Location = _lastLocation;
         }
 
+        public void Teleport(Point location, Direction facing)
+        {
+            Idling = true;
+            _halted = false;
+            Facing = _moving = facing;
+            Location = _lastLocation = location;
+        }
+
         public void Update()
         {
             _disableKnockbackDelay.Update();
@@ -106,33 +113,6 @@ namespace Zelda.Player
             _disableKnockbackDelay.Pause();
             Knockedback = false;
             _moving = Facing;
-        }
-
-        public void TeleportToEntrance(Direction entranceDirection)
-        {
-            Idling = true;
-            _halted = false;
-            switch (entranceDirection)
-            {
-                case Direction.Up:
-                    _lastLocation = Location = new Point(16 * 8, 16 * 2);
-                    Facing = _moving = Direction.Down;
-                    break;
-                case Direction.Down:
-                    _lastLocation = Location = new Point(16 * 8, 16 * 8);
-                    Facing = _moving = Direction.Up;
-                    break;
-                case Direction.Left:
-                    _lastLocation = Location = new Point(16 * 2,16 * 5);
-                    Facing = _moving = Direction.Right;
-                    break;
-                case Direction.Right:
-                    _lastLocation = Location = new Point(16 * 13,16 * 5);
-                    Facing = _moving = Direction.Left;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
     }
 }

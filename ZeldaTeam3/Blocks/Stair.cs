@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -7,14 +9,16 @@ namespace Zelda.Blocks
     {
         private readonly ISprite _sprite;
         public Rectangle Bounds { get; }
-
+        private readonly DungeonManager _dungeonManager;
+        private readonly BlockType _block;
         private readonly Vector2 _drawLocation;
 
-        public Stair(Point location, BlockType block)
+        public Stair(DungeonManager dungeon, Point location, BlockType block)
         {
             Bounds = new Rectangle(location, new Point(16, 16));
             _drawLocation = location.ToVector2();
-
+            _dungeonManager = dungeon;
+            _block = block;
             _sprite = BlockTypeSprite.Sprite(block);
         }
 
@@ -25,7 +29,16 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return new DoorLinkKnockback(player);
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (_block)
+            {
+                case BlockType.DungeonStair:
+                    return new SceneTransition(_dungeonManager, 1, 1);
+                case BlockType.StairSpecialUp1_1:
+                    return new SceneTransition(_dungeonManager, 0, 1);
+                default:
+                    return new MoveableHalt(player);
+            }
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

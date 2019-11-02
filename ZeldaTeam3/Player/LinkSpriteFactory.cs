@@ -124,7 +124,7 @@ namespace Zelda.Player
         }
 
         public ISprite CreateLinkDeathSparkle() {
-            return new Sprite(_characterDeathSpritesheet, 16, 16, 8, new Point(0,0));
+            return new Sprite(_characterDeathSpritesheet, 16, 16, 8, new Point(0,0), 10);
         }
 
     }
