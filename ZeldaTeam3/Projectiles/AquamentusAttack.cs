@@ -11,9 +11,13 @@ namespace Zelda.Projectiles
   public class AquamentusAttack: IProjectile
     {
       public List<IProjectile> Projectiles { get; set; }
-        public void AddProjectile() { }
+        public void AddProjectile() {
+            Projectiles.Add(this);
+        }
 
-        public void removeProjectile() { }
+        public void removeProjectile() {
+            Projectiles.Remove(this);
+        }
 
       public  Rectangle Bounds { get; }
 
@@ -53,12 +57,12 @@ namespace Zelda.Projectiles
 
         public void Knockback()
         {
-
+            //no op
         }
 
         public void Halt()
         {
-
+            removeProjectile();
         }
 
     }

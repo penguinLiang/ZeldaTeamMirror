@@ -104,7 +104,9 @@ namespace Zelda.Projectiles
 
         public void removeProjectile() { }
 
-        public void Halt() { }
+        public void Halt() {
+            removeProjectile();
+        }
 
         public void Knockback() { }
 

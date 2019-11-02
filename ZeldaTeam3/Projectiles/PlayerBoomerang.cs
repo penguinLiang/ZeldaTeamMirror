@@ -122,7 +122,9 @@ namespace Zelda.Projectiles
 
         public void Knockback() { }
 
-        public void Halt() { }
+        public void Halt() {
+            removeProjectile();
+        }
 
         public void Draw()
         {

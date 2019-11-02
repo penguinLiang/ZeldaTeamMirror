@@ -94,7 +94,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-
+            RemoveProjectile();
         }
 
         public void Draw()

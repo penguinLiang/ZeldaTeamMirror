@@ -67,7 +67,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-
+            removeProjectile();
         }
 
         public void removeProjectile() {
