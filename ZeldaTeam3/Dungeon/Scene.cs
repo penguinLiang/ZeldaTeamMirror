@@ -52,7 +52,12 @@ namespace Zelda.Dungeon
                 if (_player.Alive && _player.UsingPrimaryItem && !_enemiesAttackThrottle.ContainsKey(roomEnemy) && _player.SwordCollision.CollidesWith(roomEnemy.Bounds))
                 {
                     _player.SwordCollision.EnemyEffect(roomEnemy).Execute();
-                    if (!roomEnemy.Alive) _enemyCount--;
+                    if (!roomEnemy.Alive)
+                    {
+                        _enemyCount--;
+                        if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
+                            _room.AddDroppedItem(roomEnemy.Bounds.X, roomEnemy.Bounds.Y);
+                    }
                     _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
                 }
 

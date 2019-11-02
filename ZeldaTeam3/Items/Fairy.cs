@@ -11,7 +11,7 @@ namespace Zelda.Items
 
         public Fairy(Point location)
         {
-            Bounds = new Rectangle(location.X + 8, location.Y, 8, 16);
+            Bounds = new Rectangle(location.X, location.Y, 8, 16);
             _drawLocation = Bounds.Location.ToVector2();
         }
 
