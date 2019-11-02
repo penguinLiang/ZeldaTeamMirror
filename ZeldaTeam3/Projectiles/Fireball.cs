@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Fireball : ICollideable, IDrawable
+    internal class Fireball : IProjectile, IDrawable
     {
         private const int FramesToDisappear = 140;
 
@@ -50,6 +50,17 @@ namespace Zelda.Projectiles
         {
             return Commands.NoOp.Instance;
         }
+
+        public void Halt() { }
+
+        public void Knockback()
+        {
+
+        }
+
+        public void AddProjectile() { }
+
+        public void RemoveProjectile() { }
 
         public void Update()
         {

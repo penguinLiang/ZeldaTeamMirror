@@ -40,19 +40,15 @@ namespace Zelda.Player
                 case Items.Secondary.Bow:
                     var Arrow = new Projectiles.Arrow(location, facing);
                     _drawables.Add(Arrow);
-                    Arrow.AddProjectile();
-                    System.Diagnostics.Debug.WriteLine("What isi it here? " + Arrow.Projectiles.Count);
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
                     var PlayerBoomerang = new Projectiles.PlayerBoomerang(location, facing);
-                    PlayerBoomerang.AddProjectile();
                     _drawables.Add(PlayerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
                     var Bomb = new Projectiles.Bomb(location);
-                    Bomb.AddProjectile();
                     _drawables.Add(Bomb);
                     break;
                 default:
