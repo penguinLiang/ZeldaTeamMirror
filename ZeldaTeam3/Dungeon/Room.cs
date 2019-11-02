@@ -278,7 +278,7 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        public void Reset() 
+        public void MoveableBlockReset() 
         {
             _21Block?.Reset();
         }

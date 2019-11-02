@@ -14,8 +14,6 @@ namespace Zelda.Blocks
         private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
-        private BlockType _block;
-        private Room _room;
 
         private bool _unmoved;
         private bool _moving;
@@ -24,8 +22,6 @@ namespace Zelda.Blocks
         {
             _location = location;
             _origin = location;
-            _block = block;
-            _room = room;
             _unmoved = true;
             _moving = false;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);

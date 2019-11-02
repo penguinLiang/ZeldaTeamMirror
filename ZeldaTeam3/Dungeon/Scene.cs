@@ -36,7 +36,7 @@ namespace Zelda.Dungeon
 
             if(_roomRow == 2 && _roomCol == 1) 
             {
-                _room.Reset();
+                _room.MoveableBlockReset();
             }
             for (var i = 0; i < _enemyCount; i++)
             {
