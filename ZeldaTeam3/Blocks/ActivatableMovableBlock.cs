@@ -5,7 +5,7 @@ using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
-    internal class MovableBlock : ICollideable, IDrawable
+    internal class ActivatableMovableBlock : ICollideable, IDrawable, IActivatable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
         public Rectangle Bounds { get; private set; }
@@ -14,18 +14,31 @@ namespace Zelda.Blocks
         private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
+        private BlockType _block;
+        private Room _room;
 
         private bool _unmoved;
         private bool _moving;
 
-        public MovableBlock(Room room, BlockType block, Point location)
+        public ActivatableMovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
             _origin = location;
+            _block = block;
+            _room = room;
+            _unmoved = true;
+            Bounds = new Rectangle(location.X, location.Y, 16, 16);
+
+        } 
+
+        public void Reset()
+        {
+            _location = _origin;
             _unmoved = true;
             _moving = false;
-            Bounds = new Rectangle(location.X, location.Y, 16, 16);
-        } 
+            _distanceMoved = 0;
+            Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+        }
 
         public bool CollidesWith(Rectangle rect)
         {
@@ -52,7 +65,21 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            if (_block != BlockType.Block2_1 && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
+            {
+                _moving = true;
+                _unmoved = false;
+            }
+            bool _atLeastOneAlive = false;
+            foreach(IEnemy _currentEnemy in _room.Enemies) 
+            {
+                if(_currentEnemy.Alive) 
+                {
+                    _atLeastOneAlive = true;
+                    break;
+                }
+            }
+            if (_block == BlockType.Block2_1 && !_atLeastOneAlive && _unmoved && TrySetBlockDirection(player.BodyCollision.Bounds)) 
             {
                 _moving = true;
                 _unmoved = false;
@@ -102,13 +129,17 @@ namespace Zelda.Blocks
                     _moving = false;
                 }
             }
-
             _sprite.Update();
         }
 
         public void Draw()
         {
             _sprite.Draw(_location.ToVector2());
+        }
+
+        public void Activate()
+        {
+            
         }
     }
 }

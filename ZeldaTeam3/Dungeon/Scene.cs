@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Zelda.Blocks;
 
 namespace Zelda.Dungeon
 {
@@ -10,11 +11,15 @@ namespace Zelda.Dungeon
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private int _enemyCount = -1;
+        private int _roomRow;
+        private int _roomCol;
 
-        public Scene(Room room, IPlayer player)
+        public Scene(int row, int col, Room room, IPlayer player)
         {
             _room = room;
             _player = player;
+            _roomRow = row;
+            _roomCol = col;
         }
 
         public void Reset()
@@ -24,7 +29,15 @@ namespace Zelda.Dungeon
 
         public void SpawnEnemies()
         {
-            if (_enemyCount == -1) _enemyCount = _room.Enemies.Count;
+            if (_enemyCount == -1)
+            {
+                _enemyCount = _room.Enemies.Count;
+            }
+
+            if(_roomRow == 2 && _roomCol == 1) 
+            {
+                _room.MoveableBlockReset();
+            }
             for (var i = 0; i < _enemyCount; i++)
             {
                 _room.Enemies[i].Spawn();
