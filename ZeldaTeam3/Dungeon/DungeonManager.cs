@@ -106,7 +106,7 @@ namespace Zelda.Dungeon
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
                     if (!EnabledRooms[row][col]) continue;
-                    _scenes[row][col] = new Scene(_rooms[row][col], player);
+                    _scenes[row][col] = new Scene(row, col, _rooms[row][col], player);
                 }
             }
         }
