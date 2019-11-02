@@ -19,9 +19,11 @@ namespace Zelda.Pause
             _location = location.ToVector2();
             switch (agent.Player.Inventory.SecondaryItem)
             {
-                case Secondary.Bow:
+                case Secondary.Bow when agent.Player.Inventory.HasArrow && agent.Player.Inventory.HasBow:
                     _selectedItem = Arrow;
                     _cursorPosition = BowPosition;
+                    break;
+                case Secondary.Bow:
                     break;
                 case Secondary.Boomerang:
                     _selectedItem = Boomerang;
@@ -102,7 +104,7 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
                 _selectedItem = Bomb;
             }
-            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow)
+            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
                 _selectedItem = Arrow;
