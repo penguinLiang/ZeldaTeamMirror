@@ -14,10 +14,13 @@ namespace Zelda.Projectiles
 
         private int _framesDelayed;
 
+        private Point _location;
+            private Direction _direction;
         public List<IProjectile> Projectiles { get; set; }
 
         public Arrow(Point location, Direction direction)
         {
+            Projectiles = new List<IProjectile>();
             switch (direction)
             {
                 case Direction.Up:
@@ -35,6 +38,8 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            _location = location;
+            _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
         }
 
@@ -76,7 +81,9 @@ namespace Zelda.Projectiles
 
         public void AddProjectile()
         {
-            Projectiles.Add(this);
+            Projectiles.Add(new Projectiles.Arrow(_location, _direction));
+                        System.Diagnostics.Debug.WriteLine("Did we add projectile? " + Projectiles.ToString());
+
         }
 
         public void Update()

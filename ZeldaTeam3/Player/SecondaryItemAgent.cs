@@ -11,7 +11,6 @@ namespace Zelda.Player
 
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
-        
 
 
         public Items.Secondary Item;
@@ -39,15 +38,21 @@ namespace Zelda.Player
             switch (Item)
             {
                 case Items.Secondary.Bow:
-                    _drawables.Add(new Projectiles.Arrow(location, facing));
+                    var Arrow = new Projectiles.Arrow(location, facing);
+                    _drawables.Add(Arrow);
+                    Arrow.AddProjectile();
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
-                    _drawables.Add(new Projectiles.PlayerBoomerang(location, facing));
+                    var PlayerBoomerang = new Projectiles.PlayerBoomerang(location, facing);
+                    PlayerBoomerang.AddProjectile();
+                    _drawables.Add(PlayerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
-                    _drawables.Add(new Projectiles.Bomb(location));
+                    var Bomb = new Projectiles.Bomb(location);
+                    Bomb.AddProjectile();
+                    _drawables.Add(Bomb);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
