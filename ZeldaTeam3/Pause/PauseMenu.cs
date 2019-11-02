@@ -19,9 +19,11 @@ namespace Zelda.Pause
             _location = location.ToVector2();
             switch (agent.Player.Inventory.SecondaryItem)
             {
-                case Secondary.Bow:
+                case Secondary.Bow when agent.Player.Inventory.HasArrow && agent.Player.Inventory.HasBow:
                     _selectedItem = Arrow;
                     _cursorPosition = BowPosition;
+                    break;
+                case Secondary.Bow:
                     break;
                 case Secondary.Boomerang:
                     _selectedItem = Boomerang;
@@ -47,12 +49,11 @@ namespace Zelda.Pause
             CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
             _selectedItem?.Draw(_location + SelectedItemLocation);
 
-            var currentRoom = _agent.DungeonManager.CurrentRoom;
+            var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
             var visitedRooms = _agent.DungeonManager.VisitedRooms;
-            var isUnmapped = _agent.DungeonManager.UnmappedRooms[currentRoom.Y][currentRoom.X];
-            if (!isUnmapped)
+            if (_agent.DungeonManager.CurrentRoomMapped)
             {
-                PlayerMapDot.Draw(MapGridCoverSize * currentRoom.ToVector2() + MapGridLocation + _location);
+                PlayerMapDot.Draw(MapGridCoverSize * currentRoom + MapGridLocation + _location);
             }
 
             for (var row = 0; row < visitedRooms.Length; row++)
@@ -103,7 +104,7 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
                 _selectedItem = Bomb;
             }
-            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow)
+            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
                 _selectedItem = Arrow;
