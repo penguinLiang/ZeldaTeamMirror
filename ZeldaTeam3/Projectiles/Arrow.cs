@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
+
 namespace Zelda.Projectiles
 {
     internal class Arrow : IProjectile, IDrawable
@@ -13,6 +14,7 @@ namespace Zelda.Projectiles
         public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
+
 
         private Point _location;
             private Direction _direction;
@@ -65,20 +67,20 @@ namespace Zelda.Projectiles
 
         public void Knockback()
         {
-
+            //noop
         }
 
         public void Halt()
         {
-            RemoveProjectile();
+            RemoveProjectile(this);
         }
 
-        public void RemoveProjectile() {
+        public void RemoveProjectile(IProjectile projectile) {
            //Send a Command?
            //Hey Projectile Manager! This Projectile is no longer active!
         }
 
-        public void AddProjectile()
+        public void AddProjectile(IProjectile projectile)
         {
             //Send a command?
             //Hey Projectile Manager! Add a type Arrow to the current list!

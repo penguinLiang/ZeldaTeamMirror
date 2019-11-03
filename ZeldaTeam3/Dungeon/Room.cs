@@ -5,6 +5,7 @@ using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Dungeon;
+using Zelda.Projectiles;
 
 namespace Zelda.Dungeon
 {
@@ -14,8 +15,10 @@ namespace Zelda.Dungeon
 
         public IList<IEnemy> Enemies = new List<IEnemy>();
         public IList<ICollideable> Collidables = new List<ICollideable>();
-        public IList<IProjectile> Projectiles = new List<IProjectile>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
+
+        public ProjectileManager _projectileManager = new ProjectileManager();
+        public IList<IProjectile> Projectiles;
 
         private readonly EnemyType _enemyType;
         private DungeonManager _dungeonManager;
@@ -25,6 +28,7 @@ namespace Zelda.Dungeon
         {
             _enemyType = (EnemyType) enemyID;
             _dungeonManager = dungeon;
+            Projectiles = _projectileManager.Projectiles;
 
             for (var row = 0; row < tiles.Length; row++)
             {

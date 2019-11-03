@@ -10,8 +10,8 @@ namespace Zelda
 {
     public interface IProjectile:  ICollideable, IHaltable
     {
-        void AddProjectile();
-        void RemoveProjectile();
+        void AddProjectile(IProjectile projectile);
+        void RemoveProjectile(IProjectile projectile);
 
     }
 }

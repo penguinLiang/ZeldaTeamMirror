@@ -77,23 +77,23 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public void AddProjectile() {
+        public void AddProjectile(IProjectile projectile) {
 
         }
 
-        public void RemoveProjectile()
+        public void RemoveProjectile(IProjectile projectile)
         {
 
         }
 
         public void Knockback()
         {
-
+            //no op
         }
 
         public void Halt()
         {
-            RemoveProjectile();
+            RemoveProjectile(this);
         }
 
         public void Draw()

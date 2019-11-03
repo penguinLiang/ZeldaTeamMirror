@@ -51,16 +51,22 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public void Halt() { }
+        public void Halt() {
+            RemoveProjectile(this);
+        }
 
         public void Knockback()
         {
+            //no op
+        }
+
+        public void AddProjectile(IProjectile projectile) {
 
         }
 
-        public void AddProjectile() { }
+        public void RemoveProjectile(IProjectile projectile) {
 
-        public void RemoveProjectile() { }
+        }
 
         public void Update()
         {

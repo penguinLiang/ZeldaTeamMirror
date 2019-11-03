@@ -99,15 +99,21 @@ namespace Zelda.Projectiles
             _sprite.Update();
         }
 
-        public void AddProjectile() { }
+        public void AddProjectile(IProjectile projectile) {
 
-        public void RemoveProjectile() { }
-
-        public void Halt() {
-            RemoveProjectile();
         }
 
-        public void Knockback() { }
+        public void RemoveProjectile(IProjectile projectile) {
+
+        }
+
+        public void Halt() {
+            RemoveProjectile(this);
+        }
+
+        public void Knockback() {
+            //no op 
+        }
 
         public void Draw()
         {
