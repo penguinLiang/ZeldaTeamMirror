@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Player
 {
-    internal class SecondaryItemAgent : IDrawable
+    internal class PlayerProjectileAgent : IDrawable
     {
         // 600/60 frames = ~10s
         private const int DrawableExpiration = 600;
@@ -13,6 +13,47 @@ namespace Zelda.Player
         private readonly List<int> _drawableExpirations = new List<int>();
 
         public Items.Secondary Item;
+
+        public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
+        {
+            switch (facing)
+            {
+                case Direction.Up:
+                    location.X -= 1;
+                    location.Y -= 12;
+                    break;
+                case Direction.Down:
+                    location.X += 1;
+                    location.Y += 11;
+                    break;
+                case Direction.Left:
+                    location.X -= 11;
+                    location.Y += 1;
+                    break;
+                case Direction.Right:
+                    location.X += 11;
+                    location.Y += 1;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            switch (swordLevel)
+            {
+                case Items.Primary.Sword:
+                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 1));
+                    break;
+                case Items.Primary.WhiteSword:
+                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 2));
+                    break;
+                case Items.Primary.MagicalSword:
+                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 4));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            _drawableExpirations.Add(0);
+        }
 
         public void UseSecondaryItem(Direction facing, Point location)
         {

@@ -5,17 +5,17 @@ namespace Zelda.Projectiles
 {
     public class ArrowAndSwordBeamStateMachine
     {
-        private const int MaxFramesAway = 48;
-        private const int DistancePerFrame = 4;
+        private const int MaxFramesAway = 100;
 
         private readonly Direction _direction;
         private int _currentFrame;
+        private int _distancePerFrame;
         private Point _location;
 
         public Point Location => _location;
         public Rectangle Bounds { get; private set; }
 
-        public ArrowAndSwordBeamStateMachine(Point location, Direction direction)
+        public ArrowAndSwordBeamStateMachine(Point location, Direction direction, int speed)
         {
             _currentFrame = 0;
             _direction = direction;
@@ -33,6 +33,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            _distancePerFrame = speed;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -52,16 +53,16 @@ namespace Zelda.Projectiles
             switch (_direction)
             {
                 case Direction.Up:
-                    _location.Y -= DistancePerFrame;
+                    _location.Y -= _distancePerFrame;
                     break;
                 case Direction.Down:
-                    _location.Y += DistancePerFrame;
+                    _location.Y += _distancePerFrame;
                     break;
                 case Direction.Left:
-                    _location.X -= DistancePerFrame;
+                    _location.X -= _distancePerFrame;
                     break;
                 case Direction.Right:
-                    _location.X += DistancePerFrame;
+                    _location.X += _distancePerFrame;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

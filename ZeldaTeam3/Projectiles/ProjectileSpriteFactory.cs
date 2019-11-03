@@ -8,6 +8,7 @@ namespace Zelda.Projectiles
     {
         private Texture2D _fieldWeaponsSpriteSheet;
         private Texture2D _bombExplosionSpriteSheet;
+        private Texture2D _particlesSpriteSheet;
 
         public static ProjectileSpriteFactory Instance { get; } = new ProjectileSpriteFactory();
 
@@ -15,6 +16,7 @@ namespace Zelda.Projectiles
         {
             _fieldWeaponsSpriteSheet = content.Load<Texture2D>("FieldWeapons");
             _bombExplosionSpriteSheet = content.Load<Texture2D>("SpawnExplosion");
+            _particlesSpriteSheet = content.Load<Texture2D>("Particles");
         }
 
         public ISprite CreateArrowUp()
@@ -59,53 +61,41 @@ namespace Zelda.Projectiles
             return new Sprite(_bombExplosionSpriteSheet, 16, 16, 3, new Point(0, 0));
         }
 
-        public ISprite CreateWoodSwordBeamUp()
+        public ISprite CreateSwordBeamUp()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 0));
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 0), 4);
         }
-        public ISprite CreateWoodSwordBeamRight()
+        public ISprite CreateSwordBeamRight()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 16));
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 16), 4);
         }
-        public ISprite CreateWoodSwordBeamLeft()
+        public ISprite CreateSwordBeamLeft()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 32));
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 32), 4);
         }
-        public ISprite CreateWoodSwordBeamDown()
+        public ISprite CreateSwordBeamDown()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 48));
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 48), 4);
         }
-        public ISprite CreateWhiteSwordBeamUp()
+
+        public ISprite CreateSwordBeamParticleTopLeft()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(32, 0));
+            return new Sprite(_particlesSpriteSheet, 16, 16, 4, new Point(0, 0), 4);
         }
-        public ISprite CreateWhiteSwordBeamRight()
+
+        public ISprite CreateSwordBeamParticleTopRight()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(32, 16));
+            return new Sprite(_particlesSpriteSheet, 16, 16, 4, new Point(0, 16), 4);
         }
-        public ISprite CreateWhiteSwordBeamLeft()
+
+        public ISprite CreateSwordBeamParticleBottomLeft()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(32, 32));
+            return new Sprite(_particlesSpriteSheet, 16, 16, 4, new Point(0, 32), 4);
         }
-        public ISprite CreateWhiteSwordBeamDown()
+
+        public ISprite CreateSwordBeamParticleBottomRight()
         {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(32, 48));
-        }
-        public ISprite CreateMagicSwordBeamUp()
-        {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 0));
-        }
-        public ISprite CreateMagicSwordBeamRight()
-        {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 16));
-        }
-        public ISprite CreateMagicSwordBeamLeft()
-        {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 32));
-        }
-        public ISprite CreateMagicSwordBeamDown()
-        {
-            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 48));
+            return new Sprite(_particlesSpriteSheet, 16, 16, 4, new Point(0, 48), 4);
         }
     }
 }

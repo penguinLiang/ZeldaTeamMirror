@@ -8,7 +8,7 @@ namespace Zelda.Player
         private AliveSpriteStateMachine _aliveSpriteStateMachine;
         private DeadSpriteStateMachine _deadSpriteStateMachine;
         private HealthStateMachine _healthStateMachine;
-        private SecondaryItemAgent _secondaryItemAgent ;
+        private PlayerProjectileAgent _playerProjectileAgent;
 
         // Prevents key queue from messing with movement after immediately teleporting
         private bool _teleportLock;
@@ -69,7 +69,7 @@ namespace Zelda.Player
             _healthStateMachine = new HealthStateMachine();
             _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
             _deadSpriteStateMachine = new DeadSpriteStateMachine();
-            _secondaryItemAgent = new SecondaryItemAgent();
+            _playerProjectileAgent = new PlayerProjectileAgent();
         }
 
         public void TakeDamage()
@@ -91,19 +91,21 @@ namespace Zelda.Player
         {
             if (_aliveSpriteStateMachine.UsingItem) return;
             _aliveSpriteStateMachine.UsePrimaryItem(Inventory.SwordLevel);
+            if (Health == MaxHealth)
+                _playerProjectileAgent.FireSwordBeam(_movementStateMachine.Facing, _movementStateMachine.Location, Inventory.SwordLevel);
         }
 
         public void UseSecondaryItem()
         {
             if (_aliveSpriteStateMachine.UsingItem) return;
             _aliveSpriteStateMachine.UseSecondaryItem();
-            _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
+            _playerProjectileAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
             Inventory.AssignSecondaryItem(item);
-            _secondaryItemAgent.AssignSecondaryItem(item);
+            _playerProjectileAgent.AssignSecondaryItem(item);
         }
 
         public void Teleport(Point location, Direction facing)
@@ -139,7 +141,7 @@ namespace Zelda.Player
             }
 
             _aliveSpriteStateMachine.Update();
-            _secondaryItemAgent.Update();
+            _playerProjectileAgent.Update();
 
             if (!_aliveSpriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
@@ -167,7 +169,7 @@ namespace Zelda.Player
 
         public void Draw()
         {
-            _secondaryItemAgent.Draw();
+            _playerProjectileAgent.Draw();
             if (Alive)
             {
                 _aliveSpriteStateMachine.Sprite.Draw(AdjustedDrawLocation());
