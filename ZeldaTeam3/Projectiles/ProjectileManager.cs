@@ -22,6 +22,7 @@ namespace Zelda.Projectiles
         public void AddProjectile(IProjectile projectile)
         {
             Projectiles.Add(projectile);
+            System.Diagnostics.Debug.WriteLine("PROJECTILES: " + Projectiles);
         }
 
         public void RemoveProjectile(IProjectile projectile)

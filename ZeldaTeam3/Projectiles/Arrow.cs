@@ -12,6 +12,7 @@ namespace Zelda.Projectiles
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
         public Rectangle Bounds => _arrowStateMachine.Bounds;
+        private ProjectileManager _projectileManager;
 
         private int _framesDelayed;
 
@@ -41,6 +42,7 @@ namespace Zelda.Projectiles
             _location = location;
             _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
+            _projectileManager = new ProjectileManager();
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -76,14 +78,16 @@ namespace Zelda.Projectiles
         }
 
         public void RemoveProjectile(IProjectile projectile) {
-           //Send a Command?
-           //Hey Projectile Manager! This Projectile is no longer active!
+            //Send a Command?
+            //Hey Projectile Manager! This Projectile is no longer active!
+            _projectileManager.AddProjectile(projectile);
         }
 
         public void AddProjectile(IProjectile projectile)
         {
             //Send a command?
             //Hey Projectile Manager! Add a type Arrow to the current list!
+            _projectileManager.RemoveProjectile(projectile);
         }
 
         public void Update()

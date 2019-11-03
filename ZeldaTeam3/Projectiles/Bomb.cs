@@ -15,7 +15,7 @@ namespace Zelda.Projectiles
         private ISprite _sprite;
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
-
+        private ProjectileManager _projectileManager;
 
         public Bomb(Point location)
         {
@@ -78,12 +78,12 @@ namespace Zelda.Projectiles
         }
 
         public void AddProjectile(IProjectile projectile) {
-
+            _projectileManager.AddProjectile(projectile);
         }
 
         public void RemoveProjectile(IProjectile projectile)
         {
-
+            _projectileManager.RemoveProjectile(projectile);
         }
 
         public void Knockback()
