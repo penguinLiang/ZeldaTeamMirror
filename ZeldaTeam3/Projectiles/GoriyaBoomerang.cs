@@ -15,7 +15,6 @@ namespace Zelda.Projectiles
         private int _currentDistanceAway;
         private Direction _direction;
         public Rectangle Bounds { get; }
-        private ProjectileManager _projectileManager;
 
 
         public GoriyaBoomerang(Point location, Direction direction)
@@ -25,7 +24,6 @@ namespace Zelda.Projectiles
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
             _currentDistanceAway = 0;
-            _projectileManager = new ProjectileManager();
         }
 
         private void UpdateFlippedDirection()
@@ -102,15 +100,12 @@ namespace Zelda.Projectiles
         }
 
         public void AddProjectile(IProjectile projectile) {
-            _projectileManager.AddProjectile(projectile);
         }
 
         public void RemoveProjectile(IProjectile projectile) {
-            _projectileManager.RemoveProjectile(projectile);
         }
 
         public void Halt() {
-            RemoveProjectile(this);
         }
 
         public void Knockback() {

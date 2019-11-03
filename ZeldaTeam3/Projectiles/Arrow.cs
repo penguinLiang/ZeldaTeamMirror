@@ -5,14 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Arrow : IProjectile, IDrawable
+    internal class Arrow :  IProjectile, IDrawable
     {
         private const int FramesToDisappear = 140;
 
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
-        public Rectangle Bounds => _arrowStateMachine.Bounds;
-        private ProjectileManager _projectileManager;
+        public  Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
 
@@ -42,7 +41,6 @@ namespace Zelda.Projectiles
             _location = location;
             _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
-            _projectileManager = new ProjectileManager();
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -67,28 +65,25 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public void Knockback()
-        {
-            //noop
-        }
-
         public void Halt()
         {
-            RemoveProjectile(this);
+          
         }
 
         public void RemoveProjectile(IProjectile projectile) {
             //Send a Command?
             //Hey Projectile Manager! This Projectile is no longer active!
-            _projectileManager.AddProjectile(projectile);
+           
         }
 
         public void AddProjectile(IProjectile projectile)
         {
             //Send a command?
             //Hey Projectile Manager! Add a type Arrow to the current list!
-            _projectileManager.RemoveProjectile(projectile);
+           
         }
+
+        public void Knockback() { }
 
         public void Update()
         {

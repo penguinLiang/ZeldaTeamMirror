@@ -17,7 +17,6 @@ namespace Zelda.Dungeon
         public IList<ICollideable> Collidables = new List<ICollideable>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
-        public ProjectileManager _projectileManager = new ProjectileManager();
         public IList<IProjectile> Projectiles;
 
         private readonly EnemyType _enemyType;
@@ -28,7 +27,6 @@ namespace Zelda.Dungeon
         {
             _enemyType = (EnemyType) enemyID;
             _dungeonManager = dungeon;
-            Projectiles = _projectileManager.Projectiles;
 
             for (var row = 0; row < tiles.Length; row++)
             {
@@ -45,6 +43,13 @@ namespace Zelda.Dungeon
                     }
                 }
             }
+        }
+
+
+        public void AddProjectile(IProjectile projectile)
+        {
+            Collidables.Add(projectile);
+            
         }
 
         private IEnemy MakeEnemy(Point spawnPoint)

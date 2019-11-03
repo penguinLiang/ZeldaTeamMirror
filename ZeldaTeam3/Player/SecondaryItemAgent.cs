@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Dungeon;
+using Zelda.Projectiles;
 
 namespace Zelda.Player
 {
@@ -11,9 +13,17 @@ namespace Zelda.Player
 
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
-
+ 
 
         public Items.Secondary Item;
+
+
+        public SecondaryItemAgent()
+        {
+           //post to Room from Secondary Item Agent
+           //
+        }
+
 
         public void UseSecondaryItem(Direction facing, Point location)
         {
@@ -40,6 +50,7 @@ namespace Zelda.Player
                 case Items.Secondary.Bow:
                     var Arrow = new Projectiles.Arrow(location, facing);
                     _drawables.Add(Arrow);
+                    
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
