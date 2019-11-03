@@ -63,10 +63,15 @@ namespace Zelda.Dungeon
                 }
             }
 
-            foreach (var roomCollidable in _room.Collidables)
+            foreach (var roomCollidable in _room.Collidables.ToList())
             {
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
+                if (_player.UsingSecondaryItem && _player.Alive)
+                {
+                    _room.AddProjectile(_player.Location, _player.Direction, false);
+                }
+
             }
 
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (LINQ is slow here)

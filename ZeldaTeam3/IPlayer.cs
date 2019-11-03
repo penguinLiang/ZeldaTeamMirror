@@ -13,6 +13,11 @@ namespace Zelda
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
 
+        bool UsingSecondaryItem { get; }
+
+        Direction Direction { get; }
+        Point Location { get; }
+
         void Move(Direction direction);
         void UsePrimaryItem();
         void UseSecondaryItem();

@@ -46,8 +46,9 @@ namespace Zelda.Dungeon
         }
 
 
-        public void AddProjectile(IProjectile projectile)
+        public void AddProjectile(Point location, Direction direction, bool fromAquamentus)
         {
+            var projectile = new Arrow(location, direction);
             Collidables.Add(projectile);
             
         }

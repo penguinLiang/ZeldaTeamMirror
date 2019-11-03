@@ -13,15 +13,17 @@ namespace Zelda.Player
 
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
- 
+
+        public bool UsingSecondaryItem;
 
         public Items.Secondary Item;
 
+        public Point projectileLocation;
+        public Direction _facing;
 
         public SecondaryItemAgent()
         {
-           //post to Room from Secondary Item Agent
-           //
+            UsingSecondaryItem = false;
         }
 
 
@@ -50,22 +52,28 @@ namespace Zelda.Player
                 case Items.Secondary.Bow:
                     var Arrow = new Projectiles.Arrow(location, facing);
                     _drawables.Add(Arrow);
-                    
+                    projectileLocation = location;
+                    _facing = facing;
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
                     var PlayerBoomerang = new Projectiles.PlayerBoomerang(location, facing);
                     _drawables.Add(PlayerBoomerang);
+                    projectileLocation = location;
+                    _facing = facing;
                     break;
                 case Items.Secondary.Bomb:
                     var Bomb = new Projectiles.Bomb(location);
                     _drawables.Add(Bomb);
+                    projectileLocation = location;
+                    _facing = facing;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
             _drawableExpirations.Add(0);
+            UsingSecondaryItem = true;
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
@@ -86,6 +94,7 @@ namespace Zelda.Player
                 _drawableExpirations.RemoveAt(i);
                 _drawables.RemoveAt(i);
             }
+            UsingSecondaryItem = false;
         }
 
         public void Draw()
