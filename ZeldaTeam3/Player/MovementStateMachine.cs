@@ -32,23 +32,63 @@ namespace Zelda.Player
         {
             if (Idling || _halted || _movementDelay.Delayed) return;
             _lastLocation = Location;
+            AlignMovement(_moving);
+        }
 
-            switch (_moving)
+        private void AlignMovement(Direction direction)
+        {
+            if (direction == Direction.Down || direction == Direction.Up)
             {
-                case Direction.Up:
-                    Location = new Point(Location.X, Location.Y - 2);
-                    break;
-                case Direction.Down:
-                    Location = new Point(Location.X, Location.Y + 2);
-                    break;
-                case Direction.Left:
-                    Location = new Point(Location.X - 2, Location.Y);
-                    break;
-                case Direction.Right:
-                    Location = new Point(Location.X + 2, Location.Y);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                int distance = Location.X % 8;
+                if (distance == 0)
+                {
+                    if (direction == Direction.Down)
+                    {
+                        Location = new Point(Location.X, Location.Y + 2);
+                    }
+                    else
+                    {
+                        Location = new Point(Location.X, Location.Y - 2);
+                    }
+                }
+                else
+                {
+                    if (distance > 3)
+                    {
+                        Location = new Point(Location.X + 2, Location.Y);
+                    }
+                    else
+                    {
+                        Location = new Point(Location.X - 2, Location.Y);
+                    }
+                }
+
+            }
+            else
+            {
+                int distance = Location.Y % 8;
+                if (distance == 0)
+                {
+                    if (direction == Direction.Left)
+                    {
+                        Location = new Point(Location.X - 2, Location.Y);
+                    }
+                    else
+                    {
+                        Location = new Point(Location.X + 2, Location.Y);
+                    }
+                }
+                else
+                {
+                    if (distance > 3)
+                    {
+                        Location = new Point(Location.X, Location.Y + 2);
+                    }
+                    else
+                    {
+                        Location = new Point(Location.X, Location.Y - 2);
+                    }
+                }
             }
         }
 

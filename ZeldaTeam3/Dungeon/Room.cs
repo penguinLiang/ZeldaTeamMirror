@@ -316,7 +316,7 @@ namespace Zelda.Dungeon
             }
         }
 
-        public void MoveableBlockReset() 
+        public void MoveableBlockReset()
         {
             _AMBlock?.Reset();
         }
