@@ -37,7 +37,10 @@ namespace Zelda.Dungeon
             {
                 roomDrawable.Update();
             }
-
+            foreach (var roomProjectile in _room.Projectiles)
+            {
+                _room.Collidables.Add(roomProjectile);
+            }
             foreach (var roomEnemy in _room.Enemies)
             {
                 roomEnemy.Update();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 
-namespace Zelda.Projectiles
+namespace Zelda
 {
     public interface IProjectile:  ICollideable, IHaltable
     {

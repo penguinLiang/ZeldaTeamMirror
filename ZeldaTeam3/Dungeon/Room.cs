@@ -14,6 +14,7 @@ namespace Zelda.Dungeon
 
         public IList<IEnemy> Enemies = new List<IEnemy>();
         public IList<ICollideable> Collidables = new List<ICollideable>();
+        public IList<IProjectile> Projectiles = new List<IProjectile>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
         private readonly EnemyType _enemyType;

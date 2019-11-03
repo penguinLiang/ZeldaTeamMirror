@@ -74,14 +74,14 @@ namespace Zelda.Projectiles
         }
 
         public void RemoveProjectile() {
-            Projectiles.Remove(this);
+           //Send a Command?
+           //Hey Projectile Manager! This Projectile is no longer active!
         }
 
         public void AddProjectile()
         {
-            Projectiles.Add(new Projectiles.Arrow(_location, _direction));
-                        System.Diagnostics.Debug.WriteLine("Did we add projectile? " + Projectiles.ToArray()[0]);
-
+            //Send a command?
+            //Hey Projectile Manager! Add a type Arrow to the current list!
         }
 
         public void Update()
