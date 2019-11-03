@@ -314,8 +314,9 @@ namespace Zelda.Dungeon
                     Drawables.Add(item);
                 }
             }
+        }
 
-        public void MoveableBlockReset() 
+        public void MoveableBlockReset()
         {
             _AMBlock?.Reset();
         }
