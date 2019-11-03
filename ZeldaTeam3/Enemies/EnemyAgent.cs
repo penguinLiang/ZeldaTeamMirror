@@ -65,7 +65,7 @@ namespace Zelda.Enemies
             }
         }
 
-        public virtual void Update()
+        public virtual void Update(Point playerLocation)
         {
             if (Spawned && !_spawnSprite.AnimationFinished)
             {

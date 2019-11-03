@@ -45,5 +45,19 @@ namespace Zelda
         {
             return (Direction) Rng.Next(NumDirections);
         }
+
+        public static Direction RandomVerticalDirection()
+        {
+            var direction = RandomDirection();
+            switch (direction)
+            {
+                case Direction.Left:
+                    return Direction.Up;
+                case Direction.Right:
+                    return Direction.Down;
+                default:
+                    return direction;
+            }
+        }
     }
 }

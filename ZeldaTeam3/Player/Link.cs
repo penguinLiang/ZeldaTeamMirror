@@ -14,6 +14,8 @@ namespace Zelda.Player
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
 
+        public Point Location => _movementStateMachine.Location;
+
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
 
         public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);

@@ -29,7 +29,7 @@ namespace Zelda.Enemies
             Sprite.PaletteShift();
         }
 
-        public override void Update()
+        public override void Update(Point playerLocation)
         {
             Sprite.Update();
         }

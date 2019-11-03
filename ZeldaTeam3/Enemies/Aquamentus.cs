@@ -1,22 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Projectiles;
 
 namespace Zelda.Enemies
 {
     public class Aquamentus : EnemyAgent
     {
         private const int ActionDelay = 16;
+        private Point _playerLocation;
 
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
+
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
             AgentState.Ready,
             AgentState.Moving,
-            AgentState.Halted
+            AgentState.Halted,
+            AgentState.Attacking
         };
+
+        private Fireball[] _fireballs = new Fireball[3];
 
         private readonly Point _origin;
 
@@ -83,20 +89,56 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Attacking:
+                    if (_agentClock == 0)
+                    {
+                        UseAttack();
+                        _agentStatus = AgentState.Ready;
+                        _sprite = EnemySpriteFactory.Instance.CreateAquamentusIdle();
+                    }
                     break;
                 default:
                     throw new NotImplementedException();
             }
         }
 
+        private void UseAttack()
+        {
+            Point fb0Location = new Point(Location.X, Location.Y - 4);
+            Point fb2Location = new Point(Location.X, Location.Y + 4);
+            var velocityScalar = -1.5;
+            _fireballs[0] = new Fireball(fb0Location, GenerateFireballVector(velocityScalar, -0.5), true);
+            _fireballs[1] = new Fireball(Location, GenerateFireballVector(velocityScalar, 0), true);
+            _fireballs[2] = new Fireball(fb2Location, GenerateFireballVector(velocityScalar, 0.5), true);
+        }
+
+        private Vector2 GenerateFireballVector(double xVelocity, double yVelocityOffset)
+        {
+            double xDiff = _playerLocation.X - Location.X;
+            double yDiff = _playerLocation.Y - Location.Y;
+            double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+
+            //var normalizedX = xDiff / magnitude;
+            var normalizedY = yDiff / magnitude;
+
+            return new Vector2((float) xVelocity, (float)(yVelocityOffset + normalizedY));
+        }
+
         private void UpdateAction()
         {
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
+            _agentClock = ActionDelay;
+            var AttackScalar = 4;
+
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = DirectionUtility.RandomDirection();
+                _currentDirection = DirectionUtility.RandomVerticalDirection();
             }
-            _agentClock = ActionDelay;
+
+            if (_agentStatus == AgentState.Attacking)
+            {
+                _agentClock *= AttackScalar;
+                _sprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
+            }
         }
 
         public override void Knockback()
@@ -124,12 +166,26 @@ namespace Zelda.Enemies
             _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
-        public override void Update()
+        public override void Update(Point playerLocation)
         {
-            base.Update();
+            _playerLocation = playerLocation;
+            base.Update(playerLocation);
+            foreach (Fireball fb in _fireballs)
+            {
+                fb?.Update();
+            }
 
             if (Alive && CanMove)
                 ExecuteAction();
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            foreach (Fireball fb in _fireballs)
+            {
+                fb?.Draw();
+            }
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿namespace Zelda
+﻿using Microsoft.Xna.Framework;
+
+namespace Zelda
 {
     public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
         Player.Inventory Inventory { get; }
 
+        Point Location { get; }
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }

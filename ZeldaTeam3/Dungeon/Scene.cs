@@ -40,7 +40,7 @@ namespace Zelda.Dungeon
 
             foreach (var roomEnemy in _room.Enemies)
             {
-                roomEnemy.Update();
+                roomEnemy.Update(_player.Location);
 
                 foreach (var roomCollidable in _room.Collidables)
                 {
