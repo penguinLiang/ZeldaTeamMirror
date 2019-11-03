@@ -64,7 +64,7 @@ namespace Zelda.Player
                 }
 
             }
-            else //MOVE RIGHT OR LEFT
+            else
             {
                 int distance = Location.Y % 8;
                 if (distance == 0)
