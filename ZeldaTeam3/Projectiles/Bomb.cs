@@ -15,6 +15,7 @@ namespace Zelda.Projectiles
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
+
         public Bomb(Point location)
         {
             _location = location.ToVector2();
@@ -68,8 +69,6 @@ namespace Zelda.Projectiles
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            Halt();
-            //_sprite.Hide();
             return new Commands.SpawnableDamage(enemy);
         }
 
