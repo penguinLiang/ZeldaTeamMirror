@@ -17,7 +17,7 @@ namespace Zelda.Projectiles
        public bool Halted { get; set; }
 
         private Point _location;
-            private Direction _direction;
+        private Direction _direction;
 
         public Arrow(Point location, Direction direction)
         {
