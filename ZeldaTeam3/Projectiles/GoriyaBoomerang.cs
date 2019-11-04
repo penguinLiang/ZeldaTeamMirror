@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class GoriyaBoomerang : IProjectile, IDrawable
+    internal class GoriyaBoomerang : IProjectile
     {
-        private const int ReturnDistance = 80;
-        private const int DistancePerFrame = 5;
+        private const int ReturnDistance = 60;
+        private const int DistancePerFrame = 4;
 
         private Vector2 _location;
         private readonly ISprite _sprite;
@@ -99,6 +98,7 @@ namespace Zelda.Projectiles
                     throw new ArgumentOutOfRangeException();
             }
             _currentDistanceAway += DistancePerFrame;
+            Bounds = new Rectangle(_location.ToPoint(), Bounds.Size);
 
             _sprite.Update();
         }

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IProjectile, IDrawable
+    public class Bomb : IProjectile
     {
         private const int FramesToExplosion = 100;
         private const int FramesToDisappear = 160;
@@ -52,6 +51,7 @@ namespace Zelda.Projectiles
             }
             else if (_framesDelayed == FramesToDisappear)
             {
+                Halted = true;
                 _sprite.Hide();
             }
         }
@@ -69,7 +69,7 @@ namespace Zelda.Projectiles
         public ICommand EnemyEffect(IEnemy enemy)
         {
             Halt();
-            _sprite.Hide();
+            //_sprite.Hide();
             return new Commands.SpawnableDamage(enemy);
         }
 
@@ -85,7 +85,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            Halted = true;
+            //no op
         }
 
         public void Draw()

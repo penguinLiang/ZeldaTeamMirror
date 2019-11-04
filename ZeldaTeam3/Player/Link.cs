@@ -33,7 +33,6 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
-            //Projectiles = _secondaryItemAgent.Projectiles;
         }
 
         public void Move(Direction direction)

@@ -9,16 +9,14 @@ namespace Zelda.Dungeon
         private readonly Room _room;
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
+        private readonly List<IProjectile> _projectiles = new List<IProjectile>();
         private int _enemyCount = -1;
 
         public Scene(Room room, IPlayer player)
         {
             _room = room;
             _player = player;
-            //_player.Projectiles = new List<IProjectile>();
-           // _room.Projectiles = player.Projectiles;
         }
-
 
         public void Reset()
         {
@@ -36,41 +34,28 @@ namespace Zelda.Dungeon
 
         public void Update()
         {
+            for (var i = 0; i < _projectiles.Count; i++)
+            {
+                _projectiles[i].Update();
+                if (_projectiles[i].Halted)
+                {
+                    _projectiles.RemoveAt(i--);
+                }
+            }
+
+            _projectiles.AddRange(_player.Projectiles);
+            _player.Projectiles.Clear();
+
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Update();
             }
 
-            List<IProjectile> projectileCollisions = new List<IProjectile>();
-
             foreach (var roomEnemy in _room.Enemies)
             {
-
                 roomEnemy.Update();
-                foreach(var projectile in roomEnemy.Projectiles)
-                {
-                    projectile.Update();
-                   
-                }
-
-                //Get it to hit the barrier. If projectile.collidesWithEnemy -> halted = true;
-                //If Projectile.CollidesWithPlayer -> halted = true;
-                //If Projectile.CollidesWith Block -> halted = true;
-                int k = 0;
-                while (k < roomEnemy.Projectiles.Count)
-                {
-                    if (roomEnemy.Projectiles.ElementAt(k).Halted)
-                    {
-                        roomEnemy.Projectiles.RemoveAt(k);
-                    }
-                    else
-                    {
-                        projectileCollisions.Add(roomEnemy.Projectiles.ElementAt(k));
-                        //if the projectile was still valid, then we'll need to check it's collisions
-                    }
-                    k++;
-                }
-                //Above loop checks all of the enemy projectiles, for each enemy
+                _projectiles.AddRange(roomEnemy.Projectiles);
+                roomEnemy.Projectiles.Clear();
 
                 foreach (var roomCollidable in _room.Collidables)
                 {
@@ -90,6 +75,19 @@ namespace Zelda.Dungeon
                 {
                     roomEnemy.PlayerEffect(_player).Execute();
                 }
+
+                foreach (var projectile in _projectiles)
+                {
+                    if (roomEnemy.CollidesWith(projectile.Bounds))
+                    {
+                        roomEnemy.ProjectileEffect(projectile).Execute();
+                    }
+
+                    if (projectile.CollidesWith(roomEnemy.Bounds))
+                    {
+                        projectile.EnemyEffect(roomEnemy).Execute();
+                    }
+                }
             }
 
             foreach (var roomCollidable in _room.Collidables)
@@ -97,62 +95,31 @@ namespace Zelda.Dungeon
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
 
-                int j = 0;
- 
-                    while (j < _player.Projectiles.Count)
-                    {
-                        if (_player.Projectiles.ElementAt(j).Halted)
-                        {
-                            _player.Projectiles.RemoveAt(j);
-                        }
-                        else
-                        {
-                            projectileCollisions.Add(_player.Projectiles.ElementAt(j));
-                        }
-                        j++;
-                    }
+                foreach (var projectile in _projectiles)
+                {
+                    if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
 
-                
-                //Above loop checks player for projectiles, and then determines if any are invalid
-
+                    roomCollidable.ProjectileEffect(projectile).Execute();
+                }
             }
 
- 
-            foreach (var projectile in projectileCollisions)
+            foreach (var projectile in _projectiles)
             {
-
                 if (projectile.CollidesWith(_player.BodyCollision.Bounds))
                 {
-                    //projectile hit link
                     projectile.PlayerEffect(_player).Execute();
                 }
-                
-                foreach(var enemy in _room.Enemies)
-                {
-                    if (projectile.CollidesWith(enemy.Bounds))
-                    {
-                        projectile.EnemyEffect(enemy).Execute();
-                    }
-                }
 
-                foreach(var collidable in _room.Collidables)
+                if (_player.BodyCollision.CollidesWith(projectile.Bounds))
                 {
-                    if (projectile.CollidesWith(collidable.Bounds))
-                    {
-                        collidable.ProjectileEffect(projectile).Execute();
-                    }
+                    _player.BodyCollision.ProjectileEffect(projectile).Execute();
                 }
-                
-
             }
-                //Run the valid projectiles (that is, the ones that have not hit an enemy or player, or were Halted in the last call) and check collisions
-
-            
-
+ 
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (LINQ is slow here)
             foreach (var key in _enemiesAttackThrottle.Keys.ToList())
             {
-                if (_enemiesAttackThrottle[key]-- == 0) _enemiesAttackThrottle.Remove(key);
+                if (_enemiesAttackThrottle[key]-- <= 0) _enemiesAttackThrottle.Remove(key);
             }
         }
 
@@ -161,6 +128,11 @@ namespace Zelda.Dungeon
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Draw();
+            }
+
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Draw();
             }
 
             foreach (var roomEnemy in _room.Enemies)

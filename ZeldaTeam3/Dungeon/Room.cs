@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
-using Zelda.Dungeon;
-using Zelda.Projectiles;
 
 namespace Zelda.Dungeon
 {
@@ -18,14 +16,13 @@ namespace Zelda.Dungeon
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
         private readonly EnemyType _enemyType;
-        private DungeonManager _dungeonManager;
+        private readonly DungeonManager _dungeonManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
         {
             _enemyType = (EnemyType) enemyID;
             _dungeonManager = dungeon;
-            Enemies = new List<IEnemy>();
 
             for (var row = 0; row < tiles.Length; row++)
             {
@@ -213,6 +210,7 @@ namespace Zelda.Dungeon
 
             return true;
         }
+
         private bool TryAddStair(MapTile tile, Point location)
         {
             BlockType blockType;

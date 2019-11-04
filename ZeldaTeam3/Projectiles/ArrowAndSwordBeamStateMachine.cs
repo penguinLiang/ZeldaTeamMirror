@@ -66,6 +66,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            Bounds = new Rectangle(_location, Bounds.Size);
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Zelda.Enemies
 
         public override List<IProjectile> Projectiles { get; set; }
 
-        private Projectiles.GoriyaBoomerang _boomerang;
         private bool _updateSpriteFlag;
         private Direction _statusDirection;
 
@@ -83,8 +82,7 @@ namespace Zelda.Enemies
                     throw new ArgumentOutOfRangeException();
             }
 
-            _boomerang = new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection);
-            //Add to Projectiles
+            Projectiles.Add(new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection));
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -217,13 +215,6 @@ namespace Zelda.Enemies
             if (_updateSpriteFlag) UpdateSprite();
 
             base.Update();
-            _boomerang?.Update();
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-            _boomerang?.Draw();
         }
     }
 }
