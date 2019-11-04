@@ -107,7 +107,7 @@ namespace Zelda.Enemies
             return new MoveableHalt(enemy);
         }
 
-        public virtual ICommand ProjectileEffect(IHaltable projectile)
+        public virtual ICommand ProjectileEffect(IProjectile projectile)
         {
             return new MoveableHalt(projectile);
         }

@@ -62,7 +62,7 @@ namespace Zelda.Projectiles
             return new Commands.SpawnableDamage(enemy);
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
         }
