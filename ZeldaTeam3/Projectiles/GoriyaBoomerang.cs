@@ -58,7 +58,7 @@ namespace Zelda.Projectiles
         public ICommand PlayerEffect(IPlayer player)
         {
             Halt();
-            Bounds = new Rectangle(0, 0, 0, 0);
+            Bounds = Rectangle.Empty;
             return new Commands.SpawnableDamage(player);
         }
 

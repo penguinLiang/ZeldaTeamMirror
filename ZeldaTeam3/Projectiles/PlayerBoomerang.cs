@@ -68,18 +68,18 @@ namespace Zelda.Projectiles
                 case Gel _:
                 case OldMan _:
                     Halt();
-                    Bounds = new Rectangle(0, 0, 0, 0);
+                    Bounds = Rectangle.Empty;
                     return new Commands.SpawnableDamage(enemy);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:
                     Halt();
-                    Bounds = new Rectangle(0, 0, 0, 0);
+                    Bounds = Rectangle.Empty;
                     return new Commands.MoveableHalt(enemy);
                 case Aquamentus _:
                 case Trap _:
                     Halt();
-                    Bounds = new Rectangle(0, 0, 0, 0);
+                    Bounds = Rectangle.Empty;
                     return Commands.NoOp.Instance;
                 default:
                     throw new ArgumentOutOfRangeException();
