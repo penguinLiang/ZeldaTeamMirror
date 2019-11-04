@@ -51,7 +51,6 @@ namespace Zelda.Dungeon
                 //For each roomEnemy.projectiles
                 //How to remove item if you're iterating over them
                 //projectile.Update();
-
                 foreach(var projectile in roomEnemy.Projectiles)
                 {
                     projectile.Update();
@@ -83,6 +82,7 @@ namespace Zelda.Dungeon
                     ///SCENE Handles removal, link/enemy do not care after they throw it out there
 
                 //Check Player for valid projectiles
+
 
                 foreach (var roomCollidable in _room.Collidables)
                 {
@@ -129,18 +129,27 @@ namespace Zelda.Dungeon
  
             foreach (var projectile in projectileCollisions)
             {
-                //check collisions against enemies
+
+                if (projectile.CollidesWith(_player.BodyCollision.Bounds))
+                {
+                    //projectile hit link
+                    projectile.PlayerEffect(_player).Execute();
+                }
+                
                 foreach(var enemy in _room.Enemies)
                 {
-                    projectile.EnemyEffect(enemy).Execute();
-                    //projectile hit enemy
+                    if (projectile.CollidesWith(enemy.Bounds))
+                    {
+                        projectile.EnemyEffect(enemy).Execute();
+                    }
                 }
 
                 foreach(var collidable in _room.Collidables)
                 {
-                    collidable.ProjectileEffect(projectile).Execute();
-                    //projectile hit object
-
+                    if (projectile.CollidesWith(collidable.Bounds))
+                    {
+                        collidable.ProjectileEffect(projectile).Execute();
+                    }
                 }
                 
 
