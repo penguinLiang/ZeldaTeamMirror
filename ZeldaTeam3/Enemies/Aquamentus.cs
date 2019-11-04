@@ -23,10 +23,12 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
+      public override List<IProjectile> Projectiles { get; set; }
 
         public Aquamentus(Point location)
         {
             _origin  = location;
+            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()
@@ -83,6 +85,7 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Attacking:
+                   //Add projectiles to array
                     break;
                 default:
                     throw new NotImplementedException();

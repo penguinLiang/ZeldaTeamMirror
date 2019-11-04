@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Zelda.Commands;
 
 namespace Zelda.Enemies
@@ -8,7 +9,7 @@ namespace Zelda.Enemies
         protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
         public override bool Alive => true;
-
+        public override List<IProjectile> Projectiles { get; set; }
         public override void Halt()
         {
             // NO-OP: Old man doesn't move
@@ -17,6 +18,8 @@ namespace Zelda.Enemies
         public OldMan(Point location)
         {
             Location = location + new Point(8, 0);
+            Projectiles = new List<IProjectile>();
+            //when he attacks, add the projectiles to the array
         }
 
         public override ICommand PlayerEffect(IPlayer player)

@@ -17,8 +17,6 @@ namespace Zelda.Dungeon
         public IList<ICollideable> Collidables = new List<ICollideable>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
-        public IList<IProjectile> Projectiles;
-
         private readonly EnemyType _enemyType;
         private DungeonManager _dungeonManager;
 
@@ -45,13 +43,6 @@ namespace Zelda.Dungeon
             }
         }
 
-
-        public void AddProjectile(Point location, Direction direction, bool fromAquamentus)
-        {
-            var projectile = new Arrow(location, direction);
-            Collidables.Add(projectile);
-            
-        }
 
         private IEnemy MakeEnemy(Point spawnPoint)
         {

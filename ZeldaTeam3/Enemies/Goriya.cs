@@ -19,8 +19,10 @@ namespace Zelda.Enemies
             AgentState.Halted,
             AgentState.Attacking
         };
-
+        
         private readonly Point _origin;
+
+        public override List<IProjectile> Projectiles { get; set; }
 
         private Projectiles.GoriyaBoomerang _boomerang;
         private bool _updateSpriteFlag;
@@ -33,6 +35,7 @@ namespace Zelda.Enemies
         public Goriya(Point location)
         {
             _origin = location;
+            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()
@@ -82,6 +85,7 @@ namespace Zelda.Enemies
             }
 
             _boomerang = new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection);
+            //Add to Projectiles
             _timeSinceBoomerangThrown = 0;
         }
 

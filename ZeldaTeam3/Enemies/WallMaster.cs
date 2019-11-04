@@ -23,6 +23,7 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
+        public override List<IProjectile> Projectiles { get; set; }
 
         public WallMaster(Point location)
         {

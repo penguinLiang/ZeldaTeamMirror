@@ -14,6 +14,7 @@ namespace Zelda.Projectiles
         private int _framesDelayed;
 
         public Rectangle Bounds { get; private set; }
+        public bool Halted { get; set; } 
 
         public Fireball(Point location, Vector2 velocity, bool fromAquamentus)
         {
@@ -29,6 +30,7 @@ namespace Zelda.Projectiles
             {
                 _sprite = ProjectileSpriteFactory.Instance.CreateOldManFireball();
             }
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -52,16 +54,12 @@ namespace Zelda.Projectiles
         }
 
         public void Halt() {
-            RemoveProjectile(this);
+            Halted = true;
         }
 
         public void Knockback()
         {
             //no op
-        }
-
-
-        public void RemoveProjectile(IProjectile projectile) {
         }
 
         public void Update()

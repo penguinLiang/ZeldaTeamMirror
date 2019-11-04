@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Zelda
 {
@@ -7,6 +8,8 @@ namespace Zelda
         int Health { get; }
         int MaxHealth { get; }
 
+        List <IProjectile> Projectiles { get; set; }
+        //factor out to a master class?
         Player.Inventory Inventory { get; }
 
         ICollideable BodyCollision { get; }

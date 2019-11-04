@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
@@ -14,6 +15,9 @@ namespace Zelda.Enemies
         protected int Health = 1;
 
         protected bool Spawned;
+
+       public abstract List<IProjectile> Projectiles { get; set; }
+        //Most enemies have no projectiles
 
         public virtual bool Alive => Spawned && Health > 0;
 

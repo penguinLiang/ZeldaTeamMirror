@@ -21,9 +21,12 @@ namespace Zelda.Player
         public Point projectileLocation;
         public Direction _facing;
 
+      public List<IProjectile> Projectiles { get; set; }
+
         public SecondaryItemAgent()
         {
             UsingSecondaryItem = false;
+            Projectiles = new List<IProjectile>();
         }
 
 
@@ -54,6 +57,7 @@ namespace Zelda.Player
                     _drawables.Add(Arrow);
                     projectileLocation = location;
                     _facing = facing;
+                    Projectiles.Add(Arrow);
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
@@ -62,12 +66,14 @@ namespace Zelda.Player
                     _drawables.Add(PlayerBoomerang);
                     projectileLocation = location;
                     _facing = facing;
+                    Projectiles.Add(PlayerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
                     var Bomb = new Projectiles.Bomb(location);
                     _drawables.Add(Bomb);
                     projectileLocation = location;
                     _facing = facing;
+                    Projectiles.Add(Bomb);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

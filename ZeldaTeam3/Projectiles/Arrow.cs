@@ -14,7 +14,7 @@ namespace Zelda.Projectiles
         public  Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
-
+       public bool Halted { get; set; }
 
         private Point _location;
             private Direction _direction;
@@ -41,6 +41,7 @@ namespace Zelda.Projectiles
             _location = location;
             _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction);
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -52,6 +53,7 @@ namespace Zelda.Projectiles
         {
             return Commands.NoOp.Instance;
         }
+
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
@@ -67,15 +69,8 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            RemoveProjectile();
+            Halted = true;
         }
-
-        public void RemoveProjectile() {
-            //Send a Command?
-           
-            //We need to remove the projectile, but how?
-        }
-
 
         public void Knockback() { }
 

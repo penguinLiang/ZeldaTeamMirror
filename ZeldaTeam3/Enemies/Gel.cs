@@ -24,10 +24,13 @@ namespace Zelda.Enemies
         private const int ActionDelay = 16;
         private int _agentClock;
 
+      public override  List<IProjectile> Projectiles { get; set; }
+
         public Gel(Point location)
         {
             _origin = location;
             _agentStatus = AgentState.Ready;
+
         }
 
         public override void Spawn()

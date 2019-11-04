@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Zelda.Player
 {
@@ -9,6 +10,7 @@ namespace Zelda.Player
         private DeadSpriteStateMachine _deadSpriteStateMachine;
         private HealthStateMachine _healthStateMachine;
         private SecondaryItemAgent _secondaryItemAgent ;
+       public List<IProjectile> Projectiles { get; set; }
 
         // Prevents key queue from messing with movement after immediately teleporting
         private bool _teleportLock;

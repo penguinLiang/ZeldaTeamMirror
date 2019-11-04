@@ -24,6 +24,8 @@ namespace Zelda.Enemies
         private Direction _currentDirection;
         private AgentState _agentStatus;
 
+        public override List<IProjectile> Projectiles { get; set; }
+
         public Stalfos(Point location)
         {
             _origin  = location;

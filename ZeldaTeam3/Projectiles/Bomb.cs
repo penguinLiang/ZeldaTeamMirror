@@ -15,10 +15,12 @@ namespace Zelda.Projectiles
         private ISprite _sprite;
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
+        public bool Halted { get; set; }
         public Bomb(Point location)
         {
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
+            Halted = false;
         }
 
         private void SetExplosionSpriteLocations()
@@ -75,10 +77,6 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public void RemoveProjectile(IProjectile projectile)
-        {
-        }
-
         public void Knockback()
         {
             //no op
@@ -86,6 +84,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
+            Halted = true;
         }
 
         public void Draw()

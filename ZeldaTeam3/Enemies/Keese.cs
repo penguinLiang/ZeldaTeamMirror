@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
@@ -14,7 +15,7 @@ namespace Zelda.Enemies
         private readonly Point _origin;
         private uint _movementClock;
         private int _movementPauseClock;
-
+        public override List<IProjectile> Projectiles { get; set; }
         public Keese(Point location)
         {
             _origin = location;
