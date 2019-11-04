@@ -28,6 +28,7 @@ namespace Zelda.Enemies
         public WallMaster(Point location)
         {
             _origin = location;
+            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()

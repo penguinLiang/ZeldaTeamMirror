@@ -25,6 +25,7 @@ namespace Zelda.Dungeon
         {
             _enemyType = (EnemyType) enemyID;
             _dungeonManager = dungeon;
+            Enemies = new List<IEnemy>();
 
             for (var row = 0; row < tiles.Length; row++)
             {

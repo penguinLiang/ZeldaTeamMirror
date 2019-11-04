@@ -20,6 +20,7 @@ namespace Zelda.Enemies
         public Trap(Point location)
         {
             _origin = location;
+            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()

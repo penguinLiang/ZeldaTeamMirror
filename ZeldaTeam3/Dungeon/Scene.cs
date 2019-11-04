@@ -16,6 +16,8 @@ namespace Zelda.Dungeon
         {
             _room = room;
             _player = player;
+            _player.Projectiles = new List<IProjectile>();
+            //_room.Enemies
         }
 
 
@@ -39,10 +41,12 @@ namespace Zelda.Dungeon
             {
                 roomDrawable.Update();
             }
-    
-            
+
+            List<IProjectile> projectileCollisions = new List<IProjectile>();
+
             foreach (var roomEnemy in _room.Enemies)
             {
+
                 roomEnemy.Update();
                 //For each roomEnemy.projectiles
                 //How to remove item if you're iterating over them
@@ -53,23 +57,22 @@ namespace Zelda.Dungeon
                     projectile.Update();
                 }
 
-                foreach(var projectile in roomEnemy.Projectiles)
+                int k = 0;
+                while (k < roomEnemy.Projectiles.Count)
                 {
-                    //see if it is halted
-                    //if halted, remove from array
-                    if (projectile.Halted)
+                    if (roomEnemy.Projectiles.ElementAt(k).Halted)
                     {
-                        //remove entirely
+                        roomEnemy.Projectiles.RemoveAt(k);
                     }
+                    else
+                    {
+                        projectileCollisions.Add(roomEnemy.Projectiles.ElementAt(k));
+                        //if the projectile was still valid, then we'll need to check it's collisions
+                    }
+                    k++;
                 }
+                //Above loop checks all of the enemy projectiles, for each enemy
 
-              
-
-                //if projectile.isHalted -> remove from array
-                //check each item in projectile array, see if it needs to be removed
-                //Removal code?
-                //add each projectile to a list, then do a collision check
-                //As you update, loop though and remove projectiles that aren't active anymore, so loop through again, make a local array of projectiles
               
                 //Concatenate the remaining arrays -> Then check all collisions at once
 
@@ -79,6 +82,7 @@ namespace Zelda.Dungeon
                 
                     ///SCENE Handles removal, link/enemy do not care after they throw it out there
 
+                //Check Player for valid projectiles
 
                 foreach (var roomCollidable in _room.Collidables)
                 {
@@ -104,11 +108,46 @@ namespace Zelda.Dungeon
             {
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
-           //check projectiles to see if they collide with wall
-                
-                //foreach player . . .
+
+                int j = 0;
+                while (j < _player.Projectiles.Count)
+                {
+                    if (_player.Projectiles.ElementAt(j).Halted)
+                    {
+                        _player.Projectiles.RemoveAt(j);
+                    }
+                    else
+                    {
+                        projectileCollisions.Add(_player.Projectiles.ElementAt(j));
+                    }
+                    j++;
+                }
+                //Above loop checks player for projectiles, and then determines if any are invalid
 
             }
+
+ 
+            foreach (var projectile in projectileCollisions)
+            {
+                //check collisions against enemies
+                foreach(var enemy in _room.Enemies)
+                {
+                    projectile.EnemyEffect(enemy).Execute();
+                    //projectile hit enemy
+                }
+
+                foreach(var collidable in _room.Collidables)
+                {
+                    collidable.ProjectileEffect(projectile).Execute();
+                    //projectile hit object
+
+                }
+                
+
+            }
+                //Run the valid projectiles (that is, the ones that have not hit an enemy or player, or were Halted in the last call) and check collisions
+
+            
 
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (LINQ is slow here)
             foreach (var key in _enemiesAttackThrottle.Keys.ToList())
