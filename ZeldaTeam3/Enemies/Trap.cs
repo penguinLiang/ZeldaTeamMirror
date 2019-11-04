@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
 namespace Zelda.Enemies
 {
@@ -14,8 +13,6 @@ namespace Zelda.Enemies
         private Direction _moving;
         private bool _halted;
         private int _distance;
-        public override List<IProjectile> Projectiles { get; set; }
-
 
         public Trap(Point location)
         {

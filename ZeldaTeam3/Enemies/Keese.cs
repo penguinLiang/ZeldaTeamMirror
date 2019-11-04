@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
@@ -8,14 +7,14 @@ namespace Zelda.Enemies
     {
         private static readonly Random Rng = new Random();
 
-        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
 
         private readonly Point _origin;
         private uint _movementClock;
         private int _movementPauseClock;
-        public override List<IProjectile> Projectiles { get; set; }
+
         public Keese(Point location)
         {
             _origin = location;

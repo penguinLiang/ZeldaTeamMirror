@@ -16,8 +16,8 @@ namespace Zelda.Enemies
 
         protected bool Spawned;
 
-       public abstract List<IProjectile> Projectiles { get; set; }
         //Most enemies have no projectiles
+        public List<IProjectile> Projectiles { get; set; } = new List<IProjectile>();
 
         public virtual bool Alive => Spawned && Health > 0;
 
@@ -33,7 +33,6 @@ namespace Zelda.Enemies
             Spawned = true;
             _spawnSprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
-            Projectiles = new List<IProjectile>();
         }
 
         public virtual void TakeDamage()
@@ -95,7 +94,7 @@ namespace Zelda.Enemies
 
         public virtual bool CollidesWith(Rectangle rect)
         {
-            return Bounds.Intersects(rect);
+            return Alive && Bounds.Intersects(rect);
         }
 
         public virtual ICommand PlayerEffect(IPlayer player)
