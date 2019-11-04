@@ -9,7 +9,7 @@ namespace Zelda.Enemies
         private const int BoomerangDuration = 40;
         private const int ActionDelay = 30;
 
-        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
@@ -21,8 +21,6 @@ namespace Zelda.Enemies
         };
         
         private readonly Point _origin;
-
-        public override List<IProjectile> Projectiles { get; set; }
 
         private bool _updateSpriteFlag;
         private Direction _statusDirection;

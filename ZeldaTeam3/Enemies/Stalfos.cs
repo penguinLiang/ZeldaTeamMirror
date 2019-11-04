@@ -8,7 +8,7 @@ namespace Zelda.Enemies
     {
         private const int ActionDelay = 16;
 
-        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
@@ -23,8 +23,6 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
-
-        public override List<IProjectile> Projectiles { get; set; }
 
         public Stalfos(Point location)
         {

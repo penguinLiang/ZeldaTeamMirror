@@ -10,7 +10,7 @@ namespace Zelda.Enemies
 
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
-        public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
+        public override Rectangle Bounds => Alive ? new Rectangle(Location, new Point(24, 32)) : Rectangle.Empty;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
             AgentState.Ready,
@@ -23,7 +23,6 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
-      public override List<IProjectile> Projectiles { get; set; }
 
         public Aquamentus(Point location)
         {
