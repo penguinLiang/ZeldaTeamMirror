@@ -9,13 +9,11 @@ namespace Zelda
         int MaxHealth { get; }
 
         List <IProjectile> Projectiles { get; }
-        //factor out to a master class?
         Player.Inventory Inventory { get; }
 
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
-
         bool UsingSecondaryItem { get; }
 
         void Move(Direction direction);

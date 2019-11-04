@@ -102,7 +102,6 @@ namespace Zelda.Player
             if (_aliveSpriteStateMachine.UsingItem) return;
             _aliveSpriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
-            //System.Diagnostics.Debug.WriteLine("is the projectile list empty? " + Projectiles.Count);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
