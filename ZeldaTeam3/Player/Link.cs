@@ -20,7 +20,7 @@ namespace Zelda.Player
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
 
-        public List<IProjectile> Projectiles { get; set; }
+        public List<IProjectile> Projectiles => _secondaryItemAgent.Projectiles;
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _secondaryItemAgent.UsingSecondaryItem;
@@ -33,7 +33,7 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
-            Projectiles = new List<IProjectile>();
+            //Projectiles = _secondaryItemAgent.Projectiles;
         }
 
         public void Move(Direction direction)
@@ -103,6 +103,7 @@ namespace Zelda.Player
             if (_aliveSpriteStateMachine.UsingItem) return;
             _aliveSpriteStateMachine.UseSecondaryItem();
             _secondaryItemAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
+            //System.Diagnostics.Debug.WriteLine("is the projectile list empty? " + Projectiles.Count);
         }
 
         public void AssignSecondaryItem(Items.Secondary item)

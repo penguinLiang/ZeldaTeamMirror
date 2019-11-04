@@ -15,8 +15,9 @@ namespace Zelda.Dungeon
         {
             _room = room;
             _player = player;
-            _player.Projectiles = new List<IProjectile>();
-            _room.Projectiles = player.Projectiles;
+            _room.player = _player;
+            //_player.Projectiles = new List<IProjectile>();
+           // _room.Projectiles = player.Projectiles;
         }
 
 
@@ -50,8 +51,12 @@ namespace Zelda.Dungeon
                 foreach(var projectile in roomEnemy.Projectiles)
                 {
                     projectile.Update();
+                   
                 }
 
+                //Get it to hit the barrier. If projectile.collidesWithEnemy -> halted = true;
+                //If Projectile.CollidesWithPlayer -> halted = true;
+                //If Projectile.CollidesWith Block -> halted = true;
                 int k = 0;
                 while (k < roomEnemy.Projectiles.Count)
                 {
@@ -88,15 +93,6 @@ namespace Zelda.Dungeon
                 }
             }
 
-            if (_room.Projectiles != null)
-            {
-                System.Diagnostics.Debug.WriteLine("is the projectile list empty? " + _room.Projectiles.Count);
-
-                foreach (var projectile in _room.Projectiles)
-                {
-                    _room.AddProjectile(projectile);
-                }
-            }
             foreach (var roomCollidable in _room.Collidables)
             {
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
@@ -104,8 +100,7 @@ namespace Zelda.Dungeon
 
             
                 int j = 0;
-                if (_player.Projectiles != null)
-                {
+ 
                     while (j < _player.Projectiles.Count)
                     {
                         if (_player.Projectiles.ElementAt(j).Halted)
@@ -119,7 +114,7 @@ namespace Zelda.Dungeon
                         j++;
                     }
 
-                }
+                
                 //Above loop checks player for projectiles, and then determines if any are invalid
 
             }

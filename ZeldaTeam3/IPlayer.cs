@@ -8,7 +8,7 @@ namespace Zelda
         int Health { get; }
         int MaxHealth { get; }
 
-        List <IProjectile> Projectiles { get; set; }
+        List <IProjectile> Projectiles { get; }
         //factor out to a master class?
         Player.Inventory Inventory { get; }
 

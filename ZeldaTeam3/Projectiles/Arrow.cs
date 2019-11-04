@@ -59,6 +59,7 @@ namespace Zelda.Projectiles
         {
             _sprite.Hide();
             _arrowStateMachine.ClearBounds();
+            Halt();
             return new Commands.SpawnableDamage(enemy);
         }
 

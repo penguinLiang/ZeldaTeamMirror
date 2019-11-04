@@ -15,7 +15,7 @@ namespace Zelda.Projectiles
 
         private int _currentDistanceAway;
         private Direction _direction;
-        public Rectangle Bounds { get; }
+        public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
 
         public PlayerBoomerang(Point location, Direction direction)
@@ -68,13 +68,19 @@ namespace Zelda.Projectiles
                 case Keese _:
                 case Gel _:
                 case OldMan _:
+                    Halt();
+                    Bounds = new Rectangle(0, 0, 0, 0);
                     return new Commands.SpawnableDamage(enemy);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:
+                    Halt();
+                    Bounds = new Rectangle(0, 0, 0, 0);
                     return new Commands.MoveableHalt(enemy);
                 case Aquamentus _:
                 case Trap _:
+                    Halt();
+                    Bounds = new Rectangle(0, 0, 0, 0);
                     return Commands.NoOp.Instance;
                 default:
                     throw new ArgumentOutOfRangeException();

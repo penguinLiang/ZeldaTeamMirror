@@ -14,7 +14,7 @@ namespace Zelda.Projectiles
 
         private int _currentDistanceAway;
         private Direction _direction;
-        public Rectangle Bounds { get; }
+        public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
 
 
@@ -58,6 +58,8 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            Halt();
+            Bounds = new Rectangle(0, 0, 0, 0);
             return new Commands.SpawnableDamage(player);
         }
 
