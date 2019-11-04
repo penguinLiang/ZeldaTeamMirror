@@ -69,6 +69,8 @@ namespace Zelda.Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+       
             _drawableExpirations.Add(0);
             UsingSecondaryItem = true;
         }

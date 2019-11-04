@@ -16,6 +16,7 @@ namespace Zelda.Dungeon
             _room = room;
             _player = player;
             _player.Projectiles = new List<IProjectile>();
+            _room.Projectiles = player.Projectiles;
         }
 
 
@@ -67,7 +68,6 @@ namespace Zelda.Dungeon
                 }
                 //Above loop checks all of the enemy projectiles, for each enemy
 
-
                 foreach (var roomCollidable in _room.Collidables)
                 {
                     if (!roomCollidable.CollidesWith(roomEnemy.Bounds)) continue;
@@ -88,23 +88,37 @@ namespace Zelda.Dungeon
                 }
             }
 
+            if (_room.Projectiles != null)
+            {
+                System.Diagnostics.Debug.WriteLine("is the projectile list empty? " + _room.Projectiles.Count);
+
+                foreach (var projectile in _room.Projectiles)
+                {
+                    _room.AddProjectile(projectile);
+                }
+            }
             foreach (var roomCollidable in _room.Collidables)
             {
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
 
+            
                 int j = 0;
-                while (j < _player.Projectiles.Count)
+                if (_player.Projectiles != null)
                 {
-                    if (_player.Projectiles.ElementAt(j).Halted)
+                    while (j < _player.Projectiles.Count)
                     {
-                        _player.Projectiles.RemoveAt(j);
+                        if (_player.Projectiles.ElementAt(j).Halted)
+                        {
+                            _player.Projectiles.RemoveAt(j);
+                        }
+                        else
+                        {
+                            projectileCollisions.Add(_player.Projectiles.ElementAt(j));
+                        }
+                        j++;
                     }
-                    else
-                    {
-                        projectileCollisions.Add(_player.Projectiles.ElementAt(j));
-                    }
-                    j++;
+
                 }
                 //Above loop checks player for projectiles, and then determines if any are invalid
 

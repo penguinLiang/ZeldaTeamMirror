@@ -10,7 +10,6 @@ namespace Zelda.Player
         private DeadSpriteStateMachine _deadSpriteStateMachine;
         private HealthStateMachine _healthStateMachine;
         private SecondaryItemAgent _secondaryItemAgent ;
-       public List<IProjectile> Projectiles { get; set; }
 
         // Prevents key queue from messing with movement after immediately teleporting
         private bool _teleportLock;
@@ -20,7 +19,8 @@ namespace Zelda.Player
         public bool Alive => _healthStateMachine.Alive;
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
-   
+
+        public List<IProjectile> Projectiles { get; set; }
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _secondaryItemAgent.UsingSecondaryItem;
@@ -33,6 +33,7 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
+            Projectiles = new List<IProjectile>();
         }
 
         public void Move(Direction direction)
