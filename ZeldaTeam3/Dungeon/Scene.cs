@@ -15,7 +15,6 @@ namespace Zelda.Dungeon
         {
             _room = room;
             _player = player;
-            _room.player = _player;
             //_player.Projectiles = new List<IProjectile>();
            // _room.Projectiles = player.Projectiles;
         }

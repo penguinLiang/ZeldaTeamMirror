@@ -17,9 +17,6 @@ namespace Zelda.Dungeon
         public IList<ICollideable> Collidables = new List<ICollideable>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
 
-        public IPlayer player;
-        public IList<IProjectile> Projectiles => player.Projectiles;
-
         private readonly EnemyType _enemyType;
         private DungeonManager _dungeonManager;
 
