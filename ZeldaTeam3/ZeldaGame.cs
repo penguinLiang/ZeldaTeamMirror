@@ -74,9 +74,6 @@ namespace Zelda
 
             GameStateAgent.Update();
 
-            if (Link.Alive || _aliveReset-- != 0) return;
-            GameStateAgent.Continue();
-            _aliveReset = 460;
         }
 
         protected override void Draw(GameTime gameTime)

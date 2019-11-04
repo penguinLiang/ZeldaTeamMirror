@@ -10,7 +10,7 @@ namespace Zelda.GameState
         public override IUpdatable[] Updatables => _updatables;
         public override IDrawable[] ScaledDrawables => _scaledDrawables;
 
-        private readonly GameOverScreen _screen = new GameOverScreen();
+        private readonly GameOverMenu _screen;
         private readonly FrameDelay _menuDelay = new FrameDelay(300);
         private readonly GameOverControllerKeyboard _controllerKeyboard;
 
@@ -18,7 +18,9 @@ namespace Zelda.GameState
         {
             MusicManager.Instance.PlayGameOverMusic();
             _controllerKeyboard = new GameOverControllerKeyboard(agent);
+           _screen  = new GameOverMenu(agent);
             _updatables = new IUpdatable[]
+
             {
                 new QuitResetControllerKeyboard(agent), 
                 StateAgent.Player,
