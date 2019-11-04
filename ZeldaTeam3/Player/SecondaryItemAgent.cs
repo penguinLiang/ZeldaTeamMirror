@@ -12,7 +12,7 @@ namespace Zelda.Player
         private readonly List<IDrawable> _drawables = new List<IDrawable>();
         private readonly List<int> _drawableExpirations = new List<int>();
 
-        private Items.Secondary _item;
+        public Items.Secondary Item;
 
         public void UseSecondaryItem(Direction facing, Point location)
         {
@@ -34,7 +34,7 @@ namespace Zelda.Player
                     throw new ArgumentOutOfRangeException();
             }
 
-            switch (_item)
+            switch (Item)
             {
                 case Items.Secondary.Bow:
                     _drawables.Add(new Projectiles.Arrow(location, facing));
@@ -55,7 +55,7 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Items.Secondary item)
         {
-            _item = item;
+            Item = item;
         }
 
         public void Update()

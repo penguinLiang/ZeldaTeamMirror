@@ -1,17 +1,19 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.GameState;
+
+namespace Zelda.Commands
 {
     internal class Quit : ICommand
     {
-        private readonly ZeldaGame _zeldaGame;
+        private readonly GameStateAgent _agent;
 
-        public Quit(ZeldaGame zeldaGame)
+        public Quit(GameStateAgent agent)
         {
-            _zeldaGame = zeldaGame;
+            _agent = agent;
         }
 
         public void Execute()
         {
-            _zeldaGame.Exit();
+            _agent.Quit();
         }
 
         public override string ToString() => "Quit the game";

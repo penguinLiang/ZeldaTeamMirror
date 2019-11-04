@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
-using Zelda.Dungeon;
 
 namespace Zelda.Dungeon
 {
@@ -15,7 +14,9 @@ namespace Zelda.Dungeon
         public IList<IEnemy> Enemies = new List<IEnemy>();
         public IList<ICollideable> Collidables = new List<ICollideable>();
         public IList<IDrawable> Drawables = new List<IDrawable>();
+        private ActivatableMovableBlock _AMBlock = null;
 
+        private readonly Random _rnd = new Random();
         private readonly EnemyType _enemyType;
         private DungeonManager _dungeonManager;
 
@@ -99,12 +100,13 @@ namespace Zelda.Dungeon
                     Drawables.Add(triforce);
                     break;
                 case MapTile.Room2_1Block:
-                    var room21Block = new MovableBlock(location);
+                    var room21Block = new ActivatableMovableBlock(this, BlockType.Block2_1, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
+                    _AMBlock = room21Block;
                     break;
                 case MapTile.PushableBlock:
-                    var pushableBlock = new MovableBlock(location);
+                    var pushableBlock = new MovableBlock(this, BlockType.PushableBlock, location);
                     Collidables.Add(pushableBlock);
                     Drawables.Add(pushableBlock);
                     break;
@@ -195,9 +197,6 @@ namespace Zelda.Dungeon
                 case MapTile.DoorLockedDown:
                     blockType = BlockType.DoorLockedDown;
                     break;
-                case MapTile.DoorSpecialUp1_1:
-                    blockType = BlockType.DoorSpecialUp1_1;
-                    break;
                 case MapTile.DoorBombableUp:
                     blockType = BlockType.BombableWallTop;
                     break;
@@ -218,7 +217,7 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
-            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other 
+            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other cases)
             switch (tile)
             {
                 case MapTile.DungeonStairs:
@@ -226,6 +225,9 @@ namespace Zelda.Dungeon
                     break;
                 case MapTile.BasementStairs:
                     blockType = BlockType.BasementStair;
+                    break;
+                case MapTile.StairSpecialUp1_1:
+                    blockType = BlockType.StairSpecialUp1_1;
                     break;
                 default:
                     return false;
@@ -274,6 +276,49 @@ namespace Zelda.Dungeon
             Drawables.Add(barrier);
 
             return true;
+        }
+
+        public void AddDroppedItem(int enemyX, int enemyY)
+        {
+            int rand = _rnd.Next(100);
+            if (rand >= 67) // No drop = 67%
+            {
+                if (rand < 82)
+                {
+                    var item = new Rupee(new Point(enemyX + 4, enemyY)); // 1 Rupee = 15%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 92)
+                {
+                    var item = new DroppedHeart(new Point(enemyX + 4, enemyY + 4)); // Dropped Heart = 10%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 97)
+                {
+                    var item = new Rupee5(new Point(enemyX + 4, enemyY)); // 5 Rupee = 5%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 99)
+                {
+                    var item = new BombItem(new Point(enemyX + 4, enemyY)); // Bomb = 2%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else
+                {
+                    var item = new Fairy(new Point(enemyX + 4, enemyY)); // Fairy = 1%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+            }
+        }
+
+        public void MoveableBlockReset()
+        {
+            _AMBlock?.Reset();
         }
     }
 }

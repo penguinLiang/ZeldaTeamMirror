@@ -55,6 +55,6 @@ namespace Zelda.Dungeon
         // Special Doors
         DoorSpecialLeft2_1 = 56,
         DoorSpecialRight3_1 = 57,
-        DoorSpecialUp1_1 = 58
+        StairSpecialUp1_1 = 58
     }
 }

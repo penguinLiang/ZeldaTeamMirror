@@ -12,10 +12,8 @@ namespace Zelda.Items
 
         public Rupee(Point location)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x + 8, y, 8, 16);
-            _drawLocation = new Vector2(x+4, y);
+            Bounds = new Rectangle(location.X, location.Y, 8, 16);
+            _drawLocation = new Vector2(location.X, location.Y);
         }
 
         public bool CollidesWith(Rectangle rect)

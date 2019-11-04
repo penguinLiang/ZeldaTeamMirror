@@ -4,6 +4,9 @@ namespace Zelda
 {
     public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
+        int Health { get; }
+        int MaxHealth { get; }
+
         Player.Inventory Inventory { get; }
 
         Point Location { get; }
@@ -18,6 +21,6 @@ namespace Zelda
         void Heal();
         void FullHeal();
         void AddHeart();
-        void TeleportToEntrance(Direction entranceDirection);
+        void Teleport(Point location, Direction entranceDirection);
     }
 }

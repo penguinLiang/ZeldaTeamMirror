@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-
+using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -11,17 +11,21 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; private set; }
 
         private Point _location;
+        private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
 
-        private bool _unmoved = true;
+        private bool _unmoved;
         private bool _moving;
 
-        public MovableBlock(Point location)
+        public MovableBlock(Room room, BlockType block, Point location)
         {
             _location = location;
+            _origin = location;
+            _unmoved = true;
+            _moving = false;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
-        }
+        } 
 
         public bool CollidesWith(Rectangle rect)
         {
@@ -68,6 +72,7 @@ namespace Zelda.Blocks
 
         public void Update()
         {
+            
             if (_moving)
             {
                 switch (_pushDirection)
