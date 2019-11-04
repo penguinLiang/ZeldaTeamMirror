@@ -114,9 +114,6 @@ namespace Zelda.Projectiles
             _sprite.Update();
         }
 
-        public void AddProjectile(IProjectile projectile) {
-        }
-
         public void RemoveProjectile(IProjectile projectile) {
         }
 

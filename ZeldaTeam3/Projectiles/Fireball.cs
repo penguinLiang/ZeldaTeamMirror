@@ -60,8 +60,6 @@ namespace Zelda.Projectiles
             //no op
         }
 
-        public void AddProjectile(IProjectile projectile) {
-        }
 
         public void RemoveProjectile(IProjectile projectile) {
         }

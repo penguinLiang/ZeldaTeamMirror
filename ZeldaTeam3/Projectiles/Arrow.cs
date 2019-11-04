@@ -67,21 +67,15 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-          
+            RemoveProjectile();
         }
 
-        public void RemoveProjectile(IProjectile projectile) {
+        public void RemoveProjectile() {
             //Send a Command?
-            //Hey Projectile Manager! This Projectile is no longer active!
            
+            //We need to remove the projectile, but how?
         }
 
-        public void AddProjectile(IProjectile projectile)
-        {
-            //Send a command?
-            //Hey Projectile Manager! Add a type Arrow to the current list!
-           
-        }
 
         public void Knockback() { }
 
