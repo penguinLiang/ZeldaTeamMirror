@@ -18,9 +18,6 @@ namespace Zelda
 
         bool UsingSecondaryItem { get; }
 
-        Direction Direction { get; }
-        Point Location { get; }
-
         void Move(Direction direction);
         void UsePrimaryItem();
         void UseSecondaryItem();

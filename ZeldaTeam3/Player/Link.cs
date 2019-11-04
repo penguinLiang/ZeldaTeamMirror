@@ -5,7 +5,7 @@ namespace Zelda.Player
 {
     internal class Link : IPlayer
     {
-        public readonly MovementStateMachine _movementStateMachine;
+        private readonly MovementStateMachine _movementStateMachine;
         private AliveSpriteStateMachine _aliveSpriteStateMachine;
         private DeadSpriteStateMachine _deadSpriteStateMachine;
         private HealthStateMachine _healthStateMachine;
@@ -20,8 +20,7 @@ namespace Zelda.Player
         public bool Alive => _healthStateMachine.Alive;
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
-        public Point Location => _secondaryItemAgent.projectileLocation;
-        public Direction Direction => _secondaryItemAgent._facing;
+   
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _secondaryItemAgent.UsingSecondaryItem;

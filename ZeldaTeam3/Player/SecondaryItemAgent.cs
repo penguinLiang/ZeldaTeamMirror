@@ -18,9 +18,6 @@ namespace Zelda.Player
 
         public Items.Secondary Item;
 
-        public Point projectileLocation;
-        public Direction _facing;
-
       public List<IProjectile> Projectiles { get; set; }
 
         public SecondaryItemAgent()
@@ -55,8 +52,6 @@ namespace Zelda.Player
                 case Items.Secondary.Bow:
                     var Arrow = new Projectiles.Arrow(location, facing);
                     _drawables.Add(Arrow);
-                    projectileLocation = location;
-                    _facing = facing;
                     Projectiles.Add(Arrow);
                     break;
                 case Items.Secondary.Boomerang:
@@ -64,15 +59,11 @@ namespace Zelda.Player
                     location.Y += 4;
                     var PlayerBoomerang = new Projectiles.PlayerBoomerang(location, facing);
                     _drawables.Add(PlayerBoomerang);
-                    projectileLocation = location;
-                    _facing = facing;
                     Projectiles.Add(PlayerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
                     var Bomb = new Projectiles.Bomb(location);
                     _drawables.Add(Bomb);
-                    projectileLocation = location;
-                    _facing = facing;
                     Projectiles.Add(Bomb);
                     break;
                 default:

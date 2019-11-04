@@ -7,5 +7,3 @@ namespace Zelda
         List<IProjectile> Projectiles { get; set; }
     }
 }
-//each enemy has an array of projectiles
-//either empty or has something in it

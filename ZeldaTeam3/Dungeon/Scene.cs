@@ -10,14 +10,12 @@ namespace Zelda.Dungeon
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private int _enemyCount = -1;
-        //put an IProjectile list here? Check if it's halted here
 
         public Scene(Room room, IPlayer player)
         {
             _room = room;
             _player = player;
             _player.Projectiles = new List<IProjectile>();
-            //_room.Enemies
         }
 
 
@@ -48,9 +46,6 @@ namespace Zelda.Dungeon
             {
 
                 roomEnemy.Update();
-                //For each roomEnemy.projectiles
-                //How to remove item if you're iterating over them
-                //projectile.Update();
                 foreach(var projectile in roomEnemy.Projectiles)
                 {
                     projectile.Update();
@@ -71,17 +66,6 @@ namespace Zelda.Dungeon
                     k++;
                 }
                 //Above loop checks all of the enemy projectiles, for each enemy
-
-              
-                //Concatenate the remaining arrays -> Then check all collisions at once
-
-                //Do collision detection of each enemy projectile
-                //Projectile.CollidesWith(IEnemy)
-                //Projectile.CollidesWith(Player)
-                
-                    ///SCENE Handles removal, link/enemy do not care after they throw it out there
-
-                //Check Player for valid projectiles
 
 
                 foreach (var roomCollidable in _room.Collidables)
@@ -175,8 +159,6 @@ namespace Zelda.Dungeon
             foreach (var roomEnemy in _room.Enemies)
             {
                 roomEnemy.Draw();
-                //foreach Projectile in Enemy
-                //draw
             }
         }
     }
