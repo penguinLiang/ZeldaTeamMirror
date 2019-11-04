@@ -98,7 +98,6 @@ namespace Zelda.Dungeon
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
 
-            
                 int j = 0;
  
                     while (j < _player.Projectiles.Count)

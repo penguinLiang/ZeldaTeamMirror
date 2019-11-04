@@ -29,7 +29,6 @@ namespace Zelda.Enemies
         public Stalfos(Point location)
         {
             _origin  = location;
-            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()

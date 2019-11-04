@@ -47,11 +47,6 @@ namespace Zelda.Dungeon
             }
         }
 
-        public void AddProjectile(IProjectile projectile)
-        {
-           //Projectiles.Add(projectile);
-            Collidables.Add(projectile);
-        }
         private IEnemy MakeEnemy(Point spawnPoint)
         {
             switch (_enemyType)

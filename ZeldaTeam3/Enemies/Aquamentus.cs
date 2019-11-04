@@ -28,7 +28,6 @@ namespace Zelda.Enemies
         public Aquamentus(Point location)
         {
             _origin  = location;
-            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()

@@ -33,6 +33,7 @@ namespace Zelda.Enemies
             Spawned = true;
             _spawnSprite = EnemySpriteFactory.Instance.CreateSpawnExplosion();
             _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
+            Projectiles = new List<IProjectile>();
         }
 
         public virtual void TakeDamage()

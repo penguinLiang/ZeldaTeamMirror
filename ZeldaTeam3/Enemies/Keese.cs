@@ -19,7 +19,6 @@ namespace Zelda.Enemies
         public Keese(Point location)
         {
             _origin = location;
-            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()

@@ -30,7 +30,6 @@ namespace Zelda.Enemies
         {
             _origin = location;
             _agentStatus = AgentState.Ready;
-            Projectiles = new List<IProjectile>();
         }
 
         public override void Spawn()
