@@ -18,7 +18,7 @@ namespace Zelda.Enemies
         public OldMan(Point location)
         {
             Location = location + new Point(8, 0);
-            //when he attacks, add the projectiles to the array
+            
         }
 
         public override ICommand PlayerEffect(IPlayer player)
