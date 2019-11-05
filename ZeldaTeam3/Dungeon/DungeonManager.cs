@@ -15,6 +15,7 @@ namespace Zelda.Dungeon
         public bool[][] UnmappedRooms { get; private set; }
         public bool[][] VisitedRooms { get; private set; }
         public Point CurrentRoom { get; private set; } = Point.Zero;
+        public Action<Point, Point, Direction> Pan { private get; set; } = delegate { };
         private ISprite _background;
         private Scene[][] _scenes;
         private IPlayer _player;
@@ -30,23 +31,24 @@ namespace Zelda.Dungeon
             OldMan = 2
         }
 
-        private void SetBackground(BackgroundId backgroundId)
+        private static ISprite Background(BackgroundId backgroundId)
         {
             switch (backgroundId)
             {
                 case BackgroundId.Default:
-                    _background = BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-                    break;
+                    return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
                 case BackgroundId.Basement:
-                    _background = BackgroundSpriteFactory.Instance.CreateBasementBackground();
-                    break;
+                    return BackgroundSpriteFactory.Instance.CreateBasementBackground();
                 case BackgroundId.OldMan:
-                    _background = BackgroundSpriteFactory.Instance.CreateOldManBackground();
-                    break;
+                    return BackgroundSpriteFactory.Instance.CreateOldManBackground();
                 default:
-                    _background = BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-                    break;
+                    return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
             }
+        }
+
+        private void SetBackground(BackgroundId backgroundId)
+        {
+            _background = Background(backgroundId);
         }
 
         public void LoadDungeonContent(ContentManager content)
@@ -106,7 +108,7 @@ namespace Zelda.Dungeon
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
                     if (!EnabledRooms[row][col]) continue;
-                    _scenes[row][col] = new Scene(row, col, _rooms[row][col], player);
+                    _scenes[row][col] = new Scene(_rooms[row][col], player);
                 }
             }
         }
@@ -143,7 +145,13 @@ namespace Zelda.Dungeon
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            JumpToRoom(newRoom.Y, newRoom.X, roomDirection);
+
+            Pan(CurrentRoom, newRoom, roomDirection);
+        }
+
+        public IDrawable BuildPanScene(int row, int column)
+        {
+            return new PanningScene(_rooms[row][column], Background(_backgroundIds[row][column]));
         }
 
         public void JumpToRoom(int row, int column, Direction facing = Direction.Up)

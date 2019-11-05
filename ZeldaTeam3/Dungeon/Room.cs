@@ -15,7 +15,7 @@ namespace Zelda.Dungeon
         public List<ICollideable> Collidables = new List<ICollideable>();
         public List<IDrawable> Drawables = new List<IDrawable>();
         public List<IItem> Items = new List<IItem>();
-        private ActivatableMovableBlock _AMBlock;
+        private ActivatableMovableBlock _amBlock;
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
@@ -93,7 +93,7 @@ namespace Zelda.Dungeon
                     var room21Block = new ActivatableMovableBlock(this, BlockType.Block2_1, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
-                    _AMBlock = room21Block;
+                    _amBlock = room21Block;
                     break;
                 case MapTile.PushableBlock:
                     var pushableBlock = new MovableBlock(this, BlockType.PushableBlock, location);
@@ -267,7 +267,7 @@ namespace Zelda.Dungeon
 
         public void MoveableBlockReset()
         {
-            _AMBlock?.Reset();
+            _amBlock?.Reset();
         }
     }
 }
