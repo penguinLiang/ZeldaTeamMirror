@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Zelda
 {
@@ -7,11 +8,13 @@ namespace Zelda
         int Health { get; }
         int MaxHealth { get; }
 
+        List <IProjectile> Projectiles { get; }
         Player.Inventory Inventory { get; }
 
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
+        bool UsingSecondaryItem { get; }
 
         void Move(Direction direction);
         void UsePrimaryItem();

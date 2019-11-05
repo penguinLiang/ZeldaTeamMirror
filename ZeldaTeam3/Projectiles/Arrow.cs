@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+
 
 namespace Zelda.Projectiles
 {
-    internal class Arrow : ICollideable, IDrawable
+    internal class Arrow :  IProjectile
     {
         private const int FramesToDisappear = 140;
         private const int ArrowSpeed = 4;
@@ -13,6 +15,10 @@ namespace Zelda.Projectiles
         public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
+        public bool Halted { get; set; }
+
+        private Point _location;
+        private Direction _direction;
 
         public Arrow(Point location, Direction direction)
         {
@@ -33,7 +39,10 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            _location = location;
+            _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, ArrowSpeed);
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -46,17 +55,26 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
+
         public ICommand EnemyEffect(IEnemy enemy)
         {
             _sprite.Hide();
             _arrowStateMachine.ClearBounds();
+            Halt();
             return new Commands.SpawnableDamage(enemy);
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
         }
+
+        public void Halt()
+        {
+            Halted = true;
+        }
+
+        public void Knockback() { }
 
         public void Update()
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Zelda.Player
 {
@@ -19,7 +20,10 @@ namespace Zelda.Player
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
 
+        public List<IProjectile> Projectiles => _secondaryItemAgent.Projectiles;
+
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
+        public bool UsingSecondaryItem => _secondaryItemAgent.UsingSecondaryItem;
 
         public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
 

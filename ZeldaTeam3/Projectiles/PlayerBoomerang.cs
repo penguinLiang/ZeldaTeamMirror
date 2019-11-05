@@ -4,17 +4,18 @@ using Zelda.Enemies;
 
 namespace Zelda.Projectiles
 {
-    internal class PlayerBoomerang : ICollideable, IDrawable
+    internal class PlayerBoomerang : IProjectile
     {
-        private const int ReturnDistance = 80;
-        private const int DistancePerFrame = 5;
+        private const int ReturnDistance = 60;
+        private const int DistancePerFrame = 4;
 
         private Vector2 _location;
         private readonly ISprite _sprite;
 
         private int _currentDistanceAway;
         private Direction _direction;
-        public Rectangle Bounds { get; }
+        public Rectangle Bounds { get; private set; }
+        public bool Halted { get; set; }
 
         public PlayerBoomerang(Point location, Direction direction)
         {
@@ -23,6 +24,7 @@ namespace Zelda.Projectiles
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
             _currentDistanceAway = 0;
+            Halted = false;
         }
 
         private void UpdateFlippedDirection()
@@ -65,20 +67,26 @@ namespace Zelda.Projectiles
                 case Keese _:
                 case Gel _:
                 case OldMan _:
+                    Halt();
+                    Bounds = Rectangle.Empty;
                     return new Commands.SpawnableDamage(enemy);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:
+                    Halt();
+                    Bounds = Rectangle.Empty;
                     return new Commands.MoveableHalt(enemy);
                 case Aquamentus _:
                 case Trap _:
+                    Halt();
+                    Bounds = Rectangle.Empty;
                     return Commands.NoOp.Instance;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
         }
@@ -109,8 +117,17 @@ namespace Zelda.Projectiles
                     throw new ArgumentOutOfRangeException();
             }
             _currentDistanceAway += DistancePerFrame;
+            Bounds = new Rectangle(_location.ToPoint(), Bounds.Size);
 
             _sprite.Update();
+        }
+
+        public void Knockback() {
+            //no op
+        }
+
+        public void Halt() {
+            Halted = true;
         }
 
         public void Draw()

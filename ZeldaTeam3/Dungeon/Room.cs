@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
-using Zelda.Dungeon;
 
 namespace Zelda.Dungeon
 {
@@ -17,8 +16,9 @@ namespace Zelda.Dungeon
         public IList<IDrawable> Drawables = new List<IDrawable>();
         private ActivatableMovableBlock _AMBlock = null;
 
+        private readonly Random _rnd = new Random();
         private readonly EnemyType _enemyType;
-        private DungeonManager _dungeonManager;
+        private readonly DungeonManager _dungeonManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
@@ -213,6 +213,7 @@ namespace Zelda.Dungeon
 
             return true;
         }
+
         private bool TryAddStair(MapTile tile, Point location)
         {
             BlockType blockType;
@@ -278,7 +279,45 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        public void MoveableBlockReset() 
+        public void AddDroppedItem(int enemyX, int enemyY)
+        {
+            int rand = _rnd.Next(100);
+            if (rand >= 67) // No drop = 67%
+            {
+                if (rand < 82)
+                {
+                    var item = new Rupee(new Point(enemyX + 4, enemyY)); // 1 Rupee = 15%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 92)
+                {
+                    var item = new DroppedHeart(new Point(enemyX + 4, enemyY + 4)); // Dropped Heart = 10%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 97)
+                {
+                    var item = new Rupee5(new Point(enemyX + 4, enemyY)); // 5 Rupee = 5%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else if (rand < 99)
+                {
+                    var item = new BombItem(new Point(enemyX + 4, enemyY)); // Bomb = 2%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+                else
+                {
+                    var item = new Fairy(new Point(enemyX + 4, enemyY)); // Fairy = 1%
+                    Collidables.Add(item);
+                    Drawables.Add(item);
+                }
+            }
+        }
+
+        public void MoveableBlockReset()
         {
             _AMBlock?.Reset();
         }

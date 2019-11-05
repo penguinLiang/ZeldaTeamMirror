@@ -6,16 +6,14 @@ namespace Zelda.Items
 {
     internal class Rupee5 : ICollideable, IDrawable
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.Create1Rupee();
+        private readonly ISprite _sprite = ItemSpriteFactory.Instance.Create5Rupee();
         private readonly Vector2 _drawLocation;
         public Rectangle Bounds { get; private set; }
 
         public Rupee5(Point location)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x + 8, y, 8, 16);
-            _drawLocation = new Vector2(x+4, y);
+            Bounds = new Rectangle(location.X, location.Y, 8, 16);
+            _drawLocation = new Vector2(location.X, location.Y);
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -35,7 +33,7 @@ namespace Zelda.Items
             return NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return NoOp.Instance;
         }

@@ -9,7 +9,7 @@ namespace Zelda.Enemies
         private const int BoomerangDuration = 40;
         private const int ActionDelay = 30;
 
-        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
@@ -19,10 +19,9 @@ namespace Zelda.Enemies
             AgentState.Halted,
             AgentState.Attacking
         };
-
+        
         private readonly Point _origin;
 
-        private Projectiles.GoriyaBoomerang _boomerang;
         private bool _updateSpriteFlag;
         private Direction _statusDirection;
 
@@ -81,7 +80,7 @@ namespace Zelda.Enemies
                     throw new ArgumentOutOfRangeException();
             }
 
-            _boomerang = new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection);
+            Projectiles.Add(new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection));
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -214,13 +213,6 @@ namespace Zelda.Enemies
             if (_updateSpriteFlag) UpdateSprite();
 
             base.Update();
-            _boomerang?.Update();
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-            _boomerang?.Draw();
         }
     }
 }
