@@ -16,7 +16,7 @@ namespace Zelda.Dungeon
         private readonly List<IItem> _droppedItems = new List<IItem>();
         private readonly int _roomRow;
         private readonly int _roomCol;
-        private readonly Random _rnd = new Random();
+        private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
         private int _enemyCount = -1;
 
         public Scene(int row, int col, Room room, IPlayer player)
@@ -59,37 +59,43 @@ namespace Zelda.Dungeon
             }
         }
 
-        private void TryDestroyEnemy(IEnemy roomEnemy)
+        private void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
         {
-            if (roomEnemy.Alive) return;
+            if (!_player.Alive || _enemiesAttackThrottle.ContainsKey(roomEnemy) || !collision.CollidesWith(roomEnemy.Bounds)) return;
+            collision.EnemyEffect(roomEnemy).Execute();
+            _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
 
+            if (roomEnemy.Alive) return;
             _enemyCount--;
             if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
-                AddDroppedItem(roomEnemy.Bounds.X, roomEnemy.Bounds.Y);
+                AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
-        private void AddDroppedItem(int enemyX, int enemyY)
+        private void AddDroppedItem(Point location)
         {
             var rand = _rnd.Next(100);
             if (rand < 50) return; // No drop = 50%
 
-            IItem item = new Rupee(new Point(enemyX, enemyY)); // 1 Rupee = 10%
+            IItem item;
+            rand = _rnd.Next(5);
 
-            if (rand < 60)
+            switch (rand)
             {
-                item = new DroppedHeart(new Point(enemyX, enemyY)); // Dropped Heart = 10%
-            }
-            else if (rand < 70)
-            {
-                item = new Rupee5(new Point(enemyX, enemyY)); // 5 Rupee = 10%
-            }
-            else if (rand < 80)
-            {
-                item = new BombItem(new Point(enemyX, enemyY)); // Bomb = 10%
-            }
-            else if (rand > 90)
-            {
-                item = new Fairy(new Point(enemyX, enemyY)); // Fairy = 10%
+                case 0:
+                    item = new Rupee(location); // 1 Rupee = 10%
+                    break;
+                case 1:
+                    item = new DroppedHeart(location); // Dropped Heart = 10%
+                    break;
+                case 2:
+                    item = new Rupee5(location); // 5 Rupee = 10%
+                    break;
+                case 3:
+                    item = new BombItem(location); // Bomb = 10%
+                    break;
+                default:
+                    item = new Fairy(location); // Fairy = 10%
+                    break;
             }
 
             _droppedItems.Add(item);
@@ -137,11 +143,9 @@ namespace Zelda.Dungeon
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
-                if (_player.Alive && _player.UsingPrimaryItem && !_enemiesAttackThrottle.ContainsKey(roomEnemy) && _player.SwordCollision.CollidesWith(roomEnemy.Bounds))
+                if (_player.UsingPrimaryItem)
                 {
-                    _player.SwordCollision.EnemyEffect(roomEnemy).Execute();
-                    TryDestroyEnemy(roomEnemy);
-                    _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
+                    PlayerAttackCollision(_player.SwordCollision, roomEnemy);
                 }
 
                 if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
@@ -156,11 +160,7 @@ namespace Zelda.Dungeon
                         roomEnemy.ProjectileEffect(projectile).Execute();
                     }
 
-                    if (projectile.CollidesWith(roomEnemy.Bounds))
-                    {
-                        projectile.EnemyEffect(roomEnemy).Execute();
-                        TryDestroyEnemy(roomEnemy);
-                    }
+                    PlayerAttackCollision(projectile, roomEnemy);
                 }
             }
 
