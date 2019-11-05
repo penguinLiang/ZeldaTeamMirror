@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
+using Zelda.Items;
 
 namespace Zelda.Dungeon
 {
@@ -10,9 +13,11 @@ namespace Zelda.Dungeon
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private readonly List<IProjectile> _projectiles = new List<IProjectile>();
+        private readonly List<IItem> _droppedItems = new List<IItem>();
+        private readonly int _roomRow;
+        private readonly int _roomCol;
+        private readonly Random _rnd = new Random();
         private int _enemyCount = -1;
-        private int _roomRow;
-        private int _roomCol;
 
         public Scene(int row, int col, Room room, IPlayer player)
         {
@@ -20,6 +25,8 @@ namespace Zelda.Dungeon
             _player = player;
             _roomRow = row;
             _roomCol = col;
+            _room.Collidables.AddRange(_room.Items);
+            _room.Drawables.AddRange(_room.Items);
         }
 
         public void Reset()
@@ -29,10 +36,13 @@ namespace Zelda.Dungeon
             {
                 roomItem.Reset();
             }
+            _droppedItems.Clear();
         }
 
-        public void SpawnEnemies()
+        public void SpawnScene()
         {
+            _droppedItems.Clear();
+
             if (_enemyCount == -1)
             {
                 _enemyCount = _room.Enemies.Count;
@@ -48,6 +58,43 @@ namespace Zelda.Dungeon
                 _room.Enemies[i].Spawn();
             }
         }
+
+        private void TryDestroyEnemy(IEnemy roomEnemy)
+        {
+            if (roomEnemy.Alive) return;
+
+            _enemyCount--;
+            if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
+                AddDroppedItem(roomEnemy.Bounds.X, roomEnemy.Bounds.Y);
+        }
+
+        private void AddDroppedItem(int enemyX, int enemyY)
+        {
+            var rand = _rnd.Next(100);
+            if (rand < 50) return; // No drop = 50%
+
+            IItem item = new Rupee(new Point(enemyX, enemyY)); // 1 Rupee = 10%
+
+            if (rand < 60)
+            {
+                item = new DroppedHeart(new Point(enemyX, enemyY)); // Dropped Heart = 10%
+            }
+            else if (rand < 70)
+            {
+                item = new Rupee5(new Point(enemyX, enemyY)); // 5 Rupee = 10%
+            }
+            else if (rand < 80)
+            {
+                item = new BombItem(new Point(enemyX, enemyY)); // Bomb = 10%
+            }
+            else if (rand > 90)
+            {
+                item = new Fairy(new Point(enemyX, enemyY)); // Fairy = 10%
+            }
+
+            _droppedItems.Add(item);
+        }
+
 
         public void Update()
         {
@@ -68,14 +115,13 @@ namespace Zelda.Dungeon
                 roomDrawable.Update();
             }
 
-            foreach (var roomItem in _room.Items)
+            foreach (var droppedItem in _droppedItems)
             {
-                if (roomItem.CollidesWith(_player.BodyCollision.Bounds))
+                droppedItem.Update();
+                if (droppedItem.CollidesWith(_player.BodyCollision.Bounds))
                 {
-                    roomItem.PlayerEffect(_player).Execute();
+                    droppedItem.PlayerEffect(_player).Execute();
                 }
-
-                roomItem.Update();
             }
 
             foreach (var roomEnemy in _room.Enemies)
@@ -94,12 +140,7 @@ namespace Zelda.Dungeon
                 if (_player.Alive && _player.UsingPrimaryItem && !_enemiesAttackThrottle.ContainsKey(roomEnemy) && _player.SwordCollision.CollidesWith(roomEnemy.Bounds))
                 {
                     _player.SwordCollision.EnemyEffect(roomEnemy).Execute();
-                    if (!roomEnemy.Alive)
-                    {
-                        _enemyCount--;
-                        if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
-                            _room.AddDroppedItem(roomEnemy.Bounds.X, roomEnemy.Bounds.Y);
-                    }
+                    TryDestroyEnemy(roomEnemy);
                     _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
                 }
 
@@ -118,6 +159,7 @@ namespace Zelda.Dungeon
                     if (projectile.CollidesWith(roomEnemy.Bounds))
                     {
                         projectile.EnemyEffect(roomEnemy).Execute();
+                        TryDestroyEnemy(roomEnemy);
                     }
                 }
             }
@@ -162,9 +204,9 @@ namespace Zelda.Dungeon
                 roomDrawable.Draw();
             }
 
-            foreach (var roomItem in _room.Items)
+            foreach (var droppedItem in _droppedItems)
             {
-                roomItem.Draw();
+                droppedItem.Draw();
             }
 
             foreach (var projectile in _projectiles)

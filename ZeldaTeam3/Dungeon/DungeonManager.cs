@@ -166,7 +166,7 @@ namespace Zelda.Dungeon
             }
 
             Scene = _scenes[row][column];
-            Scene.SpawnEnemies();
+            Scene.SpawnScene();
         }
 
         public void Update()
