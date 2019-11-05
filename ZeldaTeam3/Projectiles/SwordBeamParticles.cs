@@ -25,9 +25,7 @@ namespace Zelda.Projectiles
             _sprites[2] = ProjectileSpriteFactory.Instance.CreateSwordBeamParticleBottomLeft();
             _sprites[3] = ProjectileSpriteFactory.Instance.CreateSwordBeamParticleBottomRight();
         }
-
-
-
+        
         public bool CollidesWith(Rectangle rectangle)
         {
             return false;
