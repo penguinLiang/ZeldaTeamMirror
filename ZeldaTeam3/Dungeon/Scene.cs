@@ -47,7 +47,6 @@ namespace Zelda.Dungeon
 
         public void Update()
         {
-           // int initialCount = _projectiles.Count;
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
