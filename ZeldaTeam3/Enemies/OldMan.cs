@@ -60,8 +60,8 @@ namespace Zelda.Enemies
 
         private void UseAttack()
         {
-            var fb0Location = new Point(Location.X - 64, Location.Y);
-            var fb2Location = new Point(Location.X + 64, Location.Y);
+            var fb0Location = new Point(Location.X - 56, Location.Y + 8);
+            var fb2Location = new Point(Location.X + 56, Location.Y + 8);
 
             Projectiles.Add(new Fireball(fb0Location, GenerateFireballVector(fb0Location), false));
             Projectiles.Add(new Fireball(fb2Location, GenerateFireballVector(fb2Location), false));
