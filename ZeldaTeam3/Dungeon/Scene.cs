@@ -55,9 +55,12 @@ namespace Zelda.Dungeon
                 {
                     if (_projectiles[i] is Projectiles.SwordBeam)
                     {
-                        _room.Drawables.Add(new Projectiles.SwordBeamParticles(_projectiles[i].Bounds.Location));
+                        _projectiles[i] = new Projectiles.SwordBeamParticles(_projectiles[i].Bounds.Location);
                     }
-                    _projectiles.RemoveAt(i--);
+                    else
+                    {
+                        _projectiles.RemoveAt(i--);
+                    }
                 }
             }
 

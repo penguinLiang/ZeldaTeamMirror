@@ -2,12 +2,13 @@
 
 namespace Zelda.Projectiles
 {
-    public class SwordBeamParticles : IDrawable
+    public class SwordBeamParticles : IProjectile
     {
         private const int numberOfParticles = 4;
         private const int FramesToDisappear = 30;
 
-        //public bool Visible { get; private set; } = true;
+        public Rectangle Bounds { get; } = Rectangle.Empty;
+        public bool Halted { get; set; } // Halted is used to remove this instance from the list that is drawing it
 
         private Point[] _locations = new Point[numberOfParticles];
         private ISprite[] _sprites = new ISprite[numberOfParticles];
@@ -23,6 +24,38 @@ namespace Zelda.Projectiles
             _sprites[1] = ProjectileSpriteFactory.Instance.CreateSwordBeamParticleTopRight();
             _sprites[2] = ProjectileSpriteFactory.Instance.CreateSwordBeamParticleBottomLeft();
             _sprites[3] = ProjectileSpriteFactory.Instance.CreateSwordBeamParticleBottomRight();
+        }
+
+
+
+        public bool CollidesWith(Rectangle rectangle)
+        {
+            return false;
+        }
+
+        public ICommand PlayerEffect(IPlayer player)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand EnemyEffect(IEnemy enemy)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public ICommand ProjectileEffect(IProjectile projectile)
+        {
+            return Commands.NoOp.Instance;
+        }
+
+        public void Knockback()
+        {
+            // NO-OP
+        }
+
+        public void Halt()
+        {
+            // NO-OP
         }
 
         public void Update()
@@ -42,7 +75,7 @@ namespace Zelda.Projectiles
                 if (_framesDelayed == FramesToDisappear)
                 {
                     _sprites[i].Hide();
-                    //Visible = false;
+                    Halted = true;
                 }
                 
             }
