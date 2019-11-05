@@ -1,51 +1,20 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class BombItem : ICollideable, IDrawable
+    internal class BombItem : Item
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateBomb();
-        private readonly Vector2 _drawLocation;
-        public Rectangle Bounds { get; private set; }
-
-        public BombItem(Point location)
+        public BombItem(Point location) : base(location)
         {
-            Bounds = new Rectangle(location.X, location.Y, 8, 16);
-            _drawLocation = new Vector2(location.X, location.Y);
         }
 
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBomb();
 
-        public ICommand PlayerEffect(IPlayer player)
+        public override ICommand PlayerEffect(IPlayer player)
         {
-            _sprite.Hide();
-            Bounds = new Rectangle(0, 0, 0, 0);
+            Used = true;
             return new AddSecondaryItem(player, Secondary.Bomb);
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IProjectile projectile)
-        {
-            return NoOp.Instance;
-        }
-
-        public void Update()
-        {
-            _sprite.Update();
-        }
-
-        public void Draw()
-        {
-            _sprite.Draw(_drawLocation);
         }
     }
 }
