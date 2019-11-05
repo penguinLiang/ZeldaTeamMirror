@@ -18,7 +18,7 @@ namespace Zelda.Dungeon
 
         private readonly Random _rnd = new Random();
         private readonly EnemyType _enemyType;
-        private DungeonManager _dungeonManager;
+        private readonly DungeonManager _dungeonManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
@@ -213,6 +213,7 @@ namespace Zelda.Dungeon
 
             return true;
         }
+
         private bool TryAddStair(MapTile tile, Point location)
         {
             BlockType blockType;

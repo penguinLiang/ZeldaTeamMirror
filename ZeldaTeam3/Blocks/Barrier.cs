@@ -8,10 +8,12 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; }
 
         private readonly ISprite _sprite;
+        private Point _location;
 
         public Barrier(Point location, BlockType block)
         {
             Bounds = CalculateBounds(location, block);
+            _location = location;
             _sprite = BlockTypeSprite.Sprite(block);
         }
 
@@ -20,11 +22,12 @@ namespace Zelda.Blocks
             // ReSharper disable once SwitchStatementMissingSomeCases (Most barriers are 32,32)
             switch (block)
             {
+                case BlockType.Fire:
+                    return Rectangle.Empty;
                 case BlockType.DragonStatue:
                 case BlockType.FishStatue:
                 case BlockType.ImmovableBlock:
                 case BlockType.InvisibleBlock:
-                case BlockType.Fire:
                 case BlockType.Water:
                     return new Rectangle(location, new Point(16, 16));
                 case BlockType.BlackBarrier:
@@ -49,7 +52,7 @@ namespace Zelda.Blocks
             return new MoveableHalt(enemy);
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return new MoveableHalt(projectile);
         }
@@ -61,7 +64,7 @@ namespace Zelda.Blocks
 
         public void Draw()
         {
-            _sprite?.Draw(Bounds.Location.ToVector2());
+            _sprite?.Draw(_location.ToVector2());
         }
     }
 }

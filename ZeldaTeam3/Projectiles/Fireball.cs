@@ -3,32 +3,26 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Fireball : ICollideable, IDrawable
+    internal class Fireball : IProjectile
     {
         private const int FramesToDisappear = 140;
 
         private Vector2 _location;
-        private Vector2 _velocity;
+        private readonly Vector2 _velocity;
         private readonly ISprite _sprite;
 
         private int _framesDelayed;
 
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds => new Rectangle((int)_location.X + 4, (int)_location.Y + 4, 8, 8);
+        public bool Halted { get; set; } 
 
         public Fireball(Point location, Vector2 velocity, bool fromAquamentus)
         {
             _location = location.ToVector2();
-            Bounds = new Rectangle(location.X + 4, location.Y + 4, 8, 8);
             _velocity = velocity;
             _framesDelayed = 0;
-            if (fromAquamentus)
-            {
-                _sprite = ProjectileSpriteFactory.Instance.CreateAquamentusFireball();
-            }
-            else
-            {
-                _sprite = ProjectileSpriteFactory.Instance.CreateOldManFireball();
-            }
+            _sprite = fromAquamentus ? ProjectileSpriteFactory.Instance.CreateAquamentusFireball() : ProjectileSpriteFactory.Instance.CreateOldManFireball();
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -38,6 +32,8 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            Halt();
+            _sprite.Hide();
             return new Commands.SpawnableDamage(player);
         }
 
@@ -46,9 +42,18 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
+        }
+
+        public void Halt() {
+            Halted = true;
+        }
+
+        public void Knockback()
+        {
+            //no op
         }
 
         public void Update()
@@ -57,6 +62,7 @@ namespace Zelda.Projectiles
             if (_framesDelayed++ >= FramesToDisappear)
             {
                 _sprite.Hide();
+                Halt();
             }
             _sprite.Update();
         }

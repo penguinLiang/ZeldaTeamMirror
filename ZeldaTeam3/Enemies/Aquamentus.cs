@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Commands;
 using Zelda.Projectiles;
 
 namespace Zelda.Enemies
@@ -12,7 +13,7 @@ namespace Zelda.Enemies
 
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
-        public override Rectangle Bounds => new Rectangle(Location, new Point(24, 32));
+        public override Rectangle Bounds => Alive ? new Rectangle(Location, new Point(24, 32)) : Rectangle.Empty;
 
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
@@ -21,8 +22,6 @@ namespace Zelda.Enemies
             AgentState.Halted,
             AgentState.Attacking
         };
-
-        private Fireball[] _fireballs = new Fireball[3];
 
         private readonly Point _origin;
 
@@ -103,12 +102,13 @@ namespace Zelda.Enemies
 
         private void UseAttack()
         {
-            Point fb0Location = new Point(Location.X, Location.Y - 4);
-            Point fb2Location = new Point(Location.X, Location.Y + 4);
+            var fb0Location = new Point(Location.X, Location.Y - 4);
+            var fb2Location = new Point(Location.X, Location.Y + 4);
             var velocityScalar = -1.5;
-            _fireballs[0] = new Fireball(fb0Location, GenerateFireballVector(velocityScalar, -0.5), true);
-            _fireballs[1] = new Fireball(Location, GenerateFireballVector(velocityScalar, 0), true);
-            _fireballs[2] = new Fireball(fb2Location, GenerateFireballVector(velocityScalar, 0.5), true);
+
+            Projectiles.Add(new Fireball(fb0Location, GenerateFireballVector(velocityScalar, -0.5), true));
+            Projectiles.Add(new Fireball(Location, GenerateFireballVector(velocityScalar, 0), true));
+            Projectiles.Add(new Fireball(fb2Location, GenerateFireballVector(velocityScalar, 0.5), true));
         }
 
         private Vector2 GenerateFireballVector(double xVelocity, double yVelocityOffset)
@@ -117,7 +117,6 @@ namespace Zelda.Enemies
             double yDiff = _playerLocation.Y - Location.Y;
             double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
 
-            //var normalizedX = xDiff / magnitude;
             var normalizedY = yDiff / magnitude;
 
             return new Vector2((float) xVelocity, (float)(yVelocityOffset + normalizedY));
@@ -170,22 +169,14 @@ namespace Zelda.Enemies
         {
             _playerLocation = playerLocation;
             base.Update(playerLocation);
-            foreach (Fireball fb in _fireballs)
-            {
-                fb?.Update();
-            }
 
             if (Alive && CanMove)
                 ExecuteAction();
         }
 
-        public override void Draw()
+        public override ICommand ProjectileEffect(IProjectile projectile)
         {
-            base.Draw();
-            foreach (Fireball fb in _fireballs)
-            {
-                fb?.Draw();
-            }
+            return NoOp.Instance;
         }
     }
 }

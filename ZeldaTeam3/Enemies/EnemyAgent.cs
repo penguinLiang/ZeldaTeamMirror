@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
@@ -14,6 +15,8 @@ namespace Zelda.Enemies
         protected int Health = 1;
 
         protected bool Spawned;
+
+        public List<IProjectile> Projectiles { get; set; } = new List<IProjectile>();
 
         public virtual bool Alive => Spawned && Health > 0;
 
@@ -90,7 +93,7 @@ namespace Zelda.Enemies
 
         public virtual bool CollidesWith(Rectangle rect)
         {
-            return Bounds.Intersects(rect);
+            return Alive && Bounds.Intersects(rect);
         }
 
         public virtual ICommand PlayerEffect(IPlayer player)
@@ -103,7 +106,7 @@ namespace Zelda.Enemies
             return new MoveableHalt(enemy);
         }
 
-        public virtual ICommand ProjectileEffect(IHaltable projectile)
+        public virtual ICommand ProjectileEffect(IProjectile projectile)
         {
             return new MoveableHalt(projectile);
         }

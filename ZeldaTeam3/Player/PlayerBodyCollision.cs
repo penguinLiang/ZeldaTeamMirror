@@ -30,7 +30,7 @@ namespace Zelda.Player
             return NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return new MoveableHalt(projectile);
         }
