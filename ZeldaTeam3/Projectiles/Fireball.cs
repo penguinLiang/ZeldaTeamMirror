@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Fireball : ICollideable, IDrawable
+    internal class Fireball : IProjectile
     {
         private const int FramesToDisappear = 140;
 
@@ -14,6 +14,7 @@ namespace Zelda.Projectiles
         private int _framesDelayed;
 
         public Rectangle Bounds { get; private set; }
+        public bool Halted { get; set; } 
 
         public Fireball(Point location, Vector2 velocity, bool fromAquamentus)
         {
@@ -29,6 +30,7 @@ namespace Zelda.Projectiles
             {
                 _sprite = ProjectileSpriteFactory.Instance.CreateOldManFireball();
             }
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -38,6 +40,9 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            Halt();
+            _sprite.Hide();
+            Bounds = Rectangle.Empty;
             return new Commands.SpawnableDamage(player);
         }
 
@@ -46,9 +51,18 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
+        }
+
+        public void Halt() {
+            Halted = true;
+        }
+
+        public void Knockback()
+        {
+            //no op
         }
 
         public void Update()

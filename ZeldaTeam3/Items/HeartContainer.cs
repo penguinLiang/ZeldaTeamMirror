@@ -33,7 +33,7 @@ namespace Zelda.Items
             return NoOp.Instance;
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return NoOp.Instance;
         }

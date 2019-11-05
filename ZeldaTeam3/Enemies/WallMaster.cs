@@ -7,7 +7,7 @@ namespace Zelda.Enemies
     public class WallMaster : EnemyAgent
     {
         private const int ActionDelay = 16;
-        public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
+        public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
 
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
