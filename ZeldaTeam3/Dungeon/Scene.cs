@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Zelda.Blocks;
 
 namespace Zelda.Dungeon
 {
@@ -26,6 +25,10 @@ namespace Zelda.Dungeon
         public void Reset()
         {
             _enemyCount = _room.Enemies.Count;
+            foreach (var roomItem in _room.Items)
+            {
+                roomItem.Reset();
+            }
         }
 
         public void SpawnEnemies()
@@ -39,6 +42,7 @@ namespace Zelda.Dungeon
             {
                 _room.MoveableBlockReset();
             }
+
             for (var i = 0; i < _enemyCount; i++)
             {
                 _room.Enemies[i].Spawn();
@@ -62,6 +66,16 @@ namespace Zelda.Dungeon
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Update();
+            }
+
+            foreach (var roomItem in _room.Items)
+            {
+                if (roomItem.CollidesWith(_player.BodyCollision.Bounds))
+                {
+                    roomItem.PlayerEffect(_player).Execute();
+                }
+
+                roomItem.Update();
             }
 
             foreach (var roomEnemy in _room.Enemies)
@@ -146,6 +160,11 @@ namespace Zelda.Dungeon
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Draw();
+            }
+
+            foreach (var roomItem in _room.Items)
+            {
+                roomItem.Draw();
             }
 
             foreach (var projectile in _projectiles)

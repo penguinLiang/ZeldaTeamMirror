@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    internal interface IItem : ICollideable, IDrawable
+    public interface IItem : ICollideable, IDrawable
     {
         void Reset();
     }
