@@ -11,6 +11,7 @@ namespace Zelda.Dungeon
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private readonly List<IProjectile> _projectiles = new List<IProjectile>();
+        private readonly List<IDrawable> _particles = new List<IDrawable>();
         private int _enemyCount = -1;
         private int _roomRow;
         private int _roomCol;
@@ -52,6 +53,10 @@ namespace Zelda.Dungeon
                 _projectiles[i].Update();
                 if (_projectiles[i].Halted)
                 {
+                    if (_projectiles[i] is Projectiles.SwordBeam)
+                    {
+                        _room.Drawables.Add(new Projectiles.SwordBeamParticles(_projectiles[i].Bounds.Location));
+                    }
                     _projectiles.RemoveAt(i--);
                 }
             }

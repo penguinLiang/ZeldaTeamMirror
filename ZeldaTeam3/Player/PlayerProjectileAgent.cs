@@ -11,26 +11,29 @@ namespace Zelda.Player
 
         public Items.Secondary Item;
 
-<<<<<<< HEAD:ZeldaTeam3/Player/PlayerProjectileAgent.cs
+        public List<IProjectile> Projectiles { get; set; }
+
+        public PlayerProjectileAgent()
+        {
+            UsingSecondaryItem = false;
+            Projectiles = new List<IProjectile>();
+        }
+
         public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
         {
             switch (facing)
             {
                 case Direction.Up:
-                    location.X -= 1;
                     location.Y -= 12;
                     break;
                 case Direction.Down:
-                    location.X += 1;
                     location.Y += 11;
                     break;
                 case Direction.Left:
                     location.X -= 11;
-                    location.Y += 1;
                     break;
                 case Direction.Right:
                     location.X += 11;
-                    location.Y += 1;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -39,26 +42,17 @@ namespace Zelda.Player
             switch (swordLevel)
             {
                 case Items.Primary.Sword:
-                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 1));
+                    Projectiles.Add(new SwordBeam(location, facing, 1));
                     break;
                 case Items.Primary.WhiteSword:
-                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 2));
+                    Projectiles.Add(new SwordBeam(location, facing, 2));
                     break;
                 case Items.Primary.MagicalSword:
-                    _drawables.Add(new Projectiles.SwordBeam(location, facing, 4));
+                    Projectiles.Add(new SwordBeam(location, facing, 4));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _drawableExpirations.Add(0);
-=======
-        public List<IProjectile> Projectiles { get; set; }
-
-        public SecondaryItemAgent()
-        {
-            UsingSecondaryItem = false;
-            Projectiles = new List<IProjectile>();
->>>>>>> master:ZeldaTeam3/Player/SecondaryItemAgent.cs
         }
 
         public void UseSecondaryItem(Direction facing, Point location)

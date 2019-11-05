@@ -5,7 +5,9 @@ namespace Zelda.Projectiles
     public class SwordBeamParticles : IDrawable
     {
         private const int numberOfParticles = 4;
-        private const int FramesToDisappear = 160;
+        private const int FramesToDisappear = 30;
+
+        //public bool Visible { get; private set; } = true;
 
         private Point[] _locations = new Point[numberOfParticles];
         private ISprite[] _sprites = new ISprite[numberOfParticles];
@@ -38,8 +40,13 @@ namespace Zelda.Projectiles
             {
                 _sprites[i].Update();
                 if (_framesDelayed == FramesToDisappear)
+                {
                     _sprites[i].Hide();
+                    //Visible = false;
+                }
+                
             }
+            _framesDelayed++;
         }
 
         public void Draw()

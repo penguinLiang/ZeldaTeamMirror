@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class SwordBeam : ICollideable, IDrawable, IHaltable
+    internal class SwordBeam : IProjectile
     {
         private const int FramesToDisappear = 140;
         private const int SwordBeamSpeed = 3;
@@ -12,6 +12,7 @@ namespace Zelda.Projectiles
         private readonly ArrowAndSwordBeamStateMachine _swordBeamStateMachine;
 
         public Rectangle Bounds => _swordBeamStateMachine.Bounds;
+        public bool Halted { get; set; }
 
         private int _framesDelayed;
         private int _damage;
@@ -56,7 +57,7 @@ namespace Zelda.Projectiles
             return new Commands.SpawnableDamage(enemy);
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
         }
@@ -68,7 +69,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            
+            Halted = true;
         }
 
         public void Update()
