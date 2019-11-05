@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Projectiles;
 
 namespace Zelda.Player
 {
     internal class SecondaryItemAgent : IDrawable
     {
-        // 600/60 frames = ~10s
-        private const int DrawableExpiration = 600;
-
-        private readonly List<IDrawable> _drawables = new List<IDrawable>();
-        private readonly List<int> _drawableExpirations = new List<int>();
+        public bool UsingSecondaryItem;
 
         public Items.Secondary Item;
+
+        public List<IProjectile> Projectiles { get; set; }
+
+        public SecondaryItemAgent()
+        {
+            UsingSecondaryItem = false;
+            Projectiles = new List<IProjectile>();
+        }
 
         public void UseSecondaryItem(Direction facing, Point location)
         {
@@ -37,20 +42,24 @@ namespace Zelda.Player
             switch (Item)
             {
                 case Items.Secondary.Bow:
-                    _drawables.Add(new Projectiles.Arrow(location, facing));
+                    var arrow = new Arrow(location, facing);
+                    Projectiles.Add(arrow);
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
                     location.Y += 4;
-                    _drawables.Add(new Projectiles.PlayerBoomerang(location, facing));
+                    var playerBoomerang = new PlayerBoomerang(location, facing);
+                    Projectiles.Add(playerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
-                    _drawables.Add(new Projectiles.Bomb(location));
+                    var bomb = new Bomb(location);
+                    Projectiles.Add(bomb);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _drawableExpirations.Add(0);
+
+            UsingSecondaryItem = true;
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
@@ -60,25 +69,11 @@ namespace Zelda.Player
 
         public void Update()
         {
-            foreach (var drawable in _drawables)
-            {
-                drawable.Update();
-            }
-
-            for (var i = 0; i < _drawableExpirations.Count; i++)
-            {
-                if (_drawableExpirations[i]++ != DrawableExpiration) return;
-                _drawableExpirations.RemoveAt(i);
-                _drawables.RemoveAt(i);
-            }
+            UsingSecondaryItem = false;
         }
 
         public void Draw()
         {
-            foreach (var drawable in _drawables)
-            {
-                drawable.Draw();
-            }
         }
     }
 }

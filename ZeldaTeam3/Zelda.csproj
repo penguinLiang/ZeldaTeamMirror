@@ -50,6 +50,7 @@
     <Compile Include="DrawnText.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
+    <Compile Include="IProjectile.cs" />
     <Compile Include="QuitResetControllerKeyboard.cs" />
     <Compile Include="GameOver\GameOverMenu.cs" />
     <Compile Include="GameOver\GameOverControllerKeyboard.cs" />

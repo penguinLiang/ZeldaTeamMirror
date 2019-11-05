@@ -42,7 +42,7 @@ namespace Zelda.Projectiles
 
         public void ClearBounds()
         {
-            Bounds = new Rectangle(0, 0, 0, 0);
+            Bounds = Rectangle.Empty;
         }
 
         public void Update()
@@ -66,6 +66,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            Bounds = new Rectangle(_location, Bounds.Size);
         }
     }
 }

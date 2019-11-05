@@ -8,7 +8,6 @@ namespace Zelda.Enemies
         protected override ISprite Sprite { get; } = EnemySpriteFactory.Instance.CreateOldMan();
         public override Rectangle Bounds => new Rectangle(Location.X, Location.Y, 16, 16);
         public override bool Alive => true;
-
         public override void Halt()
         {
             // NO-OP: Old man doesn't move
@@ -17,6 +16,7 @@ namespace Zelda.Enemies
         public OldMan(Point location)
         {
             Location = location + new Point(8, 0);
+            
         }
 
         public override ICommand PlayerEffect(IPlayer player)

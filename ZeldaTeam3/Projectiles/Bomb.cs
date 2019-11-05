@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IDrawable, ICollideable
+    public class Bomb : IProjectile
     {
         private const int FramesToExplosion = 100;
         private const int FramesToDisappear = 160;
@@ -14,12 +14,13 @@ namespace Zelda.Projectiles
         private ISprite _sprite;
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
-
+        public bool Halted { get; set; }
 
         public Bomb(Point location)
         {
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
+            Halted = false;
         }
 
         private void SetExplosionSpriteLocations()
@@ -51,6 +52,7 @@ namespace Zelda.Projectiles
             }
             else if (_framesDelayed == FramesToDisappear)
             {
+                Halted = true;
                 _sprite.Hide();
             }
         }
@@ -67,13 +69,22 @@ namespace Zelda.Projectiles
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            _sprite.Hide();
             return new Commands.SpawnableDamage(enemy);
         }
 
-        public ICommand ProjectileEffect(IHaltable projectile)
+        public ICommand ProjectileEffect(IProjectile projectile)
         {
             return Commands.NoOp.Instance;
+        }
+
+        public void Knockback()
+        {
+            //no op
+        }
+
+        public void Halt()
+        {
+            //no op
         }
 
         public void Draw()
