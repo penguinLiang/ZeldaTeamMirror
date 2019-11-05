@@ -5,16 +5,16 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Arrow :  IProjectile, IDrawable
+    internal class Arrow :  IProjectile
     {
         private const int FramesToDisappear = 140;
 
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
-        public  Rectangle Bounds => _arrowStateMachine.Bounds;
+        public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
-       public bool Halted { get; set; }
+        public bool Halted { get; set; }
 
         private Point _location;
         private Direction _direction;

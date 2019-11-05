@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    internal class Fireball : IProjectile, IDrawable
+    internal class Fireball : IProjectile
     {
         private const int FramesToDisappear = 140;
 
