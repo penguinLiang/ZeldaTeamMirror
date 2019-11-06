@@ -125,7 +125,7 @@ namespace Zelda.Dungeon
             }
         }
 
-        public void Transition(Direction roomDirection)
+        public void Transition(Direction roomDirection, bool unlock)
         {
             var newRoom = CurrentRoom;
             switch (roomDirection)
@@ -144,6 +144,11 @@ namespace Zelda.Dungeon
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+
+            if (unlock)
+            {
+                _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
             }
 
             Pan(CurrentRoom, newRoom, roomDirection);

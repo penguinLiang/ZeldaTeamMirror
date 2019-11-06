@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -11,19 +10,17 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; private set; }
 
         private Point _location;
-        private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
 
         private bool _unmoved;
-        private bool _moving;
+        public bool Moving { get; private set; }
 
-        public MovableBlock(Room room, BlockType block, Point location)
+        public MovableBlock(Point location)
         {
             _location = location;
-            _origin = location;
             _unmoved = true;
-            _moving = false;
+            Moving = false;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
         } 
 
@@ -54,7 +51,7 @@ namespace Zelda.Blocks
         {
             if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
-                _moving = true;
+                Moving = true;
                 _unmoved = false;
             }
             return new MoveableHalt(player);
@@ -72,38 +69,34 @@ namespace Zelda.Blocks
 
         public void Update()
         {
+            if (!Moving) return;
             
-            if (_moving)
+            switch (_pushDirection)
             {
-                switch (_pushDirection)
-                {
-                    case Direction.Up:
-                        _location = new Point(_location.X, _location.Y - 1);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Down:
-                        _location = new Point(_location.X, _location.Y + 1);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Left:
-                        _location = new Point(_location.X - 1, _location.Y);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Right:
-                        _location = new Point(_location.X + 1, _location.Y);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                if (++_distanceMoved >= 16)
-                {
-                    _moving = false;
-                }
+                case Direction.Up:
+                    _location = new Point(_location.X, _location.Y - 1);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Down:
+                    _location = new Point(_location.X, _location.Y + 1);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Left:
+                    _location = new Point(_location.X - 1, _location.Y);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Right:
+                    _location = new Point(_location.X + 1, _location.Y);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            _sprite.Update();
+            if (++_distanceMoved >= 16)
+            {
+                Moving = false;
+            }
         }
 
         public void Draw()
