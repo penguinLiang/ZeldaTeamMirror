@@ -48,6 +48,8 @@
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="DrawnText.cs" />
+    <Compile Include="Projectiles\SwordBeam.cs" />
+    <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />
     <Compile Include="GameState\PanAnimation.cs" />
     <Compile Include="IItem.cs" />
@@ -169,7 +171,7 @@
     <Compile Include="Items\Compass.cs" />
     <Compile Include="Items\Map.cs" />
     <Compile Include="Items\BowItem.cs" />
-    <Compile Include="Player\SecondaryItemAgent.cs" />
+    <Compile Include="Player\PlayerProjectileAgent.cs" />
     <Compile Include="HUD\HUDSpriteFactory.cs" />
     <Compile Include="Projectiles\Arrow.cs" />
     <Compile Include="Projectiles\Bomb.cs" />

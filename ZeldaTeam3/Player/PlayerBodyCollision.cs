@@ -32,6 +32,8 @@ namespace Zelda.Player
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
+            if (projectile is Projectiles.SwordBeam)
+                return NoOp.Instance;
             return new MoveableHalt(projectile);
         }
     }
