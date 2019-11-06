@@ -53,6 +53,10 @@ namespace Zelda.Dungeon
                 _enemyCount = _room.Enemies.Count;
             }
 
+            foreach (var roomDoor in _room.Doors.Values)
+            {
+                roomDoor.Deactivate();
+            }
             _room.MoveableBlockReset();
 
             for (var i = 0; i < _enemyCount; i++)

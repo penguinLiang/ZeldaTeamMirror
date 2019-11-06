@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
 
@@ -48,7 +49,7 @@ namespace Zelda.Blocks
                     TransitionEffect = new Transition(dungeon, Direction.Down);
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException(block.ToString());
             }
 
             Sprite = BlockTypeSprite.Sprite(block);

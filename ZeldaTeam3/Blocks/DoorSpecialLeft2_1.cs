@@ -20,8 +20,14 @@ namespace Zelda.Blocks
 
         public override void Reset()
         {
+            _activations = 0;
             _sprite = BlockTypeSprite.Sprite(BlockType.DoorSpecialLeft2_1);
             _unlocked = false;
+        }
+
+        public override void Deactivate()
+        {
+            Reset();
         }
 
         public override void Unblock()

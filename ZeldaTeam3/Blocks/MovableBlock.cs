@@ -14,13 +14,14 @@ namespace Zelda.Blocks
         private int _distanceMoved;
 
         private bool _unmoved;
-        public bool Moving { get; private set; }
+        private bool _moving;
+        public bool Locked { get; private set; }
 
         public MovableBlock(Point location)
         {
             _location = location;
             _unmoved = true;
-            Moving = false;
+            _moving = false;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
         } 
 
@@ -51,7 +52,7 @@ namespace Zelda.Blocks
         {
             if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
-                Moving = true;
+                _moving = true;
                 _unmoved = false;
             }
             return new MoveableHalt(player);
@@ -69,7 +70,7 @@ namespace Zelda.Blocks
 
         public void Update()
         {
-            if (!Moving) return;
+            if (!_moving || Locked) return;
             
             switch (_pushDirection)
             {
@@ -95,7 +96,8 @@ namespace Zelda.Blocks
 
             if (++_distanceMoved >= 16)
             {
-                Moving = false;
+                _moving = false;
+                Locked = true;
             }
         }
 

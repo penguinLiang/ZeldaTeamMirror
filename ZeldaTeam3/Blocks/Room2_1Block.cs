@@ -31,16 +31,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_room.SomeEnemiesAlive)
-            {
-                return new MoveableHalt(player);
-            }
-
-            if (!_internalBlock.Moving)
-            {
-                _room.Doors[Direction.Left].Activate();
-            }
-            return _internalBlock.PlayerEffect(player);
+            return _room.SomeEnemiesAlive ? new MoveableHalt(player) : _internalBlock.PlayerEffect(player);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
@@ -55,6 +46,10 @@ namespace Zelda.Blocks
 
         public void Update()
         {
+            if (_internalBlock.Locked)
+            {
+                _room.Doors[Direction.Left].Activate();
+            }
             _internalBlock.Update();
         }
 

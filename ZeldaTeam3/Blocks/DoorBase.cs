@@ -34,6 +34,11 @@ namespace Zelda.Blocks
             // NO-OP
         }
 
+        public virtual void Deactivate()
+        {
+            // NO-OP
+        }
+
         public bool CollidesWith(Rectangle rect)
         {
             return Bounds.Intersects(rect);
