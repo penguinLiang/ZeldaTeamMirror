@@ -18,13 +18,15 @@ namespace Zelda
         { 
             var quit = new Commands.Quit(agent);
 
-            var attack = new Commands.LinkPrimaryAction(agent.Player);
+            var primaryattack = new Commands.LinkPrimaryAction(agent.Player);
+            var whiteswordupgrade = new Commands.UpgradeSword(agent.Player, Items.Primary.WhiteSword);
+            var magicalswordupgrade = new Commands.UpgradeSword(agent.Player, Items.Primary.MagicalSword);
 
+            var secondaryattack = new Commands.LinkSecondaryAction(agent.Player);
             var bowassign = new Commands.LinkBowAssign(agent.Player);
             var boomerangassign = new Commands.LinkBoomerangAssign(agent.Player);
             var bombassign = new Commands.LinkBombAssign(agent.Player);
 
-            var damage = new Commands.SpawnableDamage(agent.Player);
             var up = new Commands.LinkMoveUp(agent.Player);
             var down = new Commands.LinkMoveDown(agent.Player);
             var right = new Commands.LinkMoveRight(agent.Player);
@@ -37,17 +39,14 @@ namespace Zelda
 
             _keyupMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.N, attack },
-                { Keys.Z, attack },
-                { Keys.E, damage},
-
+                { Keys.Z, primaryattack },
+                { Keys.D2, whiteswordupgrade },
+                { Keys.D3, magicalswordupgrade },
+                
+                { Keys.X, secondaryattack },
                 { Keys.D4, bowassign },
                 { Keys.D5, boomerangassign },
                 { Keys.D6, bombassign },
-
-                { Keys.NumPad4, bowassign },
-                { Keys.NumPad5, boomerangassign },
-                { Keys.NumPad6, bombassign },
 
                 { Keys.Space, new Commands.Pause(agent) },
                 { Keys.M, new Commands.ShowJumpMap(agent) },
