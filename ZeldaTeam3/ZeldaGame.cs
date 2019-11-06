@@ -11,6 +11,7 @@ using Zelda.Music;
 using Zelda.Pause;
 using Zelda.Player;
 using Zelda.Projectiles;
+using Zelda.SoundEffects;
 
 namespace Zelda
 {
@@ -52,6 +53,7 @@ namespace Zelda
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
             JumpMapScreen.LoadTexture(Content);
             MusicManager.Instance.LoadAllSounds(Content);
+            SoundEffectManager.Instance.LoadAllSounds(Content);
 
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);

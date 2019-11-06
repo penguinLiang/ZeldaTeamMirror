@@ -27,6 +27,7 @@ namespace Zelda.Enemies
         public override void TakeDamage()
         {
             Sprite.PaletteShift();
+            SoundEffects.SoundEffectManager.Instance.PlayEnemyHit();
         }
 
         public override void Update()
