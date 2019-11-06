@@ -3,48 +3,19 @@ using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class DroppedHeart : ICollideable, IDrawable
+    internal class DroppedHeart : Item
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateDroppedHeart();
-        private readonly Vector2 _drawLocation;
-        public Rectangle Bounds { get; private set; }
-
-        public DroppedHeart(Point location)
+        public DroppedHeart(Point location) : base(location)
         {
-            Bounds = new Rectangle(location.X, location.Y, 8, 8);
-            _drawLocation = new Vector2(location.X, location.Y);
         }
 
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateDroppedHeart();
+        protected override Point Size { get; } = new Point(8, 8);
 
-        public ICommand PlayerEffect(IPlayer player)
+        public override ICommand PlayerEffect(IPlayer player)
         {
-            _sprite.Hide();
-            Bounds = new Rectangle(0, 0, 0, 0);
+            Used = true;
             return new LinkHeal(player);
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IProjectile projectile)
-        {
-            return NoOp.Instance;
-        }
-
-        public void Update()
-        {
-            _sprite.Update();
-        }
-
-        public void Draw()
-        {
-            _sprite.Draw(_drawLocation);
         }
     }
 }

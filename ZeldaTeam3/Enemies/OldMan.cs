@@ -42,6 +42,7 @@ namespace Zelda.Enemies
         {
             Sprite.PaletteShift();
             _attacked = true;
+            SoundEffects.SoundEffectManager.Instance.PlayEnemyHit();
         }
 
         public override void Update(Point playerLocation)

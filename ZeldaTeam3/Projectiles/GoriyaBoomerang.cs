@@ -52,7 +52,7 @@ namespace Zelda.Projectiles
 
         public bool CollidesWith(Rectangle rectangle)
         {
-            return Bounds.Intersects(rectangle);
+            return rectangle.Size != Point.Zero && Bounds.Intersects(rectangle);
         }
 
         public ICommand PlayerEffect(IPlayer player)

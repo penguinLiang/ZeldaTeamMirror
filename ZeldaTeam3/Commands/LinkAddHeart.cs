@@ -12,7 +12,7 @@ namespace Zelda.Commands
         public void Execute()
         {   
             _link.AddHeart();
-            _link.Heal();
+            _link.FullHeal();
         }
 
         public override string ToString() => "Link: Heal all hearts";

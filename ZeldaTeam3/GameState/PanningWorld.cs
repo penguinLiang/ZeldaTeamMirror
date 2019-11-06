@@ -1,6 +1,6 @@
 ﻿namespace Zelda.GameState
 {
-    class PanningWorld : GameWorld
+    internal class PanningWorld : GameWorld
     {
         public override IUpdatable[] Updatables { get; }
         public override IDrawable[] ScaledDrawables { get; }
@@ -9,13 +9,12 @@
         {
             Updatables = new IUpdatable[]
             {
+                new QuitResetControllerKeyboard(agent), 
                 StateAgent.HUD,
-                StateAgent.DungeonManager
             };
             ScaledDrawables = new IDrawable[]
             {
-                StateAgent.DungeonManager,
-                StateAgent.HUD
+                StateAgent.HUD,
             };
         }
     }
