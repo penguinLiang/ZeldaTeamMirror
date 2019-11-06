@@ -99,6 +99,8 @@ namespace Zelda.Blocks
 
                 if (++_distanceMoved >= 16)
                 {
+                    if (_moving)
+                        SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
                     _moving = false;
                 }
             }
