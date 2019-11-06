@@ -44,6 +44,7 @@
     <Compile Include="Blocks\DoorBase.cs" />
     <Compile Include="Blocks\DoorSpecialRight3_1.cs" />
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
+    <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
     <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />

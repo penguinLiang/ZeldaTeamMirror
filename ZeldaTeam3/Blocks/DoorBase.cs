@@ -70,7 +70,7 @@ namespace Zelda.Blocks
 
         public void Draw()
         {
-            Sprite.Draw((Location + DrawOffset).ToVector2());
+            Sprite?.Draw((Location + DrawOffset).ToVector2());
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Zelda.Dungeon
                 TryAddNormalDoor,
                 TryAddLockedDoor,
                 TryAddSpecialDoor,
+                TryAddBombableWall,
                 TryAddStair,
                 TryAddNonStandardTiles
             };
@@ -51,7 +52,7 @@ namespace Zelda.Dungeon
                         success = possibleBlock(tile, location);
                         if (success) break;
                     }
-                    //if (!success) throw new ArgumentOutOfRangeException(tile.ToString());
+                    if (!success) throw new ArgumentOutOfRangeException(tile.ToString());
                 }
             }
         }
@@ -221,6 +222,40 @@ namespace Zelda.Dungeon
                 default:
                     return false;
             }
+            Doors.Add(direction, door);
+            Drawables.Add(door);
+            Collidables.Add(door);
+            return true;
+        }
+
+        private bool TryAddBombableWall(MapTile tile, Point location)
+        {
+            BlockType blockType;
+            Direction direction;
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (tile)
+            {
+                case MapTile.DoorBombableLeft:
+                    blockType = BlockType.BombableWallLeft;
+                    direction = Direction.Right;
+                    break;
+                case MapTile.DoorBombableRight:
+                    blockType = BlockType.BombableWallRight;
+                    direction = Direction.Left;
+                    break;
+                case MapTile.DoorBombableUp:
+                    blockType = BlockType.BombableWallTop;
+                    direction = Direction.Up;
+                    break;
+                case MapTile.DoorBombableDown:
+                    blockType = BlockType.BombableWallBottom;
+                    direction = Direction.Down;
+                    break;
+                default:
+                    return false;
+            }
+
+            var door = new BombDoor(_dungeonManager, location, blockType);
             Doors.Add(direction, door);
             Drawables.Add(door);
             Collidables.Add(door);
