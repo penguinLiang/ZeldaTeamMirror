@@ -16,7 +16,7 @@ namespace Zelda.Dungeon
         private readonly List<IDrawable> _particles = new List<IDrawable>();
         private readonly List<IItem> _items = new List<IItem>();
         private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
-        private int _enemyCount = -1;
+        private int _enemyCount = int.MinValue;
 
         public Scene(Room room, IPlayer player)
         {
@@ -34,6 +34,12 @@ namespace Zelda.Dungeon
             {
                 roomItem.Reset();
             }
+
+            foreach (var roomDoor in _room.Doors.Values)
+            {
+                roomDoor.Reset();
+            }
+
             _projectiles.Clear();
         }
 
@@ -43,11 +49,15 @@ namespace Zelda.Dungeon
             _items.Clear();
             _items.AddRange(_room.Items);
 
-            if (_enemyCount == -1)
+            if (_enemyCount == int.MinValue)
             {
                 _enemyCount = _room.Enemies.Count;
             }
 
+            foreach (var roomDoor in _room.Doors.Values)
+            {
+                roomDoor.Deactivate();
+            }
             _room.MoveableBlockReset();
 
             for (var i = 0; i < _enemyCount; i++)
@@ -63,7 +73,13 @@ namespace Zelda.Dungeon
             _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
 
             if (roomEnemy.Alive) return;
-            _enemyCount--;
+            if (--_enemyCount == 0)
+            {
+                foreach (var door in _room.Doors.Values)
+                {
+                    door.Activate();
+                }
+            }
             if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }

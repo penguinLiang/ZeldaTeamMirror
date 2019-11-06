@@ -41,6 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\DoorBase.cs" />
+    <Compile Include="Blocks\DoorSpecialRight3_1.cs" />
+    <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
+    <Compile Include="Blocks\BombDoor.cs" />
+    <Compile Include="Blocks\LockedDoor.cs" />
     <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\Win.cs" />
@@ -72,8 +77,7 @@
     <Compile Include="Dungeon\TeleportLocation.cs" />
     <Compile Include="Enemies\AgentState.cs" />
     <Compile Include="Blocks\BlockTypeSprite.cs" />
-    <Compile Include="Blocks\LeftRightDoor.cs" />
-    <Compile Include="Blocks\UpDownDoor.cs" />
+    <Compile Include="Blocks\NormalDoor.cs" />
     <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
@@ -145,7 +149,7 @@
     <Compile Include="Blocks\BlockSpriteFactory.cs" />
     <Compile Include="Blocks\Barrier.cs" />
     <Compile Include="Blocks\MovableBlock.cs" />
-    <Compile Include="Blocks\ActivatableMovableBlock.cs" />
+    <Compile Include="Blocks\Room2_1Block.cs" />
     <Compile Include="ISpawnable.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IHaltable.cs" />
