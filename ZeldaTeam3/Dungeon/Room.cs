@@ -11,12 +11,12 @@ namespace Zelda.Dungeon
     {
         private const int TileWidthHeight = 16;
 
-        public IList<IEnemy> Enemies = new List<IEnemy>();
-        public IList<ICollideable> Collidables = new List<ICollideable>();
-        public IList<IDrawable> Drawables = new List<IDrawable>();
-        private ActivatableMovableBlock _AMBlock = null;
+        public List<IEnemy> Enemies = new List<IEnemy>();
+        public List<ICollideable> Collidables = new List<ICollideable>();
+        public List<IDrawable> Drawables = new List<IDrawable>();
+        public List<IItem> Items = new List<IItem>();
+        private ActivatableMovableBlock _amBlock;
 
-        private readonly Random _rnd = new Random();
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
 
@@ -75,35 +75,25 @@ namespace Zelda.Dungeon
             switch (tile)
             {
                 case MapTile.Key:
-                    var key = new Key(location);
-                    Collidables.Add(key);
-                    Drawables.Add(key);
+                    Items.Add(new Key(location));
                     break;
                 case MapTile.Compass:
-                    var compass = new Compass(location);
-                    Collidables.Add(compass);
-                    Drawables.Add(compass);
+                    Items.Add(new Compass(location));
                     break;
                 case MapTile.Map:
-                    var map = new Map(location);
-                    Collidables.Add(map);
-                    Drawables.Add(map);
+                    Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    var bow = new BowItem(location);
-                    Collidables.Add(bow);
-                    Drawables.Add(bow);
+                    Items.Add(new BowItem(location));
                     break;
                 case MapTile.Triforce:
-                    var triforce = new Triforce(location);
-                    Collidables.Add(triforce);
-                    Drawables.Add(triforce);
+                    Items.Add(new Triforce(location));
                     break;
                 case MapTile.Room2_1Block:
                     var room21Block = new ActivatableMovableBlock(this, BlockType.Block2_1, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
-                    _AMBlock = room21Block;
+                    _amBlock = room21Block;
                     break;
                 case MapTile.PushableBlock:
                     var pushableBlock = new MovableBlock(this, BlockType.PushableBlock, location);
@@ -116,14 +106,10 @@ namespace Zelda.Dungeon
                 case MapTile.Sand:
                     break;
                 case MapTile.Heart:
-                    var heart = new HeartContainer(location);
-                    Collidables.Add(heart);
-                    Drawables.Add(heart);
+                    Items.Add(new HeartContainer(location));
                     break;
                 case MapTile.Boomerang:
-                    var boomerang = new BoomerangItem(location);
-                    Collidables.Add(boomerang);
-                    Drawables.Add(boomerang);
+                    Items.Add(new BoomerangItem(location));
                     break;
                 case MapTile.BasementBricks:
                 case MapTile.BlackOverlay:
@@ -279,47 +265,9 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        public void AddDroppedItem(int enemyX, int enemyY)
-        {
-            int rand = _rnd.Next(100);
-            if (rand >= 67) // No drop = 67%
-            {
-                if (rand < 82)
-                {
-                    var item = new Rupee(new Point(enemyX + 4, enemyY)); // 1 Rupee = 15%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 92)
-                {
-                    var item = new DroppedHeart(new Point(enemyX + 4, enemyY + 4)); // Dropped Heart = 10%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 97)
-                {
-                    var item = new Rupee5(new Point(enemyX + 4, enemyY)); // 5 Rupee = 5%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 99)
-                {
-                    var item = new BombItem(new Point(enemyX + 4, enemyY)); // Bomb = 2%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else
-                {
-                    var item = new Fairy(new Point(enemyX + 4, enemyY)); // Fairy = 1%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-            }
-        }
-
         public void MoveableBlockReset()
         {
-            _AMBlock?.Reset();
+            _amBlock?.Reset();
         }
     }
 }

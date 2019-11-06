@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\DoorLinkKnockback.cs" />
+    <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\Win.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\Resume.cs" />
@@ -49,7 +50,11 @@
     <Compile Include="DrawnText.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
+    <Compile Include="Dungeon\PanningScene.cs" />
+    <Compile Include="GameState\PanAnimation.cs" />
+    <Compile Include="IItem.cs" />
     <Compile Include="IProjectile.cs" />
+    <Compile Include="Items\Item.cs" />
     <Compile Include="QuitResetControllerKeyboard.cs" />
     <Compile Include="GameOver\GameOverScreen.cs" />
     <Compile Include="GameOver\GameOverControllerKeyboard.cs" />

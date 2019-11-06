@@ -76,18 +76,25 @@ Code Analysis results before and after fixes for each sprint can be found under 
   
 ## Controls  
 
-__N__: Primary Attack (Sword)  
+__Q__: Quit
+__R__: Reset
+
 __Z__: Primary Attack (Sword)  
+__2__: Upgrade to White Sword
+__3__: Upgrade to Magical Sword
+
+__X__: Secondary Attack
 __4__: Assign and Use the Bow as the Secondary Weapon  
 __5__: Assign and Use the Boomerang as the Secondary Weapon  
 __6__: Assign and Use the Bomb as the Secondary Weapon  
+
 __W/UP__: Move Link Up  
 __A/LEFT__: Move Link Left  
 __S/DOWN__: Move Link Down  
 __D/RIGHT__:  Move Link Right  
-__E__: Apply Damage  
+
+__SPACE__: Pause the game and bring up the inventory screen
 __M__: Open up the map. _Click on each room to teleport to the room_  
-__K__: Apply Knockback to Link
   
 ## Frame Rates  
 __Normal Frame Rate__: Frame rate usually used to cycle between animation frames of a sprite  
