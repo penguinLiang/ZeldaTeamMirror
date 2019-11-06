@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 
 namespace Zelda.Enemies
 {
@@ -41,6 +42,11 @@ namespace Zelda.Enemies
             {
                 Health--;
                 Sprite?.PaletteShift();
+                SoundEffectManager.Instance.PlayEnemyHit();
+                if (Health <= 0)
+                {
+                    SoundEffectManager.Instance.PlayEnemyDie();
+                }
             }
             else
             {

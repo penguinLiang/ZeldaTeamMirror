@@ -29,6 +29,8 @@ namespace Zelda.Player
                 Health--;
                 Hurt = true;
                 _hurtResetDelay.Resume();
+                if (Health > 0)
+                    SoundEffects.SoundEffectManager.Instance.PlayLinkHurt();
             }
             else
             {

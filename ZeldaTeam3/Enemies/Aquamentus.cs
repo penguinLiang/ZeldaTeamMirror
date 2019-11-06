@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.SoundEffects;
 
 namespace Zelda.Enemies
 {
@@ -38,6 +39,27 @@ namespace Zelda.Enemies
             Health = 6;
             _currentDirection = Direction.Down;
             _agentStatus = AgentState.Ready;
+        }
+
+        public override void TakeDamage()
+        {
+            if (Alive)
+            {
+                Health--;
+                Sprite?.PaletteShift();
+                if (Health > 0)
+                {
+                    SoundEffectManager.Instance.PlayBossHurt();
+                }
+                else
+                {
+                    SoundEffectManager.Instance.PlayBossDead();
+                }
+            }
+            else
+            {
+                Sprite?.Hide();
+            }
         }
 
         private void ExecuteAction()
