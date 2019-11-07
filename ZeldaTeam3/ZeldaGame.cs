@@ -21,7 +21,6 @@ namespace Zelda
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private int _aliveReset = 460;
 
         public ZeldaGame()
         {

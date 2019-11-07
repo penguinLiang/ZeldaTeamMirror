@@ -9,40 +9,33 @@ namespace Zelda.GameWin
   public class GameWinMenu : IMenu, IDrawable
     {
         private readonly GameStateAgent _agent;
-        private readonly Vector2 _location;
-        private Point _cursorPosition;
-        private string _selectedItem;
 
-        
-
-
-        public GameWinMenu(GameStateAgent agent, Point location)
+        public GameWinMenu(GameStateAgent agent)
         {
-            _agent = agent;
-            _location = location.ToVector2();
-          
+            _agent = agent;          
         }
 
-
         public void Choose() {
-            //Depending on what is selected, activate that
+            var reset = new Commands.Reset(_agent);
+            reset.Execute();
         }
 
     public void SelectUp()
         {
-
+            //no op, only option is to select 'play again' or press 'q' to quit
         }
        public void SelectDown()
         {
+            //no op, only option is to select 'play again' or press 'q' to quit
 
         }
-       public void SelectLeft()
+        public void SelectLeft()
         {
-            //no op, can only select up or down in win/gameover menu
+            //no op, only option is to select 'play again' or press 'q' to quit
         }
-       public void SelectRight()
+        public void SelectRight()
         {
-            //no op, can only select up or down in win/gameover menu
+            //no op, only option is to select 'play again' or press 'q' to quit
         }
 
         public void Draw()

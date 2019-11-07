@@ -17,20 +17,16 @@ namespace Zelda.GameWin
 
             public GameWinControllerKeyboard(GameStateAgent agent, GameWinMenu winMenu)
             {
-                var selectUp = new Commands.MenuSelectUp(winMenu);
-                var selectDown = new Commands.MenuSelectDown(winMenu);
-
+             
                 _winDirections = new Dictionary<Keys, ICommand>
             {
-                {Keys.W, selectUp},            
-                {Keys.S, selectDown},
-                {Keys.Up, selectUp},
-                {Keys.Down, selectDown},
-
                 {Keys.R, new Commands.Reset(agent) },
                 {Keys.Q, new Commands.Quit(agent) },
+                 {Keys.Enter, new Commands.MenuSelectChoice(winMenu) }
             };
-            }
+
+          
+        }
 
             public void Update()
             {

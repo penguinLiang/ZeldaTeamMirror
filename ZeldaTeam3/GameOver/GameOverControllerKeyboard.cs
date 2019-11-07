@@ -7,21 +7,36 @@ namespace Zelda.GameOver
 {
     public class GameOverControllerKeyboard : IUpdatable
     {
-        private readonly Dictionary<Keys, ICommand> _keydownMap;
-        private readonly Dictionary<Keys, ICommand> _keyupMap;
+        private readonly Dictionary<Keys, ICommand> _keyDownMap;
+        private readonly Dictionary<Keys, ICommand> _keyUpMap;
+        private readonly Dictionary<Keys, ICommand> _keyResetMap;
+        private readonly Dictionary<Keys, ICommand> _keyQuitMap;
+        private readonly Dictionary<Keys, ICommand> _keySelectMap;
         private Keys[] _lastKeys = {};
 
-        public GameOverControllerKeyboard(GameStateAgent agent)
-        { 
-            _keydownMap = new Dictionary<Keys, ICommand>
+        public GameOverControllerKeyboard(GameStateAgent agent, GameOverMenu gameOverMenu)
+        {
+            var selectUp = new Commands.MenuSelectUp(gameOverMenu);
+            var selectDown = new Commands.MenuSelectDown(gameOverMenu);
+
+            _keyQuitMap = new Dictionary<Keys, ICommand> { { Keys.Q, new Commands.Quit(agent) } };
+            _keyResetMap = new Dictionary<Keys, ICommand> { { Keys.R, new Commands.Reset(agent) } };
+            _keySelectMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, new Commands.Quit(agent) },
+                {Keys.Enter, new Commands.MenuSelectChoice(gameOverMenu) },
             };
 
-            _keyupMap = new Dictionary<Keys, ICommand>
+            _keyDownMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.M, new Commands.Play(agent) },
-                { Keys.R, new Commands.Reset(agent) },
+          
+                {Keys.S, selectDown},
+                {Keys.Down, selectDown}
+            };
+
+            _keyUpMap = new Dictionary<Keys, ICommand>
+            {
+                {Keys.W, selectUp},
+                {Keys.Up, selectUp},
             };
         }
 
@@ -31,14 +46,34 @@ namespace Zelda.GameOver
 
             foreach (var key in keysPressed)
             {
-                if (_keydownMap.ContainsKey(key)) _keydownMap[key].Execute();
+                if (_keyDownMap.ContainsKey(key)) _keyDownMap[key].Execute();
+                if (_keyQuitMap.ContainsKey(key)) _keyQuitMap[key].Execute();
+                if (_keyResetMap.ContainsKey(key)) _keyResetMap[key].Execute();
+                if (_keyUpMap.ContainsKey(key)) _keyUpMap[key].Execute();
+                if (_keySelectMap.ContainsKey(key)) _keySelectMap[key].Execute();
             }
 
             foreach (var key in _lastKeys)
             {
-                if (!keysPressed.Contains(key) && _keyupMap.ContainsKey(key))
+                if (!keysPressed.Contains(key) && _keyUpMap.ContainsKey(key))
                 {
-                    _keyupMap[key].Execute();
+                    _keyUpMap[key].Execute();
+                }
+                if (!keysPressed.Contains(key) && _keyDownMap.ContainsKey(key))
+                {
+                    _keyDownMap[key].Execute();
+                }
+                if (!keysPressed.Contains(key) && _keyQuitMap.ContainsKey(key))
+                {
+                    _keyQuitMap[key].Execute();
+                }
+                if (!keysPressed.Contains(key) && _keyResetMap.ContainsKey(key))
+                {
+                    _keyResetMap[key].Execute();
+                }
+                if (!keysPressed.Contains(key) && _keySelectMap.ContainsKey(key))
+                {
+                    _keySelectMap[key].Execute();
                 }
             }
 
