@@ -45,17 +45,18 @@ namespace Zelda.Enemies
             SoundEffects.SoundEffectManager.Instance.PlayEnemyHit();
         }
 
-        public override void Update(Point playerLocation)
+        public override void Target(Point location)
         {
-            _playerLocation = playerLocation;
+            _playerLocation = location;
+        }
+
+        public override void Update()
+        {
             Sprite.Update();
-            if (_attacked)
+            if (_attacked && _attackDelay-- == 0)
             {
-                if (_attackDelay-- == 0)
-                {
-                    _attackDelay = 180;
-                    UseAttack();
-                }
+                _attackDelay = 180;
+                UseAttack();
             }
         }
 

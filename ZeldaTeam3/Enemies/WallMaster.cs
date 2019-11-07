@@ -111,12 +111,12 @@ namespace Zelda.Enemies
             }
         }
 
-        public override void Update(Point playerLocation)
+        public override void Update()
         {
             if (Alive && CanMove)
                 ExecuteAction();
 
-            base.Update(playerLocation);
+            base.Update();
         }
     }
 }

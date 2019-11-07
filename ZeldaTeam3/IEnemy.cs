@@ -1,14 +1,11 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
-﻿using System.Collections.Generic;
- using Microsoft.Xna.Framework;
-
- namespace Zelda
+namespace Zelda
 {
-    public interface IEnemy : IHaltable, ISpawnable, ICollideable
+    public interface IEnemy : IHaltable, ISpawnable, ICollideable, IDrawable
     {
-
-        void Draw();
-        void Update(Point playerLocation);
+        void Target(Point location);
         List<IProjectile> Projectiles { get; set; }
     }
 }

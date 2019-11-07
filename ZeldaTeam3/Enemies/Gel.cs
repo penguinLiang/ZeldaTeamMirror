@@ -123,9 +123,9 @@ namespace Zelda.Enemies
             throw new NotImplementedException();
         }
 
-        public override void Update(Point playerLocation)
+        public override void Update()
         {
-            base.Update(playerLocation);
+            base.Update();
 
             if (Alive && CanMove)
                 ExecuteAction();

@@ -74,7 +74,7 @@ namespace Zelda.Enemies
             }
         }
 
-        public virtual void Update(Point playerLocation)
+        public virtual void Update()
         {
             if (Spawned && !_spawnSprite.AnimationFinished)
             {
@@ -90,6 +90,11 @@ namespace Zelda.Enemies
             }
 
             _drawnSprite?.Update();
+        }
+
+        public virtual void Target(Point location)
+        {
+            // NO-OP
         }
 
         public virtual void Draw()

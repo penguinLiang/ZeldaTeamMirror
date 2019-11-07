@@ -205,7 +205,7 @@ namespace Zelda.Enemies
             _updateSpriteFlag = false;
         }
 
-        public override void Update(Point playerLocation)
+        public override void Update()
         {
             _timeSinceBoomerangThrown++;
 
@@ -213,7 +213,7 @@ namespace Zelda.Enemies
 
             if (_updateSpriteFlag) UpdateSprite();
 
-            base.Update(playerLocation);
+            base.Update();
         }
     }
 }

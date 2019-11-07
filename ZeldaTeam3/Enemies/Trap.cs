@@ -38,9 +38,9 @@ namespace Zelda.Enemies
             _halted = true;
         }
 
-        public override void Update(Point playerLocation)
+        public override void Update()
         {
-            base.Update(playerLocation);
+            base.Update();
             if (_halted)
             {
                 Location = _lastLocation;

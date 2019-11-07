@@ -187,11 +187,14 @@ namespace Zelda.Enemies
             _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
-        public override void Update(Point playerLocation)
+        public override void Target(Point playerLocation)
         {
             _playerLocation = playerLocation;
-            base.Update(playerLocation);
+        }
 
+        public override void Update()
+        {
+            base.Update();
             if (Alive && CanMove)
                 ExecuteAction();
         }

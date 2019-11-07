@@ -75,11 +75,11 @@ namespace Zelda.Enemies
             _movementClock = (_movementClock + 1) % 80;
         }
 
-        public override void Update(Point playerLocation)
+        public override void Update()
         {
             if (Alive && CanMove)
                 AdvanceLocation();
-            base.Update(playerLocation);
+            base.Update();
         }
     }
 }
