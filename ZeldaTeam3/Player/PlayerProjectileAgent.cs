@@ -78,18 +78,24 @@ namespace Zelda.Player
             switch (Item)
             {
                 case Items.Secondary.Bow:
+                    //check rupee count, if you have more than 1 rupee, you can fire the bow, else no op
+                    //subtract from rupee count
+                    //Should probably also check that the player actually has the bow
                     var arrow = new Arrow(location, facing);
                     Projectiles.Add(arrow);
                     break;
                 case Items.Secondary.Boomerang:
+                    //should probably check that the player actually has the boomerang
                     location.X += 4;
                     location.Y += 4;
                     var playerBoomerang = new PlayerBoomerang(location, facing);
                     Projectiles.Add(playerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
+                    //Check the player has bombs first
                     var bomb = new Bomb(location);
                     Projectiles.Add(bomb);
+                    //subtract from bomb count
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
