@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
 {
@@ -20,13 +21,13 @@ namespace Zelda.Projectiles
         {
             _location = location.ToVector2();
             _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
+            SoundEffectManager.Instance.PlayBombDrop();
             Halted = false;
         }
 
         private void SetExplosionSpriteLocations()
         {
-            var rand = new Random();
-            if (rand.Next(2) == 0)
+            if (_framesDelayed % 2 == 0)
             {
                 _outerExplosionSpriteLocations[0] = new Vector2(_location.X - 8, _location.Y - 16);
                 _outerExplosionSpriteLocations[1] = new Vector2(_location.X + 16, _location.Y);
@@ -43,12 +44,18 @@ namespace Zelda.Projectiles
         public void Update()
         {
             _sprite.Update();
+            _framesDelayed++;
             
-            if (++_framesDelayed == FramesToExplosion)
+            if (_framesDelayed == FramesToExplosion)
             {
+                SoundEffectManager.Instance.PlayBombExplode();
                 _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
                 SetExplosionSpriteLocations();
                 Bounds  = new Rectangle((int)_location.X - 16 ,(int) _location.Y - 16, 48, 48);
+            }
+            else if (_framesDelayed > FramesToExplosion && _framesDelayed < FramesToDisappear)
+            {
+                SetExplosionSpriteLocations();
             }
             else if (_framesDelayed == FramesToDisappear)
             {
