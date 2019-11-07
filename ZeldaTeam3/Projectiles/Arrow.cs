@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.SoundEffects;
 
 
 namespace Zelda.Projectiles
@@ -17,11 +17,9 @@ namespace Zelda.Projectiles
         private int _framesDelayed;
         public bool Halted { get; set; }
 
-        private Point _location;
-        private Direction _direction;
-
         public Arrow(Point location, Direction direction)
         {
+            SoundEffectManager.Instance.PlayArrowShoot();
             switch (direction)
             {
                 case Direction.Up:
@@ -39,8 +37,6 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _location = location;
-            _direction = direction;
             _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, ArrowSpeed);
             Halted = false;
         }

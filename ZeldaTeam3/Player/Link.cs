@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Zelda.SoundEffects;
 
 namespace Zelda.Player
 {
@@ -95,8 +96,12 @@ namespace Zelda.Player
         {
             if (_aliveSpriteStateMachine.UsingItem) return;
             _aliveSpriteStateMachine.UsePrimaryItem(Inventory.SwordLevel);
-            if (Health == MaxHealth)
-                _playerProjectileAgent.FireSwordBeam(_movementStateMachine.Facing, _movementStateMachine.Location, Inventory.SwordLevel);
+            SoundEffectManager.Instance.PlaySwordSlash();
+
+            if (Health != MaxHealth) return;
+            SoundEffectManager.Instance.PlaySwordShoot();
+            _playerProjectileAgent.FireSwordBeam(_movementStateMachine.Facing, _movementStateMachine.Location,
+                Inventory.SwordLevel);
         }
 
         public void UseSecondaryItem()
