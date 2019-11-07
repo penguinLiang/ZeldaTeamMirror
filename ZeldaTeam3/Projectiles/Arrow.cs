@@ -19,7 +19,7 @@ namespace Zelda.Projectiles
 
         public Arrow(Point location, Direction direction)
         {
-            SoundEffectManager.Instance.PlayArrowBoomerangShoot();
+            SoundEffectManager.Instance.PlayArrowShoot();
             switch (direction)
             {
                 case Direction.Up:

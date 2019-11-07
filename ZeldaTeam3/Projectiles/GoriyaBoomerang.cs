@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
@@ -17,10 +18,11 @@ namespace Zelda.Projectiles
         public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
 
+        private readonly SoundEffectInstance _soundEffect;
 
         public GoriyaBoomerang(Point location, Direction direction)
         {
-            SoundEffectManager.Instance.PlayArrowBoomerangShoot();
+            _soundEffect = SoundEffectManager.Instance.PlayBoomerang();
             _direction = direction;
             Bounds = new Rectangle(location.X, location.Y, 8, 8);
             _location = location.ToVector2();
@@ -106,6 +108,7 @@ namespace Zelda.Projectiles
         }
 
         public void Halt() {
+            _soundEffect.Stop();
             Halted = true;
         }
 
