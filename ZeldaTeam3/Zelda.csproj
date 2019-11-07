@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
     <Compile Include="Blocks\DoorSpecialRight3_1.cs" />
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />

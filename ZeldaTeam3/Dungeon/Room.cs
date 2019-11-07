@@ -31,6 +31,7 @@ namespace Zelda.Dungeon
             Func<MapTile, Point, bool>[] possibleBlocks =
             {
                 TryAddBarrier,
+                TryAddProjectilPassthroughBarrier,
                 TryAddNormalDoor,
                 TryAddLockedDoor,
                 TryAddSpecialDoor,
@@ -289,15 +290,12 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        private bool TryAddBarrier(MapTile tile, Point location)
+        private bool TryAddProjectilPassthroughBarrier(MapTile tile, Point location)
         {
             BlockType blockType;
             // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {
-                case MapTile.InvisibleWall:
-                    blockType = BlockType.InvisibleBlock;
-                    break;
                 case MapTile.Fire:
                     blockType = BlockType.Fire;
                     break;
@@ -312,6 +310,26 @@ namespace Zelda.Dungeon
                     break;
                 case MapTile.ImmovableBlock:
                     blockType = BlockType.ImmovableBlock;
+                    break;
+                default:
+                    return false;
+            }
+
+            var barrier = new ProjectilPassthroughBarrier(location, blockType);
+            Collidables.Add(barrier);
+            Drawables.Add(barrier);
+
+            return true;
+        }
+
+        private bool TryAddBarrier(MapTile tile, Point location)
+        {
+            BlockType blockType;
+            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
+            switch (tile)
+            {
+                case MapTile.InvisibleWall:
+                    blockType = BlockType.InvisibleBlock;
                     break;
                 case MapTile.BlackBarrier:
                     blockType = BlockType.BlackBarrier;
