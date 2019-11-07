@@ -19,7 +19,7 @@ namespace Zelda.Player
         public bool Alive => _healthStateMachine.Alive;
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
-
+        public Point Location => _movementStateMachine.Location;
         public List<IProjectile> Projectiles => _playerProjectileAgent.Projectiles;
 
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;

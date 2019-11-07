@@ -11,6 +11,7 @@ namespace Zelda
         List <IProjectile> Projectiles { get; }
         Player.Inventory Inventory { get; }
 
+        Point Location { get; }
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }

@@ -151,6 +151,7 @@ namespace Zelda.Dungeon
 
             foreach (var roomEnemy in _room.Enemies)
             {
+                roomEnemy.Target(_player.Location);
                 roomEnemy.Update();
                 _projectiles.AddRange(roomEnemy.Projectiles);
                 roomEnemy.Projectiles.Clear();

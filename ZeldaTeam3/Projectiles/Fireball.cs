@@ -8,28 +8,20 @@ namespace Zelda.Projectiles
         private const int FramesToDisappear = 140;
 
         private Vector2 _location;
-        private Vector2 _velocity;
+        private readonly Vector2 _velocity;
         private readonly ISprite _sprite;
 
         private int _framesDelayed;
 
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds => new Rectangle((int)_location.X + 4, (int)_location.Y + 4, 8, 8);
         public bool Halted { get; set; } 
 
         public Fireball(Point location, Vector2 velocity, bool fromAquamentus)
         {
             _location = location.ToVector2();
-            Bounds = new Rectangle(location.X + 4, location.Y + 4, 8, 8);
             _velocity = velocity;
             _framesDelayed = 0;
-            if (fromAquamentus)
-            {
-                _sprite = ProjectileSpriteFactory.Instance.CreateAquamentusFireball();
-            }
-            else
-            {
-                _sprite = ProjectileSpriteFactory.Instance.CreateOldManFireball();
-            }
+            _sprite = fromAquamentus ? ProjectileSpriteFactory.Instance.CreateAquamentusFireball() : ProjectileSpriteFactory.Instance.CreateOldManFireball();
             Halted = false;
         }
 
@@ -42,7 +34,6 @@ namespace Zelda.Projectiles
         {
             Halt();
             _sprite.Hide();
-            Bounds = Rectangle.Empty;
             return new Commands.SpawnableDamage(player);
         }
 
@@ -71,6 +62,7 @@ namespace Zelda.Projectiles
             if (_framesDelayed++ >= FramesToDisappear)
             {
                 _sprite.Hide();
+                Halt();
             }
             _sprite.Update();
         }
