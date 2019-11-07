@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
 namespace Zelda.SoundEffects
@@ -43,8 +37,8 @@ namespace Zelda.SoundEffects
             _playBombDrop = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Drop");
             _playBombExplode = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Blow");
             _playBossSpawn = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1");
-            _playBossHurt = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Hit");
-            _playBossDead = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1_Distant");
+            _playBossHurt = Content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Hit");
+            _playBossDead = Content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Scream1_Distant");
             _playDoorUnlock = Content.Load<SoundEffect>("Sounds/LOZ_Door_Unlock");
             _playEnemyDie = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Die");
             _playEnemyHit = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Hit");

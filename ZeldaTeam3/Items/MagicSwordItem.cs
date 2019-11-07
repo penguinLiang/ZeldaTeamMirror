@@ -1,53 +1,22 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class MagicSwordItem : ICollideable, IDrawable
+    internal class MagicSwordItem : Item
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.CreateMagicSword();
-        private readonly Vector2 _drawLocation;
-        public Rectangle Bounds { get; private set; }
-
-        public MagicSwordItem(Point location)
+        public MagicSwordItem(Point location) : base(location)
         {
-            var x = location.X;
-            var y = location.Y;
-            Bounds = new Rectangle(x + 8, y, 8, 16);
-            _drawLocation = new Vector2(x + 8, y);
         }
 
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMagicSword();
+        protected override Point Offset { get; } = new Point(8, 0);
+        protected override Point DrawOffset { get; } = new Point(8, 0);
 
-        public ICommand PlayerEffect(IPlayer player)
+        public override ICommand PlayerEffect(IPlayer player)
         {
-            _sprite.Hide();
-            Bounds = new Rectangle(0, 0, 0, 0);
+            Used = true;
             return new UpgradeSword(player, Primary.MagicalSword);
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IProjectile projectile)
-        {
-            return NoOp.Instance;
-        }
-
-        public void Update()
-        {
-            _sprite.Update();
-        }
-
-        public void Draw()
-        {
-            _sprite.Draw(_drawLocation);
         }
     }
 }

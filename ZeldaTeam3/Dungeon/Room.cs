@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Enemies;
@@ -11,12 +12,14 @@ namespace Zelda.Dungeon
     {
         private const int TileWidthHeight = 16;
 
-        public IList<IEnemy> Enemies = new List<IEnemy>();
-        public IList<ICollideable> Collidables = new List<ICollideable>();
-        public IList<IDrawable> Drawables = new List<IDrawable>();
-        private ActivatableMovableBlock _AMBlock = null;
+        public List<IEnemy> Enemies = new List<IEnemy>();
+        public bool SomeEnemiesAlive => Enemies.Any(enemy => enemy.Alive);
+        public List<ICollideable> Collidables = new List<ICollideable>();
+        public List<IDrawable> Drawables = new List<IDrawable>();
+        public List<IItem> Items = new List<IItem>();
+        public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>(); 
+        private Room2_1Block _amBlock;
 
-        private readonly Random _rnd = new Random();
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
 
@@ -25,6 +28,16 @@ namespace Zelda.Dungeon
         {
             _enemyType = (EnemyType) enemyID;
             _dungeonManager = dungeon;
+            Func<MapTile, Point, bool>[] possibleBlocks =
+            {
+                TryAddBarrier,
+                TryAddNormalDoor,
+                TryAddLockedDoor,
+                TryAddSpecialDoor,
+                TryAddBombableWall,
+                TryAddStair,
+                TryAddNonStandardTiles
+            };
 
             for (var row = 0; row < tiles.Length; row++)
             {
@@ -33,12 +46,13 @@ namespace Zelda.Dungeon
                     var location = new Point(col * TileWidthHeight, row * TileWidthHeight);
                     var tile = (MapTile) tiles[row][col];
 
-                    if (!TryAddBarrier(tile, location) && !TryAddLeftRightDoor(tile, location) 
-                        && !TryAddUpDownDoor(tile, location) && !TryAddStair(tile, location) &&
-                        !TryAddNonStandardTiles(tile, location))
+                    var success = false;
+                    foreach (var possibleBlock in possibleBlocks)
                     {
-                        throw new ArgumentOutOfRangeException();
+                        success = possibleBlock(tile, location);
+                        if (success) break;
                     }
+                    if (!success) throw new ArgumentOutOfRangeException(tile.ToString());
                 }
             }
         }
@@ -75,38 +89,28 @@ namespace Zelda.Dungeon
             switch (tile)
             {
                 case MapTile.Key:
-                    var key = new Key(location);
-                    Collidables.Add(key);
-                    Drawables.Add(key);
+                    Items.Add(new Key(location));
                     break;
                 case MapTile.Compass:
-                    var compass = new Compass(location);
-                    Collidables.Add(compass);
-                    Drawables.Add(compass);
+                    Items.Add(new Compass(location));
                     break;
                 case MapTile.Map:
-                    var map = new Map(location);
-                    Collidables.Add(map);
-                    Drawables.Add(map);
+                    Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    var bow = new BowItem(location);
-                    Collidables.Add(bow);
-                    Drawables.Add(bow);
+                    Items.Add(new BowItem(location));
                     break;
                 case MapTile.Triforce:
-                    var triforce = new Triforce(location);
-                    Collidables.Add(triforce);
-                    Drawables.Add(triforce);
+                    Items.Add(new Triforce(location));
                     break;
                 case MapTile.Room2_1Block:
-                    var room21Block = new ActivatableMovableBlock(this, BlockType.Block2_1, location);
+                    var room21Block = new Room2_1Block(this, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
-                    _AMBlock = room21Block;
+                    _amBlock = room21Block;
                     break;
                 case MapTile.PushableBlock:
-                    var pushableBlock = new MovableBlock(this, BlockType.PushableBlock, location);
+                    var pushableBlock = new MovableBlock(location);
                     Collidables.Add(pushableBlock);
                     Drawables.Add(pushableBlock);
                     break;
@@ -116,14 +120,10 @@ namespace Zelda.Dungeon
                 case MapTile.Sand:
                     break;
                 case MapTile.Heart:
-                    var heart = new HeartContainer(location);
-                    Collidables.Add(heart);
-                    Drawables.Add(heart);
+                    Items.Add(new HeartContainer(location));
                     break;
                 case MapTile.Boomerang:
-                    var boomerang = new BoomerangItem(location);
-                    Collidables.Add(boomerang);
-                    Drawables.Add(boomerang);
+                    Items.Add(new BoomerangItem(location));
                     break;
                 case MapTile.BasementBricks:
                 case MapTile.BlackOverlay:
@@ -136,81 +136,129 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        private bool TryAddLeftRightDoor(MapTile tile, Point location)
+        private bool TryAddNormalDoor(MapTile tile, Point location)
         {
             BlockType blockType;
-
-            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
+            Direction direction;
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (tile)
             {
                 case MapTile.DoorRight:
                     blockType = BlockType.DoorRight;
+                    direction = Direction.Right;
                     break;
                 case MapTile.DoorLeft:
                     blockType = BlockType.DoorLeft;
+                    direction = Direction.Left;
                     break;
-                case MapTile.DoorLockedLeft:
-                    blockType = BlockType.DoorLockedLeft;
-                    break;
-                case MapTile.DoorLockedRight:
-                    blockType = BlockType.DoorLockedRight;
-                    break;
-                case MapTile.DoorSpecialLeft2_1:
-                    blockType = BlockType.DoorSpecialLeft2_1;
-                    break;
-                case MapTile.DoorSpecialRight3_1:
-                    blockType = BlockType.DoorSpecialRight3_1;
-                    break;
-                case MapTile.DoorBombableLeft:
-                    blockType = BlockType.BombableWallLeft;
-                    break;
-                case MapTile.DoorBombableRight:
-                    blockType = BlockType.BombableWallRight;
-                    break;
-                default:
-                    return false;
-            }
-
-            var leftRightDoors = new LeftRightDoor(_dungeonManager, location, blockType);
-            Collidables.Add(leftRightDoors);
-            Drawables.Add(leftRightDoors);
-
-            return true;
-        }
-
-        private bool TryAddUpDownDoor(MapTile tile, Point location)
-        {
-            BlockType blockType;
-
-            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
-            switch (tile)
-            {
                 case MapTile.DoorUp:
                     blockType = BlockType.DoorUp;
+                    direction = Direction.Up;
                     break;
                 case MapTile.DoorDown:
                     blockType = BlockType.DoorDown;
-                    break;
-                case MapTile.DoorLockedUp:
-                    blockType = BlockType.DoorLockedUp;
-                    break;
-                case MapTile.DoorLockedDown:
-                    blockType = BlockType.DoorLockedDown;
-                    break;
-                case MapTile.DoorBombableUp:
-                    blockType = BlockType.BombableWallTop;
-                    break;
-                case MapTile.DoorBombableDown:
-                    blockType = BlockType.BombableWallBottom;
+                    direction = Direction.Down;
                     break;
                 default:
                     return false;
             }
 
-            var upDownDoors = new UpDownDoor(_dungeonManager, location, blockType);
-            Collidables.Add(upDownDoors);
-            Drawables.Add(upDownDoors);
+            var door = new NormalDoor(_dungeonManager, location, blockType);
+            Doors.Add(direction, door);
+            Drawables.Add(door);
+            Collidables.Add(door);
+            return true;
+        }
 
+        private bool TryAddLockedDoor(MapTile tile, Point location)
+        {
+            BlockType blockType;
+            Direction direction;
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (tile)
+            {
+                case MapTile.DoorLockedRight:
+                    blockType = BlockType.DoorLockedRight;
+                    direction = Direction.Right;
+                    break;
+                case MapTile.DoorLockedLeft:
+                    blockType = BlockType.DoorLockedLeft;
+                    direction = Direction.Left;
+                    break;
+                case MapTile.DoorLockedUp:
+                    blockType = BlockType.DoorLockedUp;
+                    direction = Direction.Up;
+                    break;
+                case MapTile.DoorLockedDown:
+                    blockType = BlockType.DoorLockedDown;
+                    direction = Direction.Down;
+                    break;
+                default:
+                    return false;
+            }
+
+            var door = new LockedDoor(_dungeonManager, location, blockType);
+            Doors.Add(direction, door);
+            Drawables.Add(door);
+            Collidables.Add(door);
+            return true;
+        }
+
+        private bool TryAddSpecialDoor(MapTile tile, Point location)
+        {
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            DoorBase door;
+            Direction direction;
+            switch (tile)
+            {
+                case MapTile.DoorSpecialLeft2_1:
+                    door = new DoorSpecialLeft2_1(_dungeonManager, location);
+                    direction = Direction.Left;
+                    break;
+                case MapTile.DoorSpecialRight3_1:
+                    door = new DoorSpecialRight3_1(_dungeonManager, location);
+                    direction = Direction.Right;
+                    break;
+                default:
+                    return false;
+            }
+            Doors.Add(direction, door);
+            Drawables.Add(door);
+            Collidables.Add(door);
+            return true;
+        }
+
+        private bool TryAddBombableWall(MapTile tile, Point location)
+        {
+            BlockType blockType;
+            Direction direction;
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (tile)
+            {
+                case MapTile.DoorBombableLeft:
+                    blockType = BlockType.BombableWallLeft;
+                    direction = Direction.Right;
+                    break;
+                case MapTile.DoorBombableRight:
+                    blockType = BlockType.BombableWallRight;
+                    direction = Direction.Left;
+                    break;
+                case MapTile.DoorBombableUp:
+                    blockType = BlockType.BombableWallTop;
+                    direction = Direction.Up;
+                    break;
+                case MapTile.DoorBombableDown:
+                    blockType = BlockType.BombableWallBottom;
+                    direction = Direction.Down;
+                    break;
+                default:
+                    return false;
+            }
+
+            var door = new BombDoor(_dungeonManager, location, blockType);
+            Doors.Add(direction, door);
+            Drawables.Add(door);
+            Collidables.Add(door);
             return true;
         }
 
@@ -279,47 +327,9 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        public void AddDroppedItem(int enemyX, int enemyY)
-        {
-            int rand = _rnd.Next(100);
-            if (rand >= 67) // No drop = 67%
-            {
-                if (rand < 82)
-                {
-                    var item = new Rupee(new Point(enemyX + 4, enemyY)); // 1 Rupee = 15%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 92)
-                {
-                    var item = new DroppedHeart(new Point(enemyX + 4, enemyY + 4)); // Dropped Heart = 10%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 97)
-                {
-                    var item = new Rupee5(new Point(enemyX + 4, enemyY)); // 5 Rupee = 5%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else if (rand < 99)
-                {
-                    var item = new BombItem(new Point(enemyX + 4, enemyY)); // Bomb = 2%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-                else
-                {
-                    var item = new Fairy(new Point(enemyX + 4, enemyY)); // Fairy = 1%
-                    Collidables.Add(item);
-                    Drawables.Add(item);
-                }
-            }
-        }
-
         public void MoveableBlockReset()
         {
-            _AMBlock?.Reset();
+            _amBlock?.Reset();
         }
     }
 }

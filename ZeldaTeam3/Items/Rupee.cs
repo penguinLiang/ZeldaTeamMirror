@@ -1,51 +1,23 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Items
 {
-    internal class Rupee : ICollideable, IDrawable
+    internal class Rupee : Item
     {
-        private readonly ISprite _sprite = ItemSpriteFactory.Instance.Create1Rupee();
-        private readonly Vector2 _drawLocation;
-        public Rectangle Bounds { get; private set; }
-
-        public Rupee(Point location)
+        public Rupee(Point location) : base(location)
         {
-            Bounds = new Rectangle(location.X, location.Y, 8, 16);
-            _drawLocation = new Vector2(location.X, location.Y);
         }
 
-        public bool CollidesWith(Rectangle rect)
-        {
-            return Bounds.Intersects(rect);
-        }
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.Create1Rupee();
+        protected override Point Size { get; } = new Point(16, 16);
+        protected override Point Offset { get; } = Point.Zero;
+        protected override Point DrawOffset { get; } = Point.Zero;
 
-        public ICommand PlayerEffect(IPlayer player)
+        public override ICommand PlayerEffect(IPlayer player)
         {
-            _sprite.Hide();
-            Bounds = new Rectangle(0, 0, 0, 0);
-            return new Add1Rupee(player);
-        }
-
-        public ICommand EnemyEffect(IEnemy enemy)
-        {
-            return NoOp.Instance;
-        }
-
-        public ICommand ProjectileEffect(IProjectile projectile)
-        {
-            return NoOp.Instance;
-        }
-
-        public void Update()
-        {
-            _sprite.Update();
-        }
-
-        public void Draw()
-        {
-            _sprite.Draw(_drawLocation);
+            Used = true;
+            return new Add5Rupee(player);
         }
     }
 }

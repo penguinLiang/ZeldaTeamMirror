@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
 using Zelda.HUD;
@@ -21,6 +22,10 @@ namespace Zelda.GameState
 
         private readonly SpriteBatch _spriteBatch;
         private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
+        private IDrawable _sourceScene;
+        private IDrawable _destinationScene;
+        private Point _panDestination;
+        private PanAnimation _panAnimation;
 
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
@@ -29,6 +34,7 @@ namespace Zelda.GameState
         {
             _spriteBatch = spriteBatch;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
+            DungeonManager.Pan = DungeonPan;
         }
 
         public void Play()
@@ -78,9 +84,13 @@ namespace Zelda.GameState
             Play();
         }
 
-        public void DungeonPan()
+        public void DungeonPan(Point sourceRoom, Point destinationRoom, Direction direction)
         {
             if (_worldState == WorldState.DungeonPanning) return;
+            _panAnimation = new PanAnimation(direction);
+            _sourceScene = DungeonManager.BuildPanScene(sourceRoom.Y, sourceRoom.X);
+            _destinationScene = DungeonManager.BuildPanScene(destinationRoom.Y, destinationRoom.X);
+            _panDestination = destinationRoom;
             _world = new PanningWorld(this);
             _worldState = WorldState.DungeonPanning;
         }
@@ -116,6 +126,20 @@ namespace Zelda.GameState
 
             if (_world == null) return;
 
+            if (_panAnimation != null)
+            {
+                if (_panAnimation.Finished)
+                {
+                    DungeonManager.JumpToRoom(_panDestination.Y, _panDestination.X, _panAnimation.Direction);
+                    Play();
+                    _panAnimation = null;
+                }
+                else
+                {
+                    _panAnimation.Update();
+                }
+            }
+
             foreach (var updatable in _world.Updatables)
             {
                 updatable.Update();
@@ -130,9 +154,27 @@ namespace Zelda.GameState
             }
         }
 
+        private void DrawPan()
+        {
+            var yOffset = HUDSpriteFactory.ScreenHeight;
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.SourceOffset.X * Scale,
+                    (_panAnimation.SourceOffset.Y + yOffset) * Scale, 0.0f));
+            _sourceScene.Draw();
+            _spriteBatch.End();
+
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.DestinationOffset.X * Scale,
+                    (_panAnimation.DestinationOffset.Y + yOffset) * Scale, 0.0f));
+            _destinationScene.Draw();
+            _spriteBatch.End();
+        }
+
         public void Draw()
         {
             if (_world == null) return;
+
+            if (_worldState == WorldState.DungeonPanning) DrawPan();
 
             var yOffset = HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
