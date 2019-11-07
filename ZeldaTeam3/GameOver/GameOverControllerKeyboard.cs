@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.GameState;
@@ -7,36 +8,30 @@ namespace Zelda.GameOver
 {
     public class GameOverControllerKeyboard : IUpdatable
     {
-        private readonly Dictionary<Keys, ICommand> _keyDownMap;
-        private readonly Dictionary<Keys, ICommand> _keyUpMap;
-        private readonly Dictionary<Keys, ICommand> _keyResetMap;
-        private readonly Dictionary<Keys, ICommand> _keyQuitMap;
-        private readonly Dictionary<Keys, ICommand> _keySelectMap;
-        private Keys[] _lastKeys = {};
+        private readonly Dictionary<Keys, ICommand> _keydownMap;
+        private readonly Dictionary<Keys, ICommand> _keyupMap;
+        private Keys[] _lastKeys = { };
 
         public GameOverControllerKeyboard(GameStateAgent agent, GameOverMenu gameOverMenu)
         {
             var selectUp = new Commands.MenuSelectUp(gameOverMenu);
             var selectDown = new Commands.MenuSelectDown(gameOverMenu);
+            var selectChoice = new Commands.MenuSelectChoice(gameOverMenu);
 
-            _keyQuitMap = new Dictionary<Keys, ICommand> { { Keys.Q, new Commands.Quit(agent) } };
-            _keyResetMap = new Dictionary<Keys, ICommand> { { Keys.R, new Commands.Reset(agent) } };
-            _keySelectMap = new Dictionary<Keys, ICommand>
+            _keydownMap = new Dictionary<Keys, ICommand>
             {
-                {Keys.Enter, new Commands.MenuSelectChoice(gameOverMenu) },
-            };
-
-            _keyDownMap = new Dictionary<Keys, ICommand>
-            {
-          
+                { Keys.Q, new Commands.Quit(agent) },
                 {Keys.S, selectDown},
-                {Keys.Down, selectDown}
-            };
-
-            _keyUpMap = new Dictionary<Keys, ICommand>
-            {
+                {Keys.Down, selectDown},
                 {Keys.W, selectUp},
                 {Keys.Up, selectUp},
+                {Keys.Enter, selectChoice }
+            };
+
+            _keyupMap = new Dictionary<Keys, ICommand>
+            {
+                { Keys.M, new Commands.Play(agent) },
+                { Keys.R, new Commands.Reset(agent) },
             };
         }
 
@@ -46,34 +41,14 @@ namespace Zelda.GameOver
 
             foreach (var key in keysPressed)
             {
-                if (_keyDownMap.ContainsKey(key)) _keyDownMap[key].Execute();
-                if (_keyQuitMap.ContainsKey(key)) _keyQuitMap[key].Execute();
-                if (_keyResetMap.ContainsKey(key)) _keyResetMap[key].Execute();
-                if (_keyUpMap.ContainsKey(key)) _keyUpMap[key].Execute();
-                if (_keySelectMap.ContainsKey(key)) _keySelectMap[key].Execute();
+                if (_keydownMap.ContainsKey(key) && !_lastKeys.Contains(key)) _keydownMap[key].Execute();
             }
 
             foreach (var key in _lastKeys)
             {
-                if (!keysPressed.Contains(key) && _keyUpMap.ContainsKey(key))
+                if (!keysPressed.Contains(key) && _keyupMap.ContainsKey(key))
                 {
-                    _keyUpMap[key].Execute();
-                }
-                if (!keysPressed.Contains(key) && _keyDownMap.ContainsKey(key))
-                {
-                    _keyDownMap[key].Execute();
-                }
-                if (!keysPressed.Contains(key) && _keyQuitMap.ContainsKey(key))
-                {
-                    _keyQuitMap[key].Execute();
-                }
-                if (!keysPressed.Contains(key) && _keyResetMap.ContainsKey(key))
-                {
-                    _keyResetMap[key].Execute();
-                }
-                if (!keysPressed.Contains(key) && _keySelectMap.ContainsKey(key))
-                {
-                    _keySelectMap[key].Execute();
+                    _keyupMap[key].Execute();
                 }
             }
 
