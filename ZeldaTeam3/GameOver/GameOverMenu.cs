@@ -106,16 +106,14 @@ namespace Zelda.GameOver
 
         public void SelectDown()
         {
-            string oldSelect = _selectedItem;
-            if (oldSelect == RetryMessage)
+             OldSelect = _selectedItem;
+            if (OldSelect == RetryMessage)
             {
-              //  OldSelect = QuitMessage;
                 _selectedItem = QuitMessage;
                 _location = new Vector2(QuitMessageLocation.X - 16, QuitMessageLocation.Y);
             }
-            else if (oldSelect == ContinueMessage)
+            else if (OldSelect == ContinueMessage)
             {
-             //   OldSelect = RetryMessage;
                 _selectedItem = RetryMessage;
                 _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
             }
