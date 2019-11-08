@@ -13,10 +13,14 @@ namespace Zelda.Player
 
         public List<IProjectile> Projectiles { get; set; }
 
-        public PlayerProjectileAgent()
+        public Inventory _inventory { get; set; }
+
+
+        public PlayerProjectileAgent(Inventory inventory)
         {
             UsingSecondaryItem = false;
             Projectiles = new List<IProjectile>();
+            _inventory = inventory;
         }
 
         public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
@@ -78,24 +82,25 @@ namespace Zelda.Player
             switch (Item)
             {
                 case Items.Secondary.Bow:
-                    //check rupee count, if you have more than 1 rupee, you can fire the bow, else no op
-                    //subtract from rupee count
-                    //Should probably also check that the player actually has the bow
-                    var arrow = new Arrow(location, facing);
-                    Projectiles.Add(arrow);
+                    if (_inventory.TryRemoveRupee())
+                    {
+                        var arrow = new Arrow(location, facing);
+                        Projectiles.Add(arrow);
+                    }
                     break;
                 case Items.Secondary.Boomerang:
-                    //should probably check that the player actually has the boomerang
                     location.X += 4;
                     location.Y += 4;
                     var playerBoomerang = new PlayerBoomerang(location, facing);
                     Projectiles.Add(playerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
-                    //Check the player has bombs first
-                    var bomb = new Bomb(location);
-                    Projectiles.Add(bomb);
-                    //subtract from bomb count
+
+                    if (_inventory.TryRemoveBomb())
+                    {
+                        var bomb = new Bomb(location);
+                        Projectiles.Add(bomb);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

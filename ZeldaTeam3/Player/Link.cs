@@ -34,6 +34,7 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
+            _playerProjectileAgent._inventory = Inventory;
         }
 
         public void Move(Direction direction)
@@ -74,7 +75,7 @@ namespace Zelda.Player
             _healthStateMachine = new HealthStateMachine();
             _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
             _deadSpriteStateMachine = new DeadSpriteStateMachine();
-            _playerProjectileAgent = new PlayerProjectileAgent();
+            _playerProjectileAgent = new PlayerProjectileAgent(Inventory);
         }
 
         public void TakeDamage()
