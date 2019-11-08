@@ -15,8 +15,6 @@ namespace Zelda.GameState
     {
         public const float Scale = 2.0f;
 
-        private const int HealthBeepTimerReset = 30;
-
         public DungeonManager DungeonManager { get; } = new DungeonManager();
         public HUDScreen HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
@@ -31,7 +29,6 @@ namespace Zelda.GameState
 
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
-        private int _healthBeepTimer;
 
         public GameStateAgent(SpriteBatch spriteBatch)
         {
@@ -154,13 +151,6 @@ namespace Zelda.GameState
             {
                 _pauseMachine.Play();
                 Play();
-                _healthBeepTimer = HealthBeepTimerReset;
-            }
-
-            if (_worldState == WorldState.Playing && _pauseMachine.State == PauseState.Playing && /* Player.Health <= 2 && */ ++_healthBeepTimer >= HealthBeepTimerReset)
-            {
-                _healthBeepTimer = 0;
-                SoundEffects.SoundEffectManager.Instance.PlayLowHealth();
             }
         }
 

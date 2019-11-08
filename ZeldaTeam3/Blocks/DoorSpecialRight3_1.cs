@@ -26,6 +26,7 @@ namespace Zelda.Blocks
         public override void Unblock()
         {
             _unlocked = true;
+            SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
             _sprite = BlockTypeSprite.Sprite(BlockType.DoorRight);
         }
 
