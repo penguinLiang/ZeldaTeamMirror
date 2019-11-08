@@ -6,13 +6,8 @@ using Zelda.Music;
 
 namespace Zelda.GameState
 {
-    internal class GameWinWorld : GameWorld
+    internal class GameWinWorld : GameWorld, IUpdatable
     {
-        private const string WinMessage = "YOU WIN!";
-        private const string PlayAgainMessage = "Press Enter to Play Again";
-        private static readonly Point WinMessageLocation = new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(WinMessage)) / 2, 0);
-        private static readonly Point PlayAgainMessageLocation = new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(PlayAgainMessage)) / 2, HUDSpriteFactory.ScreenHeight+64);
-
 
         private IUpdatable[] _updatables;
         public override IUpdatable[] Updatables => _updatables;
@@ -21,25 +16,46 @@ namespace Zelda.GameState
         private readonly FrameDelay _menuDelay = new FrameDelay(300);
         private readonly GameWinControllerKeyboard _controllerKeyboard;
 
-        public override IDrawable[] ScaledDrawables { get; }
+
+        private IDrawable[] _scaledDrawables;
+        public override IDrawable[] ScaledDrawables => _scaledDrawables;
         public GameWinWorld(GameStateAgent agent) : base(agent)
         {
             MusicManager.Instance.PlayWinMusic();
-            ScaledDrawables = new IDrawable[]
-            {
-                new DrawnText { Location =  WinMessageLocation, Text = WinMessage },
-
-                new DrawnText {Location = PlayAgainMessageLocation, Text = PlayAgainMessage}
-            };
 
             _screen = new GameWinMenu(agent);
             _controllerKeyboard = new GameWinControllerKeyboard(agent, _screen);
             _updatables = new IUpdatable[]
             {
                 new GameWinControllerKeyboard(agent, _screen),
-                
+                StateAgent.Player,
+                this
             };
+
+            _scaledDrawables = new IDrawable[]
+            {
+                //StateAgent.Player,
+            };
+
     
         }
+
+        public void Update()
+        {
+            _menuDelay.Update();
+            if (_menuDelay.Delayed) return;
+
+            _updatables = new IUpdatable[]
+            {
+                _screen,
+                _controllerKeyboard
+            };
+
+            _scaledDrawables = new IDrawable[]
+            {
+                _screen
+            };
+        }
+
     }
 }
