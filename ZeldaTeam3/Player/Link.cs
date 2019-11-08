@@ -34,7 +34,6 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
-            _playerProjectileAgent._inventory = Inventory;
         }
 
         public void Move(Direction direction)

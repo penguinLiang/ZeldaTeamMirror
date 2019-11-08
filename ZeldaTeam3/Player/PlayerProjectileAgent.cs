@@ -13,7 +13,7 @@ namespace Zelda.Player
 
         public List<IProjectile> Projectiles { get; set; }
 
-        public Inventory _inventory { get; set; }
+        private Inventory _inventory;
 
 
         public PlayerProjectileAgent(Inventory inventory)
