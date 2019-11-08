@@ -65,7 +65,7 @@ namespace Zelda.Blocks
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return new MoveableHalt(projectile);
+            return NoOp.Instance;
         }
 
         public void Update()

@@ -17,7 +17,6 @@ namespace Zelda.Enemies
 
         protected bool Spawned;
 
-        //Most enemies have no projectiles
         public List<IProjectile> Projectiles { get; set; } = new List<IProjectile>();
 
         public virtual bool Alive => Spawned && Health > 0;
@@ -91,6 +90,11 @@ namespace Zelda.Enemies
             }
 
             _drawnSprite?.Update();
+        }
+
+        public virtual void Target(Point location)
+        {
+            // NO-OP
         }
 
         public virtual void Draw()

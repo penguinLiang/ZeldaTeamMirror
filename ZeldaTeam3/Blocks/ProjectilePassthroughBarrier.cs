@@ -1,16 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
-    internal class Barrier : ICollideable, IDrawable
+    internal class ProjectilPassthroughBarrier : ICollideable, IDrawable
     {
         public Rectangle Bounds { get; }
 
         private readonly ISprite _sprite;
         private Point _location;
 
-        public Barrier(Point location, BlockType block)
+        public ProjectilPassthroughBarrier(Point location, BlockType block)
         {
             Bounds = CalculateBounds(location, block);
             _location = location;
@@ -19,15 +20,17 @@ namespace Zelda.Blocks
 
         private static Rectangle CalculateBounds(Point location, BlockType block)
         {
-            // ReSharper disable once SwitchStatementMissingSomeCases (Most barriers are 32,32)
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (block)
             {
-                case BlockType.InvisibleBlock:
+                case BlockType.Fire:
+                case BlockType.DragonStatue:
+                case BlockType.FishStatue:
+                case BlockType.ImmovableBlock:
+                case BlockType.Water:
                     return new Rectangle(location, new Point(16, 16));
-                case BlockType.BlackBarrier:
-                    return new Rectangle(location, new Point(16, 24));
                 default:
-                    return new Rectangle(location, new Point(32, 32));
+                    throw new ArgumentOutOfRangeException(block.ToString());
             }
         }
 
@@ -48,7 +51,7 @@ namespace Zelda.Blocks
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return new MoveableHalt(projectile);
+            return NoOp.Instance;
         }
 
         public void Update()
