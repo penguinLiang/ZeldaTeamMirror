@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Zelda.Items;
-using Zelda.Commands;
+﻿using Microsoft.Xna.Framework;
 using Zelda.GameState;
 using Zelda.HUD;
 
@@ -10,7 +7,8 @@ namespace Zelda.GameOver
     public class GameOverMenu : IDrawable, IMenu
     {
         private const string GameOverMessage = "GAME OVER";
-        private static readonly int ScreenHeight = 224;
+        private const int ScreenHeight = 224;
+        private const int ScreenWidth = 256;
         private static readonly Point GameOverMessageLocation =
             new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameOverMessage)) / 2, 0);
 
@@ -19,40 +17,37 @@ namespace Zelda.GameOver
         private const string QuitMessage = "Quit";
         private const string PressEnter = "Press Enter to Select";
 
-        private static readonly Point ContinueMessageLocation = new Point((512 - DrawnText.Width(GameOverMessage)) / 8 , ScreenHeight - 160);
-        private static readonly Point RetryMessageLocation = new Point((512 - DrawnText.Width(GameOverMessage)) / 8 , ScreenHeight - 140);
-        private static readonly Point QuitMessageLocation = new Point((512- DrawnText.Width(GameOverMessage)) / 8, ScreenHeight - 120);
-        private static readonly Point PressEnterLocation = new Point((512 - DrawnText.Width(PressEnter)) / 8, ScreenHeight - 80);
+        private static readonly Point ContinueMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 160);
+        private static readonly Point RetryMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 140);
+        private static readonly Point QuitMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 120);
+        private static readonly Point PressEnterLocation = new Point((ScreenWidth - DrawnText.Width(PressEnter)) / 4, ScreenHeight - 80);
 
         private readonly IDrawable[] _textDrawables =
         {
-            new DrawnText() { Location = GameOverMessageLocation, Text = GameOverMessage },
-            new DrawnText() {Location = ContinueMessageLocation, Text = ContinueMessage},
-            new DrawnText() {Location = RetryMessageLocation, Text = RetryMessage},
-            new DrawnText(){Location = QuitMessageLocation, Text = QuitMessage},
-            new DrawnText() {Location = PressEnterLocation, Text = PressEnter}
+            new DrawnText { Location = GameOverMessageLocation, Text = GameOverMessage },
+            new DrawnText { Location = ContinueMessageLocation, Text = ContinueMessage },
+            new DrawnText { Location = RetryMessageLocation, Text = RetryMessage },
+            new DrawnText { Location = QuitMessageLocation, Text = QuitMessage },
+            new DrawnText { Location = PressEnterLocation, Text = PressEnter }
         };
 
         private readonly GameStateAgent _agent;
         private Vector2 _location;
         private string _selectedItem;
-       private string OldSelect { get; set; }
 
-        private ISprite Cursor { get; set; }
+        private readonly ISprite _cursor;
 
         public GameOverMenu(GameStateAgent agent)
         {
             _agent = agent;
             _selectedItem = ContinueMessage;
             _location = new Vector2(ContinueMessageLocation.X - 16, ContinueMessageLocation.Y);
-            Cursor = HUDSpriteFactory.Instance.CreateFullHeart();
-            OldSelect = ContinueMessage;
-            //need space for the heart selector icon
+            _cursor = HUDSpriteFactory.Instance.CreateFullHeart();
         }
 
         public void Update()
         {
-           
+            // NO-OP
         }
 
         public void Draw()
@@ -61,75 +56,63 @@ namespace Zelda.GameOver
             {
                 textDrawable.Draw();
             }
-                Cursor.Draw(_location);
-            //draw heart selector next to current selected option
-
+            _cursor.Draw(_location);
         }
 
         public void Choose()
         {
-
-            if (_selectedItem == ContinueMessage)
+            switch (_selectedItem)
             {
-                //continue
-                _agent.Continue();
-            }
-            else if(_selectedItem == RetryMessage)
-            {
-                //reset
-                var reset = new Commands.Reset(_agent);
-                reset.Execute();
-            }
-           else
-            {
-                //quit
-                var quit = new Commands.Quit(_agent);
-                quit.Execute();
+                case ContinueMessage:
+                    _agent.Continue();
+                    break;
+                case RetryMessage:
+                    _agent.Reset();
+                    break;
+                default:
+                    _agent.Quit();
+                    break;
             }
         }
 
         public void SelectUp()
         {
-           OldSelect = _selectedItem;
-            if (OldSelect == QuitMessage)
+            switch (_selectedItem)
             {
-                _selectedItem = RetryMessage;
-                _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
+                case QuitMessage:
+                    _selectedItem = RetryMessage;
+                    _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
+                    break;
+                case RetryMessage:
+                    _selectedItem = ContinueMessage;
+                    _location = new Vector2(ContinueMessageLocation.X - 16, ContinueMessageLocation.Y);
+                    break;
             }
-            else if (OldSelect == RetryMessage)
-            {
-                _selectedItem = ContinueMessage;
-                _location = new Vector2(ContinueMessageLocation.X - 16, ContinueMessageLocation.Y);
-            }
-           
         }
 
         public void SelectDown()
         {
-             OldSelect = _selectedItem;
-            if (OldSelect == RetryMessage)
+            switch (_selectedItem)
             {
-                _selectedItem = QuitMessage;
-                _location = new Vector2(QuitMessageLocation.X - 16, QuitMessageLocation.Y);
+                case RetryMessage:
+                    _selectedItem = QuitMessage;
+                    _location = new Vector2(QuitMessageLocation.X - 16, QuitMessageLocation.Y);
+                    break;
+                case ContinueMessage:
+                    _selectedItem = RetryMessage;
+                    _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
+                    break;
             }
-            else if (OldSelect == ContinueMessage)
-            {
-                _selectedItem = RetryMessage;
-                _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
-            }
-         
-
-
         }
 
         public void SelectLeft()
         {
-          //no op
+            //no op
         }
 
         public void SelectRight()
         {
-         //no op
+            //no op
         }
     }
 }
