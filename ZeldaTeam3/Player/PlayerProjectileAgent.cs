@@ -13,10 +13,14 @@ namespace Zelda.Player
 
         public List<IProjectile> Projectiles { get; set; }
 
-        public PlayerProjectileAgent()
+        private Inventory _inventory;
+
+
+        public PlayerProjectileAgent(Inventory inventory)
         {
             UsingSecondaryItem = false;
             Projectiles = new List<IProjectile>();
+            _inventory = inventory;
         }
 
         public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
@@ -78,8 +82,11 @@ namespace Zelda.Player
             switch (Item)
             {
                 case Items.Secondary.Bow:
-                    var arrow = new Arrow(location, facing);
-                    Projectiles.Add(arrow);
+                    if (_inventory.TryRemoveRupee())
+                    {
+                        var arrow = new Arrow(location, facing);
+                        Projectiles.Add(arrow);
+                    }
                     break;
                 case Items.Secondary.Boomerang:
                     location.X += 4;
@@ -88,8 +95,12 @@ namespace Zelda.Player
                     Projectiles.Add(playerBoomerang);
                     break;
                 case Items.Secondary.Bomb:
-                    var bomb = new Bomb(location);
-                    Projectiles.Add(bomb);
+
+                    if (_inventory.TryRemoveBomb())
+                    {
+                        var bomb = new Bomb(location);
+                        Projectiles.Add(bomb);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
