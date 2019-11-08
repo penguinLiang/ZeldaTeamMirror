@@ -35,7 +35,8 @@ namespace Zelda.GameOver
 
             foreach (var key in keysPressed)
             {
-                if (_keydownOnceMap.ContainsKey(key) && !_lastKeys.Contains(key)) _keydownOnceMap[key].Execute();
+                if (_keydownOnceMap.ContainsKey(key) && !_lastKeys.Contains(key))
+                    _keydownOnceMap[key].Execute();
             }
 
             _lastKeys = keysPressed;

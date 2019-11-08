@@ -1,58 +1,27 @@
-﻿using Microsoft.Xna.Framework;
-using Zelda.GameOver;
-using Zelda.GameWin;
-using Zelda.HUD;
+﻿using Zelda.GameWin;
 using Zelda.Music;
 
 namespace Zelda.GameState
 {
-    internal class GameWinWorld : GameWorld, IUpdatable
+    internal class GameWinWorld : GameWorld
     {
+        public override IUpdatable[] Updatables { get; }
+        public override IDrawable[] ScaledDrawables { get; }
 
-        private IUpdatable[] _updatables;
-        public override IUpdatable[] Updatables => _updatables;
-
-        private readonly GameWinMenu _screen;
-        private readonly FrameDelay _menuDelay = new FrameDelay(300);
-        private readonly GameWinControllerKeyboard _controllerKeyboard;
-
-
-        private IDrawable[] _scaledDrawables;
-        public override IDrawable[] ScaledDrawables => _scaledDrawables;
         public GameWinWorld(GameStateAgent agent) : base(agent)
         {
             MusicManager.Instance.PlayWinMusic();
 
-            _screen = new GameWinMenu(agent);
-            _controllerKeyboard = new GameWinControllerKeyboard(agent, _screen);
-            _updatables = new IUpdatable[]
+            var screen = new GameWinMenu(agent);
+            Updatables = new IUpdatable[]
             {
-               _controllerKeyboard,
-                StateAgent.Player,
-                this
+                new GameWinControllerKeyboard(agent, screen), 
+               screen
             };
-
-            _scaledDrawables = new IDrawable[]
+            ScaledDrawables = new IDrawable[]
             {
-                //StateAgent.Player,
-            };
-
-    
-        }
-
-        public void Update()
-        {
-            _updatables = new IUpdatable[]
-            {
-                _screen,
-                _controllerKeyboard
-            };
-
-            _scaledDrawables = new IDrawable[]
-            {
-                _screen
+                screen
             };
         }
-
     }
 }

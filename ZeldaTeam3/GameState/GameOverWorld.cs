@@ -14,7 +14,6 @@ namespace Zelda.GameState
         private readonly FrameDelay _menuDelay = new FrameDelay(300);
         private readonly GameOverControllerKeyboard _controllerKeyboard;
 
-
         public GameOverWorld(GameStateAgent agent) : base(agent)
         {
             MusicManager.Instance.PlayGameOverMusic();
@@ -22,9 +21,7 @@ namespace Zelda.GameState
             _controllerKeyboard = new GameOverControllerKeyboard(agent, _screen);
             _updatables = new IUpdatable[]
             {
-               _controllerKeyboard, 
-                StateAgent.Player,
-                this
+                new QuitResetControllerKeyboard(agent), StateAgent.Player, this
             };
             _scaledDrawables = new IDrawable[]
             {
