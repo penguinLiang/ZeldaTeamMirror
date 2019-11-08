@@ -15,8 +15,8 @@ namespace Zelda.GameState
             var screen = new GameWinMenu(agent);
             Updatables = new IUpdatable[]
             {
-                new GameWinControllerKeyboard(agent, screen), 
-               screen
+                new GameWinControllerKeyboard(agent, screen),
+                screen
             };
             ScaledDrawables = new IDrawable[]
             {
