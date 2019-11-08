@@ -15,7 +15,7 @@ namespace Zelda.GameWin
         private const string PressEnter = "Press Enter to Select";
 
         private static readonly Point GameWinMessageLocation =
-            new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameWinMessage)));
+            new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameWinMessage))/2,0);
 
         private const int ScreenHeight = 224;
 

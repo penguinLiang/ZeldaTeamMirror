@@ -22,7 +22,7 @@ namespace Zelda.GameState
             _controllerKeyboard = new GameOverControllerKeyboard(agent, _screen);
             _updatables = new IUpdatable[]
             {
-                new QuitResetControllerKeyboard(agent), 
+               _controllerKeyboard, 
                 StateAgent.Player,
                 this
             };

@@ -27,7 +27,7 @@ namespace Zelda.GameState
             _controllerKeyboard = new GameWinControllerKeyboard(agent, _screen);
             _updatables = new IUpdatable[]
             {
-                new GameWinControllerKeyboard(agent, _screen),
+               _controllerKeyboard,
                 StateAgent.Player,
                 this
             };
@@ -42,9 +42,6 @@ namespace Zelda.GameState
 
         public void Update()
         {
-            _menuDelay.Update();
-            if (_menuDelay.Delayed) return;
-
             _updatables = new IUpdatable[]
             {
                 _screen,
