@@ -22,7 +22,6 @@ namespace Zelda
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private int _aliveReset = 460;
 
         public ZeldaGame()
         {
@@ -76,9 +75,6 @@ namespace Zelda
 
             GameStateAgent.Update();
 
-            if (Link.Alive || _aliveReset-- != 0) return;
-            GameStateAgent.Continue();
-            _aliveReset = 460;
         }
 
         protected override void Draw(GameTime gameTime)

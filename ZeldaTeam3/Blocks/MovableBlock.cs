@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
@@ -11,17 +10,16 @@ namespace Zelda.Blocks
         public Rectangle Bounds { get; private set; }
 
         private Point _location;
-        private Point _origin;
         private Direction _pushDirection;
         private int _distanceMoved;
 
         private bool _unmoved;
         private bool _moving;
+        public bool Locked { get; private set; }
 
-        public MovableBlock(Room room, BlockType block, Point location)
+        public MovableBlock(Point location)
         {
             _location = location;
-            _origin = location;
             _unmoved = true;
             _moving = false;
             Bounds = new Rectangle(location.X, location.Y, 16, 16);
@@ -67,45 +65,42 @@ namespace Zelda.Blocks
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return new MoveableHalt(projectile);
+            return NoOp.Instance;
         }
 
         public void Update()
         {
+            if (!_moving || Locked) return;
             
-            if (_moving)
+            switch (_pushDirection)
             {
-                switch (_pushDirection)
-                {
-                    case Direction.Up:
-                        _location = new Point(_location.X, _location.Y - 1);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Down:
-                        _location = new Point(_location.X, _location.Y + 1);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Left:
-                        _location = new Point(_location.X - 1, _location.Y);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    case Direction.Right:
-                        _location = new Point(_location.X + 1, _location.Y);
-                        Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                if (++_distanceMoved >= 16)
-                {
-                    if (_moving)
-                        SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
-                    _moving = false;
-                }
+                case Direction.Up:
+                    _location = new Point(_location.X, _location.Y - 1);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Down:
+                    _location = new Point(_location.X, _location.Y + 1);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Left:
+                    _location = new Point(_location.X - 1, _location.Y);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                case Direction.Right:
+                    _location = new Point(_location.X + 1, _location.Y);
+                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            _sprite.Update();
+            if (++_distanceMoved >= 16)
+            {
+                if (_moving)
+                        SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
+                _moving = false;
+                Locked = true;
+            }
         }
 
         public void Draw()
