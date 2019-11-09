@@ -62,7 +62,6 @@ namespace Zelda.Blocks
         public override void Unblock()
         {
             _unlocked = true;
-            SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
             _sprite = BlockTypeSprite.Sprite(UnlockedType(_block));
         }
 
@@ -72,6 +71,7 @@ namespace Zelda.Blocks
 
             if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
             {
+                SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
                 Unblock();
             }
 
