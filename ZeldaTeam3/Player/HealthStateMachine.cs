@@ -1,4 +1,5 @@
 ﻿using System;
+using Zelda.SoundEffects;
 
 namespace Zelda.Player
 {
@@ -7,6 +8,8 @@ namespace Zelda.Player
      */
     internal class HealthStateMachine : IUpdatable
     {
+        private const int HealthBeepTimerReset = 20;
+
         public bool Hurt { get; private set; }
         public bool Alive => Health > 0;
 
@@ -15,6 +18,7 @@ namespace Zelda.Player
         public int Health;
 
         private readonly FrameDelay _hurtResetDelay = new FrameDelay(60);
+        private int _healthBeepTimer;
 
         public HealthStateMachine()
         {
@@ -30,7 +34,7 @@ namespace Zelda.Player
                 Hurt = true;
                 _hurtResetDelay.Resume();
                 if (Health > 0)
-                    SoundEffects.SoundEffectManager.Instance.PlayLinkHurt();
+                    SoundEffectManager.Instance.PlayLinkHurt();
             }
             else
             {
@@ -51,10 +55,21 @@ namespace Zelda.Player
         public void AddHeart()
         {
             MaxHealth += 2;
+            Heal();
         }
 
         public void Update()
         {
+            if (Health > 2)
+            {
+                _healthBeepTimer = HealthBeepTimerReset;
+            }
+            else if (++_healthBeepTimer >= HealthBeepTimerReset)
+            {
+                _healthBeepTimer = 0;
+                SoundEffectManager.Instance.PlayLowHealth();
+            }
+
             _hurtResetDelay.Update();
 
             if (_hurtResetDelay.Delayed) return;

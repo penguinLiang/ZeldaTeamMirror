@@ -71,6 +71,7 @@ namespace Zelda.Blocks
 
             if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
             {
+                SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
                 Unblock();
             }
 

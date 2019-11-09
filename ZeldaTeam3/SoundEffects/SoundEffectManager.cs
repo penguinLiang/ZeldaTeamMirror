@@ -16,7 +16,6 @@ namespace Zelda.SoundEffects
         private SoundEffect _playEnemyDie;
         private SoundEffect _playLinkHurt;
         private SoundEffect _playLowHealth;
-        private SoundEffectInstance _lowHealthInstance;
         //For looping and stopping the sound
         private SoundEffect _playPickupItem;
         //Also used for Fairy sound effect
@@ -53,9 +52,6 @@ namespace Zelda.SoundEffects
             _playSwordShoot = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Shoot");
             _playSwordSlash = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Slash");
             _playUseStairs = Content.Load<SoundEffect>("Sounds/LOZ_Stairs");
-
-            _lowHealthInstance = _playLowHealth.CreateInstance();
-
         }
 
         public void PlayArrowShoot()
@@ -134,13 +130,8 @@ namespace Zelda.SoundEffects
 
         public void PlayLowHealth()
         {
-            _lowHealthInstance.IsLooped = true;
-            _lowHealthInstance.Play();
-        }
-
-        public void StopLowHealthSound()
-        {
-            _lowHealthInstance.Stop();
+            SoundEffectInstance lowHealthInstance = _playLowHealth.CreateInstance();
+            lowHealthInstance.Play();
         }
 
         public void PlayPickupDroppedHeartKey()
