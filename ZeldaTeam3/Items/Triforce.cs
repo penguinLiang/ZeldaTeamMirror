@@ -17,7 +17,8 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            // TODO: Need to win!!!
+            player.TouchTriforce = true;
+            
             return NoOp.Instance;
         }
     }
