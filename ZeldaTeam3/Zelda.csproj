@@ -57,6 +57,7 @@
     <Compile Include="DrawnText.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
+    <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />
