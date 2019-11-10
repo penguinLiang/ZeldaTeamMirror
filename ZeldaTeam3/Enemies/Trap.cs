@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -8,15 +9,22 @@ namespace Zelda.Enemies
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private readonly Point _origin;
-
+        private readonly Rectangle _viewYBounds;
+        private readonly Rectangle _viewXBounds;
         private Point _lastLocation;
-        private Direction _moving;
-        private bool _halted;
-        private int _distance;
+        private Point _playerLocation;
+        private Direction _direction;
+        private bool _movingBack;
+
+        private int _movementTimer;
+        private const int _viewDistance = 64;
+        private const int _moveDistance = 64;
 
         public Trap(Point location)
         {
             _origin = location;
+            _viewYBounds = new Rectangle(location.X, location.Y - _viewDistance, 16, 16 + 2 * _viewDistance);
+            _viewXBounds = new Rectangle(location.X - _viewDistance, location.Y, 16 + 2 * _viewDistance, 16);
         }
 
         public override void Spawn()
@@ -25,7 +33,6 @@ namespace Zelda.Enemies
 
             _sprite = EnemySpriteFactory.Instance.CreateTrap();
             Location = _origin;
-            _moving = Direction.Right;
         }
 
         public override void TakeDamage()
@@ -35,28 +42,48 @@ namespace Zelda.Enemies
 
         public override void Halt()
         {
-            _halted = true;
+            _movingBack = true;
+        }
+
+        public override void Target(Point location)
+        {
+            _playerLocation = location;
         }
 
         public override void Update()
         {
             base.Update();
-            if (_halted)
+            if (_movementTimer > 0)
             {
-                Location = _lastLocation;
-                _distance = 0;
-                _halted = false;
-                _moving = DirectionUtility.RotateClockwise(_moving);
-                return;
+                _movementTimer--;
+                Move();
             }
+            if (IsPlayerInSight())
+            {
+                if (_movementTimer == 0)
+                {
+                    InitiateMovement();
+                }
+            }
+        }
 
-            if (!CanMove) return;
-            _lastLocation = Location;
-            Move(_moving);
+        private void InitiateMovement()
+        {
+            _movementTimer = 300;
+            _movingBack = false;
 
-            if (_distance++ != 30) return;
-            _distance = 0;
-            _moving = DirectionUtility.RotateClockwise(_moving);
+
+        }
+
+        private void Move()
+        {
+
+        }
+
+
+        private bool IsPlayerInSight()
+        {
+            return _viewXBounds.Contains(_playerLocation) || _viewYBounds.Contains(_playerLocation);
         }
     }
 }
