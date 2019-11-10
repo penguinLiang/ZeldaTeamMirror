@@ -2,7 +2,7 @@
 # Team: RiotSquad  
 ## Members: Chase Colman, Jarred Fink, Steven Neveadomi, Quinn Shaner, Henry Xiong  
   
-## GOAL: To Implement the Fist Dungeon of the Original Legend of Zelda NES Game  
+## GOAL: To Implement the First Dungeon of the Original Legend of Zelda NES Game  
   
 To this end, we are using Visual Studio and Monogame to recreate the dungeon using C#.   
   
