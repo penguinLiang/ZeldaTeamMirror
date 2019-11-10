@@ -18,6 +18,7 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+        public bool TouchTriforce { get; set; }
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
         public Point Location => _movementStateMachine.Location;
@@ -34,6 +35,7 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
+            TouchTriforce = false;
         }
 
         public void Move(Direction direction)

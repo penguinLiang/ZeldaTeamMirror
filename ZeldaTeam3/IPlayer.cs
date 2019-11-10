@@ -16,6 +16,7 @@ namespace Zelda
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
         bool UsingSecondaryItem { get; }
+        bool TouchTriforce { get; set; }
 
         void Move(Direction direction);
         void UsePrimaryItem();

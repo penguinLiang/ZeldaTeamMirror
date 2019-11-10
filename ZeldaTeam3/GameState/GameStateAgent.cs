@@ -146,7 +146,7 @@ namespace Zelda.GameState
             }
 
             if (!Player.Alive) GameOver();
-
+            if (Player.TouchTriforce) GameWin();
             if (_pauseMachine.State == PauseState.Unpaused)
             {
                 _pauseMachine.Play();
