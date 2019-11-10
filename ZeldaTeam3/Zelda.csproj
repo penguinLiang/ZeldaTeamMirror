@@ -50,7 +50,6 @@
     <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
-    <Compile Include="Commands\Win.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
