@@ -162,6 +162,13 @@ Please check out our [bug report](bugs.md)
 - __Background Music__: https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-nes
 - __Sprite Sound Effects: http://noproblo.dayjo.org/ZeldaSounds/LOZ/index.html
   
+## Debug Rooms
+There are four debug rooms, each with their own element of the game to test.
+- __3-5__: Enemies
+- __4-0__: Items
+- __4-5__: Movable Blocks
+- __5-5__: Locked Doors
+
     
 ## Extra Processes  
   

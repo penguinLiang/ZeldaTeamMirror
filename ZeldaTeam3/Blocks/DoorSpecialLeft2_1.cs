@@ -33,13 +33,14 @@ namespace Zelda.Blocks
         public override void Unblock()
         {
             _unlocked = true;
+            SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
             _sprite = BlockTypeSprite.Sprite(BlockType.DoorLeft);
         }
 
         public override void Activate()
         {
             _activations++;
-            if (_activations > 1) Unblock();
+            if (!_unlocked && _activations > 1) Unblock();
         }
 
         public override ICommand PlayerEffect(IPlayer player)

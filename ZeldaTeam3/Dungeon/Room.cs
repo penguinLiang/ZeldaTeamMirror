@@ -17,8 +17,8 @@ namespace Zelda.Dungeon
         public List<ICollideable> Collidables = new List<ICollideable>();
         public List<IDrawable> Drawables = new List<IDrawable>();
         public List<IItem> Items = new List<IItem>();
+        public List<ITransitionResetable> TransitionResetables = new List<ITransitionResetable>();
         public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>(); 
-        private Room2_1Block _amBlock;
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
@@ -108,12 +108,13 @@ namespace Zelda.Dungeon
                     var room21Block = new Room2_1Block(this, location);
                     Collidables.Add(room21Block);
                     Drawables.Add(room21Block);
-                    _amBlock = room21Block;
+                    TransitionResetables.Add(room21Block);
                     break;
                 case MapTile.PushableBlock:
                     var pushableBlock = new MovableBlock(location);
                     Collidables.Add(pushableBlock);
                     Drawables.Add(pushableBlock);
+                    TransitionResetables.Add(pushableBlock);
                     break;
                 case MapTile.SpawnEnemy:
                     Enemies.Add(MakeEnemy(location));
@@ -345,9 +346,12 @@ namespace Zelda.Dungeon
             return true;
         }
 
-        public void MoveableBlockReset()
+        public void TransitionReset()
         {
-            _amBlock?.Reset();
+            foreach (var transitionResetable in TransitionResetables)
+            {
+                transitionResetable.Reset();
+            }
         }
     }
 }
