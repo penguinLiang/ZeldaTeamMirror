@@ -74,8 +74,9 @@ namespace Zelda.Blocks
 
         public override ICommand ProjectileEffect(IProjectile projectile)
         {
-            if (projectile is Bomb)
+            if (!_unblocked && projectile is Bomb)
             {
+                SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
                 Unblock();
             }
 

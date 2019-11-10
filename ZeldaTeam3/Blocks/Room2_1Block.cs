@@ -4,7 +4,7 @@ using Zelda.Dungeon;
 
 namespace Zelda.Blocks
 {
-    internal class Room2_1Block : ICollideable, IDrawable
+    internal class Room2_1Block : ICollideable, IDrawable, ITransitionResetable
     {
         private MovableBlock _internalBlock;
         public Rectangle Bounds => _internalBlock.Bounds;
