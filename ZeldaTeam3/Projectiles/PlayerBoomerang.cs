@@ -74,7 +74,7 @@ namespace Zelda.Projectiles
                 case OldMan _:
                     Halt();
                     Bounds = Rectangle.Empty;
-                    return new Commands.SpawnableDamage(enemy);
+                    return new Commands.SpawnableDamage(enemy, 1);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:

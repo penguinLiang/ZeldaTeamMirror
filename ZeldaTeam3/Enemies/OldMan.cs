@@ -38,7 +38,7 @@ namespace Zelda.Enemies
             return new MoveableHalt(player);
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
             Sprite.PaletteShift();
             _attacked = true;

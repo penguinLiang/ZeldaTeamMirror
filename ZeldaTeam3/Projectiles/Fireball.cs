@@ -34,7 +34,7 @@ namespace Zelda.Projectiles
         {
             Halt();
             _sprite.Hide();
-            return new Commands.SpawnableDamage(player);
+            return new Commands.SpawnableDamage(player, 1);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

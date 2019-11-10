@@ -28,7 +28,7 @@ namespace Zelda.Enemies
             _moving = Direction.Right;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
             // NO-OP: No damage
         }
