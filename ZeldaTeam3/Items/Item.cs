@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 
 namespace Zelda.Items
 {
@@ -29,6 +30,7 @@ namespace Zelda.Items
         public virtual ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
+            SoundEffectManager.Instance.PlayPickupItem();
             return NoOp.Instance;
         }
 
