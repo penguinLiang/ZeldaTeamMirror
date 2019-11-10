@@ -113,13 +113,12 @@ namespace Zelda.Dungeon
             }
         }
 
-        public void ResetScenes()
+        public void ResetVisited()
         {
             for (var row = 0; row < _scenes.Length; row++)
             {
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
-                    _scenes[row][col]?.Reset();
                     VisitedRooms[row][col] = false;
                 }
             }

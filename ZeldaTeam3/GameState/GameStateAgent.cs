@@ -97,7 +97,7 @@ namespace Zelda.GameState
 
         public void Continue()
         {
-            DungeonManager.ResetScenes();
+            DungeonManager.ResetVisited();
             Player.Spawn();
             DungeonManager.JumpToRoom(5, 2);
             Play();
