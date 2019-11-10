@@ -58,7 +58,7 @@ namespace Zelda.Dungeon
             {
                 roomDoor.Deactivate();
             }
-            _room.MoveableBlockReset();
+            _room.TransitionReset();
 
             for (var i = 0; i < _enemyCount; i++)
             {

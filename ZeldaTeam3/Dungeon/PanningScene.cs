@@ -11,7 +11,7 @@ namespace Zelda.Dungeon
         {
             _room = room;
             _background = background;
-            room.MoveableBlockReset();
+            room.TransitionReset();
         }
 
         public void Update()
