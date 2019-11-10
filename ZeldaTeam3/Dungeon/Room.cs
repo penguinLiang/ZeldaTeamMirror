@@ -119,6 +119,7 @@ namespace Zelda.Dungeon
                     Enemies.Add(MakeEnemy(location));
                     break;
                 case MapTile.Sand:
+                    Drawables.Add(new Overlay(location, BlockType.Sand));
                     break;
                 case MapTile.Heart:
                     Items.Add(new HeartContainer(location));
