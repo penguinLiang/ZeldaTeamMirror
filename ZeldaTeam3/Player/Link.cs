@@ -28,7 +28,7 @@ namespace Zelda.Player
 
         public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
 
-        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine);
+        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine, Inventory.SwordLevel);
 
         public Link(Point location)
         {
@@ -77,11 +77,11 @@ namespace Zelda.Player
             _playerProjectileAgent = new PlayerProjectileAgent(Inventory);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             if(_healthStateMachine.Hurt) return;
             Halt();
-            _healthStateMachine.TakeDamage();
+            _healthStateMachine.TakeDamage(damage);
             _movementStateMachine.Knockback();
             _aliveSpriteStateMachine.Sprite.PaletteShift();
         }

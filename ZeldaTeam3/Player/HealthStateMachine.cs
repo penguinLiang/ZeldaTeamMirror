@@ -26,11 +26,11 @@ namespace Zelda.Player
             _hurtResetDelay.Pause();
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
                 Hurt = true;
                 _hurtResetDelay.Resume();
                 if (Health > 0)

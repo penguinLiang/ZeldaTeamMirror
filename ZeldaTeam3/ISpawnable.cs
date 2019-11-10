@@ -5,7 +5,7 @@
         bool Alive { get; }
 
         void Spawn();
-        void TakeDamage();
+        void TakeDamage(int damage);
         void Stun();
     }
 }

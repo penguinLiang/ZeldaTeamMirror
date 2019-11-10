@@ -46,11 +46,11 @@ namespace Zelda.Enemies
             _agentStatus = AgentState.Ready;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
                 Sprite?.PaletteShift();
                 if (Health > 0)
                 {
