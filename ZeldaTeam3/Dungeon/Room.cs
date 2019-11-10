@@ -90,7 +90,7 @@ namespace Zelda.Dungeon
             switch (tile)
             {
                 case MapTile.Key:
-                    Items.Add(new Key(location));
+                    Items.Add(new Key(location, this));
                     break;
                 case MapTile.Compass:
                     Items.Add(new Compass(location));
@@ -122,10 +122,10 @@ namespace Zelda.Dungeon
                 case MapTile.Sand:
                     break;
                 case MapTile.Heart:
-                    Items.Add(new HeartContainer(location));
+                    Items.Add(new HeartContainer(location, this));
                     break;
                 case MapTile.Boomerang:
-                    Items.Add(new BoomerangItem(location));
+                    Items.Add(new BoomerangItem(location, this));
                     break;
                 case MapTile.BasementBricks:
                 case MapTile.BlackOverlay:
