@@ -129,7 +129,8 @@ namespace Zelda.Enemies
 
         public virtual void Stun()
         {
-            // NO-OP: Most enemies are 1-hit kills
+            Halt();
+            Sprite.PaletteShift();
         }
 
         public abstract Rectangle Bounds { get; }

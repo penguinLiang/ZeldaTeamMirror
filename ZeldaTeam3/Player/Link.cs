@@ -27,7 +27,7 @@ namespace Zelda.Player
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _playerProjectileAgent.UsingSecondaryItem;
 
-        public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
+        public ICollideable BodyCollision => new PlayerBodyCollision(this);
 
         public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine, Inventory.SwordLevel);
 
@@ -75,7 +75,7 @@ namespace Zelda.Player
             _healthStateMachine = new HealthStateMachine();
             _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
             _deadSpriteStateMachine = new DeadSpriteStateMachine();
-            _playerProjectileAgent = new PlayerProjectileAgent(Inventory);
+            _playerProjectileAgent = new PlayerProjectileAgent(this);
         }
 
         public void TakeDamage(int damage)
@@ -108,8 +108,8 @@ namespace Zelda.Player
         public void UseSecondaryItem()
         {
             if (_aliveSpriteStateMachine.UsingItem) return;
-            _aliveSpriteStateMachine.UseSecondaryItem();
             _playerProjectileAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
+            if (UsingSecondaryItem) _aliveSpriteStateMachine.UseSecondaryItem();
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
@@ -132,6 +132,11 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Update();
                 return;
+            }
+
+            if (_healthStateMachine.Hurt)
+            {
+                _aliveSpriteStateMachine.Sprite.PaletteShift();
             }
 
             _teleportLockDelay.Update();

@@ -14,6 +14,7 @@
         public void Execute()
         {
             _link.Inventory.AddSecondaryItem(_item);
+            _link.AssignSecondaryItem(_item);
         }
 
         public override string ToString() => "Link: Add "+ _item +" to inventory";

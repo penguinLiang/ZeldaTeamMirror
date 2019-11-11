@@ -123,6 +123,7 @@ namespace Zelda
         public void PaletteShift()
         {
             _paletteShiftDelay.Resume();
+            _paletteCyclesShifted = 0;
         }
     }
 }
