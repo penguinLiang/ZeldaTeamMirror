@@ -35,11 +35,11 @@ namespace Zelda.Enemies
             _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
         }
 
-        public virtual void TakeDamage()
+        public virtual void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
                 Sprite?.PaletteShift();
                 SoundEffectManager.Instance.PlayEnemyHit();
                 if (Health <= 0)
@@ -109,7 +109,7 @@ namespace Zelda.Enemies
 
         public virtual ICommand PlayerEffect(IPlayer player)
         {
-            return new SpawnableDamage(player);
+            return new SpawnableDamage(player, 1);
         }
 
         public virtual ICommand EnemyEffect(IEnemy enemy)

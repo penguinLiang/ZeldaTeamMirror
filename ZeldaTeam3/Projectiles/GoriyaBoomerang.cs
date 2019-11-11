@@ -63,7 +63,7 @@ namespace Zelda.Projectiles
         {
             Halt();
             Bounds = Rectangle.Empty;
-            return new Commands.SpawnableDamage(player);
+            return new Commands.SpawnableDamage(player, 2);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)

@@ -51,7 +51,7 @@ namespace Zelda
                 { Keys.Space, new Commands.Pause(agent) },
                 { Keys.M, new Commands.ShowJumpMap(agent) },
                 { Keys.R, new Commands.Reset(agent) },
-                { Keys.D0, new Commands.Win(agent) }
+               
             };
 
             _playerDirections = new Dictionary<Keys, ICommand>

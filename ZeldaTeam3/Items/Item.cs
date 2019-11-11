@@ -44,17 +44,17 @@ namespace Zelda.Items
             return NoOp.Instance;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             Sprite?.Update();
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             if (!Used) Sprite?.Draw((Location + DrawOffset).ToVector2());
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             Used = false;
         }

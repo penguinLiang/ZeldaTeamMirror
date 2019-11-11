@@ -97,7 +97,7 @@ namespace Zelda.GameState
 
         public void Continue()
         {
-            DungeonManager.ResetScenes();
+            DungeonManager.ResetVisited();
             Player.Spawn();
             DungeonManager.JumpToRoom(5, 2);
             Play();
@@ -146,7 +146,7 @@ namespace Zelda.GameState
             }
 
             if (!Player.Alive) GameOver();
-
+            if (Player.TouchTriforce) GameWin();
             if (_pauseMachine.State == PauseState.Unpaused)
             {
                 _pauseMachine.Play();

@@ -18,6 +18,7 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+        public bool TouchTriforce { get; set; }
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
         public Point Location => _movementStateMachine.Location;
@@ -28,12 +29,13 @@ namespace Zelda.Player
 
         public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
 
-        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine);
+        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine, Inventory.SwordLevel);
 
         public Link(Point location)
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
+            TouchTriforce = false;
         }
 
         public void Move(Direction direction)
@@ -77,11 +79,11 @@ namespace Zelda.Player
             _playerProjectileAgent = new PlayerProjectileAgent(Inventory);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             if(_healthStateMachine.Hurt) return;
             Halt();
-            _healthStateMachine.TakeDamage();
+            _healthStateMachine.TakeDamage(damage);
             _movementStateMachine.Knockback();
             _aliveSpriteStateMachine.Sprite.PaletteShift();
         }

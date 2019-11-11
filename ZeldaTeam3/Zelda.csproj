@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
     <Compile Include="Blocks\DoorSpecialRight3_1.cs" />
@@ -50,13 +51,13 @@
     <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
-    <Compile Include="Commands\Win.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="DrawnText.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
+    <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />

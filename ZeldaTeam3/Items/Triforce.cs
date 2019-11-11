@@ -19,7 +19,8 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupNewItem();
-            // TODO: Need to win!!!
+            player.TouchTriforce = true;
+            
             return NoOp.Instance;
         }
     }
