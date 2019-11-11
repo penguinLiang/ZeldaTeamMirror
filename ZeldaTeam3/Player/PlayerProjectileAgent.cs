@@ -7,20 +7,17 @@ namespace Zelda.Player
 {
     internal class PlayerProjectileAgent : IDrawable
     {
-        public bool UsingSecondaryItem;
+        public bool UsingSecondaryItem { get; private set; }
+        public Items.Secondary Item { get; private set; }
 
-        public Items.Secondary Item;
+        public List<IProjectile> Projectiles { get; }
 
-        public List<IProjectile> Projectiles { get; set; }
+        private readonly IPlayer _player;
 
-        private Inventory _inventory;
-
-
-        public PlayerProjectileAgent(Inventory inventory)
+        public PlayerProjectileAgent(IPlayer player)
         {
-            UsingSecondaryItem = false;
+            _player = player;
             Projectiles = new List<IProjectile>();
-            _inventory = inventory;
         }
 
         public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
@@ -79,34 +76,24 @@ namespace Zelda.Player
                     throw new ArgumentOutOfRangeException();
             }
 
+            UsingSecondaryItem = true;
+            var inv = _player.Inventory;
             switch (Item)
             {
-                case Items.Secondary.Bow:
-                    if (_inventory.TryRemoveRupee())
-                    {
-                        var arrow = new Arrow(location, facing);
-                        Projectiles.Add(arrow);
-                    }
+                case Items.Secondary.Bow when inv.HasBow && inv.HasBow && inv.TryRemoveRupee():
+                    Projectiles.Add(new Arrow(location, facing));
                     break;
-                case Items.Secondary.Boomerang:
-                    location.X += 4;
-                    location.Y += 4;
-                    var playerBoomerang = new PlayerBoomerang(location, facing);
-                    Projectiles.Add(playerBoomerang);
+                case Items.Secondary.Boomerang when inv.TryRemoveBoomerang():
+                    Projectiles.Add(new PlayerBoomerang(_player, location, facing));
                     break;
-                case Items.Secondary.Bomb:
-
-                    if (_inventory.TryRemoveBomb())
-                    {
-                        var bomb = new Bomb(location);
-                        Projectiles.Add(bomb);
-                    }
+                case Items.Secondary.Bomb when inv.TryRemoveBomb():
+                    Projectiles.Add(new Bomb(location));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    UsingSecondaryItem = false;
+                    break;
             }
 
-            UsingSecondaryItem = true;
         }
 
         public void AssignSecondaryItem(Items.Secondary item)
@@ -121,6 +108,7 @@ namespace Zelda.Player
 
         public void Draw()
         {
+            // NO-OP
         }
     }
 }

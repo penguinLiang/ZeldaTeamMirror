@@ -2,57 +2,38 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Zelda.Enemies;
+using Zelda.Items;
 using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
 {
     internal class PlayerBoomerang : IProjectile
     {
+        public Rectangle Bounds => Halted ? Rectangle.Empty : new Rectangle(_location.ToPoint(), new Point(8, 8));
+
         private const int ReturnDistance = 60;
-        private const int DistancePerFrame = 4;
+        private const int DistancePerFrame = 3;
 
         private Vector2 _location;
-        private readonly ISprite _sprite;
+        private readonly ISprite _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
+
+        private Vector2? _collisionLocation;
+        private ISprite _collision;
+        private bool _collided;
 
         private int _currentDistanceAway;
-        private Direction _direction;
-        public Rectangle Bounds { get; private set; }
-        public bool Halted { get; set; }
+        private readonly IPlayer _player;
+        private readonly Direction _direction;
+        public bool Halted { get; private set; }
 
         private readonly SoundEffectInstance _soundEffect;
 
-        public PlayerBoomerang(Point location, Direction direction)
+        public PlayerBoomerang(IPlayer player, Point location, Direction direction)
         {
             _soundEffect = SoundEffectManager.Instance.PlayBoomerang();
+            _player = player;
             _direction = direction;
-           Bounds = new Rectangle(location.X, location.Y, 8, 8);
             _location = location.ToVector2();
-            _sprite = ProjectileSpriteFactory.Instance.CreateThrownBoomerang();
-            _currentDistanceAway = 0;
-            Halted = false;
-        }
-
-        private void UpdateFlippedDirection()
-        {
-            if (_currentDistanceAway != ReturnDistance) return;
-
-            switch (_direction)
-            {
-                case Direction.Up:
-                    _direction = Direction.Down;
-                    break;
-                case Direction.Down:
-                    _direction = Direction.Up;
-                    break;
-                case Direction.Left:
-                    _direction = Direction.Right;
-                    break;
-                case Direction.Right:
-                    _direction = Direction.Left;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         public bool CollidesWith(Rectangle rectangle)
@@ -62,29 +43,27 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            Halted = true;
+            player.Inventory.AddSecondaryItem(Secondary.Boomerang);
+            _soundEffect.Stop();
             return Commands.NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
+            _collisionLocation = null;
             switch (enemy)
             {
                 case Keese _:
                 case Gel _:
                 case OldMan _:
-                    Halt();
-                    Bounds = Rectangle.Empty;
                     return new Commands.SpawnableDamage(enemy, 1);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:
-                    Halt();
-                    Bounds = Rectangle.Empty;
                     return new Commands.MoveableHalt(enemy);
                 case Aquamentus _:
                 case Trap _:
-                    Halt();
-                    Bounds = Rectangle.Empty;
                     return Commands.NoOp.Instance;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -96,14 +75,8 @@ namespace Zelda.Projectiles
             return Commands.NoOp.Instance;
         }
 
-        public void Update()
+        public void LinearUpdate()
         {
-            if (_currentDistanceAway == ReturnDistance * 2)
-            {
-                _sprite.Hide();
-            }
-            UpdateFlippedDirection();
-
             switch (_direction)
             {
                 case Direction.Up:
@@ -122,7 +95,41 @@ namespace Zelda.Projectiles
                     throw new ArgumentOutOfRangeException();
             }
             _currentDistanceAway += DistancePerFrame;
-            Bounds = new Rectangle(_location.ToPoint(), Bounds.Size);
+        }
+
+        private void TrackingUpdate()
+        {
+            if (_location.X < _player.Location.X + DistancePerFrame)
+            {
+                _location.X += DistancePerFrame;
+            } else if (_location.X > _player.Location.X - DistancePerFrame)
+            {
+                _location.X -= DistancePerFrame;
+            }
+            if (_location.Y < _player.Location.Y + DistancePerFrame)
+            {
+                _location.Y += DistancePerFrame;
+            } else if (_location.Y > _player.Location.Y - DistancePerFrame)
+            {
+                _location.Y -= DistancePerFrame;
+            }
+        }
+
+        public void Update()
+        {
+            if (_collided && _collisionLocation != _location)
+            {
+                _collision = ProjectileSpriteFactory.Instance.CreateBoomerangCollision();
+            }
+
+            if (_currentDistanceAway == ReturnDistance || _collided)
+            {
+                TrackingUpdate();
+            }
+            else
+            {
+                LinearUpdate();
+            }
 
             _sprite.Update();
         }
@@ -131,13 +138,17 @@ namespace Zelda.Projectiles
             //no op
         }
 
-        public void Halt() {
-            Halted = true;
-            _soundEffect.Stop();
+        public void Halt()
+        {
+            if (_collided) return;
+
+            _collided = true;
+            _collisionLocation = _location;
         }
 
         public void Draw()
         {
+            if (_collisionLocation != null) _collision?.Draw((Vector2) _collisionLocation);
             _sprite.Draw(_location);
         }
     }

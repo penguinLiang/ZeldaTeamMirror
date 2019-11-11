@@ -97,6 +97,13 @@ namespace Zelda.Player
             KeyCount--;
             return true;
         }
+
+        public bool TryRemoveBoomerang()
+        {
+            if (!HasBoomerang) return false;
+            HasBoomerang = false;
+            return true;
+        }
     }
 }
  

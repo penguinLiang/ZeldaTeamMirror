@@ -11,6 +11,7 @@
 
         public void Execute()
         {
+            _link.Inventory.AddSecondaryItem(Items.Secondary.Boomerang);
             _link.AssignSecondaryItem(Items.Secondary.Boomerang);
             _link.UseSecondaryItem();
         }

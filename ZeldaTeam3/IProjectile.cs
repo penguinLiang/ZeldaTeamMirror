@@ -2,6 +2,6 @@
 {
     public interface IProjectile:  ICollideable, IHaltable, IDrawable
     {
-         bool Halted  { get; set; }
+        bool Halted { get; }
     }
 }
