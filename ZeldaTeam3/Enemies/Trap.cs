@@ -11,26 +11,28 @@ namespace Zelda.Enemies
         private readonly Point _origin;
         private readonly Rectangle _viewYBounds;
         private readonly Rectangle _viewXBounds;
-        private Point _lastLocation;
         private Point _playerLocation;
         private Direction _direction;
-        private bool _movingBack;
 
         private int _movementTimer;
-        private const int _viewDistance = 64;
-        private const int _moveDistance = 64;
+        private bool _restored;
+        private const int ViewDistance = 80;
+        private const int MovementVerticalTime = 25;
+        private const int MovementHorizontalTime = 50;
+        private int _spawnStun;
 
         public Trap(Point location)
         {
             _origin = location;
-            _viewYBounds = new Rectangle(location.X, location.Y - _viewDistance, 16, 16 + 2 * _viewDistance);
-            _viewXBounds = new Rectangle(location.X - _viewDistance, location.Y, 16 + 2 * _viewDistance, 16);
+            _viewYBounds = new Rectangle(location.X - 8, location.Y - ViewDistance, 20, 16 + 2 * ViewDistance);
+            _viewXBounds = new Rectangle(location.X - ViewDistance, location.Y - 8, 16 + 2 * ViewDistance, 20);
         }
 
         public override void Spawn()
         {
             base.Spawn();
-
+            _spawnStun = 100;
+            _restored = true;
             _sprite = EnemySpriteFactory.Instance.CreateTrap();
             Location = _origin;
         }
@@ -42,7 +44,7 @@ namespace Zelda.Enemies
 
         public override void Halt()
         {
-            _movingBack = true;
+            _movementTimer = 0;
         }
 
         public override void Target(Point location)
@@ -53,33 +55,56 @@ namespace Zelda.Enemies
         public override void Update()
         {
             base.Update();
-            if (_movementTimer > 0)
+            if (--_spawnStun > 0) return;
+            if (!_restored)
             {
-                _movementTimer--;
                 Move();
             }
-            if (IsPlayerInSight())
+            else if (IsPlayerInSight())
             {
-                if (_movementTimer == 0)
-                {
-                    InitiateMovement();
-                }
+                InitiateMovement();
             }
         }
 
         private void InitiateMovement()
         {
-            _movementTimer = 300;
-            _movingBack = false;
+            _restored = false;
+            SetMovement();
+        }
 
+        private void SetMovement()
+        {
+            var xDiff = _playerLocation.X - _origin.X;
+            var yDiff = _playerLocation.Y - _origin.Y;
 
+            if (_viewXBounds.Contains(_playerLocation))
+            {
+                _direction = xDiff >= 0 ? Direction.Right : Direction.Left;
+                _movementTimer = MovementHorizontalTime;
+            }
+            else // in _viewYBounds
+            {
+                _direction = yDiff >= 0 ? Direction.Down : Direction.Up;
+                _movementTimer = MovementVerticalTime;
+            }
         }
 
         private void Move()
         {
-
+            if (_movementTimer > 0) //Fast phase.
+            {
+                _movementTimer--;
+                for (int scale = 2; scale > 0; scale--)
+                {
+                    Move(_direction);
+                }
+            }
+            else //Retract phase
+            {
+                Move(DirectionUtility.Flip(_direction));
+                _restored = Location.Equals(_origin);
+            }
         }
-
 
         private bool IsPlayerInSight()
         {
