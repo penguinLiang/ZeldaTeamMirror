@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 using Zelda.Dungeon;
 
 namespace Zelda.Items
@@ -21,6 +22,7 @@ namespace Zelda.Items
             if (_activated)
             {
                 Used = true;
+                SoundEffectManager.Instance.PlayPickupItem();
                 return new AddSecondaryItem(player, Secondary.Boomerang);
             }
             return NoOp.Instance;

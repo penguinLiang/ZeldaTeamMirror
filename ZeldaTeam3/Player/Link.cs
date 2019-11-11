@@ -18,7 +18,7 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
-        public bool TouchTriforce { get; set; }
+        public bool Won { get; private set; }
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
         public Point Location => _movementStateMachine.Location;
@@ -35,7 +35,6 @@ namespace Zelda.Player
         {
             _movementStateMachine = new MovementStateMachine(location);
             Spawn();
-            TouchTriforce = false;
         }
 
         public void Move(Direction direction)
@@ -156,6 +155,11 @@ namespace Zelda.Player
 
             if (!_aliveSpriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
+        }
+
+        public void TouchTriforce()
+        {
+            Won = true;
         }
 
         // When using a primary item, the sprite is offset from the origin of the bounding box for the Left and Up directions by 16 pixels,

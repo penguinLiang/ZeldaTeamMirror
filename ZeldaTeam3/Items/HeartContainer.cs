@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 using Zelda.Dungeon;
 
 namespace Zelda.Items
@@ -7,7 +8,7 @@ namespace Zelda.Items
     internal class HeartContainer : Item
     {
         private bool _activated;
-        private Room _room;
+        private readonly Room _room;
 
         public HeartContainer(Point location, Room room) : base(location)
         {
@@ -21,12 +22,11 @@ namespace Zelda.Items
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-            if (_activated)
-            {
-                Used = true;
-                return new LinkAddHeart(player);
-            }
-            return NoOp.Instance;
+            if (!_activated) return NoOp.Instance;
+
+            Used = true;
+            SoundEffectManager.Instance.PlayPickupItem();
+            return new LinkAddHeart(player);
         }
 
         public override void Update()
