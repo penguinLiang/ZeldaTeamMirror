@@ -27,6 +27,7 @@ namespace Zelda.Enemies
             base.Spawn();
 
             _sprite = EnemySpriteFactory.Instance.CreateKeese();
+            _movementPauseClock = Rng.Next(10, 120);
             Location = _origin;
         }
 
@@ -43,10 +44,10 @@ namespace Zelda.Enemies
                 return;
             }
 
-            if (_movementClock % Rng.Next(1,10) == 0)
+            /*if (_movementClock % Rng.Next(1,10) == 0)
             {
                 generateNextDestination();
-            }
+            }*/
 
             if (_movementClock > 0)
             {
@@ -56,8 +57,8 @@ namespace Zelda.Enemies
             else
             {
                 generateNextDestination();
-                _movementClock = Rng.Next(60,100);
-                _movementPauseClock = Rng.Next(30,70);
+                _movementClock = Rng.Next(20, 60);
+                _movementPauseClock = Rng.Next(30, 60);
             }
             
         }
@@ -67,8 +68,9 @@ namespace Zelda.Enemies
             double xDiff = _playerLocation.X - _nextDestination.X;
             double yDiff = _playerLocation.Y - _nextDestination.Y;
             double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
-            double xScale = _movementClock / 24;
-            double yScale = _movementClock / 24;
+            const float scaleDenominator = 21.3f;
+            double xScale = _movementClock / scaleDenominator;
+            double yScale = _movementClock / scaleDenominator;
 
             var normalizedY = yDiff / magnitude * xScale;
             var normalizedX = xDiff / magnitude * yScale;
@@ -85,19 +87,21 @@ namespace Zelda.Enemies
 
         private void generateNextDestination()
         {
-            const float locationScale = 2f;
+            const float locationScale = 1.0f;
             double xDiff = _playerLocation.X - Location.X;
             double yDiff = _playerLocation.Y - Location.Y;
-            if (Rng.Next(3) == 2)
+            xDiff += Math.Sign(xDiff) * Rng.Next(32);
+            yDiff += Math.Sign(yDiff) * Rng.Next(32);
+            if (Rng.Next(3) == 0)
             {
-                _nextDestination = new Point((int)(Location.X + Rng.Next(-100, 100)), (int)(Location.Y + Rng.Next(-100, 100)));
+                _nextDestination = new Point(Rng.Next(256), Rng.Next(48,200));
             }
             else
             {
                 _nextDestination = new Point((int)(Location.X + xDiff * locationScale), (int)(Location.Y + yDiff * locationScale));
             }
-            
 
+            
         }
 
         public override void Update()
