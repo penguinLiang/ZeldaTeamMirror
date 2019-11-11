@@ -19,23 +19,20 @@ namespace Zelda.Items
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-            if (_activated)
-            {
-                Used = true;
-                SoundEffectManager.Instance.PlayPickupItem();
-                return new AddSecondaryItem(player, Secondary.Boomerang);
-            }
-            return NoOp.Instance;
+            if (!_activated) return NoOp.Instance;
+
+            Used = true;
+            SoundEffectManager.Instance.PlayPickupItem();
+            return new AddSecondaryItem(player, Secondary.Boomerang);
         }
 
         public override void Update()
         {
             Sprite?.Update();
-            if (!_activated && !_room.SomeEnemiesAlive)
-            {
-                _activated = true;
-                SoundEffects.SoundEffectManager.Instance.PlayKeyAppear();
-            }
+            if (_activated || _room.SomeEnemiesAlive) return;
+
+            _activated = true;
+            SoundEffectManager.Instance.PlayKeyAppear();
         }
 
         public override void Draw()
