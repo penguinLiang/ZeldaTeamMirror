@@ -44,11 +44,6 @@ namespace Zelda.Enemies
                 return;
             }
 
-            /*if (_movementClock % Rng.Next(1,10) == 0)
-            {
-                generateNextDestination();
-            }*/
-
             if (_movementClock > 0)
             {
                 _movementClock--;

@@ -16,9 +16,9 @@ namespace Zelda.Enemies
 
         private int _movementTimer;
         private bool _restored;
-        private const int ViewDistance = 80;
-        private const int MovementVerticalTime = 25;
-        private const int MovementHorizontalTime = 50;
+        private const int ViewDistance = 12*16;
+        private const int MovementVerticalTime = 20;
+        private const int MovementHorizontalTime = 42;
         private int _spawnStun;
 
         public Trap(Point location)
@@ -82,7 +82,7 @@ namespace Zelda.Enemies
                 _direction = xDiff >= 0 ? Direction.Right : Direction.Left;
                 _movementTimer = MovementHorizontalTime;
             }
-            else // in _viewYBounds
+            else
             {
                 _direction = yDiff >= 0 ? Direction.Down : Direction.Up;
                 _movementTimer = MovementVerticalTime;
@@ -91,7 +91,7 @@ namespace Zelda.Enemies
 
         private void Move()
         {
-            if (_movementTimer > 0) //Fast phase.
+            if (_movementTimer > 0)
             {
                 _movementTimer--;
                 for (int scale = 2; scale > 0; scale--)
@@ -99,7 +99,7 @@ namespace Zelda.Enemies
                     Move(_direction);
                 }
             }
-            else //Retract phase
+            else
             {
                 Move(DirectionUtility.Flip(_direction));
                 _restored = Location.Equals(_origin);
