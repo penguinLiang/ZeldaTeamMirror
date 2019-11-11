@@ -22,7 +22,7 @@ namespace Zelda.Items
             if (_activated)
             {
                 Used = true;
-                SoundEffectManager.Instance.PlayPickupNewItem();
+                SoundEffectManager.Instance.PlayPickupItem();
                 return new AddSecondaryItem(player, Secondary.Boomerang);
             }
             return NoOp.Instance;

@@ -15,7 +15,7 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            SoundEffectManager.Instance.PlayPickupNewItem();
+            SoundEffectManager.Instance.PlayPickupItem();
             return new AddSecondaryItem(player, Secondary.Bomb);
         }
     }

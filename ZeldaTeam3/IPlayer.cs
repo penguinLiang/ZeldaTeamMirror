@@ -15,8 +15,6 @@ namespace Zelda
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
-        bool UsingSecondaryItem { get; }
-        bool TouchTriforce { get; set; }
 
         void Move(Direction direction);
         void UsePrimaryItem();
@@ -26,5 +24,8 @@ namespace Zelda
         void FullHeal();
         void AddHeart();
         void Teleport(Point location, Direction entranceDirection);
+
+        bool Won { get; }
+        void TouchTriforce();
     }
 }
