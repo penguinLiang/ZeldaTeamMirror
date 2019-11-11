@@ -135,10 +135,6 @@ namespace Zelda.Projectiles
             _sprite.Update();
         }
 
-        public void Knockback() {
-            //no op
-        }
-
         public void Halt()
         {
             if (_collided) return;

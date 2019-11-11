@@ -49,6 +49,7 @@ namespace Zelda
         public static Direction RandomVerticalDirection()
         {
             var direction = RandomDirection();
+            // ReSharper disable once SwitchStatementMissingSomeCases (that's what the default is for)
             switch (direction)
             {
                 case Direction.Left:

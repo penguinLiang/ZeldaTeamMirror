@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Projectiles;
 
 namespace Zelda.Enemies
 {
@@ -81,7 +82,7 @@ namespace Zelda.Enemies
                     throw new ArgumentOutOfRangeException();
             }
 
-            Projectiles.Add(new Projectiles.GoriyaBoomerang(Location + boomerangOffset, _statusDirection));
+            Projectiles.Add(new GoriyaBoomerang(Location + boomerangOffset, _statusDirection));
             _timeSinceBoomerangThrown = 0;
         }
 
@@ -93,12 +94,7 @@ namespace Zelda.Enemies
             base.Move(direction);
         }
 
-        public override void Stun()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Knockback()
+        protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;

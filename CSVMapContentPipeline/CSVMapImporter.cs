@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework.Content.Pipeline;
 
+// ReSharper disable UnusedMember.Global (used by pipeline as DLL)
 namespace CSVMapContentPipeline
 {
     [ContentImporter(".csv", DefaultProcessor = "PassThroughProcessor", DisplayName = "CSV Map Importer - ZeldaTeam3")]

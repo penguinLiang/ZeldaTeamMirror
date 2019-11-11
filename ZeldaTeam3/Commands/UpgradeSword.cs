@@ -1,11 +1,13 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.Items;
+
+namespace Zelda.Commands
 {
     internal class UpgradeSword : ICommand
     {
         private readonly IPlayer _link;
-        private readonly Items.Primary _item;
+        private readonly Primary _item;
 
-        public UpgradeSword(IPlayer link, Items.Primary item)
+        public UpgradeSword(IPlayer link, Primary item)
         {
             _link = link;
             _item = item;

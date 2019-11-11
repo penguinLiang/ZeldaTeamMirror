@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
 using Zelda.HUD;
@@ -147,16 +146,16 @@ namespace Zelda.GameState
 
             if (!Player.Alive) GameOver();
             if (Player.Won) GameWin();
-            if (_pauseMachine.State == PauseState.Unpaused)
-            {
-                _pauseMachine.Play();
-                Play();
-            }
+            if (_pauseMachine.State != PauseState.Unpaused) return;
+
+            _pauseMachine.Play();
+            Play();
         }
 
         private void DrawPan()
         {
-            var yOffset = HUDSpriteFactory.ScreenHeight;
+            const int yOffset = HUDSpriteFactory.ScreenHeight;
+
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.SourceOffset.X * Scale,
                     (_panAnimation.SourceOffset.Y + yOffset) * Scale, 0.0f));

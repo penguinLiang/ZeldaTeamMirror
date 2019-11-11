@@ -38,6 +38,11 @@ namespace Zelda.Enemies
             _halted = true;
         }
 
+        protected override void Knockback()
+        {
+            // NO-OP: Immovable
+        }
+
         public override void Update()
         {
             base.Update();

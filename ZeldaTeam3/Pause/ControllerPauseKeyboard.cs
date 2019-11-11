@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Zelda.Commands;
 using Zelda.GameState;
 
 namespace Zelda.Pause
@@ -11,12 +12,12 @@ namespace Zelda.Pause
 
         private Keys[] _lastKeys = { };
 
-        public ControllerPauseKeyboard(GameStateAgent agent, PauseMenu pauseMenu)
+        public ControllerPauseKeyboard(GameStateAgent agent, IMenu pauseMenu)
         {
-            var selectUp = new Commands.MenuSelectUp(pauseMenu);
-            var selectDown = new Commands.MenuSelectDown(pauseMenu);
-            var selectRight = new Commands.MenuSelectRight(pauseMenu);
-            var selectLeft = new Commands.MenuSelectLeft(pauseMenu);
+            var selectUp = new MenuSelectUp(pauseMenu);
+            var selectDown = new MenuSelectDown(pauseMenu);
+            var selectRight = new MenuSelectRight(pauseMenu);
+            var selectLeft = new MenuSelectLeft(pauseMenu);
 
             _pauseDirections = new Dictionary<Keys, ICommand>
             {
@@ -29,9 +30,9 @@ namespace Zelda.Pause
                 {Keys.Down, selectDown},
                 {Keys.Right, selectRight},
 
-                {Keys.Space, new Commands.Resume(agent) },
-                {Keys.R, new Commands.Reset(agent) },
-                {Keys.Q, new Commands.Quit(agent) },
+                {Keys.Space, new Resume(agent) },
+                {Keys.R, new Reset(agent) },
+                {Keys.Q, new Quit(agent) }
             };
         }
 

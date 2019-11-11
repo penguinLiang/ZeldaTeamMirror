@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Zelda.SoundEffects
 {
-    class SoundEffectManager
+    internal class SoundEffectManager
     {
         public static SoundEffectManager Instance { get; } = new SoundEffectManager();
 
@@ -24,45 +24,40 @@ namespace Zelda.SoundEffects
         private SoundEffect _playPickupRupee;
         private SoundEffect _playKeyAppear;
         private SoundEffect _playDoorUnlock;
-        private SoundEffect _playBossSpawn;
         private SoundEffect _playBossDead;
         private SoundEffect _playBossHurt;
-        private SoundEffect _playUseStairs;
         private SoundEffect _playPuzzleSolved;
 
-        public void LoadAllSounds(ContentManager Content)
+        public void LoadAllSounds(ContentManager content)
         {
-            _playArrowBoomerangShoot = Content.Load<SoundEffect>("Sounds/LOZ_Arrow_Boomerang");
-            _playBombDrop = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Drop");
-            _playBombExplode = Content.Load<SoundEffect>("Sounds/LOZ_Bomb_Blow");
-            _playBossSpawn = Content.Load<SoundEffect>("Sounds/LOZ_Boss_Scream1");
-            _playBossHurt = Content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Hit");
-            _playBossDead = Content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Scream1_Distant");
-            _playDoorUnlock = Content.Load<SoundEffect>("Sounds/LOZ_Door_Unlock");
-            _playEnemyDie = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Die");
-            _playEnemyHit = Content.Load<SoundEffect>("Sounds/LOZ_Enemy_Hit");
-            _playKeyAppear = Content.Load<SoundEffect>("Sounds/LOZ_Key_Appear");
-            _playLinkHurt = Content.Load<SoundEffect>("Sounds/LOZ_Link_Hurt");
-            _playLowHealth = Content.Load<SoundEffect>("Sounds/LOZ_LowHealth");
-            _playPickupDoppedHeartKey = Content.Load<SoundEffect>("Sounds/LOZ_Get_Heart");
-            _playPickupItem = Content.Load<SoundEffect>("Sounds/LOZ_Get_Item");
-            _playPickupRupee = Content.Load<SoundEffect>("Sounds/LOZ_Get_Rupee");
-            _playPickupNewItem = Content.Load<SoundEffect>("Sounds/LOZ_Fanfare");
-            _playPuzzleSolved = Content.Load<SoundEffect>("Sounds/LOZ_Secret");
-            _playSwordShoot = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Shoot");
-            _playSwordSlash = Content.Load<SoundEffect>("Sounds/LOZ_Sword_Slash");
-            _playUseStairs = Content.Load<SoundEffect>("Sounds/LOZ_Stairs");
+            _playArrowBoomerangShoot = content.Load<SoundEffect>("Sounds/LOZ_Arrow_Boomerang");
+            _playBombDrop = content.Load<SoundEffect>("Sounds/LOZ_Bomb_Drop");
+            _playBombExplode = content.Load<SoundEffect>("Sounds/LOZ_Bomb_Blow");
+            _playBossHurt = content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Hit");
+            _playBossDead = content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Scream1_Distant");
+            _playDoorUnlock = content.Load<SoundEffect>("Sounds/LOZ_Door_Unlock");
+            _playEnemyDie = content.Load<SoundEffect>("Sounds/LOZ_Enemy_Die");
+            _playEnemyHit = content.Load<SoundEffect>("Sounds/LOZ_Enemy_Hit");
+            _playKeyAppear = content.Load<SoundEffect>("Sounds/LOZ_Key_Appear");
+            _playLinkHurt = content.Load<SoundEffect>("Sounds/LOZ_Link_Hurt");
+            _playLowHealth = content.Load<SoundEffect>("Sounds/LOZ_LowHealth");
+            _playPickupDoppedHeartKey = content.Load<SoundEffect>("Sounds/LOZ_Get_Heart");
+            _playPickupItem = content.Load<SoundEffect>("Sounds/LOZ_Get_Item");
+            _playPickupRupee = content.Load<SoundEffect>("Sounds/LOZ_Get_Rupee");
+            _playPickupNewItem = content.Load<SoundEffect>("Sounds/LOZ_Fanfare");
+            _playPuzzleSolved = content.Load<SoundEffect>("Sounds/LOZ_Secret");
+            _playSwordShoot = content.Load<SoundEffect>("Sounds/LOZ_Sword_Shoot");
+            _playSwordSlash = content.Load<SoundEffect>("Sounds/LOZ_Sword_Slash");
         }
 
         public void PlayArrowShoot()
         {
-            SoundEffectInstance arrowBoomerangInstance = _playArrowBoomerangShoot.CreateInstance();
-            arrowBoomerangInstance.Play();
+            _playArrowBoomerangShoot.CreateInstance().Play();
         }
 
         public SoundEffectInstance PlayBoomerang()
         {
-            SoundEffectInstance arrowBoomerangInstance = _playArrowBoomerangShoot.CreateInstance();
+            var arrowBoomerangInstance = _playArrowBoomerangShoot.CreateInstance();
             arrowBoomerangInstance.IsLooped = true;
             arrowBoomerangInstance.Play();
             return arrowBoomerangInstance;
@@ -70,118 +65,88 @@ namespace Zelda.SoundEffects
 
         public void PlayBombDrop()
         {
-            SoundEffectInstance bombDropInstance = _playBombDrop.CreateInstance();
-            bombDropInstance.Play();
+            _playBombDrop.CreateInstance().Play();
         }
 
         public void PlayBombExplode()
         {
-            SoundEffectInstance bombExplodeInstance = _playBombExplode.CreateInstance();
-            bombExplodeInstance.Play();
-        }
-
-        public void PlayBossSpawn()
-        {
-            SoundEffectInstance bossSpawnInstance = _playBossSpawn.CreateInstance();
-            bossSpawnInstance.Play();
+            _playBombExplode.CreateInstance().Play();
         }
 
         public void PlayBossHurt()
         {
-            SoundEffectInstance bossHurtInstance = _playBossHurt.CreateInstance();
-            bossHurtInstance.Play();
+            _playBossHurt.CreateInstance().Play();
         }
 
         public void PlayBossDead()
         {
-            SoundEffectInstance bossDeadInstance = _playBossDead.CreateInstance();
-            bossDeadInstance.Play();
+            _playBossDead.CreateInstance().Play();
         }
 
         public void PlayDoorUnlock()
         {
-            SoundEffectInstance doorUnlockInstance = _playDoorUnlock.CreateInstance();
-            doorUnlockInstance.Play();
+            _playDoorUnlock.CreateInstance().Play();
         }
 
         public void PlayEnemyDie()
         {
-            SoundEffectInstance enemyDieInstance = _playEnemyDie.CreateInstance();
-            enemyDieInstance.Play();
+            _playEnemyDie.CreateInstance().Play();
         }
 
         public void PlayEnemyHit()
         {
-            SoundEffectInstance enemyHitInstance = _playEnemyHit.CreateInstance();
-            enemyHitInstance.Play();
+            _playEnemyHit.CreateInstance().Play();
         }
 
         public void PlayKeyAppear()
         {
-            SoundEffectInstance keyAppearInstance = _playKeyAppear.CreateInstance();
-            keyAppearInstance.Play();
+            _playKeyAppear.CreateInstance().Play();
         }
 
         public void PlayLinkHurt()
         {
-            SoundEffectInstance linkHurtInstance = _playLinkHurt.CreateInstance();
-            linkHurtInstance.Play();
+            _playLinkHurt.CreateInstance().Play();
         }
 
         public void PlayLowHealth()
         {
-            SoundEffectInstance lowHealthInstance = _playLowHealth.CreateInstance();
-            lowHealthInstance.Play();
+            _playLowHealth.CreateInstance().Play();
         }
 
         public void PlayPickupDroppedHeartKey()
         {
-            SoundEffectInstance pickupDroppedHeartKeyInstance = _playPickupDoppedHeartKey.CreateInstance();
-            pickupDroppedHeartKeyInstance.Play();
+            _playPickupDoppedHeartKey.CreateInstance().Play();
         }
 
         public void PlayPickupItem()
         {
-            SoundEffectInstance pickupItemInstance = _playPickupItem.CreateInstance();
-            pickupItemInstance.Play();
+            _playPickupItem.CreateInstance().Play();
         }
 
         public void PlayPickupRupee()
         {
-            SoundEffectInstance pickupRupeeInstance = _playPickupRupee.CreateInstance();
-            pickupRupeeInstance.Play();
+            _playPickupRupee.CreateInstance().Play();
         }
 
         public void PlayPickupNewItem()
         {
-            SoundEffectInstance pickupNewItem = _playPickupNewItem.CreateInstance();
-            pickupNewItem.Play();
+            _playPickupNewItem.CreateInstance().Play();
         }
 
         public void PlayPuzzleSolved()
         {
-            SoundEffectInstance puzzleSolvedInstance = _playPuzzleSolved.CreateInstance();
-            puzzleSolvedInstance.Play();
+            _playPuzzleSolved.CreateInstance().Play();
         }
 
         public void PlaySwordShoot()
         {
-            SoundEffectInstance swordShootInstance = _playSwordShoot.CreateInstance();
-            swordShootInstance.Play();
+            _playSwordShoot.CreateInstance().Play();
         }
 
         public void PlaySwordSlash()
         {
-            SoundEffectInstance swordSlashInstance = _playSwordSlash.CreateInstance();
-            swordSlashInstance.Play();
+            _playSwordSlash.CreateInstance().Play();
         }
-
-        public void PlayUseStairs()
-        {
-            SoundEffectInstance useStairsInstance = _playUseStairs.CreateInstance();
-            useStairsInstance.Play();
-        }
-
     }
 }
 

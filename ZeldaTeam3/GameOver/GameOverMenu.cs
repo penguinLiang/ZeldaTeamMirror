@@ -77,6 +77,7 @@ namespace Zelda.GameOver
 
         public void SelectUp()
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases (default is a no-op)
             switch (_selectedItem)
             {
                 case QuitMessage:
@@ -92,6 +93,7 @@ namespace Zelda.GameOver
 
         public void SelectDown()
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases (default is a no-op)
             switch (_selectedItem)
             {
                 case RetryMessage:

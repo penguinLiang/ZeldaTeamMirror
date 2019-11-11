@@ -8,8 +8,8 @@ namespace Zelda.Projectiles
         private const int MaxFramesAway = 100;
 
         private readonly Direction _direction;
+        private readonly int _distancePerFrame;
         private int _currentFrame;
-        private int _distancePerFrame;
         private Point _location;
 
         public Point Location => _location;

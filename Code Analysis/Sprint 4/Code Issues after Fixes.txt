@@ -1,0 +1,11 @@
+﻿All of these will likely be used next sprint
+Solution ZeldaTeam3.sln
+    Project Zelda
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:60 Method 'CreateTopBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:75 Method 'CreateBottomBlockedDoor' is never used
+      ZeldaTeam3\Items\ArrowItem.cs:7 Class 'ArrowItem' is never used
+      ZeldaTeam3\Items\MagicSwordItem.cs:7 Class 'MagicSwordItem' is never used
+      ZeldaTeam3\Items\WhiteSwordItem.cs:7 Class 'WhiteSwordItem' is never used
+      ZeldaTeam3\Music\MusicManager.cs:70 Method 'PlayTriforceMusic' is never used
+    
+  

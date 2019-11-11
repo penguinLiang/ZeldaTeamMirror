@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Zelda.Commands;
 using Zelda.GameState;
 
 namespace Zelda.JumpMap
@@ -15,13 +16,13 @@ namespace Zelda.JumpMap
         { 
             _keydownMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, new Commands.Quit(agent) },
+                { Keys.Q, new Quit(agent) }
             };
 
             _keyupMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.M, new Commands.Play(agent) },
-                { Keys.R, new Commands.Reset(agent) },
+                { Keys.M, new Play(agent) },
+                { Keys.R, new Reset(agent) }
             };
         }
 

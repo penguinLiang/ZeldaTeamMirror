@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.Commands;
 
 namespace Zelda.Projectiles
 {
     public class SwordBeamParticles : IProjectile
     {
-        private const int numberOfParticles = 4;
+        private const int NumberOfParticles = 4;
         private const int FramesToDisappear = 30;
 
         public Rectangle Bounds { get; } = Rectangle.Empty;
         public bool Halted { get; set; } // Halted is used to remove this instance from the list that is drawing it
 
-        private Point[] _locations = new Point[numberOfParticles];
-        private ISprite[] _sprites = new ISprite[numberOfParticles];
+        private readonly Point[] _locations = new Point[NumberOfParticles];
+        private readonly ISprite[] _sprites = new ISprite[NumberOfParticles];
         private int _framesDelayed;
         
         public SwordBeamParticles(Point swordLocation)
@@ -33,22 +34,17 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
-        }
-
-        public void Knockback()
-        {
-            // NO-OP
+            return NoOp.Instance;
         }
 
         public void Halt()
@@ -67,22 +63,20 @@ namespace Zelda.Projectiles
             _locations[3].X++;
             _locations[3].Y++;
 
-            for (int i = 0; i < numberOfParticles; i++)
+            for (var i = 0; i < NumberOfParticles; i++)
             {
                 _sprites[i].Update();
-                if (_framesDelayed == FramesToDisappear)
-                {
-                    _sprites[i].Hide();
-                    Halted = true;
-                }
-                
+
+                if (_framesDelayed != FramesToDisappear) continue;
+                _sprites[i].Hide();
+                Halted = true;
             }
             _framesDelayed++;
         }
 
         public void Draw()
         {
-            for (int i = 0; i < numberOfParticles; i++)
+            for (var i = 0; i < NumberOfParticles; i++)
             {
                 _sprites[i].Draw(_locations[i].ToVector2());
             }

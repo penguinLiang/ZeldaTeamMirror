@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.SoundEffects;
 using Zelda.Dungeon;
+using Zelda.SoundEffects;
 
 namespace Zelda.Items
 {

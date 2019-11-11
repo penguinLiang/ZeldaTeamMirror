@@ -1,6 +1,6 @@
 ﻿namespace Zelda
 {
-    internal interface IMenu
+    public interface IMenu
     {
         void Choose();
         void SelectUp();

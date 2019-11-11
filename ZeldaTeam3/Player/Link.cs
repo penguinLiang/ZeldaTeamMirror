@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Zelda.Items;
 using Zelda.SoundEffects;
 
 namespace Zelda.Player
@@ -43,11 +44,6 @@ namespace Zelda.Player
             _movementStateMachine.Move(direction);
             _aliveSpriteStateMachine.Aim(direction);
             _deadSpriteStateMachine.Aim(direction);
-        }
-
-        public void Knockback()
-        {
-            _movementStateMachine.Knockback();
         }
 
         public void Halt()
@@ -112,7 +108,7 @@ namespace Zelda.Player
             if (UsingSecondaryItem) _aliveSpriteStateMachine.UseSecondaryItem();
         }
 
-        public void AssignSecondaryItem(Items.Secondary item)
+        public void AssignSecondaryItem(Secondary item)
         {
             Inventory.AssignSecondaryItem(item);
             _playerProjectileAgent.AssignSecondaryItem(item);

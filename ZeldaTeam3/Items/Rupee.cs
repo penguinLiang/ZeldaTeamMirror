@@ -19,7 +19,7 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupRupee();
-            return new Add5Rupee(player);
+            return new Add1Rupee(player);
         }
     }
 }

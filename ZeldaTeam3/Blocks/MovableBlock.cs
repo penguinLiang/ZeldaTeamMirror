@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 
 namespace Zelda.Blocks
 {
@@ -49,6 +50,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            // ReSharper disable once InvertIf (cleaner as-is)
             if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
                 _moving = true;
@@ -89,13 +91,12 @@ namespace Zelda.Blocks
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (++_distanceMoved >= 16)
-            {
-                if (_moving)
-                        SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
-                _moving = false;
-                Locked = true;
-            }
+            if (++_distanceMoved < 16) return;
+
+            if (_moving)
+                SoundEffectManager.Instance.PlayPuzzleSolved();
+            _moving = false;
+            Locked = true;
         }
 
         public void Draw()

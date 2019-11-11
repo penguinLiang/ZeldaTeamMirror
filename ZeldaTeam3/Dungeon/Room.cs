@@ -6,6 +6,7 @@ using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
 
+// ReSharper disable SwitchStatementMissingSomeCases (handled at runtime)
 namespace Zelda.Dungeon
 {
     public class Room
@@ -209,7 +210,6 @@ namespace Zelda.Dungeon
 
         private bool TryAddSpecialDoor(MapTile tile, Point location)
         {
-            // ReSharper disable once SwitchStatementMissingSomeCases
             DoorBase door;
             Direction direction;
             switch (tile)
@@ -235,7 +235,6 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
             Direction direction;
-            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (tile)
             {
                 case MapTile.DoorBombableLeft:
@@ -269,7 +268,6 @@ namespace Zelda.Dungeon
         {
             BlockType blockType;
 
-            // ReSharper disable once SwitchStatementMissingSomeCases (Handled in other cases)
             switch (tile)
             {
                 case MapTile.DungeonStairs:
@@ -295,7 +293,6 @@ namespace Zelda.Dungeon
         private bool TryAddProjectilPassthroughBarrier(MapTile tile, Point location)
         {
             BlockType blockType;
-            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {
                 case MapTile.Fire:
@@ -327,7 +324,6 @@ namespace Zelda.Dungeon
         private bool TryAddBarrier(MapTile tile, Point location)
         {
             BlockType blockType;
-            // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {
                 case MapTile.InvisibleWall:

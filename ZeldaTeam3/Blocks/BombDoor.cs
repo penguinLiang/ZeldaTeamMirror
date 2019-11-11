@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
 using Zelda.Projectiles;
+using Zelda.SoundEffects;
+
+// ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 
 namespace Zelda.Blocks
 {
@@ -67,16 +70,15 @@ namespace Zelda.Blocks
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-            if (_unblocked) return base.PlayerEffect(player);
-
-            return new MoveableHalt(player);
+            return _unblocked ? base.PlayerEffect(player) : new MoveableHalt(player);
         }
 
         public override ICommand ProjectileEffect(IProjectile projectile)
         {
+            // ReSharper disable once InvertIf (cleaner as-is)
             if (!_unblocked && projectile is Bomb)
             {
-                SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
+                SoundEffectManager.Instance.PlayPuzzleSolved();
                 Unblock();
             }
 

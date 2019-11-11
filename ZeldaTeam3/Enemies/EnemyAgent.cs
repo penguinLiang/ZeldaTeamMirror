@@ -41,6 +41,7 @@ namespace Zelda.Enemies
             {
                 Health -= damage;
                 Sprite?.PaletteShift();
+                Knockback();
                 SoundEffectManager.Instance.PlayEnemyHit();
                 if (Health <= 0)
                 {
@@ -122,11 +123,6 @@ namespace Zelda.Enemies
             return new MoveableHalt(projectile);
         }
 
-        public virtual void Knockback()
-        {
-            // NO-OP: Most enemies are 1-hit kills
-        }
-
         public virtual void Stun()
         {
             Halt();
@@ -135,5 +131,6 @@ namespace Zelda.Enemies
 
         public abstract Rectangle Bounds { get; }
         public abstract void Halt();
+        protected abstract void Knockback();
     }
 }

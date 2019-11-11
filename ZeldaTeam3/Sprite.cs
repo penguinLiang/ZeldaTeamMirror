@@ -100,11 +100,6 @@ namespace Zelda
             SpriteBatch.Draw(_spriteSheet, location, new Rectangle(SourceX, SourceY, _width, _height), Color.White);
         }
 
-        public void Show()
-        {
-            _visible = true;
-        }
-
         public void Hide()
         {
             _visible = false;

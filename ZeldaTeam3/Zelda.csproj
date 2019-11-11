@@ -48,7 +48,6 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
-    <Compile Include="Commands\DoorLinkKnockback.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\Play.cs" />
@@ -111,7 +110,6 @@
     <Compile Include="Pause\PauseMenu.Constants.cs" />
     <Compile Include="Pause\PauseSpriteFactory.cs" />
     <Compile Include="Pause\PauseMenu.cs" />
-    <Compile Include="IActivatable.cs" />
     <Compile Include="Enemies\Aquamentus.cs" />
     <Compile Include="Enemies\Gel.cs" />
     <Compile Include="Enemies\Goriya.cs" />
@@ -141,7 +139,6 @@
     <Compile Include="Commands\MenuSelectLeft.cs" />
     <Compile Include="Commands\MenuSelectRight.cs" />
     <Compile Include="Commands\SpawnableDamage.cs" />
-    <Compile Include="Commands\LinkKnockback.cs" />
     <Compile Include="Commands\LinkPrimaryAction.cs" />
     <Compile Include="Commands\Reset.cs" />
     <Compile Include="Commands\Quit.cs" />
