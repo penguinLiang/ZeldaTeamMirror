@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Zelda.Commands;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.SoundEffects;
@@ -46,7 +47,7 @@ namespace Zelda.Projectiles
             Halted = true;
             player.Inventory.AddSecondaryItem(Secondary.Boomerang);
             _soundEffect.Stop();
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
@@ -57,14 +58,14 @@ namespace Zelda.Projectiles
                 case Keese _:
                 case Gel _:
                 case OldMan _:
-                    return new Commands.SpawnableDamage(enemy, 1);
+                    return new SpawnableDamage(enemy, 1);
                 case Stalfos _:
                 case Goriya _:
                 case WallMaster _:
-                    return new Commands.MoveableHalt(enemy);
+                    return new EnemyStun(enemy);
                 case Aquamentus _:
                 case Trap _:
-                    return Commands.NoOp.Instance;
+                    return NoOp.Instance;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -72,7 +73,7 @@ namespace Zelda.Projectiles
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public void LinearUpdate()
