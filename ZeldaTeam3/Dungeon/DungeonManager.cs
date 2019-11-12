@@ -150,6 +150,7 @@ namespace Zelda.Dungeon
                 _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
             }
 
+            Scene?.DestroyProjectiles();
             Pan(CurrentRoom, newRoom, roomDirection);
         }
 
@@ -177,6 +178,7 @@ namespace Zelda.Dungeon
                 _player?.Teleport(TeleportLocation.Calculate(facing), facing);
             }
 
+            Scene?.DestroyProjectiles();
             Scene = _scenes[row][column];
             Scene.SpawnScene();
         }

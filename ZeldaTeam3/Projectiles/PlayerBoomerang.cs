@@ -100,6 +100,7 @@ namespace Zelda.Projectiles
 
         private void TrackingUpdate()
         {
+            _soundEffect.Resume();
             if (_location.X < _player.Location.X + DistancePerFrame)
             {
                 _location.X += DistancePerFrame;
@@ -137,6 +138,7 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
+            _soundEffect.Pause();
             if (_collided) return;
 
             _collided = true;

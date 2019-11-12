@@ -36,6 +36,15 @@ namespace Zelda.Dungeon
             }
         }
 
+        public void DestroyProjectiles()
+        {
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Halt();
+            }
+            _projectiles.Clear();
+        }
+
         public void SpawnScene()
         {
             _projectiles.Clear();
