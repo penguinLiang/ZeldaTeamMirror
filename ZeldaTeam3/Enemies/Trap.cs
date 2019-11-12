@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -9,8 +8,8 @@ namespace Zelda.Enemies
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
         private readonly Point _origin;
-        private readonly Rectangle _viewYBounds;
-        private readonly Rectangle _viewXBounds;
+        private Rectangle _viewYBounds;
+        private Rectangle _viewXBounds;
         private Point _playerLocation;
         private Direction _direction;
 
@@ -99,7 +98,7 @@ namespace Zelda.Enemies
             if (_movementTimer > 0)
             {
                 _movementTimer--;
-                for (int scale = 2; scale > 0; scale--)
+                for (var scale = 2; scale > 0; scale--)
                 {
                     Move(_direction);
                 }
