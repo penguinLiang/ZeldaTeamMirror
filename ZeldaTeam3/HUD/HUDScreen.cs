@@ -7,9 +7,9 @@ namespace Zelda.HUD
     {
         private readonly GameStateAgent _agent;
         private readonly Vector2 _location;
-        private readonly DrawnText _rupeeCount = new DrawnText() { Location = RuppeeCountLocation };
-        private readonly DrawnText _keyCount = new DrawnText() { Location = KeyCountLocation };
-        private readonly DrawnText _bombCount = new DrawnText() { Location = BombCountLocation };
+        private readonly DrawnText _rupeeCount = new DrawnText { Location = RuppeeCountLocation };
+        private readonly DrawnText _keyCount = new DrawnText { Location = KeyCountLocation };
+        private readonly DrawnText _bombCount = new DrawnText { Location = BombCountLocation };
 
         public HUDScreen(GameStateAgent agent, Point location)
         {

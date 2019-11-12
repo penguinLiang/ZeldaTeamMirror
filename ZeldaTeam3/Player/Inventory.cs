@@ -1,4 +1,5 @@
 ﻿using System;
+using Zelda.Items;
 
 namespace Zelda.Player
 {
@@ -8,8 +9,8 @@ namespace Zelda.Player
         private const int MaxBombCount = 8;
         private const int MaxKeyCount = 255;
 
-        public Items.Primary SwordLevel { get; private set; }
-        public Items.Secondary SecondaryItem { get; private set; }
+        public Primary SwordLevel { get; private set; }
+        public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
         public bool HasBow { get; private set; }
@@ -19,28 +20,28 @@ namespace Zelda.Player
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
         public int KeyCount { get; private set; }
 
-        public void UpgradeSword(Items.Primary newSwordLevel)
+        public void UpgradeSword(Primary newSwordLevel)
         {
             if (newSwordLevel > SwordLevel)
                 SwordLevel = newSwordLevel;
         }
 
-        public void AssignSecondaryItem(Items.Secondary secondaryItem)
+        public void AssignSecondaryItem(Secondary secondaryItem)
         {
             SecondaryItem = secondaryItem;
         }
 
-        public void AddSecondaryItem(Items.Secondary secondaryItem)
+        public void AddSecondaryItem(Secondary secondaryItem)
         {
             switch (secondaryItem)
             {
-                case Items.Secondary.Boomerang:
+                case Secondary.Boomerang:
                     HasBoomerang = true;
                     break;
-                case Items.Secondary.Bow:
+                case Secondary.Bow:
                     HasBow = true;
                     break;
-                case Items.Secondary.Bomb:
+                case Secondary.Bomb:
                     BombCount = Math.Min(BombCount + 4, MaxBombCount);
                     break;
                 default:

@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
 {
@@ -103,7 +103,7 @@ namespace Zelda.Enemies
             _agentClock = ActionDelay;
         }
 
-        public override void Knockback()
+        protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;

@@ -52,6 +52,11 @@ namespace Zelda.Enemies
             Move(_currentDirection);
         }
 
+        protected override void Knockback()
+        {
+            // NO-OP: Unknockable
+        }
+
         public void UpdateAction()
         {
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);

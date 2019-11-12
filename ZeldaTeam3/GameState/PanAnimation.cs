@@ -16,7 +16,7 @@ namespace Zelda.GameState
         private readonly Point _directionOffset;
         private readonly Point _velocity;
 
-        public Direction Direction { get; private set; }
+        public Direction Direction { get; }
 
         public PanAnimation(Direction direction)
         {

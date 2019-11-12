@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Zelda.Enemies;
 using Zelda.Items;
+using Zelda.Projectiles;
 
+// ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
 namespace Zelda.Dungeon
 {
     public class Scene : IDrawable
@@ -31,6 +34,15 @@ namespace Zelda.Dungeon
             {
                 roomDoor.Reset();
             }
+        }
+
+        public void DestroyProjectiles()
+        {
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Halt();
+            }
+            _projectiles.Clear();
         }
 
         public void SpawnScene()
@@ -68,7 +80,7 @@ namespace Zelda.Dungeon
                     door.Activate();
                 }
             }
-            if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
+            if (roomEnemy is Stalfos || roomEnemy is Goriya || roomEnemy is WallMaster)
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
@@ -107,16 +119,15 @@ namespace Zelda.Dungeon
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
-                if (_projectiles[i].Halted)
+                if (!_projectiles[i].Halted) continue;
+
+                if (_projectiles[i] is SwordBeam)
                 {
-                    if (_projectiles[i] is Projectiles.SwordBeam)
-                    {
-                        _projectiles[i] = new Projectiles.SwordBeamParticles(_projectiles[i].Bounds.Location);
-                    }
-                    else
-                    {
-                        _projectiles.RemoveAt(i--);
-                    }
+                    _projectiles[i] = new SwordBeamParticles(_projectiles[i].Bounds.Location);
+                }
+                else
+                {
+                    _projectiles.RemoveAt(i--);
                 }
             }
 

@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.SoundEffects;
 using Zelda.Dungeon;
+using Zelda.SoundEffects;
 
 namespace Zelda.Items
 {
     internal class BoomerangItem : Item
     {
         private bool _activated;
-        private Room _room;
+        private readonly Room _room;
 
         public BoomerangItem(Point location, Room room) : base(location)
         {

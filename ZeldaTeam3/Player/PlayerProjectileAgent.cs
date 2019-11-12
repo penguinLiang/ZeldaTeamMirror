@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Zelda.Items;
 using Zelda.Projectiles;
 
 namespace Zelda.Player
@@ -8,7 +9,7 @@ namespace Zelda.Player
     internal class PlayerProjectileAgent : IDrawable
     {
         public bool UsingSecondaryItem { get; private set; }
-        public Items.Secondary Item { get; private set; }
+        public Secondary Item { get; private set; }
 
         public List<IProjectile> Projectiles { get; }
 
@@ -20,7 +21,7 @@ namespace Zelda.Player
             Projectiles = new List<IProjectile>();
         }
 
-        public void FireSwordBeam(Direction facing, Point location, Items.Primary swordLevel)
+        public void FireSwordBeam(Direction facing, Point location, Primary swordLevel)
         {
             switch (facing)
             {
@@ -42,13 +43,13 @@ namespace Zelda.Player
 
             switch (swordLevel)
             {
-                case Items.Primary.Sword:
+                case Primary.Sword:
                     Projectiles.Add(new SwordBeam(location, facing, 1));
                     break;
-                case Items.Primary.WhiteSword:
+                case Primary.WhiteSword:
                     Projectiles.Add(new SwordBeam(location, facing, 2));
                     break;
-                case Items.Primary.MagicalSword:
+                case Primary.MagicalSword:
                     Projectiles.Add(new SwordBeam(location, facing, 4));
                     break;
                 default:
@@ -80,13 +81,13 @@ namespace Zelda.Player
             var inv = _player.Inventory;
             switch (Item)
             {
-                case Items.Secondary.Bow when inv.HasBow && inv.HasBow && inv.TryRemoveRupee():
+                case Secondary.Bow when inv.HasBow && inv.HasBow && inv.TryRemoveRupee():
                     Projectiles.Add(new Arrow(location, facing));
                     break;
-                case Items.Secondary.Boomerang when inv.TryRemoveBoomerang():
+                case Secondary.Boomerang when inv.TryRemoveBoomerang():
                     Projectiles.Add(new PlayerBoomerang(_player, location, facing));
                     break;
-                case Items.Secondary.Bomb when inv.TryRemoveBomb():
+                case Secondary.Bomb when inv.TryRemoveBomb():
                     Projectiles.Add(new Bomb(location));
                     break;
                 default:
@@ -96,7 +97,7 @@ namespace Zelda.Player
 
         }
 
-        public void AssignSecondaryItem(Items.Secondary item)
+        public void AssignSecondaryItem(Secondary item)
         {
             Item = item;
         }

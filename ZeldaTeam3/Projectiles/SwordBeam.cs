@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.Commands;
 
 namespace Zelda.Projectiles
 {
@@ -10,12 +11,12 @@ namespace Zelda.Projectiles
 
         private readonly ISprite _sprite;
         private readonly ArrowAndSwordBeamStateMachine _swordBeamStateMachine;
+        private readonly int _damage;
 
         public Rectangle Bounds => _swordBeamStateMachine.Bounds;
         public bool Halted { get; set; }
 
         private int _framesDelayed;
-        private int _damage;
 
         public SwordBeam(Point location, Direction direction, int damage)
         {
@@ -47,24 +48,19 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
             _sprite.Hide();
             _swordBeamStateMachine.ClearBounds();
-            return new Commands.SpawnableDamage(enemy, _damage);
+            return new SpawnableDamage(enemy, _damage);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
-        }
-
-        public void Knockback()
-        {
-            // NO-OP
+            return NoOp.Instance;
         }
 
         public void Halt()

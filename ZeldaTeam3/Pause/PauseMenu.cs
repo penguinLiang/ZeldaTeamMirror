@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Zelda.Items;
 using Zelda.Commands;
 using Zelda.GameState;
+using Zelda.Items;
 
 namespace Zelda.Pause
 {

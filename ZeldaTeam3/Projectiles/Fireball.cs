@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Zelda.Commands;
 
 namespace Zelda.Projectiles
 {
@@ -34,26 +34,21 @@ namespace Zelda.Projectiles
         {
             Halt();
             _sprite.Hide();
-            return new Commands.SpawnableDamage(player, 1);
+            return new SpawnableDamage(player, 1);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public void Halt() {
             Halted = true;
-        }
-
-        public void Knockback()
-        {
-            //no op
         }
 
         public void Update()

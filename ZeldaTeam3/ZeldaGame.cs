@@ -18,19 +18,17 @@ namespace Zelda
     public class ZeldaGame : Game
     {
         public GameStateAgent GameStateAgent { get; private set; }
-        public IPlayer Link => GameStateAgent.Player;
 
-        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         public ZeldaGame()
         {
             // Use 2x size of NES window
-            _graphics = new GraphicsDeviceManager(this)
+            var graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 512, PreferredBackBufferHeight = 448
             };
-            _graphics.ApplyChanges();
+            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Items
 {
@@ -49,24 +49,10 @@ namespace Zelda.Items
         {
             return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 48));
         }
-
-        public ISprite CreateRedRing()
-        {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 64));
-        }
-        public ISprite CreateBlueRing()
-        {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 64));
-        }
    
         public ISprite CreateKey()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 64));
-        }
-
-        public ISprite CreateClock()
-        {
-            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 80));
         }
 
         public ISprite CreateWoodSword()
@@ -82,10 +68,6 @@ namespace Zelda.Items
         public ISprite CreateMagicSword()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 96));
-        }
-        public ISprite CreateWoodShield()
-        {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 96));
         }
 
         public ISprite CreateBow()

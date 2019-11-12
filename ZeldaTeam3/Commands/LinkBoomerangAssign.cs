@@ -1,4 +1,6 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.Items;
+
+namespace Zelda.Commands
 {
     internal class LinkBoomerangAssign : ICommand
     {
@@ -11,8 +13,8 @@
 
         public void Execute()
         {
-            _link.Inventory.AddSecondaryItem(Items.Secondary.Boomerang);
-            _link.AssignSecondaryItem(Items.Secondary.Boomerang);
+            _link.Inventory.AddSecondaryItem(Secondary.Boomerang);
+            _link.AssignSecondaryItem(Secondary.Boomerang);
             _link.UseSecondaryItem();
         }
 

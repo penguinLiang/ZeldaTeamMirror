@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
 
+// ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
     internal class NormalDoor : DoorBase

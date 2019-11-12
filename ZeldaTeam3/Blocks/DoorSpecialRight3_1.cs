@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
+using Zelda.SoundEffects;
 
 namespace Zelda.Blocks
 {
@@ -26,7 +27,7 @@ namespace Zelda.Blocks
         public override void Unblock()
         {
             _unlocked = true;
-            SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
+            SoundEffectManager.Instance.PlayDoorUnlock();
             _sprite = BlockTypeSprite.Sprite(BlockType.DoorRight);
         }
 
