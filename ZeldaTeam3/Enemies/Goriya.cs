@@ -98,7 +98,6 @@ namespace Zelda.Enemies
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;
-            FlipDirection();
         }
 
         public override void Halt()
@@ -129,12 +128,11 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
-                        FlipDirection();
                         _agentStatus = AgentState.Ready;
                     }
                     else
                     {
-                        Move(_statusDirection);
+                        Move(DirectionUtility.Flip(_statusDirection));
                     }
                     break;
                 case AgentState.Moving:
