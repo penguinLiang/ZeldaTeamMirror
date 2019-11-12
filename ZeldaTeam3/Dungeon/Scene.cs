@@ -238,5 +238,10 @@ namespace Zelda.Dungeon
                 roomEnemy.Draw();
             }
         }
+
+        public void ResetEnemies()
+        {
+            _enemyCount = int.MinValue;
+        }
     }
 }

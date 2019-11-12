@@ -56,7 +56,7 @@ namespace Zelda.Enemies
             }
             else
             {
-                generateNextDestination();
+                GenerateNextDestination();
                 _movementClock = Rng.Next(20, 90);
                 _movementPauseClock = Rng.Next(30, 60);
             }
@@ -69,7 +69,7 @@ namespace Zelda.Enemies
             const int xBounds = 220;
             double xDiff = _playerLocation.X - _nextDestination.X;
             double yDiff = _playerLocation.Y - _nextDestination.Y;
-            double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+            var magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
             const float scaleDenominator = 21.3f;
             double xScale = _movementClock / scaleDenominator;
             double yScale = _movementClock / scaleDenominator;
@@ -79,30 +79,28 @@ namespace Zelda.Enemies
 
             if (Location.X - (int)normalizedX > xBounds || Location.X - (int)normalizedX < 0 || Location.Y - (int)normalizedY > yBounds || Location.Y - (int)normalizedY < 0)
             {
-                generateNextDestination();
+                GenerateNextDestination();
             }
             else
             {
                 Location.X -= (int)normalizedX;
                 Location.Y -= (int)normalizedY;
             }
-            
-            
         }
-
 
         public override void Target(Point playerLocation)
         {
             _playerLocation = playerLocation;
         }
 
-        private void generateNextDestination()
+        private void GenerateNextDestination()
         {
             const float locationScale = 1.0f;
             double xDiff = _playerLocation.X - Location.X;
             double yDiff = _playerLocation.Y - Location.Y;
             xDiff += Math.Sign(xDiff) * Rng.Next(32);
             yDiff += Math.Sign(yDiff) * Rng.Next(32);
+            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression (too long for ternary)
             if (Rng.Next(3) == 0)
             {
                 _nextDestination = new Point(Rng.Next(256), Rng.Next(48,200));
@@ -111,8 +109,6 @@ namespace Zelda.Enemies
             {
                 _nextDestination = new Point((int)(Location.X + xDiff * locationScale), (int)(Location.Y + yDiff * locationScale));
             }
-
-            
         }
 
         public override void Update()
