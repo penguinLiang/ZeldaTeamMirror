@@ -52,7 +52,7 @@ namespace Zelda.Enemies
             else
             {
                 generateNextDestination();
-                _movementClock = Rng.Next(20, 60);
+                _movementClock = Rng.Next(20, 90);
                 _movementPauseClock = Rng.Next(30, 60);
             }
             
@@ -60,6 +60,8 @@ namespace Zelda.Enemies
 
         private void AdvanceToDestination()
         {
+            const int yBounds = 150;
+            const int xBounds = 220;
             double xDiff = _playerLocation.X - _nextDestination.X;
             double yDiff = _playerLocation.Y - _nextDestination.Y;
             double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
@@ -67,11 +69,20 @@ namespace Zelda.Enemies
             double xScale = _movementClock / scaleDenominator;
             double yScale = _movementClock / scaleDenominator;
 
-            var normalizedY = yDiff / magnitude * xScale;
-            var normalizedX = xDiff / magnitude * yScale;
+            var normalizedY = yDiff / magnitude * yScale;
+            var normalizedX = xDiff / magnitude * xScale;
+
+            if (Location.X - (int)normalizedX > xBounds || Location.X - (int)normalizedX < 0 || Location.Y - (int)normalizedY > yBounds || Location.Y - (int)normalizedY < 0)
+            {
+                generateNextDestination();
+            }
+            else
+            {
+                Location.X -= (int)normalizedX;
+                Location.Y -= (int)normalizedY;
+            }
             
-            Location.X -= (int)normalizedX;
-            Location.Y -= (int)normalizedY;
+            
         }
 
 
