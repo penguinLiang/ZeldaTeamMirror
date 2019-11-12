@@ -15,7 +15,7 @@ namespace Zelda.GameState
                 new ControllerKeyboard(StateAgent),
                 StateAgent.Player,
                 StateAgent.HUD,
-                StateAgent.DungeonManager, 
+                StateAgent.DungeonManager 
             };
 
             ScaledDrawables = new IDrawable[]

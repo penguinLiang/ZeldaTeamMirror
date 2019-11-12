@@ -1,14 +1,16 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 
 namespace Zelda.Blocks
 {
-    internal class MovableBlock : ICollideable, IDrawable
+    internal class MovableBlock : ICollideable, IDrawable, ITransitionResetable
     {
         private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds => new Rectangle(_location.X, _location.Y, 16, 16);
 
+        private readonly Point _origin;
         private Point _location;
         private Direction _pushDirection;
         private int _distanceMoved;
@@ -19,10 +21,8 @@ namespace Zelda.Blocks
 
         public MovableBlock(Point location)
         {
-            _location = location;
-            _unmoved = true;
-            _moving = false;
-            Bounds = new Rectangle(location.X, location.Y, 16, 16);
+            _origin = location;
+            Reset();
         } 
 
         public bool CollidesWith(Rectangle rect)
@@ -50,6 +50,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
+            // ReSharper disable once InvertIf (cleaner as-is)
             if (_unmoved && TrySetBlockDirection(player.BodyCollision.Bounds))
             {
                 _moving = true;
@@ -76,36 +77,40 @@ namespace Zelda.Blocks
             {
                 case Direction.Up:
                     _location = new Point(_location.X, _location.Y - 1);
-                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                     break;
                 case Direction.Down:
                     _location = new Point(_location.X, _location.Y + 1);
-                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                     break;
                 case Direction.Left:
                     _location = new Point(_location.X - 1, _location.Y);
-                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                     break;
                 case Direction.Right:
                     _location = new Point(_location.X + 1, _location.Y);
-                    Bounds = new Rectangle(_location.X, _location.Y, 16, 16);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (++_distanceMoved >= 16)
-            {
-                if (_moving)
-                        SoundEffects.SoundEffectManager.Instance.PlayPuzzleSolved();
-                _moving = false;
-                Locked = true;
-            }
+            if (++_distanceMoved < 16) return;
+
+            if (_moving)
+                SoundEffectManager.Instance.PlayPuzzleSolved();
+            _moving = false;
+            Locked = true;
         }
 
         public void Draw()
         {
             _sprite.Draw(_location.ToVector2());
+        }
+
+        public void Reset()
+        {
+            _location = _origin;
+            _distanceMoved = 0;
+            _unmoved = true;
+            _moving = false;
+            Locked = false;
         }
     }
 }

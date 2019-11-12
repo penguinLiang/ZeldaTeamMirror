@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Zelda.Items;
 using Zelda.SoundEffects;
 
 namespace Zelda.Player
@@ -18,6 +19,7 @@ namespace Zelda.Player
 
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
+        public bool Won { get; private set; }
         public int Health => _healthStateMachine.Health;
         public int MaxHealth => _healthStateMachine.MaxHealth;
         public Point Location => _movementStateMachine.Location;
@@ -26,9 +28,9 @@ namespace Zelda.Player
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _playerProjectileAgent.UsingSecondaryItem;
 
-        public ICollideable BodyCollision => new PlayerBodyCollision(_movementStateMachine);
+        public ICollideable BodyCollision => new PlayerBodyCollision(this);
 
-        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine);
+        public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine, Inventory.SwordLevel);
 
         public Link(Point location)
         {
@@ -42,11 +44,6 @@ namespace Zelda.Player
             _movementStateMachine.Move(direction);
             _aliveSpriteStateMachine.Aim(direction);
             _deadSpriteStateMachine.Aim(direction);
-        }
-
-        public void Knockback()
-        {
-            _movementStateMachine.Knockback();
         }
 
         public void Halt()
@@ -74,14 +71,14 @@ namespace Zelda.Player
             _healthStateMachine = new HealthStateMachine();
             _aliveSpriteStateMachine = new AliveSpriteStateMachine(_movementStateMachine.Facing);
             _deadSpriteStateMachine = new DeadSpriteStateMachine();
-            _playerProjectileAgent = new PlayerProjectileAgent(Inventory);
+            _playerProjectileAgent = new PlayerProjectileAgent(this);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             if(_healthStateMachine.Hurt) return;
             Halt();
-            _healthStateMachine.TakeDamage();
+            _healthStateMachine.TakeDamage(damage);
             _movementStateMachine.Knockback();
             _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
@@ -107,11 +104,11 @@ namespace Zelda.Player
         public void UseSecondaryItem()
         {
             if (_aliveSpriteStateMachine.UsingItem) return;
-            _aliveSpriteStateMachine.UseSecondaryItem();
             _playerProjectileAgent.UseSecondaryItem(_movementStateMachine.Facing, _movementStateMachine.Location);
+            if (UsingSecondaryItem) _aliveSpriteStateMachine.UseSecondaryItem();
         }
 
-        public void AssignSecondaryItem(Items.Secondary item)
+        public void AssignSecondaryItem(Secondary item)
         {
             Inventory.AssignSecondaryItem(item);
             _playerProjectileAgent.AssignSecondaryItem(item);
@@ -131,6 +128,11 @@ namespace Zelda.Player
             {
                 _deadSpriteStateMachine.Update();
                 return;
+            }
+
+            if (_healthStateMachine.Hurt)
+            {
+                _aliveSpriteStateMachine.Sprite.PaletteShift();
             }
 
             _teleportLockDelay.Update();
@@ -154,6 +156,11 @@ namespace Zelda.Player
 
             if (!_aliveSpriteStateMachine.UsingItem) _movementStateMachine.Update();
             _healthStateMachine.Update();
+        }
+
+        public void TouchTriforce()
+        {
+            Won = true;
         }
 
         // When using a primary item, the sprite is offset from the origin of the bounding box for the Left and Up directions by 16 pixels,

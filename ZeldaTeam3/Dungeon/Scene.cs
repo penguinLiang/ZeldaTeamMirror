@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Zelda.Enemies;
 using Zelda.Items;
+using Zelda.Projectiles;
 
+// ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
 namespace Zelda.Dungeon
 {
     public class Scene : IDrawable
@@ -13,7 +16,6 @@ namespace Zelda.Dungeon
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private readonly List<IProjectile> _projectiles = new List<IProjectile>();
-        private readonly List<IDrawable> _particles = new List<IDrawable>();
         private readonly List<IItem> _items = new List<IItem>();
         private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
         private int _enemyCount = int.MinValue;
@@ -23,31 +25,29 @@ namespace Zelda.Dungeon
             _room = room;
             _player = player;
             _items.AddRange(_room.Items);
-        }
-
-        public void Reset()
-        {
-            _enemyCount = _room.Enemies.Count;
-            _items.Clear();
-            _items.AddRange(_room.Items);
-            foreach (var roomItem in _items)
+            foreach (var item in _items)
             {
-                roomItem.Reset();
+                item.Reset();
             }
 
             foreach (var roomDoor in _room.Doors.Values)
             {
                 roomDoor.Reset();
             }
+        }
 
+        public void DestroyProjectiles()
+        {
+            foreach (var projectile in _projectiles)
+            {
+                projectile.Halt();
+            }
             _projectiles.Clear();
         }
 
         public void SpawnScene()
         {
             _projectiles.Clear();
-            _items.Clear();
-            _items.AddRange(_room.Items);
 
             if (_enemyCount == int.MinValue)
             {
@@ -58,7 +58,7 @@ namespace Zelda.Dungeon
             {
                 roomDoor.Deactivate();
             }
-            _room.MoveableBlockReset();
+            _room.TransitionReset();
 
             for (var i = 0; i < _enemyCount; i++)
             {
@@ -80,7 +80,7 @@ namespace Zelda.Dungeon
                     door.Activate();
                 }
             }
-            if (roomEnemy is Enemies.Stalfos || roomEnemy is Enemies.Goriya || roomEnemy is Enemies.WallMaster)
+            if (roomEnemy is Stalfos || roomEnemy is Goriya || roomEnemy is WallMaster)
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
@@ -119,16 +119,15 @@ namespace Zelda.Dungeon
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
-                if (_projectiles[i].Halted)
+                if (!_projectiles[i].Halted) continue;
+
+                if (_projectiles[i] is SwordBeam)
                 {
-                    if (_projectiles[i] is Projectiles.SwordBeam)
-                    {
-                        _projectiles[i] = new Projectiles.SwordBeamParticles(_projectiles[i].Bounds.Location);
-                    }
-                    else
-                    {
-                        _projectiles.RemoveAt(i--);
-                    }
+                    _projectiles[i] = new SwordBeamParticles(_projectiles[i].Bounds.Location);
+                }
+                else
+                {
+                    _projectiles.RemoveAt(i--);
                 }
             }
 

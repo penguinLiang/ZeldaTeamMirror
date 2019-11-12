@@ -17,20 +17,19 @@ namespace Zelda.Player
         public int MaxHealth { get; private set; } = 6;
         public int Health;
 
-        private readonly FrameDelay _hurtResetDelay = new FrameDelay(60);
+        private readonly FrameDelay _hurtResetDelay = new FrameDelay(40, true);
         private int _healthBeepTimer;
 
         public HealthStateMachine()
         {
             Health = MaxHealth;
-            _hurtResetDelay.Pause();
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
                 Hurt = true;
                 _hurtResetDelay.Resume();
                 if (Health > 0)

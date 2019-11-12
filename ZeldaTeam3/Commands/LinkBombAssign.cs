@@ -1,4 +1,6 @@
-﻿namespace Zelda.Commands
+﻿using Zelda.Items;
+
+namespace Zelda.Commands
 {
     internal class LinkBombAssign : ICommand
     {
@@ -11,7 +13,7 @@
 
         public void Execute()
         {
-            _link.AssignSecondaryItem(Items.Secondary.Bomb);
+            _link.AssignSecondaryItem(Secondary.Bomb);
             _link.UseSecondaryItem();
         }
 

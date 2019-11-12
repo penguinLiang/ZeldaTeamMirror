@@ -25,7 +25,7 @@ namespace Zelda.GameState
             };
             _scaledDrawables = new IDrawable[]
             {
-                StateAgent.Player,
+                StateAgent.Player
             };
         }
 

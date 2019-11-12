@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
+// ReSharper disable UnusedMember.Global (used by pipeline as DLL)
 namespace CSVMapContentPipeline
 {
     internal class CSVMapReader : ContentTypeReader<int[][]>

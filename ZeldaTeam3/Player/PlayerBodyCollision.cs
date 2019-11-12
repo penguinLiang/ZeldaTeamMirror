@@ -1,18 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Projectiles;
 
 namespace Zelda.Player
 {
     internal class PlayerBodyCollision : ICollideable
     {
-        private readonly MovementStateMachine _movementStateMachine;
+        private readonly IPlayer _player;
 
         // Link only collides with the bottom half of his sprite, hence the offset by 8 in the y and the height only being 8. This is true to the source.
-        public Rectangle Bounds => new Rectangle(_movementStateMachine.Location.X, _movementStateMachine.Location.Y + 8, 16, 8);
+        public Rectangle Bounds => new Rectangle(_player.Location.X, _player.Location.Y + 8, 16, 8);
 
-        public PlayerBodyCollision(MovementStateMachine movementStateMachine)
+        public PlayerBodyCollision(IPlayer player)
         {
-            _movementStateMachine = movementStateMachine;
+            _player = player;
         }
 
         public bool CollidesWith(Rectangle rect)
@@ -32,8 +33,7 @@ namespace Zelda.Player
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            if (projectile is Projectiles.SwordBeam)
-                return NoOp.Instance;
+            if (projectile is SwordBeam) return NoOp.Instance;
             return new MoveableHalt(projectile);
         }
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Zelda.Commands;
 using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
@@ -71,22 +71,17 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            return new Commands.SpawnableDamage(enemy);
+            return new SpawnableDamage(enemy, 4);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
-        }
-
-        public void Knockback()
-        {
-            //no op
+            return NoOp.Instance;
         }
 
         public void Halt()

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.Commands;
 using Zelda.SoundEffects;
-
 
 namespace Zelda.Projectiles
 {
@@ -48,7 +48,7 @@ namespace Zelda.Projectiles
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
 
@@ -57,20 +57,18 @@ namespace Zelda.Projectiles
             _sprite.Hide();
             _arrowStateMachine.ClearBounds();
             Halt();
-            return new Commands.SpawnableDamage(enemy);
+            return new SpawnableDamage(enemy, 2);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            return Commands.NoOp.Instance;
+            return NoOp.Instance;
         }
 
         public void Halt()
         {
             Halted = true;
         }
-
-        public void Knockback() { }
 
         public void Update()
         {

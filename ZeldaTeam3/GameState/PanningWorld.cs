@@ -10,11 +10,11 @@
             Updatables = new IUpdatable[]
             {
                 new QuitResetControllerKeyboard(agent), 
-                StateAgent.HUD,
+                StateAgent.HUD
             };
             ScaledDrawables = new IDrawable[]
             {
-                StateAgent.HUD,
+                StateAgent.HUD
             };
         }
     }

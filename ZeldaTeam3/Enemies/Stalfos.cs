@@ -46,7 +46,7 @@ namespace Zelda.Enemies
             _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
-        public override void Knockback()
+        protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;

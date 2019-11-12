@@ -46,11 +46,12 @@ namespace Zelda.Enemies
             _agentStatus = AgentState.Ready;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
+                Knockback();
                 Sprite?.PaletteShift();
                 if (Health > 0)
                 {
@@ -124,9 +125,10 @@ namespace Zelda.Enemies
 
         private void UseAttack()
         {
+            const double velocityScalar = -1.5;
+
             var fb0Location = new Point(Location.X, Location.Y - 4);
             var fb2Location = new Point(Location.X, Location.Y + 4);
-            var velocityScalar = -1.5;
 
             Projectiles.Add(new Fireball(fb0Location, GenerateFireballVector(velocityScalar, -0.5), true));
             Projectiles.Add(new Fireball(Location, GenerateFireballVector(velocityScalar, 0), true));
@@ -137,7 +139,7 @@ namespace Zelda.Enemies
         {
             double xDiff = _playerLocation.X - Location.X;
             double yDiff = _playerLocation.Y - Location.Y;
-            double magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+            var magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
 
             var normalizedY = yDiff / magnitude;
 
@@ -146,23 +148,24 @@ namespace Zelda.Enemies
 
         private void UpdateAction()
         {
+            const int attackScalar = 4;
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
             _agentClock = ActionDelay;
-            var AttackScalar = 4;
 
-            if (_agentStatus == AgentState.Moving)
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (_agentStatus)
             {
-                _currentDirection = DirectionUtility.RandomVerticalDirection();
-            }
-
-            if (_agentStatus == AgentState.Attacking)
-            {
-                _agentClock *= AttackScalar;
-                _sprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
+                case AgentState.Moving:
+                    _currentDirection = DirectionUtility.RandomVerticalDirection();
+                    break;
+                case AgentState.Attacking:
+                    _agentClock *= attackScalar;
+                    _sprite = EnemySpriteFactory.Instance.CreateAquamentusFiring();
+                    break;
             }
         }
 
-        public override void Knockback()
+        protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;

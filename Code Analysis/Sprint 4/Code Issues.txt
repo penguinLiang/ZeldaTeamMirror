@@ -1,0 +1,120 @@
+﻿Solution ZeldaTeam3.sln
+    Project CSVMapContentPipeline
+      CSVMapContentPipeline\CSVMapImporter.cs:7 Class 'CSVMapImporter' is never used
+      CSVMapContentPipeline\CSVMapReader.cs:5 Class 'CSVMapReader' is never used
+      CSVMapContentPipeline\CSVMapWriter.cs:6 Class 'CSVMapWriter' is never used
+    
+    Project Zelda
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:60 Method 'CreateTopBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:75 Method 'CreateBottomBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BombDoor.cs:19 Some values of the enum are not processed inside switch: Water, Sand, FishStatue...
+      ZeldaTeam3\Blocks\BombDoor.cs:37 Some values of the enum are not processed inside switch: Water, Sand, FishStatue...
+      ZeldaTeam3\Blocks\BombDoor.cs:70 Convert to 'return' statement
+      ZeldaTeam3\Blocks\BombDoor.cs:77 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\LockedDoor.cs:18 Some values of the enum are not processed inside switch: Water, Sand, FishStatue...
+      ZeldaTeam3\Blocks\LockedDoor.cs:36 Some values of the enum are not processed inside switch: Water, Sand, FishStatue...
+      ZeldaTeam3\Blocks\LockedDoor.cs:72 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\MovableBlock.cs:52 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\MovableBlock.cs:92 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\NormalDoor.cs:23 Some values of the enum are not processed inside switch: Water, Sand, FishStatue...
+      ZeldaTeam3\Blocks\Stair.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Commands\Add1Rupee.cs:3 Class 'Add1Rupee' is never used
+      ZeldaTeam3\Commands\DoorLinkKnockback.cs:3 Class 'DoorLinkKnockback' is never used
+      ZeldaTeam3\Commands\LinkKnockback.cs:3 Class 'LinkKnockback' is never used
+      ZeldaTeam3\ControllerKeyboard.cs:37 Redundant comma in collection initializer
+      ZeldaTeam3\ControllerKeyboard.cs:53 Redundant comma in collection initializer
+      ZeldaTeam3\ControllerKeyboard.cs:66 Redundant comma in collection initializer
+      ZeldaTeam3\ControllerKeyboard.cs:106 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\ControllerKeyboard.cs:112 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\Direction.cs:8 Redundant comma in enum declaration
+      ZeldaTeam3\DirectionUtility.cs:52 Some values of the enum are not processed inside switch: Up, Down, 
+      ZeldaTeam3\Dungeon\Room.cs:215 Some values of the enum are not processed inside switch: None, SpawnEnemy, BlackOverlay...
+      ZeldaTeam3\Dungeon\Scene.cs:110 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Dungeon\Scene.cs:147 Part of loop's body can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\Dungeon\Scene.cs:180 Part of loop's body can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\Enemies\Aquamentus.cs:129 Convert to constant
+      ZeldaTeam3\Enemies\Aquamentus.cs:140 Use 'var' (built-in types)
+      ZeldaTeam3\Enemies\Aquamentus.cs:151 Convert to constant
+      ZeldaTeam3\Enemies\Aquamentus.cs:153 Convert 'if' statement to 'switch' statement
+      ZeldaTeam3\Enemies\Aquamentus.cs:158 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Enemies\OldMan.cs:56 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Enemies\OldMan.cs:80 Convert to constant
+      ZeldaTeam3\Enemies\OldMan.cs:81 Convert to constant
+      ZeldaTeam3\GameOver\GameOverControllerKeyboard.cs:13 Parameter can be of type 'Zelda.IMenu'
+      ZeldaTeam3\GameOver\GameOverControllerKeyboard.cs:28 Redundant comma in collection initializer
+      ZeldaTeam3\GameOver\GameOverMenu.cs:80 Some cases are not processed: default
+      ZeldaTeam3\GameOver\GameOverMenu.cs:95 Some cases are not processed: default
+      ZeldaTeam3\GameState\GameOverWorld.cs:28 Redundant comma in array initializer
+      ZeldaTeam3\GameState\GameStateAgent.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\GameState\GameStateAgent.cs:150 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\GameState\GameStateAgent.cs:159 Convert to constant
+      ZeldaTeam3\GameState\PanAnimation.cs:19 Auto-property can be made get-only
+      ZeldaTeam3\GameState\PanningWorld.cs:13 Redundant comma in array initializer
+      ZeldaTeam3\GameState\PanningWorld.cs:17 Redundant comma in array initializer
+      ZeldaTeam3\GameState\PlayingWorld.cs:18 Redundant comma in array initializer
+      ZeldaTeam3\GameWin\GameWinControllerKeyboard.cs:13 Parameter can be of type 'Zelda.IMenu'
+      ZeldaTeam3\HUD\HUDScreen.cs:10 Empty argument list is redundant
+      ZeldaTeam3\HUD\HUDScreen.cs:11 Empty argument list is redundant
+      ZeldaTeam3\HUD\HUDScreen.cs:12 Empty argument list is redundant
+      ZeldaTeam3\IActivatable.cs:5 Only implementations of method 'Activate' are used
+      ZeldaTeam3\ISprite.cs:10 Method 'Show' is never used
+      ZeldaTeam3\Items\ArrowItem.cs:7 Class 'ArrowItem' is never used
+      ZeldaTeam3\Items\BoomerangItem.cs:11 Field can be made readonly
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:53 Method 'CreateRedRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:57 Method 'CreateBlueRing' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:67 Method 'CreateClock' is never used
+      ZeldaTeam3\Items\ItemSpriteFactory.cs:86 Method 'CreateWoodShield' is never used
+      ZeldaTeam3\Items\MagicSwordItem.cs:7 Class 'MagicSwordItem' is never used
+      ZeldaTeam3\Items\WhiteSwordItem.cs:7 Class 'WhiteSwordItem' is never used
+      ZeldaTeam3\JumpMap\JumpMapControllerKeyboard.cs:18 Redundant comma in collection initializer
+      ZeldaTeam3\JumpMap\JumpMapControllerKeyboard.cs:24 Redundant comma in collection initializer
+      ZeldaTeam3\Music\MusicManager.cs:70 Method 'PlayTriforceMusic' is never used
+      ZeldaTeam3\Pause\ControllerPauseKeyboard.cs:14 Parameter can be of type 'Zelda.IMenu'
+      ZeldaTeam3\Pause\ControllerPauseKeyboard.cs:34 Redundant comma in collection initializer
+      ZeldaTeam3\Player\MovementStateMachine.cs:42 Use 'var' (built-in types)
+      ZeldaTeam3\Player\MovementStateMachine.cs:45 Convert to '?:' expression
+      ZeldaTeam3\Player\MovementStateMachine.cs:56 Convert to '?:' expression
+      ZeldaTeam3\Player\MovementStateMachine.cs:69 Use 'var' (built-in types)
+      ZeldaTeam3\Player\MovementStateMachine.cs:72 Convert to '?:' expression
+      ZeldaTeam3\Player\MovementStateMachine.cs:83 Convert to '?:' expression
+      ZeldaTeam3\Projectiles\ArrowAndSwordBeamStateMachine.cs:12 Field can be made readonly
+      ZeldaTeam3\Projectiles\Bomb.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\Fireball.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Projectiles\SwordBeam.cs:18 Field can be made readonly
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:7 Name 'numberOfParticles' does not match rule 'Constant fields (private)'. Suggested name is 'NumberOfParticles'.
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:13 Field can be made readonly
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:14 Field can be made readonly
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:70 Use 'var' (built-in types)
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:73 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Projectiles\SwordBeamParticles.cs:85 Use 'var' (built-in types)
+      ZeldaTeam3\QuitResetControllerKeyboard.cs:18 Redundant comma in collection initializer
+      ZeldaTeam3\QuitResetControllerKeyboard.cs:23 Redundant comma in collection initializer
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:33 Name 'Content' does not match rule 'Parameters'. Suggested name is 'content'.
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:59 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:65 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:73 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:79 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:83 Method 'PlayBossSpawn' is never used
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:85 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:91 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:97 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:103 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:109 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:115 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:121 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:127 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:133 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:139 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:145 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:151 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:157 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:163 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:169 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:175 Use 'var' (simple types)
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:179 Method 'PlayUseStairs' is never used
+      ZeldaTeam3\SoundEffects\SoundEffectManager.cs:181 Use 'var' (simple types)
+      ZeldaTeam3\ZeldaGame.cs:21 Property 'Link' is never used
+      ZeldaTeam3\ZeldaGame.cs:23 The field is always assigned before being used and can be converted to local variable
+    
+  

@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
+using Zelda.SoundEffects;
 
+// ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
     internal class LockedDoor : NormalDoor
@@ -69,9 +71,10 @@ namespace Zelda.Blocks
         {
             if (_unlocked) return base.PlayerEffect(player);
 
+            // ReSharper disable once InvertIf (cleaner as-is)
             if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
             {
-                SoundEffects.SoundEffectManager.Instance.PlayDoorUnlock();
+                SoundEffectManager.Instance.PlayDoorUnlock();
                 Unblock();
             }
 

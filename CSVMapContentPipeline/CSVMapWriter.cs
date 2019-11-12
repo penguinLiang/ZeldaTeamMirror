@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
+// ReSharper disable UnusedMember.Global (used by pipeline as DLL)
 namespace CSVMapContentPipeline
 {
     internal class CSVMapWriter : ContentTypeWriter<int[][]>

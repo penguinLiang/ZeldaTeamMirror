@@ -1,4 +1,5 @@
 ﻿using System;
+using Zelda.Items;
 
 namespace Zelda.Player
 {
@@ -16,7 +17,7 @@ namespace Zelda.Player
         public bool UsingPrimaryItem { get; private set; }
 
         private Direction _facing;
-        private Items.Primary _primaryItem;
+        private Primary _primaryItem;
 
         // Memoizing the direction prevents sprite thrashing
         private Direction _lastFacing;
@@ -34,13 +35,13 @@ namespace Zelda.Player
         {
             switch (_primaryItem)
             {
-                case Items.Primary.Sword:
+                case Primary.Sword:
                     Sprite = LinkSpriteFactory.Instance.CreateWoodenSword(direction);
                     break;
-                case Items.Primary.WhiteSword:
+                case Primary.WhiteSword:
                     Sprite = LinkSpriteFactory.Instance.CreateWhiteSword(direction);
                     break;
-                case Items.Primary.MagicalSword:
+                case Primary.MagicalSword:
                     Sprite = LinkSpriteFactory.Instance.CreateMagicalSword(direction);
                     break;
                 default:
@@ -72,7 +73,7 @@ namespace Zelda.Player
             _lastFacing = _facing;
         }
 
-        public void UsePrimaryItem(Items.Primary primaryItem)
+        public void UsePrimaryItem(Primary primaryItem)
         {
             _primaryItem = primaryItem;
             UsingPrimaryItem = true;

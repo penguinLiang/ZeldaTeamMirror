@@ -37,7 +37,7 @@ namespace Zelda.Enemies
             Location = _origin;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(int damage)
         {
             // NO-OP: No damage
         }
@@ -50,6 +50,11 @@ namespace Zelda.Enemies
         public override void Target(Point location)
         {
             _playerLocation = location;
+        }
+
+        protected override void Knockback()
+        {
+            // NO-OP: Immovable
         }
 
         public override void Update()

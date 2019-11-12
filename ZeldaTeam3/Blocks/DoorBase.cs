@@ -3,7 +3,7 @@ using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
-    public abstract class DoorBase : ICollideable, IDrawable, IActivatable
+    public abstract class DoorBase : ICollideable, IDrawable
     {
         protected abstract ISprite Sprite { get; }
         protected abstract Point Location { get; }

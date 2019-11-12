@@ -11,6 +11,10 @@ namespace Zelda.Player
      */
     internal class MovementStateMachine : IHaltable, IUpdatable
     {
+        private const int Speed = 2;
+        private const int TileSize = 8;
+        private const int AlignThreshold = 3;
+
         private readonly FrameDelay _movementDelay = new FrameDelay(1);
         private readonly FrameDelay _disableKnockbackDelay = new FrameDelay(10, true);
 
@@ -39,55 +43,26 @@ namespace Zelda.Player
         {
             if (direction == Direction.Down || direction == Direction.Up)
             {
-                int distance = Location.X % 8;
+                var distance = Location.X % TileSize;
                 if (distance == 0)
                 {
-                    if (direction == Direction.Down)
-                    {
-                        Location = new Point(Location.X, Location.Y + 2);
-                    }
-                    else
-                    {
-                        Location = new Point(Location.X, Location.Y - 2);
-                    }
+                    Location += new Point(0, direction == Direction.Down ? Speed : -Speed);
                 }
                 else
                 {
-                    if (distance > 3)
-                    {
-                        Location = new Point(Location.X + 2, Location.Y);
-                    }
-                    else
-                    {
-                        Location = new Point(Location.X - 2, Location.Y);
-                    }
+                    Location += new Point(distance > AlignThreshold ? Speed : -Speed, 0);
                 }
-
             }
             else
             {
-                int distance = Location.Y % 8;
+                var distance = Location.Y % TileSize;
                 if (distance == 0)
                 {
-                    if (direction == Direction.Left)
-                    {
-                        Location = new Point(Location.X - 2, Location.Y);
-                    }
-                    else
-                    {
-                        Location = new Point(Location.X + 2, Location.Y);
-                    }
+                    Location += new Point(direction == Direction.Left ? -Speed : Speed, 0);
                 }
                 else
                 {
-                    if (distance > 3)
-                    {
-                        Location = new Point(Location.X, Location.Y + 2);
-                    }
-                    else
-                    {
-                        Location = new Point(Location.X, Location.Y - 2);
-                    }
+                    Location += new Point(0, distance > AlignThreshold ? Speed : -Speed);
                 }
             }
         }

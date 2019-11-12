@@ -35,12 +35,13 @@ namespace Zelda.Enemies
             _deathSprite = EnemySpriteFactory.Instance.CreateDeathSparkle();
         }
 
-        public virtual void TakeDamage()
+        public virtual void TakeDamage(int damage)
         {
             if (Alive)
             {
-                Health--;
+                Health -= damage;
                 Sprite?.PaletteShift();
+                Knockback();
                 SoundEffectManager.Instance.PlayEnemyHit();
                 if (Health <= 0)
                 {
@@ -109,7 +110,7 @@ namespace Zelda.Enemies
 
         public virtual ICommand PlayerEffect(IPlayer player)
         {
-            return new SpawnableDamage(player);
+            return new SpawnableDamage(player, 1);
         }
 
         public virtual ICommand EnemyEffect(IEnemy enemy)
@@ -122,17 +123,14 @@ namespace Zelda.Enemies
             return new MoveableHalt(projectile);
         }
 
-        public virtual void Knockback()
-        {
-            // NO-OP: Most enemies are 1-hit kills
-        }
-
         public virtual void Stun()
         {
-            // NO-OP: Most enemies are 1-hit kills
+            Halt();
+            Sprite.PaletteShift();
         }
 
         public abstract Rectangle Bounds { get; }
         public abstract void Halt();
+        protected abstract void Knockback();
     }
 }

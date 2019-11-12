@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Zelda.Projectiles
 {
@@ -65,14 +65,17 @@ namespace Zelda.Projectiles
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 0), 4);
         }
+
         public ISprite CreateSwordBeamRight()
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 16), 4);
         }
+
         public ISprite CreateSwordBeamLeft()
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 32), 4);
         }
+
         public ISprite CreateSwordBeamDown()
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 48), 4);
@@ -96,6 +99,11 @@ namespace Zelda.Projectiles
         public ISprite CreateSwordBeamParticleBottomRight()
         {
             return new Sprite(_particlesSpriteSheet, 16, 16, 4, new Point(0, 48), 4);
+        }
+
+        public ISprite CreateBoomerangCollision()
+        {
+            return new Sprite(_particlesSpriteSheet, 8, 8, 1, new Point(0, 64));
         }
     }
 }

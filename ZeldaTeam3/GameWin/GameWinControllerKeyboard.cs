@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework.Input;
+using Zelda.Commands;
 using Zelda.GameState;
 
 namespace Zelda.GameWin
@@ -10,16 +11,16 @@ namespace Zelda.GameWin
         private readonly Dictionary<Keys, ICommand> _keydownOnceMap;
         private Keys[] _lastKeys = { };
 
-        public GameWinControllerKeyboard(GameStateAgent agent, GameWinMenu winMenu)
+        public GameWinControllerKeyboard(GameStateAgent agent, IMenu winMenu)
         {
-            var selectUp = new Commands.MenuSelectUp(winMenu);
-            var selectDown = new Commands.MenuSelectDown(winMenu);
-            var selectChoice = new Commands.MenuSelectChoice(winMenu);
+            var selectUp = new MenuSelectUp(winMenu);
+            var selectDown = new MenuSelectDown(winMenu);
+            var selectChoice = new MenuSelectChoice(winMenu);
 
             _keydownOnceMap = new Dictionary<Keys, ICommand>
             {
-                {Keys.R, new Commands.Reset(agent) },
-                {Keys.Q, new Commands.Quit(agent) },
+                {Keys.R, new Reset(agent) },
+                {Keys.Q, new Quit(agent) },
                 {Keys.Enter, selectChoice },
                 {Keys.Down, selectDown },
                 {Keys.S, selectDown },

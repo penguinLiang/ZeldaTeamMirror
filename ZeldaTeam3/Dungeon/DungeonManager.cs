@@ -113,13 +113,12 @@ namespace Zelda.Dungeon
             }
         }
 
-        public void ResetScenes()
+        public void ResetVisited()
         {
             for (var row = 0; row < _scenes.Length; row++)
             {
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
-                    _scenes[row][col]?.Reset();
                     VisitedRooms[row][col] = false;
                 }
             }
@@ -151,6 +150,7 @@ namespace Zelda.Dungeon
                 _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
             }
 
+            Scene?.DestroyProjectiles();
             Pan(CurrentRoom, newRoom, roomDirection);
         }
 
@@ -178,6 +178,7 @@ namespace Zelda.Dungeon
                 _player?.Teleport(TeleportLocation.Calculate(facing), facing);
             }
 
+            Scene?.DestroyProjectiles();
             Scene = _scenes[row][column];
             Scene.SpawnScene();
         }

@@ -36,6 +36,11 @@ namespace Zelda.Enemies
             // NO-OP: Flies through walls
         }
 
+        protected override void Knockback()
+        {
+            // NO-OP: Insta-kill
+        }
+
         private void ExecuteAction()
         {
             if (_movementPauseClock-- > 0)
