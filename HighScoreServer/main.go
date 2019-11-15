@@ -41,7 +41,7 @@ func postScores(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Insert Error\n"+err.Error(), http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(http.StatusOK)
+	listScores(w, req)
 }
 
 func listScores(w http.ResponseWriter, req *http.Request) {
