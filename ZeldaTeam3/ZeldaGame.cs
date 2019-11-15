@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
 using Zelda.Dungeon;
 using Zelda.Enemies;
 using Zelda.GameState;
+using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
 using Zelda.JumpMap;
@@ -55,6 +57,20 @@ namespace Zelda
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);
             GameStateAgent.Reset();
+
+            try
+            {
+                //HighScoreClient.Submit(new PlayerScore {Initials = "RS3", Score = 1337});
+                foreach (var score in HighScoreClient.Scores())
+                {
+                    Console.WriteLine(score.Initials + " " + score.Score);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("OH NO! Could not get the scores!");
+                throw;
+            }
         }
 
         protected override void UnloadContent()
