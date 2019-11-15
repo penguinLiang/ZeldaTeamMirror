@@ -54,10 +54,12 @@
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
+    <Compile Include="HighScore\InitialEntryController.cs" />
     <Compile Include="DrawnText.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
     <Compile Include="HighScore\HighScoreClient.cs" />
+    <Compile Include="HighScore\InitialEntryScreen.cs" />
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
