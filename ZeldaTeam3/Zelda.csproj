@@ -55,6 +55,7 @@
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
     <Compile Include="DrawnText.cs" />
+    <Compile Include="Enemies\Fygar.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
     <Compile Include="ITransitionResetable.cs" />
