@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
+using Zelda.ShaderEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
@@ -53,7 +54,7 @@ namespace Zelda.Blocks
                     throw new ArgumentOutOfRangeException(block.ToString());
             }
 
-            Sprite = BlockTypeSprite.Sprite(block);
+            Sprite = new AlphaPassMask(BlockTypeSprite.Sprite(block), true);
         }
     }
 }

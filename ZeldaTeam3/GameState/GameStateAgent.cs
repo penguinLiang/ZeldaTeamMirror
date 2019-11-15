@@ -4,6 +4,7 @@ using Zelda.Dungeon;
 using Zelda.HUD;
 using Zelda.Music;
 using Zelda.Player;
+using Zelda.ShaderEffects;
 
 namespace Zelda.GameState
 {
@@ -19,7 +20,17 @@ namespace Zelda.GameState
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
 
+        private bool _darkMode;
+        public bool DarkMode {
+            private get
+            {
+                return _darkMode && _worldState == WorldState.Playing;
+            }
+            set { _darkMode = value; }
+        }
+
         private readonly SpriteBatch _spriteBatch;
+        private readonly GraphicsDevice _graphicsDevice;
         private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
         private IDrawable _sourceScene;
         private IDrawable _destinationScene;
@@ -29,12 +40,17 @@ namespace Zelda.GameState
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
 
-        public GameStateAgent(SpriteBatch spriteBatch)
+        private readonly LightInTheDarkness _lightInTheDarkness = new LightInTheDarkness();
+
+        public GameStateAgent(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             _spriteBatch = spriteBatch;
+            _graphicsDevice = graphicsDevice;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
             DungeonManager.Pan = DungeonPan;
         }
+
+        private float YOffset => HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
 
         public void Play()
         {
@@ -144,6 +160,8 @@ namespace Zelda.GameState
                 updatable.Update();
             }
 
+            _lightInTheDarkness.Track(Player.Location.ToVector2() + new Vector2(8.0f, YOffset + 8.0f), Player.Direction);
+
             if (!Player.Alive) GameOver();
             if (Player.Won) GameWin();
             if (_pauseMachine.State != PauseState.Unpaused) return;
@@ -156,27 +174,26 @@ namespace Zelda.GameState
         {
             const int yOffset = HUDSpriteFactory.ScreenHeight;
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.SourceOffset.X * Scale,
                     (_panAnimation.SourceOffset.Y + yOffset) * Scale, 0.0f));
             _sourceScene.Draw();
             _spriteBatch.End();
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.DestinationOffset.X * Scale,
                     (_panAnimation.DestinationOffset.Y + yOffset) * Scale, 0.0f));
             _destinationScene.Draw();
             _spriteBatch.End();
         }
 
-        public void Draw()
+        private void Render()
         {
             if (_world == null) return;
 
             if (_worldState == WorldState.DungeonPanning) DrawPan();
 
-            var yOffset = HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, YOffset * Scale, 0.0f));
             foreach (var drawable in _world.ScaledDrawables)
             {
                 drawable.Draw();
@@ -188,6 +205,21 @@ namespace Zelda.GameState
             {
                 drawable.Draw();
             }
+            _spriteBatch.End();
+        }
+
+        public void Draw()
+        {
+            Texture2D overlay = null;
+            if (DarkMode) overlay = _lightInTheDarkness.Overlay(Render, new Vector2(0, YOffset * Scale));
+
+            _graphicsDevice.SetRenderTarget(null);
+            _graphicsDevice.Clear(Color.Black);
+            Render();
+
+            if (!DarkMode) return;
+            _spriteBatch.Begin(SpriteSortMode.Immediate);
+            _spriteBatch.Draw(overlay, Vector2.Zero, Color.Black);
             _spriteBatch.End();
         }
     }

@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
 
 namespace Zelda.Blocks
 {
     internal class MovableBlock : ICollideable, IDrawable, ITransitionResetable
     {
-        private readonly ISprite _sprite = BlockSpriteFactory.Instance.CreateSolidBlock();
+        private readonly ISprite _sprite = new AlphaPassMask(BlockSpriteFactory.Instance.CreateSolidBlock(), true);
         public Rectangle Bounds => new Rectangle(_location.X, _location.Y, 16, 16);
 
         private readonly Point _origin;

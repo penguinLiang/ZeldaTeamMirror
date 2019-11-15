@@ -209,6 +209,12 @@
 /processorParam:TextureFormat=Color
 /build:JumpMap.png
 
+#begin LightInTheDarkness.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:LightInTheDarkness.fx
+
 #begin LinkNoWeapon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -328,6 +334,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Particles.png
+
+#begin PartyTime.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:PartyTime.fx
 
 #begin PauseScreen.png
 /importer:TextureImporter
