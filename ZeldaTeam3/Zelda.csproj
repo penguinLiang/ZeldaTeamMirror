@@ -146,6 +146,8 @@
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="Commands\SceneTransition.cs" />
     <Compile Include="Commands\Transition.cs" />
+    <Compile Include="Survival\WaveType.cs" />
+    <Compile Include="Survival\Wave.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Dungeon\Room.cs" />
     <Compile Include="IDrawable.cs" />
