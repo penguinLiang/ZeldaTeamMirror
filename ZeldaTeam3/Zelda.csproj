@@ -103,6 +103,7 @@
     <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
     <Compile Include="Dungeon\MapTile.cs" />
     <Compile Include="Dungeon\DungeonManager.cs" />
+    <Compile Include="Dungeon\SurvivalManager.cs" />
     <Compile Include="Enemies\AgentStateUtility.cs" />
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
