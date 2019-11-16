@@ -169,11 +169,55 @@ namespace Zelda.GameState
             _spriteBatch.End();
         }
 
+        private void DrawFollow() // THIS METHOD EXISTS ONLY FOR A PROOF OF CONCEPT FOR THE SURVIVAL MODE CAMERA. IT CAN BE DELETED LATER.
+        {
+            const int yOffset = HUDSpriteFactory.ScreenHeight;
+
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(256 - (Player.Location.X + 8) * Scale,
+                    176 * 2 - (Player.Location.Y + yOffset) * Scale, 0.0f));
+            foreach (var drawable in _world.ScaledDrawables)
+            {
+                if (drawable is HUDScreen)
+                {
+                    _spriteBatch.End();
+                    _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                        Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
+                    drawable.Draw();
+                    _spriteBatch.End();
+                    _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                        Matrix.CreateScale(Scale) * Matrix.CreateTranslation(256 - (Player.Location.X + 8) * Scale,
+                            176 * 2 - (Player.Location.Y + yOffset) * Scale, 0.0f));
+                }
+                else
+                {
+                    drawable.Draw();
+                }
+            }
+            _spriteBatch.End();
+
+            _spriteBatch.Begin();
+            foreach (var drawable in _world.UnscaledDrawables)
+            {
+                drawable.Draw();
+            }
+            _spriteBatch.End();
+        }
+
         public void Draw()
         {
             if (_world == null) return;
 
-            if (_worldState == WorldState.DungeonPanning) DrawPan();
+            if (_worldState == WorldState.DungeonPanning)
+            {
+                DrawPan();
+            }
+            else
+            {
+                // DrawFollow(); // UNCOMMENT THIS LINE TO TEST SURVIVAL CAMERA
+            }
+
+            // COMMENT OUT THE REMAINING CODE FOR THIS METHOD TO TEST SURVIVAL CAMERA
 
             var yOffset = HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
