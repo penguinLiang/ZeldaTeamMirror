@@ -11,6 +11,8 @@ namespace Zelda.Enemies
     {
         private const int ActionDelay = 16;
 
+        private static readonly Random Rng = new Random();
+
         private static readonly Point Size = new Point(13, 13);
         public override Rectangle Bounds => new Rectangle(Location, Alive ? Size : Point.Zero);
         private ISprite _sprite;
@@ -91,12 +93,21 @@ namespace Zelda.Enemies
 
         public void UpdateAction()
         {
+            _agentClock = ActionDelay;
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
+
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation);
+
+                _currentDirection = Rng.Next(2) == 0
+                    ? DirectionUtility.RandomDirection()
+                    : DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation);
             }
-            _agentClock = ActionDelay;
+            
+            if (_agentStatus == AgentState.Attacking)
+            {
+                _agentClock *= 4;
+            }
         }
 
         private void ExecuteAction()
@@ -141,6 +152,12 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Attacking:
+                    if (!IsWithinCircularBounds(_playerLocation, 192))
+                    {
+                        _agentStatus = AgentState.Ready;
+                        return;
+                    }
+
                     if (_agentClock == 0)
                     {
                         if (IsFacingPlayer())
