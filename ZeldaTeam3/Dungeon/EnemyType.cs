@@ -10,6 +10,7 @@ namespace Zelda.Dungeon
         OldMan = 4,
         Stalfos = 5,
         Trap = 6,
-        WallMaster = 7
+        WallMaster = 7,
+        Fygar = 8,
     }
 }

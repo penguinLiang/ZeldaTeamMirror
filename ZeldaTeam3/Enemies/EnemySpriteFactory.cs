@@ -16,6 +16,7 @@ namespace Zelda.Enemies
         private Texture2D _oldManTexture2D;
         private Texture2D _spawnExplosionTexture2D;
         private Texture2D _deathSparkleTexture2D;
+        private Texture2D _fygarTexture2D;
 
         public void LoadAllTextures(ContentManager content)
         {
@@ -27,6 +28,17 @@ namespace Zelda.Enemies
             _oldManTexture2D = content.Load<Texture2D>("OldMan");
             _spawnExplosionTexture2D = content.Load<Texture2D>("SpawnExplosion");
             _deathSparkleTexture2D = content.Load<Texture2D>("CharacterDeath");
+            _fygarTexture2D = content.Load<Texture2D>("Fygar");
+        }
+
+        public ISprite CreateFygarFaceLeft()
+        {
+            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 13), 10, 13, 0);
+        }
+
+        public ISprite CreateFygarFaceRight()
+        {
+            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 0), 10, 13, 0);
         }
 
         public ISprite CreateSpawnExplosion()
