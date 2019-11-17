@@ -97,7 +97,15 @@ namespace Zelda.HUD
             }
 
             Primary?.Draw(PrimaryLocation + _location);
-            Secondary?.Draw(SecondaryLocation + _location);
+            switch (_agent.Player.Inventory.SecondaryItem)
+            {
+                case Items.Secondary.Coins:
+                    Secondary?.Draw(SecondaryLocation16_16 + _location);
+                    break;
+                default:
+                    Secondary?.Draw(SecondaryLocation8_16 + _location);
+                    break;
+            }
 
             int i;
             for (i = 0; i < _agent.Player.Health / 2; i++)

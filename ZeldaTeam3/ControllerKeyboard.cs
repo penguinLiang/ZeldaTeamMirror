@@ -27,8 +27,12 @@ namespace Zelda
 
             var secondaryattack = new LinkSecondaryAction(agent.Player);
             var bowassign = new LinkBowAssign(agent.Player);
+            var firebowassign = new LinkSecondaryAssign(agent.Player, Secondary.FireBow);
             var boomerangassign = new LinkBoomerangAssign(agent.Player);
             var bombassign = new LinkBombAssign(agent.Player);
+            var coinassign = new LinkSecondaryAssign(agent.Player, Secondary.Coins);
+            var atwboomerangassign = new LinkSecondaryAssign(agent.Player, Secondary.ATWBoomerang);
+            var bomblauncherassign = new LinkSecondaryAssign(agent.Player, Secondary.BombLauncher);
 
             var up = new LinkMoveUp(agent.Player);
             var down = new LinkMoveDown(agent.Player);
@@ -48,8 +52,13 @@ namespace Zelda
                 
                 { Keys.X, secondaryattack },
                 { Keys.D4, bowassign },
+                { Keys.D0, firebowassign },
                 { Keys.D5, boomerangassign },
                 { Keys.D6, bombassign },
+                { Keys.D7, coinassign },
+                { Keys.D8, atwboomerangassign },
+                { Keys.D9, bomblauncherassign },
+                //{ Keys.D1, arrowupgrade },
 
                 { Keys.Space, new Commands.Pause(agent) },
                 { Keys.M, new ShowJumpMap(agent) },

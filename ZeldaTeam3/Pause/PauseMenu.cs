@@ -121,6 +121,9 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
                 _selectedItem = Arrow;
             }
+            /* 
+             * Refactor to allow selecting none and maybe look neater; also needs to work for new weapons
+             */
             assign.Execute();
         }
 

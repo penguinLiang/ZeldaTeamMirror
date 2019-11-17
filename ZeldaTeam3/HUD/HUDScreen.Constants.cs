@@ -19,7 +19,8 @@ namespace Zelda.HUD
         private static readonly ISprite WhiteSword = ItemSpriteFactory.Instance.CreateWhiteSword();
         private static readonly ISprite MagicSword = ItemSpriteFactory.Instance.CreateMagicSword();
 
-        private static readonly Vector2 SecondaryLocation = new Vector2(128, 16);
+        private static readonly Vector2 SecondaryLocation8_16 = new Vector2(128, 16);
+        private static readonly Vector2 SecondaryLocation16_16 = new Vector2(124, 16);
         private static readonly ISprite Bomb = ItemSpriteFactory.Instance.CreateBomb();
         private static readonly ISprite Boomerang = ItemSpriteFactory.Instance.CreateWoodBoomerang();
         private static readonly ISprite Arrow = ItemSpriteFactory.Instance.CreateArrow();

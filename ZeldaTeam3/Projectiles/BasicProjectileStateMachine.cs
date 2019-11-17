@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Projectiles
 {
-    public class ArrowAndSwordBeamStateMachine
+    public class BasicProjectileStateMachine
     {
         private const int MaxFramesAway = 100;
 
@@ -15,7 +15,7 @@ namespace Zelda.Projectiles
         public Point Location => _location;
         public Rectangle Bounds { get; private set; }
 
-        public ArrowAndSwordBeamStateMachine(Point location, Direction direction, int speed)
+        public BasicProjectileStateMachine(Point location, Direction direction, int speed)
         {
             _currentFrame = 0;
             _direction = direction;

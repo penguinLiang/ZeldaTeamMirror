@@ -36,6 +36,23 @@ namespace Zelda.Projectiles
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 64));
         }
 
+        public ISprite CreateSilverArrowUp()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(0, 144));
+        }
+        public ISprite CreateSilverArrowRight()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(16, 144));
+        }
+        public ISprite CreateSilverArrowLeft()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(32, 144));
+        }
+        public ISprite CreateSilverArrowDown()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 1, new Point(48, 144));
+        }
+
         public ISprite CreateAquamentusFireball()
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 16, 16, 4, new Point(0, 96), 4);
@@ -49,6 +66,11 @@ namespace Zelda.Projectiles
         public ISprite CreateThrownBoomerang()
         {
             return new Sprite(_fieldWeaponsSpriteSheet, 8, 8, 8, new Point(0, 128), 5);
+        }
+
+        public ISprite CreateThrownATWBoomerang()
+        {
+            return new Sprite(_fieldWeaponsSpriteSheet, 8, 8, 8, new Point(0, 136), 5);
         }
 
         public ISprite CreateBombUp()

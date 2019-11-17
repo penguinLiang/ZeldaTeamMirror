@@ -125,6 +125,10 @@ namespace Zelda.Dungeon
                 {
                     _projectiles[i] = new SwordBeamParticles(_projectiles[i].Bounds.Location);
                 }
+                else if (_projectiles[i] is LaunchedBomb)
+                {
+                    _projectiles[i] = new LaunchedBombExplosion(_projectiles[i].Bounds.Location);
+                }
                 else
                 {
                     _projectiles.RemoveAt(i--);

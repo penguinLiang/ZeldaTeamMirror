@@ -60,6 +60,10 @@
     <Compile Include="HighScore\HighScoreClient.cs" />
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
+    <Compile Include="Projectiles\LaunchedBombExplosion.cs" />
+    <Compile Include="Projectiles\ATWBoomerang.cs" />
+    <Compile Include="Projectiles\SilverArrow.cs" />
+    <Compile Include="Projectiles\LaunchedBomb.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />
@@ -186,7 +190,7 @@
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\GoriyaBoomerang.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
-    <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
+    <Compile Include="Projectiles\BasicProjectileStateMachine.cs" />
     <Compile Include="Projectiles\PlayerBoomerang.cs" />
     <Compile Include="Player\AliveSpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />

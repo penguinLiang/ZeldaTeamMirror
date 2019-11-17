@@ -85,19 +85,19 @@ namespace Zelda.Player
                     Projectiles.Add(new Arrow(location, facing));
                     break;
                 case Secondary.Boomerang when inv.TryRemoveBoomerang():
-                    Projectiles.Add(new PlayerBoomerang(_player, location, facing));
+                    Projectiles.Add(new PlayerBoomerang(_player, new Point(location.X + 4, location.Y + 4), facing));
                     break;
                 case Secondary.Bomb when inv.TryRemoveBomb():
                     Projectiles.Add(new Bomb(location));
                     break;
                 case Secondary.Coins when inv.TryRemoveCoins():
-                    // TO-DO: Add functionality
+                    // TO-DO: Integrate class
                     break;
                 case Secondary.ATWBoomerang when inv.TryRemoveATWBoomerang():
-                    // TO-DO: Add functionality
+                    Projectiles.Add(new ATWBoomerang(_player, facing));
                     break;
                 case Secondary.BombLauncher when inv.TryRemoveBomb():
-                    // TO-DO: Add functionality
+                    Projectiles.Add(new LaunchedBomb(location, facing));
                     break;
                 default:
                     UsingSecondaryItem = false;
