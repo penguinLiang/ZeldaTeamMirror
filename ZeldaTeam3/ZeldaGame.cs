@@ -22,8 +22,6 @@ namespace Zelda
         public GameStateAgent GameStateAgent { get; private set; }
 
         private SpriteBatch _spriteBatch;
-        private const int FakeScore = 3902;
-        private readonly InitialEntryScreen _input = new InitialEntryScreen(FakeScore);
 
         public ZeldaGame()
         {
@@ -59,26 +57,10 @@ namespace Zelda
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);
             GameStateAgent.Reset();
-            _input.OnSubmit = text =>
-            {
-                try
-                {
-                    var scores = HighScoreClient.Submit(new PlayerScore {Initials = text, Score = FakeScore});
-                    Console.WriteLine("--NEW SCORES--");
-                    foreach (var score in scores)
-                    {
-                        Console.WriteLine(score.Initials + " " + score.Score);
-                    }
-
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Couldn't submit high score!");
-                }
-            };
 
             try
             {
+                //HighScoreClient.Submit(new PlayerScore {Initials = "RS3", Score = 1337});
                 foreach (var score in HighScoreClient.Scores())
                 {
                     Console.WriteLine(score.Initials + " " + score.Score);
@@ -87,6 +69,7 @@ namespace Zelda
             catch (Exception)
             {
                 Console.WriteLine("OH NO! Could not get the scores!");
+                throw;
             }
         }
 
@@ -104,18 +87,14 @@ namespace Zelda
 
             base.Update(gameTime);
 
-            //GameStateAgent.Update();
-            _input.Update();
+            GameStateAgent.Update();
+
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            //GameStateAgent.Draw();
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                Matrix.CreateScale(2.0f));
-            _input.Draw();
-            _spriteBatch.End();
+            GameStateAgent.Draw();
             base.Draw(gameTime);
         }
     }
