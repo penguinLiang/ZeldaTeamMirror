@@ -100,7 +100,7 @@ namespace Zelda.Dungeon
                     Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    Items.Add(new BowItem(location));
+                    Items.Add(new BowItem(location, Secondary.Bow));
                     break;
                 case MapTile.Triforce:
                     Items.Add(new Triforce(location));

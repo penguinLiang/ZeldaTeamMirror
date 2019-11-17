@@ -88,7 +88,6 @@
     <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
-    <Compile Include="Commands\AddArrow.cs" />
     <Compile Include="Commands\AddCompass.cs" />
     <Compile Include="Commands\AddKey.cs" />
     <Compile Include="Commands\AddMap.cs" />

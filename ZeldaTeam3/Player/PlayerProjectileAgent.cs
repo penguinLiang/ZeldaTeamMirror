@@ -81,7 +81,7 @@ namespace Zelda.Player
             var inv = _player.Inventory;
             switch (Item)
             {
-                case Secondary.Bow when inv.HasBow && inv.HasBow && inv.TryRemoveRupee():
+                case Secondary.Bow when inv.ArrowLevel != Secondary.None && inv.BowLevel != Secondary.None && inv.TryRemoveRupee():
                     Projectiles.Add(new Arrow(location, facing));
                     break;
                 case Secondary.Boomerang when inv.TryRemoveBoomerang():
@@ -89,6 +89,15 @@ namespace Zelda.Player
                     break;
                 case Secondary.Bomb when inv.TryRemoveBomb():
                     Projectiles.Add(new Bomb(location));
+                    break;
+                case Secondary.Coins when inv.TryRemoveCoins():
+                    // TO-DO: Add functionality
+                    break;
+                case Secondary.ATWBoomerang when inv.TryRemoveATWBoomerang():
+                    // TO-DO: Add functionality
+                    break;
+                case Secondary.BombLauncher when inv.TryRemoveBomb():
+                    // TO-DO: Add functionality
                     break;
                 default:
                     UsingSecondaryItem = false;

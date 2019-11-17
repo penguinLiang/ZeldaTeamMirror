@@ -31,10 +31,10 @@ namespace Zelda.Pause
         private static readonly Vector2 ArrowLocation = new Vector2(48, 0);
         private static readonly Vector2 BowLocation = new Vector2(56, 0);
         private static readonly Vector2 CoinLocation = new Vector2(76, 0);
-        private static readonly Vector2 ATWBoomerangLocation = new Vector2(4, 18);
-        private static readonly Vector2 BombLauncherLocation = new Vector2(28, 18);
-        private static readonly Vector2 Slot7Location = new Vector2(52, 18);
-        private static readonly Vector2 Slot8Location = new Vector2(76, 18);
+        private static readonly Vector2 ATWBoomerangLocation = new Vector2(4, 16);
+        private static readonly Vector2 BombLauncherLocation = new Vector2(28, 16);
+        private static readonly Vector2 Slot7Location = new Vector2(52, 16);
+        private static readonly Vector2 Slot8Location = new Vector2(76, 16);
 
         private static readonly ISprite Boomerang = ItemSpriteFactory.Instance.CreateWoodBoomerang();
         private static readonly ISprite Bomb = ItemSpriteFactory.Instance.CreateBomb();

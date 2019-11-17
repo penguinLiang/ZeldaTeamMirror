@@ -11,6 +11,9 @@ namespace Zelda.HUD
         private readonly DrawnText _keyCount = new DrawnText { Location = KeyCountLocation };
         private readonly DrawnText _bombCount = new DrawnText { Location = BombCountLocation };
 
+        private ISprite _slot7Sprite;
+        private ISprite _slot8Sprite;
+
         public HUDScreen(GameStateAgent agent, Point location)
         {
             _agent = agent;
@@ -46,12 +49,20 @@ namespace Zelda.HUD
             {
                 switch (_agent.Player.Inventory.SecondaryItem)
                 {
-                    case Items.Secondary.Bow when _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow:
-                        return Arrow;
                     case Items.Secondary.Boomerang:
                         return Boomerang;
                     case Items.Secondary.Bomb:
                         return Bomb;
+                    case Items.Secondary.Bow when _agent.Player.Inventory.BowLevel != Items.Secondary.None && _agent.Player.Inventory.ArrowLevel == Items.Secondary.Arrow:
+                        return Arrow;
+                    case Items.Secondary.Bow when _agent.Player.Inventory.BowLevel != Items.Secondary.None && _agent.Player.Inventory.ArrowLevel == Items.Secondary.SilverArrow:
+                        return SilverArrow;
+                    case Items.Secondary.Coins:
+                        return AlchemyCoin;
+                    case Items.Secondary.ATWBoomerang:
+                        return ATWBoomerang;
+                    case Items.Secondary.BombLauncher:
+                        return BombLauncher;
                     default:
                         return null;
                 }

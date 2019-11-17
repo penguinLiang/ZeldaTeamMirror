@@ -23,6 +23,12 @@ namespace Zelda.HUD
         private static readonly ISprite Bomb = ItemSpriteFactory.Instance.CreateBomb();
         private static readonly ISprite Boomerang = ItemSpriteFactory.Instance.CreateWoodBoomerang();
         private static readonly ISprite Arrow = ItemSpriteFactory.Instance.CreateArrow();
+        private static readonly ISprite SilverArrow = ItemSpriteFactory.Instance.CreateSilverArrow();
+        private static readonly ISprite Bow = ItemSpriteFactory.Instance.CreateBow();
+        private static readonly ISprite FireBow = ItemSpriteFactory.Instance.CreateFireBow();
+        private static readonly ISprite AlchemyCoin = ItemSpriteFactory.Instance.CreateAlchemyCoin();
+        private static readonly ISprite ATWBoomerang = ItemSpriteFactory.Instance.CreateATWBoomerang();
+        private static readonly ISprite BombLauncher = ItemSpriteFactory.Instance.CreateBombLauncher();
 
         private static readonly Vector2 HeartsLocation = new Vector2(176, 32);
         private static readonly Vector2 HeartOffset = new Vector2(8, 0);

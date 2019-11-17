@@ -12,6 +12,8 @@ namespace Zelda.Pause
         private readonly Vector2 _location;
         private Point _cursorPosition;
         private ISprite _selectedItem;
+        private ISprite _slot7Sprite;
+        private ISprite _slot8Sprite;
 
         public PauseMenu(GameStateAgent agent, Point location)
         {
@@ -27,11 +29,10 @@ namespace Zelda.Pause
                     _selectedItem = Bomb;
                     _cursorPosition = BombPosition;
                     break;
-                case Secondary.Bow when agent.Player.Inventory.ArrowLevel != Secondary.None && agent.Player.Inventory.BowLevel != Secondary.None:
+                case Secondary.Bow when agent.Player.Inventory.ArrowLevel != Secondary.None
+                && agent.Player.Inventory.BowLevel != Secondary.None:
                     _selectedItem = Arrow;
                     _cursorPosition = BowPosition;
-                    break;
-                case Secondary.Bow:
                     break;
                 case Secondary.Coins:
                     _selectedItem = AlchemyCoin;
@@ -44,6 +45,9 @@ namespace Zelda.Pause
                 case Secondary.BombLauncher:
                     _selectedItem = BombLauncher;
                     _cursorPosition = BombLauncherPosition;
+                    break;
+                case Secondary.None:
+                case Secondary.Bow:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -111,7 +115,8 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
                 _selectedItem = Bomb;
             }
-            if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow)
+            if (_cursorPosition == BowPosition && _agent.Player.Inventory.BowLevel != Secondary.None
+                && _agent.Player.Inventory.ArrowLevel != Secondary.None)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
                 _selectedItem = Arrow;
