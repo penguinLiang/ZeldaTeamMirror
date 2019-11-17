@@ -48,7 +48,7 @@ namespace Zelda.Survival
                             case "P":
                                 currentWaveType = WaveType.Party;
                                 break;
-                            case "N":
+                            case "D":
                                 currentWaveType = WaveType.Normal;
                                 break;
                             default:
