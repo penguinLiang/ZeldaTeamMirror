@@ -230,6 +230,7 @@
     <Compile Include="Survival\Pause\PauseMenu.cs" />
     <Compile Include="Survival\Pause\PauseSpriteFactory.cs" />
     <Compile Include="Survival\QuitResetControllerKeyboard.cs" />
+    <Compile Include="Survival\WaveManager.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap\JumpMapScreen.cs" />
     <Compile Include="Blocks\BlockType.cs" />
