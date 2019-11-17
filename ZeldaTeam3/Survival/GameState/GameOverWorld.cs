@@ -6,9 +6,11 @@ namespace Zelda.Survival.GameState
     internal class GameOverWorld : GameWorld, IUpdatable
     {
         private IUpdatable[] _updatables;
-        private IDrawable[] _scaledDrawables;
+        private IDrawable[] _fixedDrawables = {};
+        private IDrawable[] _cameraDrawables;
         public override IUpdatable[] Updatables => _updatables;
-        public override IDrawable[] FixedDrawables => _scaledDrawables;
+        public override IDrawable[] CameraDrawables => _cameraDrawables;
+        public override IDrawable[] FixedDrawables => _fixedDrawables;
 
         private readonly GameOverMenu _screen;
         private readonly FrameDelay _menuDelay = new FrameDelay(300);
@@ -23,7 +25,7 @@ namespace Zelda.Survival.GameState
             {
                 new QuitResetControllerKeyboard(agent), StateAgent.Player, this
             };
-            _scaledDrawables = new IDrawable[]
+            _cameraDrawables = new IDrawable[]
             {
                 StateAgent.Player
             };
@@ -39,10 +41,11 @@ namespace Zelda.Survival.GameState
                 _screen,
                 _controllerKeyboard
             };
-            _scaledDrawables = new IDrawable[]
+            _fixedDrawables = new IDrawable[]
             {
                 _screen
             };
+            _cameraDrawables = new IDrawable[] { };
         }
     }
 }
