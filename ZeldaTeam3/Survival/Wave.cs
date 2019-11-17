@@ -20,32 +20,47 @@ namespace Zelda.Survival
 {
     public class Wave
     {
-        public List<IEnemy> WaveEnemies = new List<IEnemy>();
-        public List<IEnemy> UnspawnedEnemies = new List<IEnemy>();
+        private List<IEnemy> _waveEnemies = new List<IEnemy>();
+
+        /*
         public int currentSpawnTimer;
         public int waveTime;
+        */
 
         public WaveType Type;
-        public int difficultyScale;
+        //public int difficultyScale;
 
-        public Wave(List<IEnemy> enemyCSVContent, int spawnTimer, WaveType waveType)
+        public Wave(List<IEnemy> enemyCSVContent, WaveType waveType)
         {
-            waveTime = spawnTimer;
-            currentSpawnTimer = waveTime;
-            difficultyScale = 1;
+            //waveTime = spawnTimer;
+            //currentSpawnTimer = waveTime;
+            //difficultyScale = 1;
             Type = waveType;
 
-            foreach(var enemy in enemyCSVContent)
+            foreach (var enemy in enemyCSVContent)
             {
-                WaveEnemies.Add(enemy);
-            }
-
-            foreach (var enemy in WaveEnemies)
-            {
-                UnspawnedEnemies.Add(enemy);
+                _waveEnemies.Add(enemy);
             }
         }
 
+        public List<IEnemy> getList(int scale)
+        {
+            List<IEnemy> _unspawnedEnemies = new List<IEnemy>();
+            int i = 0;
+            foreach(var enemy in _waveEnemies)
+            {
+                while(i < scale)
+                {
+                    _unspawnedEnemies.Add(enemy);
+                    i++;
+                }
+                i = 0;
+            }
+            return _unspawnedEnemies;
+        }
+    }
+}        
+/*
         public int CanSpawnEnemy()
         {
             // There is still enemies left, and spawn timer is ready to spawn, return 0
@@ -64,8 +79,9 @@ namespace Zelda.Survival
             // There are still enemies, but spawn is still on cooldown, return 2
             return 2;
             
-        }
+        }*/
 
+        /*
         public void Update()
         {
             if(UnspawnedEnemies.Count == 0)
@@ -85,6 +101,4 @@ namespace Zelda.Survival
             {
                 currentSpawnTimer--;
             }
-        }
-    }
-}
+        } */
