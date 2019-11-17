@@ -68,7 +68,7 @@ namespace Zelda.Survival
 
         public void Update()
         {
-            if(UnspawnedEnemies.Count >= 0)
+            if(UnspawnedEnemies.Count == 0)
             {
                 difficultyScale++;
                 foreach (var enemy in WaveEnemies)
