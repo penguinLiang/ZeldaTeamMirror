@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
-using Zelda.HUD;
 using Zelda.Music;
 using Zelda.Player;
+using Zelda.Survival.HUD;
 
-namespace Zelda.GameState
+namespace Zelda.Survival.GameState
 {
     /*
      * Handles game state transitions and screen panning
@@ -21,10 +21,7 @@ namespace Zelda.GameState
 
         private readonly SpriteBatch _spriteBatch;
         private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
-        private IDrawable _sourceScene;
-        private IDrawable _destinationScene;
-        private Point _panDestination;
-        private PanAnimation _panAnimation;
+        private PlayerLockCamera _camera;
 
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
@@ -34,6 +31,7 @@ namespace Zelda.GameState
             _spriteBatch = spriteBatch;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
             DungeonManager.Pan = DungeonPan;
+            _camera = new PlayerLockCamera(Player);
         }
 
         public void Play()
@@ -56,13 +54,6 @@ namespace Zelda.GameState
             _worldState = WorldState.Playing;
         }
 
-        public void JumpMap()
-        {
-            if (_worldState == WorldState.JumpMap) return;
-            _world = new JumpMapWorld(this);
-            _worldState = WorldState.JumpMap;
-        }
-
         public void GameOver()
         {
             if (_worldState == WorldState.GameOver) return;
@@ -77,21 +68,10 @@ namespace Zelda.GameState
             _worldState = WorldState.GameWin;
         }
 
-        public void JumpToRoom(int row, int column)
-        {
-            DungeonManager.JumpToRoom(row, column);
-            Play();
-        }
-
         public void DungeonPan(Point sourceRoom, Point destinationRoom, Direction direction)
         {
-            if (_worldState == WorldState.DungeonPanning) return;
-            _panAnimation = new PanAnimation(direction);
-            _sourceScene = DungeonManager.BuildPanScene(sourceRoom.Y, sourceRoom.X);
-            _destinationScene = DungeonManager.BuildPanScene(destinationRoom.Y, destinationRoom.X);
-            _panDestination = destinationRoom;
-            _world = new PanningWorld(this);
-            _worldState = WorldState.DungeonPanning;
+            DungeonManager.JumpToRoom(destinationRoom.Y, destinationRoom.X, direction);
+            Play();
         }
 
         public void Continue()
@@ -108,6 +88,7 @@ namespace Zelda.GameState
             _worldState = WorldState.Reset;
 
             Player = new Link(Point.Zero);
+            _camera = new PlayerLockCamera(Player);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
             DungeonManager.LoadScenes(Player);
@@ -125,20 +106,6 @@ namespace Zelda.GameState
 
             if (_world == null) return;
 
-            if (_panAnimation != null)
-            {
-                if (_panAnimation.Finished)
-                {
-                    DungeonManager.JumpToRoom(_panDestination.Y, _panDestination.X, _panAnimation.Direction);
-                    Play();
-                    _panAnimation = null;
-                }
-                else
-                {
-                    _panAnimation.Update();
-                }
-            }
-
             foreach (var updatable in _world.Updatables)
             {
                 updatable.Update();
@@ -152,32 +119,26 @@ namespace Zelda.GameState
             Play();
         }
 
-        private void DrawPan()
-        {
-            const int yOffset = HUDSpriteFactory.ScreenHeight;
-
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.SourceOffset.X * Scale,
-                    (_panAnimation.SourceOffset.Y + yOffset) * Scale, 0.0f));
-            _sourceScene.Draw();
-            _spriteBatch.End();
-
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.DestinationOffset.X * Scale,
-                    (_panAnimation.DestinationOffset.Y + yOffset) * Scale, 0.0f));
-            _destinationScene.Draw();
-            _spriteBatch.End();
-        }
-
         public void Draw()
         {
             if (_world == null) return;
 
-            if (_worldState == WorldState.DungeonPanning) DrawPan();
+            // DrawFollow(); // UNCOMMENT THIS LINE TO TEST SURVIVAL CAMERA
+
+            // COMMENT OUT THE REMAINING CODE FOR THIS METHOD TO TEST SURVIVAL CAMERA
 
             var yOffset = HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
+
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_camera.X * Scale, (_camera.Y + yOffset) * Scale, 0.0f));
+            foreach (var drawable in _world.CameraDrawables)
+            {
+                drawable.Draw();
+            }
+            _spriteBatch.End();
+
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
-            foreach (var drawable in _world.ScaledDrawables)
+            foreach (var drawable in _world.FixedDrawables)
             {
                 drawable.Draw();
             }

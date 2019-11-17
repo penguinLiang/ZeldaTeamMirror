@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
 using Zelda.Dungeon;
 using Zelda.Enemies;
-using Zelda.GameState;
+using Zelda.Survival.GameState;
 using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
@@ -53,6 +53,8 @@ namespace Zelda
             JumpMapScreen.LoadTexture(Content);
             MusicManager.Instance.LoadAllSounds(Content);
             SoundEffectManager.Instance.LoadAllSounds(Content);
+            Survival.HUD.HUDSpriteFactory.Instance.LoadAllTextures(Content);
+            Survival.Pause.PauseSpriteFactory.Instance.LoadAllTextures(Content);
 
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);
@@ -69,7 +71,6 @@ namespace Zelda
             catch (Exception)
             {
                 Console.WriteLine("OH NO! Could not get the scores!");
-                throw;
             }
         }
 
