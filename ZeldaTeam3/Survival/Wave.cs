@@ -20,15 +20,15 @@ namespace Zelda.Survival
 {
     public class Wave
     {
-        public LinkedList<IEnemy> WaveEnemies = new LinkedList<IEnemy>();
-        public LinkedList<IEnemy> UnspawnedEnemies = new LinkedList<IEnemy>();
+        public List<IEnemy> WaveEnemies = new List<IEnemy>();
+        public List<IEnemy> UnspawnedEnemies = new List<IEnemy>();
         public int currentSpawnTimer;
         public int waveTime;
 
         public WaveType Type;
         public int difficultyScale;
 
-        public Wave(LinkedList<IEnemy> enemyCSVContent, int spawnTimer, WaveType waveType)
+        public Wave(List<IEnemy> enemyCSVContent, int spawnTimer, WaveType waveType)
         {
             waveTime = spawnTimer;
             currentSpawnTimer = waveTime;
@@ -37,12 +37,12 @@ namespace Zelda.Survival
 
             foreach(var enemy in enemyCSVContent)
             {
-                WaveEnemies.AddLast(enemy);
+                WaveEnemies.Add(enemy);
             }
 
             foreach (var enemy in WaveEnemies)
             {
-                UnspawnedEnemies.AddLast(enemy);
+                UnspawnedEnemies.Add(enemy);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Zelda.Survival
                     int i = 0;
                     while (i < difficultyScale)
                     {
-                        UnspawnedEnemies.AddLast(enemy);
+                        UnspawnedEnemies.Add(enemy);
                         i++;
                     }
                 }
