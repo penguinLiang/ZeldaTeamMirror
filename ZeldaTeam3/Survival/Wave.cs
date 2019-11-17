@@ -46,36 +46,41 @@ namespace Zelda.Survival
             }
         }
 
-        public bool SpawnEnemy()
+        public int CanSpawnEnemy()
         {
-            if(currentSpawnTimer <= 0)
+            // There is still enemies left, and spawn timer is ready to spawn, return 0
+            if(currentSpawnTimer == 0 && UnspawnedEnemies.Count != 0)
             {
                 currentSpawnTimer = waveTime;
-                return true;
-            } else
-            {
-                return false;
+                return 0;
             }
-            
-        }
 
-        public void EndWave()
-        {
-            UnspawnedEnemies.Clear();
-            difficultyScale++;
-            foreach (var enemy in WaveEnemies)
+            // There is no more enemies, the wave is over, so return 1
+            if(UnspawnedEnemies.Count == 0)
             {
-                int i = 0;
-                while(i < difficultyScale)
-                {
-                    UnspawnedEnemies.AddLast(enemy);
-                    i++;
-                }
+                return 1;
             }
+
+            // There are still enemies, but spawn is still on cooldown, return 2
+            return 2;
+            
         }
 
         public void Update()
         {
+            if(UnspawnedEnemies.Count >= 0)
+            {
+                difficultyScale++;
+                foreach (var enemy in WaveEnemies)
+                {
+                    int i = 0;
+                    while (i < difficultyScale)
+                    {
+                        UnspawnedEnemies.AddLast(enemy);
+                        i++;
+                    }
+                }
+            }
             if(currentSpawnTimer > 0)
             {
                 currentSpawnTimer--;
