@@ -77,6 +77,9 @@
     <Compile Include="Survival\GameState\GameWorld.cs" />
     <Compile Include="Survival\GameState\PausedWorld.cs" />
     <Compile Include="Survival\GameState\PauseState.cs" />
+    <Compile Include="Survival\SurvivalManager.cs" />
+    <Compile Include="Survival\SurvivalRoom.cs" />
+    <Compile Include="Survival\SurvivalScene.cs" />
     <Compile Include="Survival\GameState\PauseTransitionStateMachine.cs" />
     <Compile Include="Survival\GameState\PlayingWorld.cs" />
     <Compile Include="Survival\GameState\WorldState.cs" />
