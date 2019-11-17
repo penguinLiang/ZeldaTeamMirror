@@ -19,12 +19,6 @@ namespace Zelda.Pause
             _location = location.ToVector2();
             switch (agent.Player.Inventory.SecondaryItem)
             {
-                case Secondary.Bow when agent.Player.Inventory.HasArrow && agent.Player.Inventory.HasBow:
-                    _selectedItem = Arrow;
-                    _cursorPosition = BowPosition;
-                    break;
-                case Secondary.Bow:
-                    break;
                 case Secondary.Boomerang:
                     _selectedItem = Boomerang;
                     _cursorPosition = BoomerangPosition;
@@ -32,6 +26,24 @@ namespace Zelda.Pause
                 case Secondary.Bomb:
                     _selectedItem = Bomb;
                     _cursorPosition = BombPosition;
+                    break;
+                case Secondary.Bow when agent.Player.Inventory.ArrowLevel != Secondary.None && agent.Player.Inventory.BowLevel != Secondary.None:
+                    _selectedItem = Arrow;
+                    _cursorPosition = BowPosition;
+                    break;
+                case Secondary.Bow:
+                    break;
+                case Secondary.Coins:
+                    _selectedItem = AlchemyCoin;
+                    _cursorPosition = CoinPosition;
+                    break;
+                case Secondary.ATWBoomerang:
+                    _selectedItem = ATWBoomerang;
+                    _cursorPosition = ATWBoomerangPosition;
+                    break;
+                case Secondary.BombLauncher:
+                    _selectedItem = BombLauncher;
+                    _cursorPosition = BombLauncherPosition;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -65,30 +77,25 @@ namespace Zelda.Pause
                 }
             }
 
-            if (_agent.Player.Inventory.HasMap)
-            {
-                Map.Draw(MapLocation + _location);
-            }
-            if (_agent.Player.Inventory.HasCompass)
-            {
-                Compass.Draw(CompassLocation + _location);
-            }
-            if (_agent.Player.Inventory.HasArrow)
-            {
-                Arrow.Draw(ArrowLocation + GridLocation + _location);
-            }
-            if (_agent.Player.Inventory.HasBow)
-            {
-                Bow.Draw(BowLocation + GridLocation + _location);
-            }
             if (_agent.Player.Inventory.HasBoomerang)
-            {
                 Boomerang.Draw(BoomerangLocation + GridLocation + _location);
-            }
             if (_agent.Player.Inventory.BombCount >= 1)
-            {
                 Bomb.Draw(BombLocation + GridLocation + _location);
-            }
+            if (_agent.Player.Inventory.ArrowLevel != Secondary.None)
+                Arrow.Draw(ArrowLocation + GridLocation + _location);
+            if (_agent.Player.Inventory.BowLevel != Secondary.None)
+                Bow.Draw(BowLocation + GridLocation + _location);
+            if (_agent.Player.Inventory.HasCoins)
+                AlchemyCoin.Draw(CoinLocation + GridLocation + _location);
+            if (_agent.Player.Inventory.HasATWBoomerang)
+                ATWBoomerang.Draw(ATWBoomerangLocation + GridLocation + _location);
+            if (_agent.Player.Inventory.HasBombLauncher)
+                BombLauncher.Draw(BombLauncherLocation + GridLocation + _location);
+
+            if (_agent.Player.Inventory.HasMap)
+                Map.Draw(MapLocation + _location);
+            if (_agent.Player.Inventory.HasCompass)
+                Compass.Draw(CompassLocation + _location);
         }
 
         private void AssignSecondary()

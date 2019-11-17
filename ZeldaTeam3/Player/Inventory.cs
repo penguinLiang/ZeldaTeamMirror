@@ -13,8 +13,11 @@ namespace Zelda.Player
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
-        public bool HasBow { get; private set; }
-        public bool HasArrow { get; private set; } = true;
+        public Secondary BowLevel { get; private set; } = Secondary.None;
+        public Secondary ArrowLevel { get; private set; } = Secondary.Arrow;
+        public bool HasCoins { get; private set; } = true;
+        public bool HasATWBoomerang { get; private set; } = true;
+        public bool HasBombLauncher { get; private set; } = true;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
@@ -38,20 +41,33 @@ namespace Zelda.Player
                 case Secondary.Boomerang:
                     HasBoomerang = true;
                     break;
-                case Secondary.Bow:
-                    HasBow = true;
-                    break;
                 case Secondary.Bomb:
                     BombCount = Math.Min(BombCount + 4, MaxBombCount);
+                    break;
+                case Secondary.Bow:
+                    if (BowLevel == Secondary.None) BowLevel = Secondary.Bow;
+                    break;
+                case Secondary.FireBow:
+                    BowLevel = Secondary.FireBow;
+                    break;
+                case Secondary.Arrow:
+                    if (ArrowLevel == Secondary.None) ArrowLevel = Secondary.Arrow;
+                    break;
+                case Secondary.SilverArrow:
+                    ArrowLevel = Secondary.SilverArrow;
+                    break;
+                case Secondary.Coins:
+                    HasCoins = true;
+                    break;
+                case Secondary.ATWBoomerang:
+                    HasATWBoomerang = true;
+                    break;
+                case Secondary.BombLauncher:
+                    HasBombLauncher = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public void AddArrow()
-        {
-            HasArrow = true;
         }
 
         public void AddMap()
@@ -78,10 +94,31 @@ namespace Zelda.Player
             KeyCount = Math.Min(KeyCount + 1, MaxKeyCount);
         }
 
+        public bool TryRemoveBoomerang()
+        {
+            if (!HasBoomerang) return false;
+            HasBoomerang = false;
+            return true;
+        }
+
         public bool TryRemoveBomb()
         {
             if (BombCount <= 0) return false;
             BombCount--;
+            return true;
+        }
+
+        public bool TryRemoveCoins()
+        {
+            if (!HasCoins) return false;
+            HasCoins = false;
+            return true;
+        }
+
+        public bool TryRemoveATWBoomerang()
+        {
+            if (!HasATWBoomerang) return false;
+            HasATWBoomerang = false;
             return true;
         }
 
@@ -96,13 +133,6 @@ namespace Zelda.Player
         {
             if (KeyCount <= 0) return false;
             KeyCount--;
-            return true;
-        }
-
-        public bool TryRemoveBoomerang()
-        {
-            if (!HasBoomerang) return false;
-            HasBoomerang = false;
             return true;
         }
     }

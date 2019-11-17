@@ -2,8 +2,15 @@
 {
     public enum Secondary
     {
+        None,
         Bow,
+        FireBow,
+        Arrow,
+        SilverArrow,
         Boomerang,
-        Bomb
+        ATWBoomerang,
+        Bomb,
+        BombLauncher,
+        Coins
     }
 }
