@@ -20,7 +20,7 @@ namespace Zelda.Projectiles
         public Bomb(Point location)
         {
             _location = location.ToVector2();
-            _sprite = ProjectileSpriteFactory.Instance.CreateBomb();
+            _sprite = ProjectileSpriteFactory.Instance.CreateBombDown();
             SoundEffectManager.Instance.PlayBombDrop();
             Halted = false;
         }
