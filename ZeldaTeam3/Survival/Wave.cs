@@ -18,7 +18,7 @@ using Zelda.SoundEffects;
 
 namespace Zelda.Survival
 {
-    internal class Wave
+    public class Wave
     {
         public LinkedList<IEnemy> WaveEnemies = new LinkedList<IEnemy>();
         public LinkedList<IEnemy> UnspawnedEnemies = new LinkedList<IEnemy>();
@@ -28,7 +28,7 @@ namespace Zelda.Survival
         public WaveType Type;
         public int difficultyScale;
 
-        public Wave(LinkedList<IEnemy> enemyCSVContent,int spawnTimer,WaveType waveType)
+        public Wave(LinkedList<IEnemy> enemyCSVContent, int spawnTimer, WaveType waveType)
         {
             waveTime = spawnTimer;
             currentSpawnTimer = waveTime;
@@ -46,7 +46,7 @@ namespace Zelda.Survival
             }
         }
 
-        public bool SpawnOneEnemy()
+        public bool SpawnEnemy()
         {
             if(currentSpawnTimer <= 0)
             {
