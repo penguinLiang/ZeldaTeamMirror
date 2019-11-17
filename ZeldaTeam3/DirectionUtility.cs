@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Zelda
 {
@@ -58,6 +59,21 @@ namespace Zelda
                     return Direction.Down;
                 default:
                     return direction;
+            }
+        }
+
+        public static Direction GetDirectionTowardsPoint(Point currentPoint, Point destinationPoint)
+        {
+            var xDiff = destinationPoint.X - currentPoint.X;
+            var yDiff = destinationPoint.Y - currentPoint.Y;
+
+            if (Math.Abs(xDiff) > Math.Abs(yDiff))
+            {
+                return xDiff > 0 ? Direction.Right : Direction.Left;
+            }
+            else
+            {
+                return yDiff > 0 ? Direction.Down : Direction.Up;
             }
         }
     }

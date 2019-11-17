@@ -79,6 +79,8 @@ namespace Zelda.Dungeon
                     return new WallMaster(spawnPoint);
                 case EnemyType.Aquamentus:
                     return new Aquamentus(spawnPoint);
+                case EnemyType.Fygar:
+                    return new Fygar(spawnPoint);
                 case EnemyType.None:
                     throw new Exception("Room spawns an enemy but no type is set");
                 default:

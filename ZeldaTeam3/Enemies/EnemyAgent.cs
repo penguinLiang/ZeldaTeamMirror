@@ -132,5 +132,10 @@ namespace Zelda.Enemies
         public abstract Rectangle Bounds { get; }
         public abstract void Halt();
         protected abstract void Knockback();
+
+        public static bool IsWithinCircularBounds(Point location, int radius)
+        {
+            return Math.Sqrt(location.X * location.X + location.Y * location.Y) < radius;
+        }
     }
 }
