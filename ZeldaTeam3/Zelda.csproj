@@ -56,8 +56,34 @@
     <Compile Include="Commands\EnemyStun.cs" />
     <Compile Include="DrawnText.cs" />
     <Compile Include="Enemies\Fygar.cs" />
+    <Compile Include="Survival\Commands\Pause.cs" />
+    <Compile Include="Survival\Commands\Play.cs" />
+    <Compile Include="Survival\Commands\Quit.cs" />
+    <Compile Include="Survival\Commands\Reset.cs" />
+    <Compile Include="Survival\Commands\Resume.cs" />
+    <Compile Include="Survival\ControllerKeyboard.cs" />
+    <Compile Include="Survival\Dimensions.cs" />
+    <Compile Include="Survival\GameOver\GameOverControllerKeyboard.cs" />
+    <Compile Include="Survival\GameOver\GameOverMenu.cs" />
+    <Compile Include="Survival\GameState\PlayerLockCamera.cs" />
+    <Compile Include="Survival\GameWin\GameWinControllerKeyboard.cs" />
+    <Compile Include="Survival\GameWin\GameWinMenu.cs" />
+    <Compile Include="Survival\HUD\HUDScreen.Constants.cs" />
+    <Compile Include="Survival\HUD\HUDScreen.cs" />
+    <Compile Include="Survival\HUD\HUDSpriteFactory.cs" />
+    <Compile Include="Survival\GameState\GameOverWorld.cs" />
+    <Compile Include="Survival\GameState\GameStateAgent.cs" />
+    <Compile Include="Survival\GameState\GameWinWorld.cs" />
+    <Compile Include="Survival\GameState\GameWorld.cs" />
+    <Compile Include="Survival\GameState\PausedWorld.cs" />
+    <Compile Include="Survival\GameState\PauseState.cs" />
+    <Compile Include="Survival\GameState\PauseTransitionStateMachine.cs" />
+    <Compile Include="Survival\GameState\PlayingWorld.cs" />
+    <Compile Include="Survival\GameState\WorldState.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
+    <Compile Include="HighScore\HighScoreClient.cs" />
+    <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
@@ -197,6 +223,11 @@
     <Compile Include="Dungeon\Scene.cs" />
     <Compile Include="SoundEffects\SoundEffectManager.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="Survival\Pause\ControllerPauseKeyboard.cs" />
+    <Compile Include="Survival\Pause\PauseMenu.Constants.cs" />
+    <Compile Include="Survival\Pause\PauseMenu.cs" />
+    <Compile Include="Survival\Pause\PauseSpriteFactory.cs" />
+    <Compile Include="Survival\QuitResetControllerKeyboard.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap\JumpMapScreen.cs" />
     <Compile Include="Blocks\BlockType.cs" />
@@ -211,6 +242,7 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
