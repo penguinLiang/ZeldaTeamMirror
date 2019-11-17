@@ -48,10 +48,15 @@ namespace Zelda.Survival
                             case "P":
                                 currentWaveType = WaveType.Party;
                                 break;
+                            case "N":
+                                currentWaveType = WaveType.Normal;
+                                break;
+                            default:
+                                throw new Exception("Needs a valid wave type!");
                         }
                     }
 
-                    if(j != 0)
+                    else
                     {
                         String[] strList = _waveMatrix[i][j].Split(separator, count, StringSplitOptions.None);
                         int enemyCount = int.Parse(strList[1]);
@@ -79,6 +84,8 @@ namespace Zelda.Survival
                             case "fygar":
                                 EnemyType = EnemyType.Fygar;
                                 break;
+                            default:
+                                throw new Exception("Needs to be a valid enemy type!");
                         }
 
                         for(int k = 0; k < enemyCount; k++)
