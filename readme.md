@@ -193,7 +193,8 @@ We moved to tracking our bugs using the issue tracker on GitHub.
 - __NPCs__: https://www.spriters-resource.com/nes/legendofzelda/sheet/21189/  
 - __Bosses__: https://www.spriters-resource.com/nes/legendofzelda/sheet/36632/  
 - __Dungeon Tileset__: https://www.spriters-resource.com/nes/legendofzelda/sheet/8376/  
-- __HUD & Pause Screen__: https://www.spriters-resource.com/nes/legendofzelda/sheet/119278/  
+- __HUD & Pause Screen__: https://www.spriters-resource.com/nes/legendofzelda/sheet/119278/
+- __Fygar__: https://www.spriters-resource.com/nes/digdug/
 
 
 ## Sound Resources
