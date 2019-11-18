@@ -18,6 +18,8 @@ namespace Zelda.Player
         public bool HasCoins { get; private set; } = true;
         public bool HasATWBoomerang { get; private set; } = true;
         public bool HasBombLauncher { get; private set; } = true;
+        public Secondary Slot7Item { get; private set; } = Secondary.None;
+        public Secondary Slot8Item { get; private set; } = Secondary.None;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;

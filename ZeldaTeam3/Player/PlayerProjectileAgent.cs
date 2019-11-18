@@ -57,6 +57,31 @@ namespace Zelda.Player
             }
         }
 
+        private void GenerateBowFireballs(Direction facing, Point location)
+        {
+            switch (facing)
+            {
+                case Direction.Up:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-1, -2)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(1, -2)));
+                    break;
+                case Direction.Left:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-2, -1)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-2, 1)));
+                    break;
+                case Direction.Right:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(2, -1)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(2, 1)));
+                    break;
+                case Direction.Down:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-1, 2)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(1, 2)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public void UseSecondaryItem(Direction facing, Point location)
         {
             switch (facing)
@@ -81,8 +106,18 @@ namespace Zelda.Player
             var inv = _player.Inventory;
             switch (Item)
             {
-                case Secondary.Bow when inv.ArrowLevel != Secondary.None && inv.BowLevel != Secondary.None && inv.TryRemoveRupee():
-                    Projectiles.Add(new Arrow(location, facing));
+                case Secondary.Bow when inv.ArrowLevel != Secondary.None && inv.TryRemoveRupee():
+                    if (inv.ArrowLevel == Secondary.Arrow)
+                        Projectiles.Add(new Arrow(location, facing));
+                    else
+                        Projectiles.Add(new SilverArrow(location, facing));
+                    break;
+                case Secondary.FireBow when inv.ArrowLevel != Secondary.None && inv.TryRemoveRupee():
+                    if (inv.ArrowLevel == Secondary.Arrow)
+                        Projectiles.Add(new Arrow(location, facing));
+                    else
+                        Projectiles.Add(new SilverArrow(location, facing));
+                    GenerateBowFireballs(facing, location);
                     break;
                 case Secondary.Boomerang when inv.TryRemoveBoomerang():
                     Projectiles.Add(new PlayerBoomerang(_player, new Point(location.X + 4, location.Y + 4), facing));
@@ -91,7 +126,8 @@ namespace Zelda.Player
                     Projectiles.Add(new Bomb(location));
                     break;
                 case Secondary.Coins when inv.TryRemoveCoins():
-                    // TO-DO: Integrate class
+                    Projectiles.Add(new AlchemyCoin(location, facing, true));
+                    Projectiles.Add(new AlchemyCoin(location, facing, false));
                     break;
                 case Secondary.ATWBoomerang when inv.TryRemoveATWBoomerang():
                     Projectiles.Add(new ATWBoomerang(_player, facing));

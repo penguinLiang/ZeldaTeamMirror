@@ -53,10 +53,9 @@ namespace Zelda.HUD
                         return Boomerang;
                     case Items.Secondary.Bomb:
                         return Bomb;
-                    case Items.Secondary.Bow when _agent.Player.Inventory.BowLevel != Items.Secondary.None && _agent.Player.Inventory.ArrowLevel == Items.Secondary.Arrow:
-                        return Arrow;
-                    case Items.Secondary.Bow when _agent.Player.Inventory.BowLevel != Items.Secondary.None && _agent.Player.Inventory.ArrowLevel == Items.Secondary.SilverArrow:
-                        return SilverArrow;
+                    case Items.Secondary.Bow when _agent.Player.Inventory.ArrowLevel != Items.Secondary.None:
+                    case Items.Secondary.FireBow when _agent.Player.Inventory.ArrowLevel != Items.Secondary.None:
+                        return _agent.Player.Inventory.ArrowLevel == Items.Secondary.Arrow ? Arrow : SilverArrow;
                     case Items.Secondary.Coins:
                         return AlchemyCoin;
                     case Items.Secondary.ATWBoomerang:

@@ -29,8 +29,8 @@ namespace Zelda.Pause
                     _selectedItem = Bomb;
                     _cursorPosition = BombPosition;
                     break;
-                case Secondary.Bow when agent.Player.Inventory.ArrowLevel != Secondary.None
-                && agent.Player.Inventory.BowLevel != Secondary.None:
+                case Secondary.Bow when agent.Player.Inventory.ArrowLevel != Secondary.None:
+                case Secondary.FireBow when agent.Player.Inventory.ArrowLevel != Secondary.None:
                     _selectedItem = Arrow;
                     _cursorPosition = BowPosition;
                     break;
@@ -48,6 +48,7 @@ namespace Zelda.Pause
                     break;
                 case Secondary.None:
                 case Secondary.Bow:
+                case Secondary.FireBow:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -62,7 +63,6 @@ namespace Zelda.Pause
         public void Draw()
         {
             Background.Draw(_location);
-            CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
             _selectedItem?.Draw(_location + SelectedItemLocation);
 
             var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
@@ -85,9 +85,13 @@ namespace Zelda.Pause
                 Boomerang.Draw(BoomerangLocation + GridLocation + _location);
             if (_agent.Player.Inventory.BombCount >= 1)
                 Bomb.Draw(BombLocation + GridLocation + _location);
-            if (_agent.Player.Inventory.ArrowLevel != Secondary.None)
+            if (_agent.Player.Inventory.ArrowLevel == Secondary.SilverArrow)
+                SilverArrow.Draw(ArrowLocation + GridLocation + _location);
+            else if (_agent.Player.Inventory.ArrowLevel == Secondary.Arrow)
                 Arrow.Draw(ArrowLocation + GridLocation + _location);
-            if (_agent.Player.Inventory.BowLevel != Secondary.None)
+            if (_agent.Player.Inventory.BowLevel == Secondary.FireBow)
+                FireBow.Draw(BowLocation + GridLocation + _location);
+            else if (_agent.Player.Inventory.BowLevel == Secondary.Bow)
                 Bow.Draw(BowLocation + GridLocation + _location);
             if (_agent.Player.Inventory.HasCoins)
                 AlchemyCoin.Draw(CoinLocation + GridLocation + _location);
@@ -100,6 +104,8 @@ namespace Zelda.Pause
                 Map.Draw(MapLocation + _location);
             if (_agent.Player.Inventory.HasCompass)
                 Compass.Draw(CompassLocation + _location);
+
+            CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
         }
 
         private void AssignSecondary()
@@ -110,20 +116,38 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Boomerang);
                 _selectedItem = Boomerang;
             }
-            if (_cursorPosition == BombPosition && _agent.Player.Inventory.BombCount >= 1)
+            else if (_cursorPosition == BombPosition && _agent.Player.Inventory.BombCount >= 1)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
                 _selectedItem = Bomb;
             }
-            if (_cursorPosition == BowPosition && _agent.Player.Inventory.BowLevel != Secondary.None
+            else if (_cursorPosition == BowPosition && _agent.Player.Inventory.BowLevel != Secondary.None
                 && _agent.Player.Inventory.ArrowLevel != Secondary.None)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
-                _selectedItem = Arrow;
+                assign = new LinkSecondaryAssign(_agent.Player,
+                    _agent.Player.Inventory.BowLevel == Secondary.Bow ? Secondary.Bow : Secondary.FireBow);
+                _selectedItem = _agent.Player.Inventory.ArrowLevel == Secondary.Arrow ? Arrow : SilverArrow;
             }
-            /* 
-             * Refactor to allow selecting none and maybe look neater; also needs to work for new weapons
-             */
+            else if (_cursorPosition == CoinPosition && _agent.Player.Inventory.HasCoins)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Coins);
+                _selectedItem = AlchemyCoin;
+            }
+            else if (_cursorPosition == ATWBoomerangPosition && _agent.Player.Inventory.HasATWBoomerang)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ATWBoomerang);
+                _selectedItem = ATWBoomerang;
+            }
+            else if (_cursorPosition == BombLauncherPosition && _agent.Player.Inventory.BombCount >= 1)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
+                _selectedItem = BombLauncher;
+            }
+            else
+            {
+                //assign = new LinkSecondaryAssign(_agent.Player, Secondary.None);
+                _selectedItem = null;
+            }
             assign.Execute();
         }
 

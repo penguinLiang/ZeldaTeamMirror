@@ -9,6 +9,7 @@ namespace Zelda.Projectiles
         private Texture2D _fieldWeaponsSpriteSheet;
         private Texture2D _bombExplosionSpriteSheet;
         private Texture2D _particlesSpriteSheet;
+        private Texture2D _alchemyCoinSpriteSheet;
 
         public static ProjectileSpriteFactory Instance { get; } = new ProjectileSpriteFactory();
 
@@ -17,6 +18,7 @@ namespace Zelda.Projectiles
             _fieldWeaponsSpriteSheet = content.Load<Texture2D>("FieldWeapons");
             _bombExplosionSpriteSheet = content.Load<Texture2D>("SpawnExplosion");
             _particlesSpriteSheet = content.Load<Texture2D>("Particles");
+            _alchemyCoinSpriteSheet = content.Load<Texture2D>("AlchemyCoin");
         }
 
         public ISprite CreateArrowUp()
@@ -141,6 +143,11 @@ namespace Zelda.Projectiles
         public ISprite CreateBoomerangCollision()
         {
             return new Sprite(_particlesSpriteSheet, 8, 8, 1, new Point(0, 64));
+        }
+
+        public ISprite CreateAlchemyCoin()
+        {
+            return new Sprite(_alchemyCoinSpriteSheet, 16, 16, 8, new Point(0, 0), 5);
         }
     }
 }

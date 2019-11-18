@@ -8,13 +8,15 @@ namespace Zelda.Items
     {
         private readonly Secondary _bowLevel;
 
+        protected override ISprite Sprite { get; }
+
         public BowItem(Point location, Secondary bowLevel) : base(location)
         {
             _bowLevel = bowLevel;
+            Sprite = bowLevel == Secondary.Bow ? ItemSpriteFactory.Instance.CreateBow()
+                : ItemSpriteFactory.Instance.CreateFireBow();
         }
-
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBow();
-
+        
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;

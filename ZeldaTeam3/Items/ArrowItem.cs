@@ -8,12 +8,14 @@ namespace Zelda.Items
     {
         private readonly Secondary _arrowLevel;
 
+        protected override ISprite Sprite { get; }
+
         public ArrowItem(Point location, Secondary arrowLevel) : base(location)
         {
             _arrowLevel = arrowLevel;
+            Sprite = arrowLevel == Secondary.Arrow ? ItemSpriteFactory.Instance.CreateArrow()
+                : ItemSpriteFactory.Instance.CreateSilverArrow();
         }
-
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateArrow();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
