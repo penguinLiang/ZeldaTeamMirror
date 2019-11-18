@@ -40,14 +40,14 @@ namespace Zelda.Survival
                 {
                     if(col == 0)
                     {
-                        currentWaveType = _getCurrentWaveType(row);
+                        currentWaveType = GetCurrentWaveType(row);
                     }
                     else
                     {
                         String[] strList = _waveMatrix[row][col].Split(separator, count, StringSplitOptions.None);
                         int enemyCount = int.Parse(strList[1]);
 
-                        EnemyType enemyType = _getCurrentEnemyType(row, col, strList);
+                        EnemyType enemyType = GetCurrentEnemyType(row, col, strList);
 
                         for(int currentCount = 0; currentCount < enemyCount; currentCount++)
                         {
@@ -61,56 +61,42 @@ namespace Zelda.Survival
             }
         }
 
-        private WaveType _getCurrentWaveType(int row)
+        private WaveType GetCurrentWaveType(int row)
         {
-            WaveType currentWaveType = WaveType.Normal;
             switch (_waveMatrix[row][0])
             {
                 case "S":
-                    currentWaveType = WaveType.Shop;
-                    break;
+                    return WaveType.Shop;
                 case "P":
-                    currentWaveType = WaveType.Party;
-                    break;
+                    return WaveType.Party;
                 case "D":
-                    currentWaveType = WaveType.Normal;
-                    break;
+                    return WaveType.Normal;
                 default:
                     throw new Exception("Needs a valid wave type!");
             }
-            return currentWaveType;
         }
 
-        private EnemyType _getCurrentEnemyType(int row, int col, string[] strList)
+        private EnemyType GetCurrentEnemyType(int row, int col, string[] strList)
         {
-            EnemyType enemyType = EnemyType.None;
             switch (strList[0])
             {
                 case "aquamentus":
-                    enemyType = EnemyType.Aquamentus;
-                    break;
+                    return EnemyType.Aquamentus;
                 case "gel":
-                    enemyType = EnemyType.Gel;
-                    break;
+                    return EnemyType.Gel;
                 case "goriya":
-                    enemyType = EnemyType.Goriya;
-                    break;
+                    return EnemyType.Goriya;
                 case "keese":
-                    enemyType = EnemyType.Keese;
-                    break;
+                    return EnemyType.Keese;
                 case "stalfos":
-                    enemyType = EnemyType.Stalfos;
-                    break;
+                    return EnemyType.Stalfos;
                 case "wallmaster":
-                    enemyType = EnemyType.WallMaster;
-                    break;
+                    return EnemyType.WallMaster;
                 case "fygar":
-                    enemyType = EnemyType.Fygar;
-                    break;
+                    return EnemyType.Fygar;
                 default:
                     throw new Exception("Needs to be a valid enemy type!");
             }
-            return enemyType;
         }
 
     }
