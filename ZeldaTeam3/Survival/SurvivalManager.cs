@@ -9,16 +9,16 @@ namespace Zelda.Survival
         private static readonly Point TileSize = new Point(16, 16);
 
         public SurvivalScene Scene { get; private set; }
-        public bool[][] EnabledRooms { get; private set; }
-        public bool[][] UnmappedRooms { get; private set; }
-        public bool[][] VisitedRooms { get; private set; }
-        public Action<Point, Point, Direction> Pan { private get; set; } = delegate { };
         private ISprite _background;
         private IPlayer _player;
-        private Room[][] _rooms;
-        private BackgroundId[][] _backgroundIds;
+        private SurvivalRoom _shopRoom;
+        private SurvivalRoom _dungeonRoom;
+        private SurvivalScene _shopScene;
+        private SurvivalScene _dungeonScene;
+        private BackgroundId _dungeonBackground;
+        private BackgroundId _shopBackground;
 
-        public bool CurrentRoomMapped => !UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
+        //public bool CurrentRoomMapped => //!UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
 
         private enum BackgroundId
         {
@@ -28,13 +28,13 @@ namespace Zelda.Survival
 
         private static ISprite Background(BackgroundId backgroundId)
         {
-            switch (backgroundId)
+            /*switch (backgroundId)
             {
                 case BackgroundId.Default:
                     return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
                 default:
                     return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-            }
+            }*/
         }
 
         private void SetBackground(BackgroundId backgroundId)
@@ -94,50 +94,6 @@ namespace Zelda.Survival
         public void LoadScenes(IPlayer player)
         {
             _player = player;
-            /*
-            for (var row = 0; row < _scenes.Length; row++)
-            {
-                for (var col = 0; col < _scenes[row].Length; col++)
-                {
-                    if (!EnabledRooms[row][col]) continue;
-                    _scenes[row][col] = new Scene(_rooms[row][col], player);
-                }
-            } */
-        }
-
-        public void Transition(Direction roomDirection, bool unlock)
-        {
-            var newRoom = CurrentRoom;
-            switch (roomDirection)
-            {
-                case Direction.Up:
-                    newRoom.Y--;
-                    break;
-                case Direction.Down:
-                    newRoom.Y++;
-                    break;
-                case Direction.Left:
-                    newRoom.X--;
-                    break;
-                case Direction.Right:
-                    newRoom.X++;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            if (unlock)
-            {
-                _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
-            }
-
-            Scene?.DestroyProjectiles();
-            Pan(CurrentRoom, newRoom, roomDirection);
-        }
-
-        public IDrawable BuildPanScene(int row, int column)
-        {
-            return new PanningScene(_rooms[row][column], Background(_backgroundIds[row][column]));
         }
 
         public void Update()
