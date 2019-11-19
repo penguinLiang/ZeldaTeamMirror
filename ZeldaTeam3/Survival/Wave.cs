@@ -20,11 +20,11 @@ namespace Zelda.Survival
 {
     public class Wave
     {
-        private List<IEnemy> _waveEnemies = new List<IEnemy>();
+        private readonly List<EnemyType> _waveEnemies = new List<EnemyType>();
 
-        public WaveType Type;
+        public WaveType Type { get; }
 
-        public Wave(List<IEnemy> enemyCSVContent, WaveType waveType)
+        public Wave(List<EnemyType> enemyCSVContent, WaveType waveType)
         {
             Type = waveType;
 
@@ -34,17 +34,16 @@ namespace Zelda.Survival
             }
         }
 
-        public List<IEnemy> GetList(int scale)
+        public List<EnemyType> GetList(int scale)
         {
-            List<IEnemy> _unspawnedEnemies = new List<IEnemy>();
-            for(int i = 0; i < scale; i++)
+            var unspawnedEnemies = new List<EnemyType>();
+
+            for(var i = 0; i < scale; i++)
             {
-                foreach(var enemy in _waveEnemies)
-                {
-                    _unspawnedEnemies.Add(enemy);
-                }
+                unspawnedEnemies.AddRange(_waveEnemies);
             }
-            return _unspawnedEnemies;
+
+            return unspawnedEnemies;
         }
     }
 }        
