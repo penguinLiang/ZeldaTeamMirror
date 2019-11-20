@@ -51,6 +51,11 @@ namespace Zelda.Projectiles
             Halted = true;
         }
 
+        public void Reflect(Direction direction)
+        {
+            //NO-OP
+        }
+
         public void Update()
         {
             _location = Vector2.Add(_location, _velocity);

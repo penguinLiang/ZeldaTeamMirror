@@ -57,6 +57,24 @@ namespace Zelda.Pause
 
         public void Update()
         {
+            switch (_agent.Player.Inventory.ExtraItem1)
+            {
+                case Secondary.WideBeam:
+                    _slot7Sprite = WideBeam;
+                    break;
+                default:
+                    _slot7Sprite = null;
+                    break;
+            }
+            switch (_agent.Player.Inventory.ExtraItem2)
+            {
+                case Secondary.WideBeam:
+                    _slot8Sprite = WideBeam;
+                    break;
+                default:
+                    _slot8Sprite = null;
+                    break;
+            }
             CursorGrid.Update();
         }
 
@@ -138,14 +156,24 @@ namespace Zelda.Pause
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.ATWBoomerang);
                 _selectedItem = ATWBoomerang;
             }
-            else if (_cursorPosition == BombLauncherPosition && _agent.Player.Inventory.BombCount >= 1)
+            else if (_cursorPosition == BombLauncherPosition && _agent.Player.Inventory.HasBombLauncher)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.BombLauncher);
                 _selectedItem = BombLauncher;
+            }
+            else if (_cursorPosition == Slot7Position)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, _agent.Player.Inventory.ExtraItem1);
+                _selectedItem = _slot7Sprite;
+            }
+            else if (_cursorPosition == Slot8Position)
+            {
+                assign = new LinkSecondaryAssign(_agent.Player, _agent.Player.Inventory.ExtraItem2);
+                _selectedItem = _slot8Sprite;
             }
             else
             {
-                //assign = new LinkSecondaryAssign(_agent.Player, Secondary.None);
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.None);
                 _selectedItem = null;
             }
             assign.Execute();

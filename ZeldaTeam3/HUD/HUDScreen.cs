@@ -11,9 +11,6 @@ namespace Zelda.HUD
         private readonly DrawnText _keyCount = new DrawnText { Location = KeyCountLocation };
         private readonly DrawnText _bombCount = new DrawnText { Location = BombCountLocation };
 
-        private ISprite _slot7Sprite;
-        private ISprite _slot8Sprite;
-
         public HUDScreen(GameStateAgent agent, Point location)
         {
             _agent = agent;
@@ -62,6 +59,8 @@ namespace Zelda.HUD
                         return ATWBoomerang;
                     case Items.Secondary.BombLauncher:
                         return BombLauncher;
+                    case Items.Secondary.WideBeam:
+                        return WideBeam;
                     default:
                         return null;
                 }

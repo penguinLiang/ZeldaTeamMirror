@@ -11,6 +11,10 @@
         SilverArrow,
         Coins,
         ATWBoomerang,
-        BombLauncher
+        BombLauncher,
+        ExtraSlot1,
+        ExtraSlot2,
+        WideBeam,
+        Bait
     }
 }

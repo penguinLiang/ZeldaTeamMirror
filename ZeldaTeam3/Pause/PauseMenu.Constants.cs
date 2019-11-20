@@ -45,6 +45,7 @@ namespace Zelda.Pause
         private static readonly ISprite AlchemyCoin = ItemSpriteFactory.Instance.CreateAlchemyCoin();
         private static readonly ISprite ATWBoomerang = ItemSpriteFactory.Instance.CreateATWBoomerang();
         private static readonly ISprite BombLauncher = ItemSpriteFactory.Instance.CreateBombLauncher();
+        private static readonly ISprite WideBeam = null;
 
         private static readonly Vector2 CompassLocation = new Vector2(44, 144);
         private static readonly Vector2 MapLocation = new Vector2(48, 104);

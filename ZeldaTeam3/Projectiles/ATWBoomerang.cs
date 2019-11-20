@@ -170,6 +170,11 @@ namespace Zelda.Projectiles
             // NO-OP
         }
 
+        public void Reflect(Direction direction)
+        {
+            //NO-OP
+        }
+
         public void Draw()
         {
             _sprite.Draw(_location);

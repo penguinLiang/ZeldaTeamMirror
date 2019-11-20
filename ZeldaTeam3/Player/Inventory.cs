@@ -13,13 +13,13 @@ namespace Zelda.Player
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
-        public Secondary BowLevel { get; private set; } = Secondary.None;
+        public Secondary BowLevel { get; private set; } = Secondary.FireBow;
         public Secondary ArrowLevel { get; private set; } = Secondary.Arrow;
         public bool HasCoins { get; private set; } = true;
         public bool HasATWBoomerang { get; private set; } = true;
         public bool HasBombLauncher { get; private set; } = true;
-        public Secondary Slot7Item { get; private set; } = Secondary.None;
-        public Secondary Slot8Item { get; private set; } = Secondary.None;
+        public Secondary ExtraItem1 { get; private set; } = Secondary.None;
+        public Secondary ExtraItem2 { get; private set; } = Secondary.None;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
@@ -72,6 +72,16 @@ namespace Zelda.Player
             }
         }
 
+        public bool TryAddSingleUseItem(Secondary secondaryItem) // Method might be unnecessary if checks are done at shop purchase
+        {
+            if (ExtraItem1 != Secondary.None && ExtraItem2 != Secondary.None) return false;
+            if (ExtraItem1 == Secondary.None)
+                ExtraItem1 = secondaryItem;
+            else
+                ExtraItem2 = secondaryItem;
+            return true;
+        }
+
         public void AddMap()
         {
             HasMap = true;
@@ -121,6 +131,20 @@ namespace Zelda.Player
         {
             if (!HasATWBoomerang) return false;
             HasATWBoomerang = false;
+            return true;
+        }
+
+        public bool TryRemoveExtraItem1()
+        {
+            if (ExtraItem1 == Secondary.None) return false;
+            ExtraItem1 = Secondary.None;
+            return true;
+        }
+
+        public bool TryRemoveExtraItem2()
+        {
+            if (ExtraItem2 == Secondary.None) return false;
+            ExtraItem2 = Secondary.None;
             return true;
         }
 

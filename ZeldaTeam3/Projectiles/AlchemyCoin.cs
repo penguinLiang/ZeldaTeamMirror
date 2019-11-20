@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Projectiles
@@ -14,6 +15,9 @@ namespace Zelda.Projectiles
         private int _velocityX;
         private int _velocityY;
         private int _collisions;
+        private bool _currentTopBottomCollision;
+        private bool _currentLeftRightCollision;
+        private bool _currentCornerCollision;
 
         public Rectangle Bounds => new Rectangle((int)_location.X + 2, (int)_location.Y + 2, 11, 11);
         public bool Halted { get; set; } 
@@ -81,6 +85,11 @@ namespace Zelda.Projectiles
             }
             if (_collisions >= CollisionsToDisappear)
                 Halted = true;
+        }
+
+        public void Reflect(Direction direction)
+        {
+            
         }
 
         public void Update()

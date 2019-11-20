@@ -52,6 +52,11 @@ namespace Zelda.Projectiles
             // NO-OP
         }
 
+        public void Reflect(Direction direction)
+        {
+            //NO-OP
+        }
+
         public void Update()
         {
             _locations[0].X--;
