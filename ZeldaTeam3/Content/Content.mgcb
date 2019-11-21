@@ -625,3 +625,20 @@
 /processorParam:TextureFormat=Color
 /build:Tiles.png
 
+#begin Shop/ShopBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shop/ShopBackground.png
+
+#begin Shop/ShopTiles.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Shop/ShopTiles.csv
+
