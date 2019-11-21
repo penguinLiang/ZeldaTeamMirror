@@ -28,6 +28,7 @@
         DungeonStair,
         BasementStair,
         Fire,
-        BlackBarrier
+        BlackBarrier,
+        ProjectileBlackBarrier
     }
 }

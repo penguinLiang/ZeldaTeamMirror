@@ -56,6 +56,7 @@
                 case BlockType.PushableBlock:
                     return BlockSpriteFactory.Instance.CreateSolidBlock();
                 case BlockType.BlackBarrier:
+                case BlockType.ProjectileBlackBarrier:
                     return BlockSpriteFactory.Instance.CreateBlackTile();
                 case BlockType.InvisibleBlock:
                     return null;
