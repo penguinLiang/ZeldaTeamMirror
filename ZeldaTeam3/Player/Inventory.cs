@@ -15,11 +15,11 @@ namespace Zelda.Player
         public int BombCount { get; private set; } = MaxBombCount / 2;
         public Secondary BowLevel { get; private set; } = Secondary.FireBow;
         public Secondary ArrowLevel { get; private set; } = Secondary.Arrow;
-        public bool HasCoins { get; private set; } = true;
+        public int Coins { get; private set; } = 2;
         public bool HasATWBoomerang { get; private set; } = true;
         public bool HasBombLauncher { get; private set; } = true;
-        public Secondary ExtraItem1 { get; private set; } = Secondary.None;
-        public Secondary ExtraItem2 { get; private set; } = Secondary.None;
+        public Secondary ExtraItem1 { get; private set; } = Secondary.LaserBeam;
+        public Secondary ExtraItem2 { get; private set; } = Secondary.LaserBeam;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
@@ -33,7 +33,26 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Secondary secondaryItem)
         {
-            SecondaryItem = secondaryItem;
+            switch (secondaryItem)
+            {
+                case Secondary.LaserBeam:
+                case Secondary.Bait:
+                    // Case pre-condition: At least one extra slot is open (should be checked before method call)
+                    if (ExtraItem1 == Secondary.None)
+                    {
+                        ExtraItem1 = secondaryItem;
+                        SecondaryItem = Secondary.ExtraSlot1;
+                    }
+                    else
+                    {
+                        ExtraItem2 = secondaryItem;
+                        SecondaryItem = Secondary.ExtraSlot2;
+                    }
+                    break;
+                default:
+                    SecondaryItem = secondaryItem;
+                    break;
+            }
         }
 
         public void AddSecondaryItem(Secondary secondaryItem)
@@ -59,7 +78,7 @@ namespace Zelda.Player
                     ArrowLevel = Secondary.SilverArrow;
                     break;
                 case Secondary.Coins:
-                    HasCoins = true;
+                    Coins = 2;
                     break;
                 case Secondary.ATWBoomerang:
                     HasATWBoomerang = true;
@@ -72,14 +91,9 @@ namespace Zelda.Player
             }
         }
 
-        public bool TryAddSingleUseItem(Secondary secondaryItem) // Method might be unnecessary if checks are done at shop purchase
+        public void AddCoin()
         {
-            if (ExtraItem1 != Secondary.None && ExtraItem2 != Secondary.None) return false;
-            if (ExtraItem1 == Secondary.None)
-                ExtraItem1 = secondaryItem;
-            else
-                ExtraItem2 = secondaryItem;
-            return true;
+            Coins++;
         }
 
         public void AddMap()
@@ -122,8 +136,8 @@ namespace Zelda.Player
 
         public bool TryRemoveCoins()
         {
-            if (!HasCoins) return false;
-            HasCoins = false;
+            if (Coins < 2) return false;
+            Coins = 0;
             return true;
         }
 
@@ -134,18 +148,18 @@ namespace Zelda.Player
             return true;
         }
 
-        public bool TryRemoveExtraItem1()
+        public Secondary RemoveExtraItem1()
         {
-            if (ExtraItem1 == Secondary.None) return false;
+            Secondary extraItem = ExtraItem1;
             ExtraItem1 = Secondary.None;
-            return true;
+            return extraItem;
         }
 
-        public bool TryRemoveExtraItem2()
+        public Secondary RemoveExtraItem2()
         {
-            if (ExtraItem2 == Secondary.None) return false;
+            Secondary extraItem = ExtraItem2;
             ExtraItem2 = Secondary.None;
-            return true;
+            return extraItem;
         }
 
         public bool TryRemoveRupee()

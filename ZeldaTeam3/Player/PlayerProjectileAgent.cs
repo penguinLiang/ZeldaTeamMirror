@@ -126,8 +126,8 @@ namespace Zelda.Player
                     Projectiles.Add(new Bomb(location));
                     break;
                 case Secondary.Coins when inv.TryRemoveCoins():
-                    Projectiles.Add(new AlchemyCoin(location, facing, true));
-                    Projectiles.Add(new AlchemyCoin(location, facing, false));
+                    Projectiles.Add(new AlchemyCoin(location, facing, _player.Inventory, true));
+                    Projectiles.Add(new AlchemyCoin(location, facing, _player.Inventory, false));
                     break;
                 case Secondary.ATWBoomerang when inv.TryRemoveATWBoomerang():
                     Projectiles.Add(new ATWBoomerang(_player, facing));
@@ -135,11 +135,30 @@ namespace Zelda.Player
                 case Secondary.BombLauncher when inv.TryRemoveBomb():
                     Projectiles.Add(new LaunchedBomb(location, facing));
                     break;
+                case Secondary.ExtraSlot1:
+                    UseExtraItem(inv.RemoveExtraItem1(), location, facing);
+                    break;
+                case Secondary.ExtraSlot2:
+                    UseExtraItem(inv.RemoveExtraItem2(), location, facing);
+                    break;
                 default:
                     UsingSecondaryItem = false;
                     break;
             }
 
+        }
+
+        private void UseExtraItem(Items.Secondary extraItem, Point location, Direction facing)
+        {
+            switch (extraItem)
+            {
+                case Secondary.LaserBeam:
+                    Projectiles.Add(new LaserBeam(location, facing));
+                    break;
+                default:
+                    UsingSecondaryItem = false;
+                    break;
+            }
         }
 
         public void AssignSecondaryItem(Secondary item)

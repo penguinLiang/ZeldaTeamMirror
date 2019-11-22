@@ -59,11 +59,24 @@ namespace Zelda.HUD
                         return ATWBoomerang;
                     case Items.Secondary.BombLauncher:
                         return BombLauncher;
-                    case Items.Secondary.WideBeam:
-                        return WideBeam;
+                    case Items.Secondary.ExtraSlot1:
+                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+                    case Items.Secondary.ExtraSlot2:
+                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
                     default:
                         return null;
                 }
+            }
+        }
+
+        private ISprite getExtraItemSprite(Items.Secondary extraItem)
+        {
+            switch (extraItem)
+            {
+                case Items.Secondary.LaserBeam:
+                    return LaserBeam;
+                default:
+                    return null;
             }
         }
 

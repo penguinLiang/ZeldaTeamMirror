@@ -24,8 +24,6 @@ namespace Zelda.Projectiles
         private Vector2 _location;
         private readonly ISprite _sprite = ProjectileSpriteFactory.Instance.CreateThrownATWBoomerang();
 
-        private Vector2? _collisionLocation;
-        private ISprite _collision;
         private bool _returning;
 
         private int _framesDelayed;

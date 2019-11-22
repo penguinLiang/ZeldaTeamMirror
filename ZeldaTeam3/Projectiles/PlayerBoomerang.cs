@@ -147,6 +147,11 @@ namespace Zelda.Projectiles
             _collisionLocation = _location;
         }
 
+        public void Reflect(Direction direction)
+        {
+            //NO-OP
+        }
+
         public void Draw()
         {
             if (_collisionLocation != null) _collision?.Draw((Vector2)_collisionLocation);

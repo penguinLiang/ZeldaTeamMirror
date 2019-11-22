@@ -115,6 +115,11 @@ namespace Zelda.Items
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 128));
         }
 
+        public ISprite CreateLaserBeam()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 144));
+        }
+
         public ISprite CreateTriforcePiece()
         {
             return new Sprite(_itemsSpriteSheet, 16, 16, 2, new Point(0, 176));

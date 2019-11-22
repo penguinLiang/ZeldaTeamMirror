@@ -114,8 +114,62 @@ namespace Zelda.Dungeon
             _items.Add(item);
         }
 
+        private void HandleCoinCollision(IProjectile coin, List<Rectangle> rectangles)
+        {
+            bool existsTopBottomCollision = false;
+            bool existsLeftRightCollision = false;
+            bool existsCornerCollision = false;
+            Rectangle overlap;
+            Point cornerCollisionCoordinates = Point.Zero;
+
+            for (int i = rectangles.Count - 1; i >= 0; i--)
+            {
+                overlap = Rectangle.Intersect(coin.Bounds, rectangles[i]);
+                if (overlap.Size == Point.Zero) continue;
+                
+                if (!existsTopBottomCollision && overlap.Width > overlap.Height)
+                {
+                    existsTopBottomCollision = true;
+                    if (coin.Bounds.Y <= rectangles[i].Y)
+                        coin.Reflect(Direction.Up);
+                    else
+                        coin.Reflect(Direction.Down);
+                }
+                else if (!existsLeftRightCollision && overlap.Width < overlap.Height)
+                {
+                    existsLeftRightCollision = true;
+                    if (coin.Bounds.X <= rectangles[i].X)
+                        coin.Reflect(Direction.Left);
+                    else
+                        coin.Reflect(Direction.Right);
+                }
+                else if (overlap.Width == overlap.Height)
+                {
+                    existsCornerCollision = true;
+                    cornerCollisionCoordinates = rectangles[i].Location;
+                }
+
+                if (existsTopBottomCollision && existsLeftRightCollision && !existsCornerCollision) break;
+            }
+
+            if (existsCornerCollision && !existsTopBottomCollision && !existsLeftRightCollision)
+            {
+                if (coin.Bounds.Y <= cornerCollisionCoordinates.Y)
+                    coin.Reflect(Direction.Up);
+                else
+                    coin.Reflect(Direction.Down);
+
+                if (coin.Bounds.X <= cornerCollisionCoordinates.X)
+                    coin.Reflect(Direction.Left);
+                else
+                    coin.Reflect(Direction.Right);
+            }
+        }
+
         public void Update()
         {
+            List<Rectangle> coinCollisions = new List<Rectangle>();
+
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
@@ -181,6 +235,8 @@ namespace Zelda.Dungeon
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
                         roomEnemy.ProjectileEffect(projectile).Execute();
+                        if (projectile is AlchemyCoin)
+                            coinCollisions.Add(roomEnemy.Bounds);
                     }
 
                     PlayerAttackCollision(projectile, roomEnemy);
@@ -197,11 +253,18 @@ namespace Zelda.Dungeon
                     if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
 
                     roomCollidable.ProjectileEffect(projectile).Execute();
+                    if (projectile is AlchemyCoin)
+                        coinCollisions.Add(roomCollidable.Bounds);
                 }
             }
 
             foreach (var projectile in _projectiles)
             {
+                if (projectile is AlchemyCoin)
+                {
+                    HandleCoinCollision(projectile, coinCollisions);
+                }
+
                 if (projectile.CollidesWith(_player.BodyCollision.Bounds))
                 {
                     projectile.PlayerEffect(_player).Execute();

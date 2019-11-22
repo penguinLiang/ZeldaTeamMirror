@@ -209,6 +209,18 @@
 /processorParam:TextureFormat=Color
 /build:JumpMap.png
 
+#begin LaserBeam.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LaserBeam.png
+
 #begin LinkNoWeapon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -458,6 +470,12 @@
 /processor:PassThroughProcessor
 /build:Rooms/5-5.csv
 
+#begin Sounds/LaserBeam.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LaserBeam.wav
+
 #begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -553,6 +571,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/LOZ_Secret.wav
+
+#begin Sounds/LOZ_Shield.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Shield.wav
 
 #begin Sounds/LOZ_Stairs.wav
 /importer:WavImporter

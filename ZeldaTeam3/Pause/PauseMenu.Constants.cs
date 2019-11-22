@@ -10,7 +10,8 @@ namespace Zelda.Pause
 
         private static readonly Vector2 GridLocation = new Vector2(128, 40);
         private static readonly Vector2 CursorSize = new Vector2(24, 16);
-        private static readonly Vector2 SelectedItemLocation = new Vector2(68, 40);
+        private static readonly Vector2 SelectedItemLocation8_16 = new Vector2(68, 40);
+        private static readonly Vector2 SelectedItemLocation16_16 = new Vector2(64, 40);
 
         private static readonly Vector2 MapGridLocation = new Vector2(136, 104);
         private static readonly Vector2 MapGridCoverSize = new Vector2(8, 8);
@@ -45,7 +46,7 @@ namespace Zelda.Pause
         private static readonly ISprite AlchemyCoin = ItemSpriteFactory.Instance.CreateAlchemyCoin();
         private static readonly ISprite ATWBoomerang = ItemSpriteFactory.Instance.CreateATWBoomerang();
         private static readonly ISprite BombLauncher = ItemSpriteFactory.Instance.CreateBombLauncher();
-        private static readonly ISprite WideBeam = null;
+        private static readonly ISprite LaserBeam = ItemSpriteFactory.Instance.CreateLaserBeam();
 
         private static readonly Vector2 CompassLocation = new Vector2(44, 144);
         private static readonly Vector2 MapLocation = new Vector2(48, 104);

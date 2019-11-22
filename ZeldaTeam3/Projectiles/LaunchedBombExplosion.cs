@@ -79,7 +79,12 @@ namespace Zelda.Projectiles
 
         public void Halt()
         {
-            //no op
+            //NO-OP
+        }
+
+        public void Reflect(Direction direction)
+        {
+            //NO-OP
         }
 
         public void Draw()

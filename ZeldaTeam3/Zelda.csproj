@@ -61,6 +61,7 @@
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\AlchemyCoin.cs" />
+    <Compile Include="Projectiles\LaserBeam.cs" />
     <Compile Include="Projectiles\PlayerFireball.cs" />
     <Compile Include="Projectiles\LaunchedBombExplosion.cs" />
     <Compile Include="Projectiles\ATWBoomerang.cs" />

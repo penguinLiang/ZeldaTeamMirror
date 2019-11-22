@@ -15,6 +15,17 @@ namespace Zelda.Pause
         private ISprite _slot7Sprite;
         private ISprite _slot8Sprite;
 
+        private ISprite getExtraItemSprite(Secondary extraItem)
+        {
+            switch (extraItem)
+            {
+                case Secondary.LaserBeam:
+                    return LaserBeam;
+                default:
+                    return null;
+            }
+        }
+
         public PauseMenu(GameStateAgent agent, Point location)
         {
             _agent = agent;
@@ -46,12 +57,16 @@ namespace Zelda.Pause
                     _selectedItem = BombLauncher;
                     _cursorPosition = BombLauncherPosition;
                     break;
-                case Secondary.None:
-                case Secondary.Bow:
-                case Secondary.FireBow:
+                case Secondary.ExtraSlot1:
+                    _selectedItem = getExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+                    _cursorPosition = Slot7Position;
+                    break;
+                case Secondary.ExtraSlot2:
+                    _selectedItem = getExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
+                    _cursorPosition = Slot8Position;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
 
@@ -59,8 +74,8 @@ namespace Zelda.Pause
         {
             switch (_agent.Player.Inventory.ExtraItem1)
             {
-                case Secondary.WideBeam:
-                    _slot7Sprite = WideBeam;
+                case Secondary.LaserBeam:
+                    _slot7Sprite = LaserBeam;
                     break;
                 default:
                     _slot7Sprite = null;
@@ -68,8 +83,8 @@ namespace Zelda.Pause
             }
             switch (_agent.Player.Inventory.ExtraItem2)
             {
-                case Secondary.WideBeam:
-                    _slot8Sprite = WideBeam;
+                case Secondary.LaserBeam:
+                    _slot8Sprite = LaserBeam;
                     break;
                 default:
                     _slot8Sprite = null;
@@ -81,7 +96,10 @@ namespace Zelda.Pause
         public void Draw()
         {
             Background.Draw(_location);
-            _selectedItem?.Draw(_location + SelectedItemLocation);
+            if (_agent.Player.Inventory.SecondaryItem == Secondary.Coins)
+                _selectedItem?.Draw(_location + SelectedItemLocation16_16);
+            else
+                _selectedItem?.Draw(_location + SelectedItemLocation8_16);
 
             var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
             var visitedRooms = _agent.DungeonManager.VisitedRooms;
@@ -111,12 +129,14 @@ namespace Zelda.Pause
                 FireBow.Draw(BowLocation + GridLocation + _location);
             else if (_agent.Player.Inventory.BowLevel == Secondary.Bow)
                 Bow.Draw(BowLocation + GridLocation + _location);
-            if (_agent.Player.Inventory.HasCoins)
+            if (_agent.Player.Inventory.Coins >= 2)
                 AlchemyCoin.Draw(CoinLocation + GridLocation + _location);
             if (_agent.Player.Inventory.HasATWBoomerang)
                 ATWBoomerang.Draw(ATWBoomerangLocation + GridLocation + _location);
             if (_agent.Player.Inventory.HasBombLauncher)
                 BombLauncher.Draw(BombLauncherLocation + GridLocation + _location);
+            _slot7Sprite?.Draw(Slot7Location + GridLocation + _location);
+            _slot8Sprite?.Draw(Slot8Location + GridLocation + _location);
 
             if (_agent.Player.Inventory.HasMap)
                 Map.Draw(MapLocation + _location);
@@ -146,7 +166,7 @@ namespace Zelda.Pause
                     _agent.Player.Inventory.BowLevel == Secondary.Bow ? Secondary.Bow : Secondary.FireBow);
                 _selectedItem = _agent.Player.Inventory.ArrowLevel == Secondary.Arrow ? Arrow : SilverArrow;
             }
-            else if (_cursorPosition == CoinPosition && _agent.Player.Inventory.HasCoins)
+            else if (_cursorPosition == CoinPosition && _agent.Player.Inventory.Coins >= 2)
             {
                 assign = new LinkSecondaryAssign(_agent.Player, Secondary.Coins);
                 _selectedItem = AlchemyCoin;
@@ -163,12 +183,12 @@ namespace Zelda.Pause
             }
             else if (_cursorPosition == Slot7Position)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, _agent.Player.Inventory.ExtraItem1);
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ExtraSlot1);
                 _selectedItem = _slot7Sprite;
             }
             else if (_cursorPosition == Slot8Position)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, _agent.Player.Inventory.ExtraItem2);
+                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ExtraSlot2);
                 _selectedItem = _slot8Sprite;
             }
             else

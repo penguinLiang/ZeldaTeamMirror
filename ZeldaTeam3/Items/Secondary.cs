@@ -14,7 +14,7 @@
         BombLauncher,
         ExtraSlot1,
         ExtraSlot2,
-        WideBeam,
+        LaserBeam,
         Bait
     }
 }
