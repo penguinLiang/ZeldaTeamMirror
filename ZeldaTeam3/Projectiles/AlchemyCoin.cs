@@ -71,26 +71,13 @@ namespace Zelda.Projectiles
             return NoOp.Instance;
         }
 
-        public void Halt() {
-            /*Rectangle overlap = Rectangle.Empty; // Temp
-
-            if (overlap.X >= overlap.Y)
-            {
-                _collisions++;
-                _velocityY *= -1;
-            }
-            if (overlap.X <= overlap.Y)
-            {
-                _collisions++;
-                _velocityX *= -1;
-            }
-            if (_collisions >= CollisionsToDisappear)
-                Halted = true;*/
+        public void Halt()
+        {
+            // NO-OP
         }
 
-        public void Reflect(Direction direction)
+        private void ChangeDirection(Direction direction)
         {
-            _collisions++;
             switch (direction)
             {
                 case Direction.Up:
@@ -108,7 +95,64 @@ namespace Zelda.Projectiles
                 default:
                     throw new System.ArgumentOutOfRangeException();
             }
-            SoundEffectManager.Instance.PlayDeflect();
+        }
+
+        public void Reflect(List<Rectangle> orderedBounds)
+        {
+            bool existsTopBottomCollision = false;
+            bool existsLeftRightCollision = false;
+            bool existsCornerCollision = false;
+            Rectangle overlap;
+            Point cornerCollisionCoordinates = Point.Zero;
+
+            foreach (var rectangle in orderedBounds)
+            {
+                overlap = Rectangle.Intersect(Bounds, rectangle);
+                if (overlap.Size == Point.Zero) continue;
+
+                if (!existsTopBottomCollision && overlap.Width > overlap.Height)
+                {
+                    existsTopBottomCollision = true;
+                    if (Bounds.Y <= rectangle.Y)
+                        ChangeDirection(Direction.Up);
+                    else
+                        ChangeDirection(Direction.Down);
+                }
+                else if (!existsLeftRightCollision && overlap.Width < overlap.Height)
+                {
+                    existsLeftRightCollision = true;
+                    if (Bounds.X <= rectangle.X)
+                        ChangeDirection(Direction.Left);
+                    else
+                        ChangeDirection(Direction.Right);
+                }
+                else if (overlap.Width == overlap.Height)
+                {
+                    existsCornerCollision = true;
+                    cornerCollisionCoordinates = rectangle.Location;
+                }
+
+                if (existsTopBottomCollision && existsLeftRightCollision && !existsCornerCollision) break;
+            }
+
+            if (existsCornerCollision && !existsTopBottomCollision && !existsLeftRightCollision)
+            {
+                if (Bounds.Y <= cornerCollisionCoordinates.Y)
+                    ChangeDirection(Direction.Up);
+                else
+                    ChangeDirection(Direction.Down);
+
+                if (Bounds.X <= cornerCollisionCoordinates.X)
+                    ChangeDirection(Direction.Left);
+                else
+                    ChangeDirection(Direction.Right);
+            }
+
+            if (existsCornerCollision || existsLeftRightCollision || existsTopBottomCollision)
+            {
+                _collisions++;
+                SoundEffectManager.Instance.PlayDeflect();
+            }
         }
 
         public void Update()

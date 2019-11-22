@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Zelda.Commands;
@@ -147,7 +148,7 @@ namespace Zelda.Projectiles
             _collisionLocation = _location;
         }
 
-        public void Reflect(Direction direction)
+        public void Reflect(List<Rectangle> orderedBounds)
         {
             //NO-OP
         }

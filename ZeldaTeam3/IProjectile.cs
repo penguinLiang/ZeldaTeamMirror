@@ -1,9 +1,12 @@
-﻿namespace Zelda
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+
+namespace Zelda
 {
     public interface IProjectile:  ICollideable, IHaltable, IDrawable
     {
         bool Halted { get; }
 
-        void Reflect(Direction direction);
+        void Reflect(List<Rectangle> orderedBounds);
     }
 }

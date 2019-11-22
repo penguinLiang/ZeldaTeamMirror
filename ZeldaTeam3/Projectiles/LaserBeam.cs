@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.SoundEffects;
@@ -90,7 +91,7 @@ namespace Zelda.Projectiles
             //NO-OP
         }
 
-        public void Reflect(Direction direction)
+        public void Reflect(List<Rectangle> orderedBounds)
         {
             //NO-OP
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Projectiles
@@ -52,7 +53,7 @@ namespace Zelda.Projectiles
             // NO-OP
         }
 
-        public void Reflect(Direction direction)
+        public void Reflect(List<Rectangle> orderedBounds)
         {
             //NO-OP
         }
