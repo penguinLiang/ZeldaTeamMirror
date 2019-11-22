@@ -12,6 +12,7 @@ namespace Zelda.Dungeon
         private Texture2D _dungeonBackground;
         private Texture2D _oldManBackground;
         private Texture2D _basementBackground;
+        private Texture2D _survivalDungeonBackground;
 
         public static BackgroundSpriteFactory Instance { get; } = new BackgroundSpriteFactory();
 
@@ -20,6 +21,7 @@ namespace Zelda.Dungeon
             _dungeonBackground = content.Load<Texture2D>("DungeonBackground");
             _oldManBackground = content.Load<Texture2D>("OldManBackground");
             _basementBackground = content.Load<Texture2D>("BasementBackground");
+            _survivalDungeonBackground = content.Load<Texture2D>("SurvivalDungeonBackground");
         }
 
         public ISprite CreateDungeonBackground()
@@ -35,6 +37,11 @@ namespace Zelda.Dungeon
         public ISprite CreateBasementBackground()
         {
             return new Sprite(_basementBackground, Width, Height, 1, Point.Zero);
+        }
+
+        public ISprite CreateSurvivalDungeonBackground()
+        {
+            return new Sprite(_survivalDungeonBackground, Width * 3, Height * 3, 1, Point.Zero);
         }
     }
 }

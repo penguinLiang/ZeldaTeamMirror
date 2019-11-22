@@ -458,6 +458,11 @@
 /processor:PassThroughProcessor
 /build:Rooms/5-5.csv
 
+#begin Rooms/Survival-Dungeon.csv
+/importer:CSVMapImporter
+/processor:PassThroughProcessor
+/build:Rooms/Survival-Dungeon.csv
+
 #begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -595,6 +600,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpawnExplosion.png
+
+#begin SurvivalDungeonBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SurvivalDungeonBackground.png
 
 #begin Tiles.png
 /importer:TextureImporter

@@ -28,6 +28,7 @@ namespace Zelda.Blocks
                 case BlockType.FishStatue:
                 case BlockType.ImmovableBlock:
                 case BlockType.Water:
+                case BlockType.ProjectileBlackBarrier:
                     return new Rectangle(location, new Point(16, 16));
                 default:
                     throw new ArgumentOutOfRangeException(block.ToString());

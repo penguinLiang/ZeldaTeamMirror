@@ -12,6 +12,7 @@ namespace Zelda.Dungeon
         SpawnShopKeep = 4,
 
         // Barriers
+        ProjectileBlackBarrier = 5,
         InvisibleWall = 8,
         Fire = 9,
         Water = 10,
@@ -22,6 +23,7 @@ namespace Zelda.Dungeon
         BlackBarrier = 15,
         RupeeBarrier = 27,
         KeyBarrier = 28,
+
 
         // Items
         Heart = 16,

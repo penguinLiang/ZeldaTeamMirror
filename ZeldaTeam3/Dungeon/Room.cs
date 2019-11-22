@@ -334,6 +334,9 @@ namespace Zelda.Dungeon
                 case MapTile.BlackBarrier:
                     blockType = BlockType.BlackBarrier;
                     break;
+                case MapTile.ProjectileBlackBarrier:
+                    blockType = BlockType.ProjectileBlackBarrier;
+                    break;
                 default:
                     return false;
             }
