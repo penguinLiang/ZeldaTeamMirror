@@ -78,6 +78,9 @@
     <Compile Include="Survival\GameState\GameWorld.cs" />
     <Compile Include="Survival\GameState\PausedWorld.cs" />
     <Compile Include="Survival\GameState\PauseState.cs" />
+    <Compile Include="Survival\SurvivalManager.cs" />
+    <Compile Include="Survival\SurvivalRoom.cs" />
+    <Compile Include="Survival\SurvivalScene.cs" />
     <Compile Include="Survival\GameState\PauseTransitionStateMachine.cs" />
     <Compile Include="Survival\GameState\PlayingWorld.cs" />
     <Compile Include="Survival\GameState\WorldState.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Dungeon\BackgroundSpriteFactory.cs" />
     <Compile Include="Dungeon\MapTile.cs" />
     <Compile Include="Dungeon\DungeonManager.cs" />
+    <Compile Include="Dungeon\SurvivalManager.cs" />
     <Compile Include="Enemies\AgentStateUtility.cs" />
     <Compile Include="Enemies\EnemyAgent.cs" />
     <Compile Include="Enemies\Trap.cs" />
