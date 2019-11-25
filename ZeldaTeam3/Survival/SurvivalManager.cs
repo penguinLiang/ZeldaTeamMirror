@@ -1,99 +1,79 @@
 ﻿using System;
+using System.Security.Policy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Zelda.Dungeon;
 
 namespace Zelda.Survival
 {
-    public class SurvivalManager : IDrawable
+    public class SurvivalManager : DungeonManager
     {
-        private static readonly Point TileSize = new Point(16, 16);
-
         public SurvivalScene Scene { get; private set; }
-        private ISprite _background;
-        private IPlayer _player;
-        private SurvivalRoom _shopRoom;
-        private SurvivalRoom _dungeonRoom;
-        private SurvivalScene _shopScene;
-        private SurvivalScene _dungeonScene;
-        private BackgroundId _dungeonBackground;
-        private BackgroundId _shopBackground;
 
-        //public bool CurrentRoomMapped => //!UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
+        public override bool CurrentRoomMapped { get; } = true;
 
-        private enum BackgroundId
+        public override void LoadDungeonContent(ContentManager content)
         {
-            Dungeon = 0,
-            Shop = 1
-        }
+            Scenes = new Scene[1][];
+            Rooms = new Room[1][];
+            BackgroundIds = new BackgroundId[2][];
+            Scenes[0] = new Scene[1];
+            Rooms[0] = new Room[1];
+            //Scenes[1] = new Scene[1];
+            //Rooms[1] = new Room[1];
+            BackgroundIds[1] = new BackgroundId[] {BackgroundId.Shop};
+            BackgroundIds[0] = new BackgroundId[] { BackgroundId.Dungeon};
+            //var shopRoom = new SurvivalRoom(this, content.Load<int[][]>($"Shop/ShopTiles"));
+            //var shopScene = new SurvivalScene(shopRoom, Player);
+            var dungeonRoom = new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"));
+            var dungeonScene = new SurvivalScene(dungeonRoom, Player);
+            //Scenes[1][0] = shopScene;
+            Scenes[0][0] = dungeonScene;
+            //Rooms[1][0] = shopRoom;
+            Rooms[0][0] = dungeonRoom;
+            
 
-        private static ISprite Background(BackgroundId backgroundId)
-        {
-            /*switch (backgroundId)
-            {
-                case BackgroundId.Default:
-                    return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-                default:
-                    return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
-            }*/
-        }
 
-        private void SetBackground(BackgroundId backgroundId)
-        {
-            _background = Background(backgroundId);
-        }
 
-        public void LoadDungeonContent(ContentManager content)
-        {
-            var enabledRooms = content.Load<int[][]>("DungeonEnabledRooms");
-            var enemies = content.Load<int[][]>("DungeonEnemies");
-            var backgrounds = content.Load<int[][]>("DungeonRoomBackgrounds");
-            var rows = enabledRooms.Length;
-            _scenes = new Scene[rows][];
-            _rooms = new Room[rows][];
-            _backgroundIds = new BackgroundId[rows][];
-            EnabledRooms = new bool[rows][];
-            UnmappedRooms = new bool[rows][];
-            VisitedRooms = new bool[rows][];
-
-            for (var row = 0; row < rows; row++)
-            {
-                var cols = enabledRooms[row].Length;
-                _scenes[row] = new Scene[cols];
-                _rooms[row] = new Room[cols];
-                _backgroundIds[row] = new BackgroundId[cols];
-                EnabledRooms[row] = new bool[cols];
-                UnmappedRooms[row] = new bool[cols];
-                VisitedRooms[row] = new bool[cols];
-
-                for (var col = 0; col < cols; col++)
-                {
-                    EnabledRooms[row][col] = enabledRooms[row][col] != 0;
-                    UnmappedRooms[row][col] = enabledRooms[row][col] == 2;
-                    if (enabledRooms[row][col] == 0) continue;
-
-                    var enemyId = -1;
-                    var backgroundId = BackgroundId.Default;
-
-                    if (row < enemies.Length && col < enemies[row].Length)
-                    {
-                        enemyId = enemies[row][col];
-                    }
-
-                    if (row < backgrounds.Length && col < backgrounds[row].Length)
-                    {
-                        backgroundId = (BackgroundId) backgrounds[row][col];
-                    }
-
-                    var room = new Room(this,content.Load<int[][]>($"Rooms/{row}-{col}"), enemyId);
-                    _rooms[row][col] = room;
-                    _backgroundIds[row][col] = backgroundId;
-                }
-            }
+            /* TODO: Implement */
         }
 
         public void LoadScenes(IPlayer player)
         {
-            _player = player;
+            Player = player;
+            //Look at this and see if more to do
+        }
+
+        public override void ResetScenes()
+        {
+            //Should just be no op?
+        }
+
+        public override void JumpToRoom(int row, int column, Direction facing = Direction.Up)
+        {
+            var oldRoom = CurrentRoom;
+            //TODO: update and remove this
+            row = 0;
+            column = 0;
+            //VisitedRooms[row][column] = true;
+            CurrentRoom = new Point(column, row);
+            SetBackground(BackgroundIds[row][column]);
+            if (oldRoom == BasementRoom && CurrentRoom == BasementAccessRoom)
+            {
+                Player?.Teleport(TileSize * new Point(6, 7), Direction.Down);
+            }
+            else if (CurrentRoom == BasementRoom)
+            {
+                Player?.Teleport(TileSize * new Point(3, 2), Direction.Down);
+            }
+            else
+            {
+                Player?.Teleport(TeleportLocation.Calculate(facing), facing);
+            }
+
+            Scene?.DestroyProjectiles();
+            Scene = (SurvivalScene) Scenes[row][column];
+            Scene.SpawnScene();
         }
 
         public void Update()
@@ -103,7 +83,7 @@ namespace Zelda.Survival
 
         public void Draw()
         {
-            _background?.Draw(Vector2.Zero);
+            Background?.Draw(Vector2.Zero);
             Scene?.Draw();
         }
     }

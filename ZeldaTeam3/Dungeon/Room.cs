@@ -40,14 +40,13 @@ namespace Zelda.Dungeon
                 TryAddStair,
                 TryAddNonStandardTiles
             };
-
+            
             for (var row = 0; row < tiles.Length; row++)
             {
                 for (var col = 0; col < tiles[row].Length; col++)
                 {
                     var location = new Point(col * TileWidthHeight, row * TileWidthHeight);
                     var tile = (MapTile) tiles[row][col];
-
                     var success = false;
                     foreach (var possibleBlock in possibleBlocks)
                     {
@@ -88,7 +87,7 @@ namespace Zelda.Dungeon
             }
         }
 
-        private bool TryAddNonStandardTiles(MapTile tile, Point location) {
+        protected virtual bool TryAddNonStandardTiles(MapTile tile, Point location) {
             // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
             {

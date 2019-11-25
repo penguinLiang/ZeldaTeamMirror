@@ -6,32 +6,34 @@ namespace Zelda.Dungeon
 {
     public class DungeonManager : IDrawable
     {
-        private static readonly Point TileSize = new Point(16, 16);
-        private static readonly Point BasementAccessRoom = new Point(1, 0);
-        private static readonly Point BasementRoom = new Point(1, 1);
+        protected static readonly Point TileSize = new Point(16, 16);
+        protected static readonly Point BasementAccessRoom = new Point(1, 0);
+        protected static readonly Point BasementRoom = new Point(1, 1);
 
         public Scene Scene { get; private set; }
-        public bool[][] EnabledRooms { get; private set; }
-        public bool[][] UnmappedRooms { get; private set; }
-        public bool[][] VisitedRooms { get; private set; }
-        public Point CurrentRoom { get; private set; } = Point.Zero;
+        public bool[][] EnabledRooms { get; protected set; }
+        public bool[][] UnmappedRooms { get; protected set; }
+        public bool[][] VisitedRooms { get; protected set; }
+        public Point CurrentRoom { get; protected set; } = Point.Zero;
         public Action<Point, Point, Direction> Pan { private get; set; } = delegate { };
-        private ISprite _background;
-        private Scene[][] _scenes;
-        private IPlayer _player;
-        private Room[][] _rooms;
-        private BackgroundId[][] _backgroundIds;
+        protected ISprite Background;
+        protected Scene[][] Scenes;
+        protected IPlayer Player;
+        protected Room[][] Rooms;
+        protected BackgroundId[][] BackgroundIds;
 
-        public bool CurrentRoomMapped => !UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
+        public virtual bool CurrentRoomMapped => !UnmappedRooms[CurrentRoom.Y][CurrentRoom.X];
 
-        private enum BackgroundId
+        protected enum BackgroundId
         {
             Default = 0,
             Basement = 1,
-            OldMan = 2
+            OldMan = 2,
+            Dungeon = 3,
+            Shop = 4
         }
 
-        private static ISprite Background(BackgroundId backgroundId)
+        protected static ISprite GenerateBgSprite(BackgroundId backgroundId)
         {
             switch (backgroundId)
             {
@@ -41,25 +43,29 @@ namespace Zelda.Dungeon
                     return BackgroundSpriteFactory.Instance.CreateBasementBackground();
                 case BackgroundId.OldMan:
                     return BackgroundSpriteFactory.Instance.CreateOldManBackground();
+                case BackgroundId.Dungeon:
+                    return BackgroundSpriteFactory.Instance.CreateSurvivalDungeonBackground();
+                case BackgroundId.Shop:
+                    return BackgroundSpriteFactory.Instance.CreateSurvivalShopBackground();
                 default:
                     return BackgroundSpriteFactory.Instance.CreateDungeonBackground();
             }
         }
 
-        private void SetBackground(BackgroundId backgroundId)
+        protected void SetBackground(BackgroundId backgroundId)
         {
-            _background = Background(backgroundId);
+            Background = GenerateBgSprite(backgroundId);
         }
 
-        public void LoadDungeonContent(ContentManager content)
+        public virtual void LoadDungeonContent(ContentManager content)
         {
             var enabledRooms = content.Load<int[][]>("DungeonEnabledRooms");
             var enemies = content.Load<int[][]>("DungeonEnemies");
             var backgrounds = content.Load<int[][]>("DungeonRoomBackgrounds");
             var rows = enabledRooms.Length;
-            _scenes = new Scene[rows][];
-            _rooms = new Room[rows][];
-            _backgroundIds = new BackgroundId[rows][];
+            Scenes = new Scene[rows][];
+            Rooms = new Room[rows][];
+            BackgroundIds = new BackgroundId[rows][];
             EnabledRooms = new bool[rows][];
             UnmappedRooms = new bool[rows][];
             VisitedRooms = new bool[rows][];
@@ -67,9 +73,9 @@ namespace Zelda.Dungeon
             for (var row = 0; row < rows; row++)
             {
                 var cols = enabledRooms[row].Length;
-                _scenes[row] = new Scene[cols];
-                _rooms[row] = new Room[cols];
-                _backgroundIds[row] = new BackgroundId[cols];
+                Scenes[row] = new Scene[cols];
+                Rooms[row] = new Room[cols];
+                BackgroundIds[row] = new BackgroundId[cols];
                 EnabledRooms[row] = new bool[cols];
                 UnmappedRooms[row] = new bool[cols];
                 VisitedRooms[row] = new bool[cols];
@@ -94,33 +100,33 @@ namespace Zelda.Dungeon
                     }
 
                     var room = new Room(this,content.Load<int[][]>($"Rooms/{row}-{col}"), enemyId);
-                    _rooms[row][col] = room;
-                    _backgroundIds[row][col] = backgroundId;
+                    Rooms[row][col] = room;
+                    BackgroundIds[row][col] = backgroundId;
                 }
             }
         }
 
-        public void LoadScenes(IPlayer player)
+        public virtual void LoadScenes(IPlayer player)
         {
-            _player = player;
-            for (var row = 0; row < _scenes.Length; row++)
+            Player = player;
+            for (var row = 0; row < Scenes.Length; row++)
             {
-                for (var col = 0; col < _scenes[row].Length; col++)
+                for (var col = 0; col < Scenes[row].Length; col++)
                 {
                     if (!EnabledRooms[row][col]) continue;
-                    _scenes[row][col] = new Scene(_rooms[row][col], player);
+                    Scenes[row][col] = new Scene(Rooms[row][col], player);
                 }
             }
         }
 
-        public void ResetScenes()
+        public virtual void ResetScenes()
         {
-            for (var row = 0; row < _scenes.Length; row++)
+            for (var row = 0; row < Scenes.Length; row++)
             {
-                for (var col = 0; col < _scenes[row].Length; col++)
+                for (var col = 0; col < Scenes[row].Length; col++)
                 {
                     VisitedRooms[row][col] = false;
-                    _scenes[row][col]?.ResetEnemies();
+                    Scenes[row][col]?.ResetEnemies();
                 }
             }
         }
@@ -148,7 +154,7 @@ namespace Zelda.Dungeon
 
             if (unlock)
             {
-                _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
+                Rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
             }
 
             Scene?.DestroyProjectiles();
@@ -157,30 +163,30 @@ namespace Zelda.Dungeon
 
         public IDrawable BuildPanScene(int row, int column)
         {
-            return new PanningScene(_rooms[row][column], Background(_backgroundIds[row][column]));
+            return new PanningScene(Rooms[row][column], GenerateBgSprite(BackgroundIds[row][column]));
         }
 
-        public void JumpToRoom(int row, int column, Direction facing = Direction.Up)
+        public virtual void JumpToRoom(int row, int column, Direction facing = Direction.Up)
         {
             var oldRoom = CurrentRoom;
             VisitedRooms[row][column] = true;
             CurrentRoom = new Point(column, row);
-            SetBackground(_backgroundIds[row][column]);
+            SetBackground(BackgroundIds[row][column]);
             if (oldRoom == BasementRoom && CurrentRoom == BasementAccessRoom)
             {
-                _player?.Teleport(TileSize * new Point(6, 7), Direction.Down);
+                Player?.Teleport(TileSize * new Point(6, 7), Direction.Down);
             }
             else if (CurrentRoom == BasementRoom)
             {
-                _player?.Teleport(TileSize * new Point(3,2), Direction.Down);
+                Player?.Teleport(TileSize * new Point(3,2), Direction.Down);
             }
             else
             {
-                _player?.Teleport(TeleportLocation.Calculate(facing), facing);
+                Player?.Teleport(TeleportLocation.Calculate(facing), facing);
             }
 
             Scene?.DestroyProjectiles();
-            Scene = _scenes[row][column];
+            Scene = Scenes[row][column];
             Scene.SpawnScene();
         }
 
@@ -191,7 +197,7 @@ namespace Zelda.Dungeon
 
         public void Draw()
         {
-            _background?.Draw(Vector2.Zero);
+            Background?.Draw(Vector2.Zero);
             Scene?.Draw();
         }
     }

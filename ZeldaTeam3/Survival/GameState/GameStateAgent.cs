@@ -14,7 +14,7 @@ namespace Zelda.Survival.GameState
     {
         public const float Scale = 2.0f;
 
-        public DungeonManager DungeonManager { get; } = new DungeonManager();
+        public SurvivalManager DungeonManager { get; } = new SurvivalManager();
         public HUDScreen HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }

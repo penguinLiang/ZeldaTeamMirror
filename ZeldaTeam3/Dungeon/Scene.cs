@@ -12,25 +12,25 @@ namespace Zelda.Dungeon
     public class Scene : IDrawable
     {
         private const int ThrottleFrameDuration = 50;
-        private readonly Room _room;
-        private readonly IPlayer _player;
-        private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
-        private readonly List<IProjectile> _projectiles = new List<IProjectile>();
-        private readonly List<IItem> _items = new List<IItem>();
+        protected readonly Room Room;
+        protected readonly IPlayer Player;
+        protected readonly Dictionary<IEnemy, int> EnemiesAttackThrottle = new Dictionary<IEnemy, int>();
+        protected readonly List<IProjectile> Projectiles = new List<IProjectile>();
+        protected readonly List<IItem> Items = new List<IItem>();
         private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
-        private int _enemyCount = int.MinValue;
+        protected int EnemyCount = int.MinValue;
 
         public Scene(Room room, IPlayer player)
         {
-            _room = room;
-            _player = player;
-            _items.AddRange(_room.Items);
-            foreach (var item in _items)
+            Room = room;
+            Player = player;
+            Items.AddRange(Room.Items);
+            foreach (var item in Items)
             {
                 item.Reset();
             }
 
-            foreach (var roomDoor in _room.Doors.Values)
+            foreach (var roomDoor in Room.Doors.Values)
             {
                 roomDoor.Reset();
             }
@@ -38,44 +38,44 @@ namespace Zelda.Dungeon
 
         public void DestroyProjectiles()
         {
-            foreach (var projectile in _projectiles)
+            foreach (var projectile in Projectiles)
             {
                 projectile.Halt();
             }
-            _projectiles.Clear();
+            Projectiles.Clear();
         }
 
-        public void SpawnScene()
+        public virtual void SpawnScene()
         {
-            _projectiles.Clear();
+            Projectiles.Clear();
 
-            if (_enemyCount == int.MinValue)
+            if (EnemyCount == int.MinValue)
             {
-                _enemyCount = _room.Enemies.Count;
+                EnemyCount = Room.Enemies.Count;
             }
 
-            foreach (var roomDoor in _room.Doors.Values)
+            foreach (var roomDoor in Room.Doors.Values)
             {
                 roomDoor.Deactivate();
             }
-            _room.TransitionReset();
+            Room.TransitionReset();
 
-            for (var i = 0; i < _enemyCount; i++)
+            for (var i = 0; i < EnemyCount; i++)
             {
-                _room.Enemies[i].Spawn();
+                Room.Enemies[i].Spawn();
             }
         }
 
-        private void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
+        protected void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
         {
-            if (!_player.Alive || _enemiesAttackThrottle.ContainsKey(roomEnemy) || !collision.CollidesWith(roomEnemy.Bounds)) return;
+            if (!Player.Alive || EnemiesAttackThrottle.ContainsKey(roomEnemy) || !collision.CollidesWith(roomEnemy.Bounds)) return;
             collision.EnemyEffect(roomEnemy).Execute();
-            _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
+            EnemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
 
             if (roomEnemy.Alive) return;
-            if (--_enemyCount == 0)
+            if (--EnemyCount == 0)
             {
-                foreach (var door in _room.Doors.Values)
+                foreach (var door in Room.Doors.Values)
                 {
                     door.Activate();
                 }
@@ -84,7 +84,7 @@ namespace Zelda.Dungeon
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
-        private void AddDroppedItem(Point location)
+        protected virtual void AddDroppedItem(Point location)
         {
             var rand = _rnd.Next(100);
             if (rand < 50) return; // No drop = 50%
@@ -111,68 +111,68 @@ namespace Zelda.Dungeon
                     break;
             }
 
-            _items.Add(item);
+            Items.Add(item);
         }
 
         public void Update()
         {
-            for (var i = 0; i < _projectiles.Count; i++)
+            for (var i = 0; i < Projectiles.Count; i++)
             {
-                _projectiles[i].Update();
-                if (!_projectiles[i].Halted) continue;
+                Projectiles[i].Update();
+                if (!Projectiles[i].Halted) continue;
 
-                if (_projectiles[i] is SwordBeam)
+                if (Projectiles[i] is SwordBeam)
                 {
-                    _projectiles[i] = new SwordBeamParticles(_projectiles[i].Bounds.Location);
+                    Projectiles[i] = new SwordBeamParticles(Projectiles[i].Bounds.Location);
                 }
                 else
                 {
-                    _projectiles.RemoveAt(i--);
+                    Projectiles.RemoveAt(i--);
                 }
             }
 
-            _projectiles.AddRange(_player.Projectiles);
-            _player.Projectiles.Clear();
+            Projectiles.AddRange(Player.Projectiles);
+            Player.Projectiles.Clear();
 
-            foreach (var roomDrawable in _room.Drawables)
+            foreach (var roomDrawable in Room.Drawables)
             {
                 roomDrawable.Update();
             }
 
-            foreach (var droppedItem in _items)
+            foreach (var droppedItem in Items)
             {
                 droppedItem.Update();
-                if (droppedItem.CollidesWith(_player.BodyCollision.Bounds))
+                if (droppedItem.CollidesWith(Player.BodyCollision.Bounds))
                 {
-                    droppedItem.PlayerEffect(_player).Execute();
+                    droppedItem.PlayerEffect(Player).Execute();
                 }
             }
 
-            foreach (var roomEnemy in _room.Enemies)
+            foreach (var roomEnemy in Room.Enemies)
             {
-                roomEnemy.Target(_player.Location);
+                roomEnemy.Target(Player.Location);
                 roomEnemy.Update();
-                _projectiles.AddRange(roomEnemy.Projectiles);
+                Projectiles.AddRange(roomEnemy.Projectiles);
                 roomEnemy.Projectiles.Clear();
 
-                foreach (var roomCollidable in _room.Collidables)
+                foreach (var roomCollidable in Room.Collidables)
                 {
                     if (!roomCollidable.CollidesWith(roomEnemy.Bounds)) continue;
 
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
-                if (_player.UsingPrimaryItem)
+                if (Player.UsingPrimaryItem)
                 {
-                    PlayerAttackCollision(_player.SwordCollision, roomEnemy);
+                    PlayerAttackCollision(Player.SwordCollision, roomEnemy);
                 }
 
-                if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
+                if (roomEnemy.Alive && roomEnemy.CollidesWith(Player.BodyCollision.Bounds))
                 {
-                    roomEnemy.PlayerEffect(_player).Execute();
+                    roomEnemy.PlayerEffect(Player).Execute();
                 }
 
-                foreach (var projectile in _projectiles)
+                foreach (var projectile in Projectiles)
                 {
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
@@ -183,12 +183,12 @@ namespace Zelda.Dungeon
                 }
             }
 
-            foreach (var roomCollidable in _room.Collidables)
+            foreach (var roomCollidable in Room.Collidables)
             {
-                if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
-                    roomCollidable.PlayerEffect(_player).Execute();
+                if (roomCollidable.CollidesWith(Player.BodyCollision.Bounds))
+                    roomCollidable.PlayerEffect(Player).Execute();
 
-                foreach (var projectile in _projectiles)
+                foreach (var projectile in Projectiles)
                 {
                     if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
 
@@ -196,44 +196,44 @@ namespace Zelda.Dungeon
                 }
             }
 
-            foreach (var projectile in _projectiles)
+            foreach (var projectile in Projectiles)
             {
-                if (projectile.CollidesWith(_player.BodyCollision.Bounds))
+                if (projectile.CollidesWith(Player.BodyCollision.Bounds))
                 {
-                    projectile.PlayerEffect(_player).Execute();
+                    projectile.PlayerEffect(Player).Execute();
                 }
 
-                if (_player.BodyCollision.CollidesWith(projectile.Bounds))
+                if (Player.BodyCollision.CollidesWith(projectile.Bounds))
                 {
-                    _player.BodyCollision.ProjectileEffect(projectile).Execute();
+                    Player.BodyCollision.ProjectileEffect(projectile).Execute();
                 }
             }
  
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (LINQ is slow here)
-            foreach (var key in _enemiesAttackThrottle.Keys.ToList())
+            foreach (var key in EnemiesAttackThrottle.Keys.ToList())
             {
-                if (_enemiesAttackThrottle[key]-- <= 0) _enemiesAttackThrottle.Remove(key);
+                if (EnemiesAttackThrottle[key]-- <= 0) EnemiesAttackThrottle.Remove(key);
             }
         }
 
         public void Draw()
         {
-            foreach (var roomDrawable in _room.Drawables)
+            foreach (var roomDrawable in Room.Drawables)
             {
                 roomDrawable.Draw();
             }
 
-            foreach (var droppedItem in _items)
+            foreach (var droppedItem in Items)
             {
                 droppedItem.Draw();
             }
 
-            foreach (var projectile in _projectiles)
+            foreach (var projectile in Projectiles)
             {
                 projectile.Draw();
             }
 
-            foreach (var roomEnemy in _room.Enemies)
+            foreach (var roomEnemy in Room.Enemies)
             {
                 roomEnemy.Draw();
             }
@@ -241,7 +241,7 @@ namespace Zelda.Dungeon
 
         public void ResetEnemies()
         {
-            _enemyCount = int.MinValue;
+            EnemyCount = int.MinValue;
         }
     }
 }
