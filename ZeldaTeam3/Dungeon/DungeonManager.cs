@@ -10,7 +10,7 @@ namespace Zelda.Dungeon
         protected static readonly Point BasementAccessRoom = new Point(1, 0);
         protected static readonly Point BasementRoom = new Point(1, 1);
 
-        public Scene Scene { get; private set; }
+        public Scene Scene { get; protected set; }
         public bool[][] EnabledRooms { get; protected set; }
         public bool[][] UnmappedRooms { get; protected set; }
         public bool[][] VisitedRooms { get; protected set; }
