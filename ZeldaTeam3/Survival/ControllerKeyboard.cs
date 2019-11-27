@@ -52,6 +52,7 @@ namespace Zelda.Survival
                 { Keys.D6, bombassign },
 
                 { Keys.Space, new Commands.Pause(agent) },
+                { Keys.K, new Commands.ShowScoreboard(agent) }, // Should be removed once SurvivalManager is implemented
                 { Keys.R, new Commands.Reset(agent) }
             };
 

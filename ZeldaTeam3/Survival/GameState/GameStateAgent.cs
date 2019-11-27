@@ -61,6 +61,13 @@ namespace Zelda.Survival.GameState
             _worldState = WorldState.GameOver;
         }
 
+        public void Scoreboard()
+        {
+            if (_worldState == WorldState.Scoreboard) return;
+            _world = new ScoreboardWorld(this);
+            _worldState = WorldState.Scoreboard;
+        }
+
         public void GameWin()
         {
             if (_worldState == WorldState.GameWin) return;
