@@ -50,6 +50,7 @@ namespace Zelda
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
             PauseSpriteFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
+            ScoreboardBackground.LoadTexture(Content);
             JumpMapScreen.LoadTexture(Content);
             MusicManager.Instance.LoadAllSounds(Content);
             SoundEffectManager.Instance.LoadAllSounds(Content);
