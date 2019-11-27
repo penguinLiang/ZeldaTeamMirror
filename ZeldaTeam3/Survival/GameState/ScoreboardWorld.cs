@@ -5,24 +5,19 @@ namespace Zelda.Survival.GameState
 {
     internal class ScoreboardWorld : GameWorld
     {
-        private IUpdatable[] _updatables;
-        private IDrawable[] _cameraDrawables;
-        public override IUpdatable[] Updatables => _updatables;
-        public override IDrawable[] FixedDrawables => _cameraDrawables;
-
-        private readonly Scoreboard _scoreboard = new Scoreboard();
-        private readonly ScoreboardControllerKeyboard _controllerKeyboard;
+        public override IUpdatable[] Updatables { get; }
+        public override IDrawable[] FixedDrawables { get; }
 
         public ScoreboardWorld(GameStateAgent agent) : base(agent)
         {
-            _controllerKeyboard = new ScoreboardControllerKeyboard(agent);
-            _updatables = new IUpdatable[]
+            Scoreboard scoreboard = new Scoreboard();
+            Updatables = new IUpdatable[]
             {
-                _controllerKeyboard, _scoreboard
+                new ScoreboardControllerKeyboard(agent), scoreboard
             };
-            _cameraDrawables = new IDrawable[]
+            FixedDrawables = new IDrawable[]
             {
-                _scoreboard
+                scoreboard
             };
         }
     }

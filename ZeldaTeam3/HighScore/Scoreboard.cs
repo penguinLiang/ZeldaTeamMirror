@@ -6,48 +6,55 @@ namespace Zelda.HighScore
     public class Scoreboard : IDrawable
     {
         private const string WaitingMessage = "FETCHING SCORES ...";
-        private const int HUDOffsetY = 48;
+        private const string TimeoutMessage = "FAILED TO GET SCORES";
         private const int ScreenHeight = 224;
         private const int ScreenWidth = 256;
-        private const int displayedScores = 9;
-        private const int FirstPlaceInitialsX = 48;
-        private const int FirstPlaceTextX = 80;
-        private const int FirstPlaceScoreX = 136;
-        private const int FirstPlaceY = 32 - HUDOffsetY;
-        private const int lineSpacing = 16;
+        private const int DisplayedScores = 9;
+        private const int MaxInitials = 3;
+        private const int FirstPlaceX = 48;
+        private const int FirstPlaceY = 32 - HUD.HUDSpriteFactory.ScreenHeight;
+        private const int LineSpacing = 16;
+        private const int MaxTries = 3;
 
         private static readonly IDrawable Background = new ScoreboardBackground();
 
-        private readonly IDrawable[] _textDrawables = new DrawnText[displayedScores * 3];
+        private readonly IDrawable[] _textDrawables = new DrawnText[DisplayedScores];
 
-        private bool scoresFetched;
+        private bool _scoresFetched;
+        private int _failedTries;
 
         public Scoreboard()
         {
-            _textDrawables[0] = new DrawnText { Text = WaitingMessage, Location = new Point(FirstPlaceInitialsX, FirstPlaceY) };
+            _textDrawables[0] = new DrawnText { Text = WaitingMessage, Location = new Point(FirstPlaceX, FirstPlaceY) };
         }
 
         public void Update()
         {
-            if (scoresFetched) return;
+            if (_scoresFetched || _failedTries >= MaxTries) return;
 
             try
             {
                 PlayerScore[] scores = HighScoreClient.Scores();
 
-                for (int i = 0; i < displayedScores && i < scores.Length; i++)
+                for (int i = 0; i < DisplayedScores && i < scores.Length; i++)
                 {
-                    _textDrawables[i] = new DrawnText { Text = scores[i].Initials,
-                        Location = new Point(FirstPlaceInitialsX, FirstPlaceY + i * lineSpacing) };
-                    _textDrawables[i + displayedScores] = new DrawnText { Text = "KILLED        MOBS",
-                        Location = new Point(FirstPlaceTextX, FirstPlaceY + i * lineSpacing) };
-                    _textDrawables[i + 2 * displayedScores] = new DrawnText { Text = scores[i].Score.ToString("D6"),
-                        Location = new Point(FirstPlaceScoreX, FirstPlaceY + i * lineSpacing) };
+                    String initials = scores[i].Initials;
+                    while (initials.Length < MaxInitials)
+                    {
+                        initials += " ";
+                    }
+
+                    _textDrawables[i] = new DrawnText {
+                        Text = initials + " KILLED " + scores[i].Score.ToString("D6") + " MOBS",
+                        Location = new Point(FirstPlaceX, FirstPlaceY + i * LineSpacing)
+                    };
                 }
-                scoresFetched = true;
+                _scoresFetched = true;
             }
             catch (Exception)
             {
+                if (++_failedTries == MaxTries)
+                    _textDrawables[0] = new DrawnText { Text = TimeoutMessage, Location = new Point(FirstPlaceX, FirstPlaceY) };
             }
         }
 

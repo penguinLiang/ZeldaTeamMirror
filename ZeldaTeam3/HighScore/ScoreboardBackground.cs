@@ -6,7 +6,7 @@ namespace Zelda.HighScore
 {
     public class ScoreboardBackground : IDrawable
     {
-        private static readonly Vector2 LocationAfterHUDOffset = new Vector2(0, -48);
+        private static readonly Vector2 LocationAfterHUDOffset = new Vector2(0, -HUD.HUDSpriteFactory.ScreenHeight);
 
         public static ISprite Image { get; private set; }
 
