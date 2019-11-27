@@ -5,7 +5,7 @@ namespace Zelda.HighScore
 {
     public class Scoreboard : IDrawable
     {
-        private const string WaitingMessage = "... FETCHING";
+        private const string WaitingMessage = "FETCHING SCORES ...";
         private const int HUDOffsetY = 48;
         private const int ScreenHeight = 224;
         private const int ScreenWidth = 256;
