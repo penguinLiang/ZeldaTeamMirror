@@ -7,8 +7,6 @@ namespace Zelda.HighScore
     {
         private const string WaitingMessage = "FETCHING SCORES ...";
         private const string TimeoutMessage = "FAILED TO GET SCORES";
-        private const int ScreenHeight = 224;
-        private const int ScreenWidth = 256;
         private const int DisplayedScores = 9;
         private const int MaxInitials = 3;
         private const int FirstPlaceX = 48;
