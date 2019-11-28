@@ -83,6 +83,7 @@ namespace Zelda.Survival
             {
                 _dungeonRoom.SpawnEnemy((int)enemy);
             }
+            _currentAliveEnemies.Clear();
         }
 
         private WaveType GetCurrentWaveType(int row)
