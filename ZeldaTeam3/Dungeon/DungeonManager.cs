@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Zelda.ShaderEffects;
 
 namespace Zelda.Dungeon
 {
@@ -48,7 +49,7 @@ namespace Zelda.Dungeon
 
         private void SetBackground(BackgroundId backgroundId)
         {
-            _background = Background(backgroundId);
+            _background = new AlphaPassMask(Background(backgroundId), false);
         }
 
         public void LoadDungeonContent(ContentManager content)

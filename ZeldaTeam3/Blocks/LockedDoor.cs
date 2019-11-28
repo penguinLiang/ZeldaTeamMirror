@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
+using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
@@ -52,19 +53,19 @@ namespace Zelda.Blocks
                 default:
                     throw new ArgumentOutOfRangeException(block.ToString());
             }
-            _sprite = BlockTypeSprite.Sprite(_block);
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
         }
 
         public override void Reset()
         {
-            _sprite = BlockTypeSprite.Sprite(_block);
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _unlocked = false;
         }
 
         public override void Unblock()
         {
             _unlocked = true;
-            _sprite = BlockTypeSprite.Sprite(UnlockedType(_block));
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
         }
 
         public override ICommand PlayerEffect(IPlayer player)
