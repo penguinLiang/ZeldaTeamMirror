@@ -42,6 +42,8 @@ namespace Zelda
             DrawnText.SpriteBatch = _spriteBatch;
             DrawnText.SpriteFont = Content.Load<SpriteFont>("prstartk");
 
+
+
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);

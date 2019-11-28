@@ -9,9 +9,11 @@ namespace Zelda.Survival
     public class SurvivalManager : DungeonManager
     {
         public override bool CurrentRoomMapped { get; } = true;
+        WaveManager _waveManager;
 
         public override void LoadDungeonContent(ContentManager content)
         {
+
             Scenes = new Scene[1][];
             Rooms = new Room[1][];
             BackgroundIds = new BackgroundId[2][];
@@ -27,6 +29,8 @@ namespace Zelda.Survival
             //Rooms[1][0] = shopRoom;
             var dungeonRoom = new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"));
             Rooms[0][0] = dungeonRoom;
+
+            _waveManager = new WaveManager(dungeonRoom,content);
 
             /* TODO: Implement */
         }

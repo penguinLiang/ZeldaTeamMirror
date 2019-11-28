@@ -23,12 +23,17 @@ namespace Zelda.Survival
     {
         private string[][] _waveMatrix;
         private int _currentWave;
+        private int _scale;
+        private List<EnemyType> _currentAliveEnemies;
         private List<Wave> _waveStorage = new List<Wave>();
+        private SurvivalRoom _dungeonRoom;
 
-        public WaveManager(ContentManager content)
+        public WaveManager(SurvivalRoom dungeonRoom, ContentManager content)
         {
+            _dungeonRoom = dungeonRoom;
             _waveMatrix = content.Load<string[][]>("SurvivalWaves");
             _currentWave = 0;
+            _scale = 1;
             char[] separator = {':'};
             Int32 count = 2;
 
@@ -58,6 +63,25 @@ namespace Zelda.Survival
 
                 _waveStorage.Add(new Wave(enemyCSVContent,currentWaveType));
 
+            }
+            _currentAliveEnemies = _waveStorage[_currentWave].GetList(_scale);
+        }
+
+        public void Update()
+        {
+            if(_dungeonRoom.SomeEnemiesAlive == false)
+            {
+                _currentWave++;
+                if(_currentWave == 2) //Currently 2, but change later when there are around 10-20 unique waves
+                {
+                    _currentWave = 0;
+                    _scale++;
+                    _currentAliveEnemies = _waveStorage[_currentWave].GetList(_scale);
+                }
+            }
+            foreach(var enemy in _currentAliveEnemies)
+            {
+                _dungeonRoom.SpawnEnemy((int)enemy);
             }
         }
 
