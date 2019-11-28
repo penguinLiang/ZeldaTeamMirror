@@ -101,6 +101,12 @@ namespace Zelda.GameState
 
         public void DungeonPan(Point sourceRoom, Point destinationRoom, Direction direction)
         {
+            if (DarkMode)
+            {
+                DungeonManager.JumpToRoom(destinationRoom.Y, destinationRoom.X, direction);
+                return;
+            }
+
             if (_worldState == WorldState.DungeonPanning) return;
             _panAnimation = new PanAnimation(direction);
             _sourceScene = DungeonManager.BuildPanScene(sourceRoom.Y, sourceRoom.X);
