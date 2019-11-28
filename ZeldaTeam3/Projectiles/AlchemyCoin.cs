@@ -8,6 +8,7 @@ namespace Zelda.Projectiles
 {
     internal class AlchemyCoin : IProjectile
     {
+        private const int FramesToDisappear = 300;
         private const int CollisionsToDisappear = 4;
         private const int SpeedAlongAxis = 1;
 
@@ -17,6 +18,7 @@ namespace Zelda.Projectiles
         private Vector2 _location;
         private int _velocityX;
         private int _velocityY;
+        private int _framesDelayed;
         private int _collisions;
 
         public Rectangle Bounds => new Rectangle((int)_location.X + 2, (int)_location.Y + 2, 11, 11);
@@ -157,7 +159,7 @@ namespace Zelda.Projectiles
 
         public void Update()
         {
-            if (_collisions >= CollisionsToDisappear)
+            if (_framesDelayed++ == FramesToDisappear || _collisions >= CollisionsToDisappear)
             {
                 _sprite.Hide();
                 _inventory.AddCoin();
