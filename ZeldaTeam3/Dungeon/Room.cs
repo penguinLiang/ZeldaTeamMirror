@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -38,7 +39,8 @@ namespace Zelda.Dungeon
                 TryAddSpecialDoor,
                 TryAddBombableWall,
                 TryAddStair,
-                TryAddNonStandardTiles
+                TryAddNonStandardTiles,
+                TryAddShopTiles
             };
             
             for (var row = 0; row < tiles.Length; row++)
@@ -172,6 +174,20 @@ namespace Zelda.Dungeon
             Doors.Add(direction, door);
             Drawables.Add(door);
             Collidables.Add(door);
+            return true;
+        }
+
+        private bool TryAddShopTiles(MapTile tile, Point location)
+        {
+            BlockType blockType;
+            Direction direction;
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (tile)
+            {
+                default:
+                    Debug.WriteLine(tile.ToString() + " is not implemented");
+                    return true; //CHANGE TO FALSE AFTER IMPLEMENTATION
+            }
             return true;
         }
 
