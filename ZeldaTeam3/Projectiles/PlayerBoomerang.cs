@@ -58,6 +58,7 @@ namespace Zelda.Projectiles
                 case Keese _:
                 case Gel _:
                 case OldMan _:
+                case Fygar _:
                     return new SpawnableDamage(enemy, 1);
                 case Stalfos _:
                 case Goriya _:

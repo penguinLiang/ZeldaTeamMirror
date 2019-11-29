@@ -196,6 +196,7 @@ We moved to tracking our bugs using the issue tracker on GitHub.
 - __HUD & Pause Screen__: https://www.spriters-resource.com/nes/legendofzelda/sheet/119278/  
 - __Alchemy Coin__: https://www.spriters-resource.com/pc_computer/shovelknight/sheet/67118/
 - __Laser Beam__: https://steredenn-game.tumblr.com/post/98397504410/steredenn-making-an-expandable-laser
+- __Fygar__: https://www.spriters-resource.com/nes/digdug/
 
 
 ## Sound Resources
@@ -210,6 +211,14 @@ There are four debug rooms, each with their own element of the game to test.
 - __4-5__: Movable Blocks
 - __5-5__: Locked Doors
 
+## Format of Survival Mode CSV Files:
+Every single line is one unique wave.
+Should be formatted every line as: "[Wave Type],[Enemy Type]:[Number of that enemy],...,[Enemy Type]:[Number of that enemy]"
+Enemy Types must be in lowercase form and they are the names of the enemies. Not all enemies are in, as some enemies are left out of the survival mode.
+The wave types are:
+"D" - Default, normal wave of monsters
+"S" - Shop wave
+"P" - Party mode
     
 ## Extra Processes  
   

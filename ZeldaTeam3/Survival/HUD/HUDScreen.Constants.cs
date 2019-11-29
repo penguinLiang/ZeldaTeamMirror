@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Items;
 
-namespace Zelda.HUD
+namespace Zelda.Survival.HUD
 {
     public partial class HUDScreen
     {

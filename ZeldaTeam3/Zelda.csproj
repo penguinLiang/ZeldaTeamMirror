@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\KeyBarrier.cs" />
     <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
@@ -48,16 +49,66 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
+    <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="IGameStateAgent.cs" />
+    <Compile Include="Items\AlchemyCoinItem.cs" />
+    <Compile Include="Items\ATWBoomerangItem.cs" />
+    <Compile Include="Items\BaitItem.cs" />
+    <Compile Include="Items\BombLauncherItem.cs" />
+    <Compile Include="Items\BombUpgradeItem.cs" />
+    <Compile Include="Items\ClockItem.cs" />
+    <Compile Include="Items\CrossShotItem.cs" />
+    <Compile Include="Items\FireBowItem.cs" />
+    <Compile Include="Items\RupeeUpgradeItem.cs" />
+    <Compile Include="Items\SilverArrowItem.cs" />
+    <Compile Include="Items\StarItem.cs" />
+    <Compile Include="Items\WalletUpgradeItem.cs" />
+    <Compile Include="Survival\Commands\ScoreboardReturn.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
+    <Compile Include="Survival\Commands\ShowScoreboard.cs" />
+    <Compile Include="Survival\GameState\ScoreboardWorld.cs" />
+    <Compile Include="HighScore\ScoreboardControllerKeyboard.cs" />
+    <Compile Include="HighScore\ScoreboardBackground.cs" />
+    <Compile Include="HighScore\Scoreboard.cs" />
+    <Compile Include="HighScore\InitialEntryController.cs" />
     <Compile Include="DrawnText.cs" />
+    <Compile Include="Enemies\Fygar.cs" />
+    <Compile Include="ShaderEffects\AlphaPassMask.cs" />
+    <Compile Include="ShaderEffects\LightInTheDarkness.cs" />
+    <Compile Include="ShaderEffects\PartyTime.cs" />
+    <Compile Include="Survival\Commands\Pause.cs" />
+    <Compile Include="Survival\Commands\Play.cs" />
+    <Compile Include="Survival\Commands\Quit.cs" />
+    <Compile Include="Survival\Commands\Reset.cs" />
+    <Compile Include="Survival\Commands\Resume.cs" />
+    <Compile Include="Survival\ControllerKeyboard.cs" />
+    <Compile Include="Survival\Dimensions.cs" />
+    <Compile Include="Survival\GameOver\GameOverControllerKeyboard.cs" />
+    <Compile Include="Survival\GameOver\GameOverMenu.cs" />
+    <Compile Include="Survival\GameState\PlayerLockCamera.cs" />
+    <Compile Include="Survival\GameWin\GameWinControllerKeyboard.cs" />
+    <Compile Include="Survival\GameWin\GameWinMenu.cs" />
+    <Compile Include="Survival\HUD\HUDScreen.Constants.cs" />
+    <Compile Include="Survival\HUD\HUDScreen.cs" />
+    <Compile Include="Survival\HUD\HUDSpriteFactory.cs" />
+    <Compile Include="Survival\GameState\GameOverWorld.cs" />
+    <Compile Include="Survival\GameState\GameStateAgent.cs" />
+    <Compile Include="Survival\GameState\GameWinWorld.cs" />
+    <Compile Include="Survival\GameState\GameWorld.cs" />
+    <Compile Include="Survival\GameState\PausedWorld.cs" />
+    <Compile Include="Survival\GameState\PauseState.cs" />
+    <Compile Include="Survival\GameState\PauseTransitionStateMachine.cs" />
+    <Compile Include="Survival\GameState\PlayingWorld.cs" />
+    <Compile Include="Survival\GameState\WorldState.cs" />
     <Compile Include="GameWin\GameWinControllerKeyboard.cs" />
     <Compile Include="GameWin\GameWinMenu.cs" />
     <Compile Include="HighScore\HighScoreClient.cs" />
+    <Compile Include="HighScore\InitialEntryScreen.cs" />
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
     <Compile Include="Projectiles\AlchemyCoin.cs" />
@@ -152,6 +203,8 @@
     <Compile Include="Commands\Quit.cs" />
     <Compile Include="Commands\SceneTransition.cs" />
     <Compile Include="Commands\Transition.cs" />
+    <Compile Include="Survival\WaveType.cs" />
+    <Compile Include="Survival\Wave.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Dungeon\Room.cs" />
     <Compile Include="IDrawable.cs" />
@@ -204,6 +257,12 @@
     <Compile Include="Dungeon\Scene.cs" />
     <Compile Include="SoundEffects\SoundEffectManager.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="Survival\Pause\ControllerPauseKeyboard.cs" />
+    <Compile Include="Survival\Pause\PauseMenu.Constants.cs" />
+    <Compile Include="Survival\Pause\PauseMenu.cs" />
+    <Compile Include="Survival\Pause\PauseSpriteFactory.cs" />
+    <Compile Include="Survival\QuitResetControllerKeyboard.cs" />
+    <Compile Include="Survival\WaveManager.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap\JumpMapScreen.cs" />
     <Compile Include="Blocks\BlockType.cs" />
@@ -222,6 +281,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\LightInTheDarkness.fx" />
+    <Content Include="Content\PartyTime.fx" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

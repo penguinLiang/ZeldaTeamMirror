@@ -1,4 +1,6 @@
-﻿namespace Zelda.Blocks
+﻿using Zelda.ShaderEffects;
+
+namespace Zelda.Blocks
 {
     internal class BlockTypeSprite
     {
@@ -23,15 +25,15 @@
                 case BlockType.DoorLockedUp:
                     return BlockSpriteFactory.Instance.CreateTopLockedDoor();
                 case BlockType.DragonStatue:
-                    return BlockSpriteFactory.Instance.CreateStatue2();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateStatue2(), true);
                 case BlockType.FishStatue:
-                    return BlockSpriteFactory.Instance.CreateStatue1();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateStatue1(), true);
                 case BlockType.Fire:
-                    return BlockSpriteFactory.Instance.CreateFire();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateFire(), false);
                 case BlockType.ImmovableBlock:
-                    return BlockSpriteFactory.Instance.CreateSolidBlock();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateSolidBlock(), true);
                 case BlockType.Water:
-                    return BlockSpriteFactory.Instance.CreateWater();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateWater(), false);
                 case BlockType.Sand:
                     return BlockSpriteFactory.Instance.CreateSand();
                 case BlockType.DoorUp:
@@ -54,11 +56,12 @@
                     return BlockSpriteFactory.Instance.CreateStairs2();
                 case BlockType.Block2_1:
                 case BlockType.PushableBlock:
-                    return BlockSpriteFactory.Instance.CreateSolidBlock();
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateSolidBlock(), true);
                 case BlockType.BlackBarrier:
+                case BlockType.ProjectileBlackBarrier:
                     return BlockSpriteFactory.Instance.CreateBlackTile();
                 case BlockType.InvisibleBlock:
-                    return null;
+                    return new AlphaPassMask(16, 16);
                 default:
                     return null;
             }

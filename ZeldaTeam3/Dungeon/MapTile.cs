@@ -9,8 +9,10 @@ namespace Zelda.Dungeon
         BlackOverlay = 1,
         DungeonStairs = 2,
         BasementStairs = 3,
+        SpawnShopKeep = 4,
 
         // Barriers
+        ProjectileBlackBarrier = 5,
         InvisibleWall = 8,
         Fire = 9,
         Water = 10,
@@ -19,6 +21,9 @@ namespace Zelda.Dungeon
         DragonStatue = 13,
         BasementBricks = 14,
         BlackBarrier = 15,
+        RupeeBarrier = 27,
+        KeyBarrier = 28,
+
 
         // Items
         Heart = 16,
@@ -28,6 +33,23 @@ namespace Zelda.Dungeon
         Triforce = 20,
         Compass = 21,
         Boomerang = 22,
+        SilverArrow = 23,
+        FireBow = 29, 
+        WhiteSword = 30,
+        MagicSword = 31,
+        AlchemyCoin = 38,
+        ATWBoomerang = 39,
+        WalletUpgrade = 44,
+        Bomb = 45,
+        BombUpgrade = 46, 
+        Bait = 47,
+        Clock = 52,
+        Star = 53,
+        CrossShot = 59,
+        Arrow = 60,
+        BombLauncher = 61,
+        RupeeUpgrade = 54,
+        Fairy = 36,
 
         // Blocks
         ImmovableBlock = 24,

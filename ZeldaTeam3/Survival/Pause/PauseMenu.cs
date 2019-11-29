@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Zelda.GameState;
+using Zelda.Commands;
+using Zelda.Survival.GameState;
 using Zelda.Items;
-// ReSharper disable ConvertIfStatementToSwitchStatement
 
-namespace Zelda.Pause
+// ReSharper disable ConvertIfStatementToSwitchStatement
+namespace Zelda.Survival.Pause
 {
     public partial class PauseMenu : IDrawable, IMenu
     {

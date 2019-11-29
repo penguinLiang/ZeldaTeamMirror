@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Dungeon;
 using Zelda.Projectiles;
+using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
@@ -65,7 +66,7 @@ namespace Zelda.Blocks
         public override void Unblock()
         {
             _unblocked = true;
-            _sprite = BlockTypeSprite.Sprite(_block);
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
         }
 
         public override ICommand PlayerEffect(IPlayer player)

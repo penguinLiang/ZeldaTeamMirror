@@ -14,7 +14,7 @@ namespace Zelda.Player
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
         public Secondary BowLevel { get; private set; }
-        public Secondary ArrowLevel { get; private set; } = Secondary.Arrow;
+        public Secondary ArrowLevel { get; private set; }
         public int Coins { get; private set; } = 2;
         public bool HasATWBoomerang { get; private set; }
         public bool HasBombLauncher { get; private set; }
@@ -24,6 +24,10 @@ namespace Zelda.Player
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
         public int KeyCount { get; private set; }
+
+        // For non-invasive backwards compatibility purposes only
+        public bool HasArrow => true;
+        public bool HasBow => BowLevel != Secondary.None;
 
         public void UpgradeSword(Primary newSwordLevel)
         {

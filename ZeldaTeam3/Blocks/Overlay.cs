@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.ShaderEffects;
 
 namespace Zelda.Blocks
 {
@@ -10,7 +11,7 @@ namespace Zelda.Blocks
         public Overlay(Point location, BlockType block)
         {
             _location = location;
-            _sprite = BlockTypeSprite.Sprite(block);
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(block), false);
         }
 
         public void Update()

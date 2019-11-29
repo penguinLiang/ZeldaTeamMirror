@@ -45,6 +45,9 @@
     <Compile Include="CSVMapImporter.cs" />
     <Compile Include="CSVMapReader.cs" />
     <Compile Include="CSVMapWriter.cs" />
+    <Compile Include="CSVWaveImporter.cs" />
+    <Compile Include="CSVWaveReader.cs" />
+    <Compile Include="CSVWaveWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

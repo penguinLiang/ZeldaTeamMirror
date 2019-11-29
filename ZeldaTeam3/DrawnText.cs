@@ -5,7 +5,7 @@ namespace Zelda
 {
     public class DrawnText : IDrawable
     {
-        private const int CharacterWidth = 7;
+        private const int CharacterWidth = 8;
 
         public static SpriteBatch SpriteBatch { set; private get; }
         public static SpriteFont SpriteFont { set; private get; }

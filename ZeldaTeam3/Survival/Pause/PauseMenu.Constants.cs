@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Items;
 
-namespace Zelda.Pause
+namespace Zelda.Survival.Pause
 {
     public partial class PauseMenu
     {
