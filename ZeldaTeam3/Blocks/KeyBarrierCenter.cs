@@ -8,20 +8,20 @@ using Zelda.SoundEffects;
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
-    internal class KeyBarrierCenter : ICollideable, IDrawable
+    internal class KeyBarrierCenter : IBarricade
     {
-        private readonly BlockType _block;
+        private BlockType _block;
         // protected override ISprite Sprite => _sprite;
         // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        public bool _unlocked;
-        public Rectangle Bounds { get; }
+        public bool unlocked { get; set; }
+        public Rectangle Bounds { get; private set; }
         private Point _location;
        // private KeyBarrierStateMachine _keyState {get; set;}
 
         private static BlockType UnlockedType(BlockType block)
         {
-            return BlockType.Sand;
+            return BlockType.InvisibleBlock;
         }
 
         public KeyBarrierCenter(Point location, BlockType block)
@@ -29,18 +29,24 @@ namespace Zelda.Blocks
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
+            unlocked = false;
             Bounds = new Rectangle(location, new Point(32, 32));
     }
 
     public void Reset()
         {
+            _block = BlockType.KeyBarrierCenter;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
-            _unlocked = false;
+            Bounds = new Rectangle(_location, new Point(32, 32));
+            unlocked = false;
         }
 
-        public void Unblock()
+        public void Unlock()
         {
-            _unlocked = true;
+            unlocked = true;
+           // SoundEffectManager.Instance.PlayDoorUnlock();
+
+            //Collision remains
             //take out the other blocks near you
             //no more collision, block replaced by sand?
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
@@ -48,17 +54,17 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unlocked) return new NoOp();
-            //check player has key
-
-            // ReSharper disable once InvertIf (cleaner as-is)
-            // if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
-            // {
-            //   SoundEffectManager.Instance.PlayDoorUnlock();
-            //  Unblock();
-            // }
-
-            return new MoveableHalt(player);
+            if ((player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveKey()) && !unlocked)
+            {
+                // SoundEffectManager.Instance.PlayDoorUnlock();
+                Unlock();
+                return new NoOp();
+                //if link is unlocking the block, it shouldn't halt him
+            }
+           else if (!unlocked)
+                return new MoveableHalt(player);
+            else
+                return new NoOp();
         }
         public bool CollidesWith(Rectangle rect)
         {
@@ -68,11 +74,20 @@ namespace Zelda.Blocks
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
+            if (unlocked)
+            {
+                return new NoOp();
+            }else
             return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
+            if (unlocked)
+            {
+                return new NoOp();
+            }
+            else
             return new MoveableHalt(projectile);
         }
 

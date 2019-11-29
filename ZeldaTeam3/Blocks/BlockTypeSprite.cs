@@ -62,6 +62,12 @@ namespace Zelda.Blocks
                     return BlockSpriteFactory.Instance.CreateBlackTile();
                 case BlockType.InvisibleBlock:
                     return new AlphaPassMask(16, 16);
+                case BlockType.RupeeBarrier:
+                case BlockType.RupeeBarrierCenter:
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateRupeeBarricade(), true);
+                case BlockType.KeyBarrier:
+                case BlockType.KeyBarrierCenter:
+                    return new AlphaPassMask(BlockSpriteFactory.Instance.CreateKeyBarricade(), true);
                 default:
                     return null;
             }

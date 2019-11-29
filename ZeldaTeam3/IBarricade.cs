@@ -9,6 +9,7 @@ namespace Zelda
    public interface IBarricade: ICollideable, IDrawable
     {
          bool unlocked { get; set; }
-         ICommand Unlock();
+         void Unlock();
+         void Reset();
     }
 }

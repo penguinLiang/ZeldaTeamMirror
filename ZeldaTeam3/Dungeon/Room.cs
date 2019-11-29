@@ -43,7 +43,9 @@ namespace Zelda.Dungeon
                 TryAddSpecialDoor,
                 TryAddBombableWall,
                 TryAddStair,
-                TryAddNonStandardTiles
+                TryAddShopTiles,
+                TryAddNonStandardTiles,
+                
             };
 
             for (var row = 0; row < tiles.Length; row++)
@@ -102,17 +104,17 @@ namespace Zelda.Dungeon
                     BuyableItems.Add(new CrossShotItem(location));
                     break;
                 case MapTile.KeyBarrier:
-                    Barricades.Add(new KeyBarrier(location, BlockType.KeyBarrier));
+                    Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));
                     //BuyableItems.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
                     break;
                 case MapTile.KeyBarrierCenter:
-                    Barricades.Add(new KeyBarrierCenter(location, BlockType.KeyBarrierCenter));
+                    Barricade.Add(new KeyBarrierCenter(location, BlockType.KeyBarrierCenter));
                     break;
                 case MapTile.RupeeBarrier:
-                    Barricades.Add(new RupeeBarrier(location, BlockType.RupeeBarrier));
+                    Barricade.Add(new RupeeBarrier(location, BlockType.RupeeBarrier));
                     break;
                 case MapTile.RupeeBarrierCenter:
-                    Barricades.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter));
+                    Barricade.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter));
                     break;
                 case MapTile.MagicSword:
                     BuyableItems.Add(new MagicSwordItem(location));

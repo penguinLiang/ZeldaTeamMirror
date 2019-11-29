@@ -31,6 +31,10 @@ namespace Zelda.Dungeon
                 item.Reset();
             }
 
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Reset();
+            }
             foreach (var roomDoor in _room.Doors.Values)
             {
                 roomDoor.Reset();
@@ -153,6 +157,11 @@ namespace Zelda.Dungeon
                 {
                     droppedItem.PlayerEffect(_player).Execute();
                 }
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Update();
             }
 
             foreach (var roomEnemy in _room.Enemies)
@@ -283,6 +292,11 @@ namespace Zelda.Dungeon
             foreach (var roomEnemy in _room.Enemies)
             {
                 roomEnemy.Draw();
+            }
+            
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Draw();
             }
         }
 

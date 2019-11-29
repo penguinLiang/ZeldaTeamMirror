@@ -25,7 +25,7 @@ namespace Zelda
         private IGameStateAgent _survivalAgent;
         private IGameStateAgent _normalAgent;
 
-        private bool _survivalMode = true;
+        private bool _survivalMode = false;
         public IGameStateAgent GameStateAgent =>
             _survivalMode ? _survivalAgent : _normalAgent;
 

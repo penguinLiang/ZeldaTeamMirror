@@ -8,13 +8,13 @@ using Zelda.SoundEffects;
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
-    internal class RupeeBarrierCenter : ICollideable, IDrawable
+    internal class RupeeBarrierCenter : IBarricade
     {
         private readonly BlockType _block;
         // protected override ISprite Sprite => _sprite;
         // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        private bool _unlocked;
+        public bool unlocked { get; set; }
         public Rectangle Bounds { get; }
         private Point _location;
 
@@ -34,12 +34,12 @@ namespace Zelda.Blocks
         public void Reset()
         {
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
-            _unlocked = false;
+            unlocked = false;
         }
 
-        public void Unblock()
+        public void Unlock()
         {
-            _unlocked = true;
+            unlocked = true;
             //take out the other blocks near you
             //no more collision, block replaced by sand?
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
@@ -47,7 +47,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (_unlocked) return new NoOp();
+            if (unlocked) return new NoOp();
             //check player has key
 
             // ReSharper disable once InvertIf (cleaner as-is)
