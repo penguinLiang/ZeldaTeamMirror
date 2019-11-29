@@ -57,20 +57,6 @@ namespace Zelda
             GameStateAgent = new GameStateAgent(_spriteBatch);
             GameStateAgent.DungeonManager.LoadDungeonContent(Content);
             GameStateAgent.Reset();
-
-            try
-            {
-                //HighScoreClient.Submit(new PlayerScore {Initials = "RS3", Score = 1337});
-                foreach (var score in HighScoreClient.Scores())
-                {
-                    Console.WriteLine(score.Initials + " " + score.Score);
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("OH NO! Could not get the scores!");
-                throw;
-            }
         }
 
         protected override void UnloadContent()

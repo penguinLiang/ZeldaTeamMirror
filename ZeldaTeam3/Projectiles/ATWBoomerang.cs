@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Zelda.Commands;
@@ -96,11 +95,6 @@ namespace Zelda.Projectiles
             return NoOp.Instance;
         }
 
-        private void UpdateNonReturningLocation()
-        {
-
-        }
-
         public void Update()
         {
             _sprite.Update();
@@ -167,11 +161,6 @@ namespace Zelda.Projectiles
         public void Halt()
         {
             // NO-OP
-        }
-
-        public void Reflect(List<Rectangle> orderedBounds)
-        {
-            //NO-OP
         }
 
         public void Draw()

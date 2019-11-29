@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 
 namespace Zelda.Projectiles
@@ -50,11 +49,6 @@ namespace Zelda.Projectiles
 
         public void Halt() {
             Halted = true;
-        }
-
-        public void Reflect(List<Rectangle> orderedBounds)
-        {
-            //NO-OP
         }
 
         public void Update()

@@ -208,9 +208,9 @@ namespace Zelda.Dungeon
 
             foreach (var projectile in _projectiles)
             {
-                if (projectile is AlchemyCoin)
+                if (projectile is AlchemyCoin coin)
                 {
-                    projectile.Reflect(prioritizedCoinCollisions);
+                    coin.Reflect(prioritizedCoinCollisions);
                 }
 
                 if (projectile.CollidesWith(_player.BodyCollision.Bounds))

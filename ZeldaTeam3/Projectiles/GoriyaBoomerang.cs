@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Zelda.Commands;
@@ -112,11 +111,6 @@ namespace Zelda.Projectiles
         public void Halt() {
             _soundEffect.Stop();
             Halted = true;
-        }
-
-        public void Reflect(List<Rectangle> orderedBounds)
-        {
-            //NO-OP
         }
 
         public void Draw()

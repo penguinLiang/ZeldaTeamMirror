@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.SoundEffects;
 
@@ -12,7 +11,7 @@ namespace Zelda.Projectiles
 
         private readonly Vector2 _location;
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
-        private ISprite _sprite;
+        private readonly ISprite _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
@@ -20,7 +19,6 @@ namespace Zelda.Projectiles
         public LaunchedBombExplosion(Point location)
         {
             _location = location.ToVector2();
-            _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
             Bounds = new Rectangle((int)_location.X - 16, (int)_location.Y - 16, 48, 48);
             SoundEffectManager.Instance.PlayBombExplode();
             SetExplosionSpriteLocations();
@@ -79,11 +77,6 @@ namespace Zelda.Projectiles
         }
 
         public void Halt()
-        {
-            //NO-OP
-        }
-
-        public void Reflect(List<Rectangle> orderedBounds)
         {
             //NO-OP
         }

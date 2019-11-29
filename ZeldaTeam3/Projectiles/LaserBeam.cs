@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.SoundEffects;
@@ -91,11 +90,6 @@ namespace Zelda.Projectiles
             //NO-OP
         }
 
-        public void Reflect(List<Rectangle> orderedBounds)
-        {
-            //NO-OP
-        }
-
         public void Update()
         {
             if (_framesDelayed++ == FramesToDisappear)
@@ -128,7 +122,7 @@ namespace Zelda.Projectiles
                     _endLocation.X += LaserBeamSpeed;
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -140,25 +134,25 @@ namespace Zelda.Projectiles
             switch (_direction)
             {
                 case Direction.Up:
-                    for (int offset = 24; offset < _startLocation.Y - _endLocation.Y; offset += LaserBeamSpeed)
+                    for (var offset = 24; offset < _startLocation.Y - _endLocation.Y; offset += LaserBeamSpeed)
                     {
                         _middleSprite.Draw(new Vector2(_endLocation.X, _endLocation.Y + offset));
                     }
                     break;
                 case Direction.Down:
-                    for (int offset = 16; offset < _endLocation.Y - _startLocation.Y + 8; offset += LaserBeamSpeed)
+                    for (var offset = 16; offset < _endLocation.Y - _startLocation.Y + 8; offset += LaserBeamSpeed)
                     {
                         _middleSprite.Draw(new Vector2(_startLocation.X, _startLocation.Y + offset));
                     }
                     break;
                 case Direction.Left:
-                    for (int offset = 24; offset < _startLocation.X - _endLocation.X; offset += LaserBeamSpeed)
+                    for (var offset = 24; offset < _startLocation.X - _endLocation.X; offset += LaserBeamSpeed)
                     {
                         _middleSprite.Draw(new Vector2(_endLocation.X + offset, _endLocation.Y));
                     }
                     break;
                 case Direction.Right:
-                    for (int offset = 16; offset < _endLocation.X - _startLocation.X + 8; offset += LaserBeamSpeed)
+                    for (var offset = 16; offset < _endLocation.X - _startLocation.X + 8; offset += LaserBeamSpeed)
                     {
                         _middleSprite.Draw(new Vector2(_startLocation.X + offset, _startLocation.Y));
                     }

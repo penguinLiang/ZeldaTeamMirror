@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.SoundEffects;
@@ -69,11 +68,6 @@ namespace Zelda.Projectiles
         public void Halt()
         {
             Halted = true;
-        }
-
-        public void Reflect(List<Rectangle> orderedBounds)
-        {
-            //NO-OP
         }
 
         public void Update()
