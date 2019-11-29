@@ -8,6 +8,7 @@ using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
 using Zelda.JumpMap;
+using Zelda.MainMenu;
 using Zelda.Music;
 using Zelda.Pause;
 using Zelda.Player;
@@ -65,6 +66,7 @@ namespace Zelda
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
             PauseSpriteFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
+            MainMenuBackground.LoadTexture(Content);
             ScoreboardBackground.LoadTexture(Content);
             JumpMapScreen.LoadTexture(Content);
             MusicManager.Instance.LoadAllSounds(Content);
