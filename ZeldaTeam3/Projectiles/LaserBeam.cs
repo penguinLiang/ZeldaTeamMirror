@@ -121,6 +121,11 @@ namespace Zelda.Projectiles
                     Bounds = new Rectangle(Bounds.X, Bounds.Y, Bounds.Width + LaserBeamSpeed, Bounds.Height);
                     _endLocation.X += LaserBeamSpeed;
                     break;
+                case Direction.Up:
+                case Direction.Down:
+                case Direction.Left:
+                case Direction.Right:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

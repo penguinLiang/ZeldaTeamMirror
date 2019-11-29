@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Zelda.Commands;
 using Zelda.GameState;
 using Zelda.Items;
+// ReSharper disable ConvertIfStatementToSwitchStatement
 
 namespace Zelda.Pause
 {
@@ -15,8 +15,9 @@ namespace Zelda.Pause
         private ISprite _slot7Sprite;
         private ISprite _slot8Sprite;
 
-        private ISprite getExtraItemSprite(Secondary extraItem)
+        private static ISprite GetExtraItemSprite(Secondary extraItem)
         {
+
             switch (extraItem)
             {
                 case Secondary.LaserBeam:
@@ -58,15 +59,25 @@ namespace Zelda.Pause
                     _cursorPosition = BombLauncherPosition;
                     break;
                 case Secondary.ExtraSlot1:
-                    _selectedItem = getExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+                    _selectedItem = GetExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
                     _cursorPosition = Slot7Position;
                     break;
                 case Secondary.ExtraSlot2:
-                    _selectedItem = getExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
+                    _selectedItem = GetExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
                     _cursorPosition = Slot8Position;
                     break;
-                default:
+                case Secondary.None:
                     break;
+                case Secondary.Arrow:
+                    break;
+                case Secondary.SilverArrow:
+                    break;
+                case Secondary.LaserBeam:
+                    break;
+                case Secondary.Bait:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -119,22 +130,29 @@ namespace Zelda.Pause
 
             if (_agent.Player.Inventory.HasBoomerang)
                 Boomerang.Draw(BoomerangLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.BombCount >= 1)
                 Bomb.Draw(BombLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.ArrowLevel == Secondary.SilverArrow)
                 SilverArrow.Draw(ArrowLocation + GridLocation + _location);
             else if (_agent.Player.Inventory.ArrowLevel == Secondary.Arrow)
                 Arrow.Draw(ArrowLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.BowLevel == Secondary.FireBow)
                 FireBow.Draw(BowLocation + GridLocation + _location);
             else if (_agent.Player.Inventory.BowLevel == Secondary.Bow)
                 Bow.Draw(BowLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.Coins >= 2)
                 AlchemyCoin.Draw(CoinLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.HasATWBoomerang)
                 ATWBoomerang.Draw(ATWBoomerangLocation + GridLocation + _location);
+
             if (_agent.Player.Inventory.HasBombLauncher)
                 BombLauncher.Draw(BombLauncherLocation + GridLocation + _location);
+
             _slot7Sprite?.Draw(Slot7Location + GridLocation + _location);
             _slot8Sprite?.Draw(Slot8Location + GridLocation + _location);
 
@@ -148,55 +166,54 @@ namespace Zelda.Pause
 
         private void AssignSecondary()
         {
-            ICommand assign = new NoOp();
+            Secondary item;
             if (_cursorPosition == BoomerangPosition && _agent.Player.Inventory.HasBoomerang)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Boomerang);
+                item = Secondary.Boomerang;
                 _selectedItem = Boomerang;
             }
             else if (_cursorPosition == BombPosition && _agent.Player.Inventory.BombCount >= 1)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
+                item = Secondary.Bomb;
                 _selectedItem = Bomb;
             }
             else if (_cursorPosition == BowPosition && _agent.Player.Inventory.BowLevel != Secondary.None
                 && _agent.Player.Inventory.ArrowLevel != Secondary.None)
             {
-                assign = new LinkSecondaryAssign(_agent.Player,
-                    _agent.Player.Inventory.BowLevel == Secondary.Bow ? Secondary.Bow : Secondary.FireBow);
+                item = _agent.Player.Inventory.BowLevel == Secondary.Bow ? Secondary.Bow : Secondary.FireBow;
                 _selectedItem = _agent.Player.Inventory.ArrowLevel == Secondary.Arrow ? Arrow : SilverArrow;
             }
             else if (_cursorPosition == CoinPosition && _agent.Player.Inventory.Coins >= 2)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Coins);
+                item = Secondary.Coins;
                 _selectedItem = AlchemyCoin;
             }
             else if (_cursorPosition == ATWBoomerangPosition && _agent.Player.Inventory.HasATWBoomerang)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ATWBoomerang);
+                item = Secondary.ATWBoomerang;
                 _selectedItem = ATWBoomerang;
             }
             else if (_cursorPosition == BombLauncherPosition && _agent.Player.Inventory.HasBombLauncher)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.BombLauncher);
+                item = Secondary.BombLauncher;
                 _selectedItem = BombLauncher;
             }
             else if (_cursorPosition == Slot7Position)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ExtraSlot1);
+                item = Secondary.ExtraSlot1;
                 _selectedItem = _slot7Sprite;
             }
             else if (_cursorPosition == Slot8Position)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.ExtraSlot2);
+                item = Secondary.ExtraSlot2;
                 _selectedItem = _slot8Sprite;
             }
             else
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.None);
+                item = Secondary.None;
                 _selectedItem = null;
             }
-            assign.Execute();
+            _agent.Player.AssignSecondaryItem(item);
         }
 
         public void Choose()

@@ -13,13 +13,13 @@ namespace Zelda.Player
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
         public int BombCount { get; private set; } = MaxBombCount / 2;
-        public Secondary BowLevel { get; private set; } = Secondary.FireBow;
+        public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; } = Secondary.Arrow;
         public int Coins { get; private set; } = 2;
-        public bool HasATWBoomerang { get; private set; } = true;
-        public bool HasBombLauncher { get; private set; } = true;
-        public Secondary ExtraItem1 { get; private set; } = Secondary.LaserBeam;
-        public Secondary ExtraItem2 { get; private set; } = Secondary.LaserBeam;
+        public bool HasATWBoomerang { get; private set; }
+        public bool HasBombLauncher { get; private set; }
+        public Secondary ExtraItem1 { get; private set; }
+        public Secondary ExtraItem2 { get; private set; }
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
@@ -86,6 +86,12 @@ namespace Zelda.Player
                 case Secondary.BombLauncher:
                     HasBombLauncher = true;
                     break;
+                case Secondary.None:
+                case Secondary.ExtraSlot1:
+                case Secondary.ExtraSlot2:
+                case Secondary.LaserBeam:
+                case Secondary.Bait:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -150,14 +156,14 @@ namespace Zelda.Player
 
         public Secondary RemoveExtraItem1()
         {
-            Secondary extraItem = ExtraItem1;
+            var extraItem = ExtraItem1;
             ExtraItem1 = Secondary.None;
             return extraItem;
         }
 
         public Secondary RemoveExtraItem2()
         {
-            Secondary extraItem = ExtraItem2;
+            var extraItem = ExtraItem2;
             ExtraItem2 = Secondary.None;
             return extraItem;
         }

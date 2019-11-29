@@ -2,7 +2,7 @@
 {
     public enum Secondary
     {
-        None,
+        None = 0,
         Boomerang,
         Bomb,
         Bow,

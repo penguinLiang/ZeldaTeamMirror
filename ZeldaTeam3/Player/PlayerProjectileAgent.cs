@@ -120,7 +120,7 @@ namespace Zelda.Player
                     GenerateBowFireballs(facing, location);
                     break;
                 case Secondary.Boomerang when inv.TryRemoveBoomerang():
-                    Projectiles.Add(new PlayerBoomerang(_player, new Point(location.X + 4, location.Y + 4), facing));
+                    Projectiles.Add(new PlayerBoomerang(_player, new Point(location.X, location.Y), facing));
                     break;
                 case Secondary.Bomb when inv.TryRemoveBomb():
                     Projectiles.Add(new Bomb(location));
@@ -141,9 +141,15 @@ namespace Zelda.Player
                 case Secondary.ExtraSlot2:
                     UseExtraItem(inv.RemoveExtraItem2(), location, facing);
                     break;
-                default:
+                case Secondary.None:
+                case Secondary.Arrow:
+                case Secondary.SilverArrow:
+                case Secondary.LaserBeam:
+                case Secondary.Bait:
                     UsingSecondaryItem = false;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(Item.ToString());
             }
 
         }
