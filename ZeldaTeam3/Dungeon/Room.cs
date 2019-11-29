@@ -61,7 +61,6 @@ namespace Zelda.Dungeon
             }
         }
 
-
         private bool TryAddShopTiles(MapTile tile, Point location)
         {
             switch(tile)
@@ -70,7 +69,7 @@ namespace Zelda.Dungeon
                     ShopItems.Add(new AlchemyCoinItem(location));
                     break;
                 case MapTile.Arrow:
-                    ShopItems.Add(new ArrowItem(location));
+                    ShopItems.Add(new ArrowItem(location, Secondary.Arrow));
                     break;
                 case MapTile.ATWBoomerang:
                     ShopItems.Add(new ATWBoomerangItem(location));
@@ -91,7 +90,7 @@ namespace Zelda.Dungeon
                     ShopItems.Add(new BoomerangItem(location, this));
                     break;
                 case MapTile.Bow:
-                    ShopItems.Add(new BowItem(location));
+                    ShopItems.Add(new BowItem(location, Secondary.Bow));
                     break;
                 case MapTile.Clock:
                     ShopItems.Add(new ClockItem(location));
@@ -178,7 +177,7 @@ namespace Zelda.Dungeon
                     Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    Items.Add(new BowItem(location));
+                    Items.Add(new BowItem(location, Secondary.Bow));
                     break;
                 case MapTile.Triforce:
                     Items.Add(new Triforce(location));

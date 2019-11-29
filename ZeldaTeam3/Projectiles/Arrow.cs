@@ -11,7 +11,7 @@ namespace Zelda.Projectiles
         private const int ArrowSpeed = 4;
 
         private readonly ISprite _sprite;
-        private readonly ArrowAndSwordBeamStateMachine _arrowStateMachine;
+        private readonly BasicProjectileStateMachine _arrowStateMachine;
         public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
@@ -37,7 +37,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _arrowStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, ArrowSpeed);
+            _arrowStateMachine = new BasicProjectileStateMachine(location, direction, ArrowSpeed);
             Halted = false;
         }
 

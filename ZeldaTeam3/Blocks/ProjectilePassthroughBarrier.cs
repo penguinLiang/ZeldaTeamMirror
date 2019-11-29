@@ -52,6 +52,8 @@ namespace Zelda.Blocks
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
+            if (projectile is Projectiles.AlchemyCoin)
+                return new MoveableHalt(projectile);
             return NoOp.Instance;
         }
 

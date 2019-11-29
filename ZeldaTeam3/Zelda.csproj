@@ -50,6 +50,7 @@
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
     <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="IGameStateAgent.cs" />
     <Compile Include="Items\AlchemyCoinItem.cs" />
     <Compile Include="Items\ATWBoomerangItem.cs" />
     <Compile Include="Items\BaitItem.cs" />
@@ -110,6 +111,13 @@
     <Compile Include="HighScore\InitialEntryScreen.cs" />
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
+    <Compile Include="Projectiles\AlchemyCoin.cs" />
+    <Compile Include="Projectiles\LaserBeam.cs" />
+    <Compile Include="Projectiles\PlayerFireball.cs" />
+    <Compile Include="Projectiles\LaunchedBombExplosion.cs" />
+    <Compile Include="Projectiles\ATWBoomerang.cs" />
+    <Compile Include="Projectiles\SilverArrow.cs" />
+    <Compile Include="Projectiles\LaunchedBomb.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />
@@ -138,7 +146,6 @@
     <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
-    <Compile Include="Commands\AddArrow.cs" />
     <Compile Include="Commands\AddCompass.cs" />
     <Compile Include="Commands\AddKey.cs" />
     <Compile Include="Commands\AddMap.cs" />
@@ -239,7 +246,7 @@
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\GoriyaBoomerang.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
-    <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
+    <Compile Include="Projectiles\BasicProjectileStateMachine.cs" />
     <Compile Include="Projectiles\PlayerBoomerang.cs" />
     <Compile Include="Player\AliveSpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />

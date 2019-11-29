@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
 using Zelda.Dungeon;
 using Zelda.Enemies;
-using Zelda.GameState;
 using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
@@ -14,6 +13,7 @@ using Zelda.Player;
 using Zelda.Projectiles;
 using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
+using Zelda.GameState;
 
 namespace Zelda
 {
@@ -21,7 +21,13 @@ namespace Zelda
     {
         private const int Width = 512;
         private const int Height = 448;
-        public GameStateAgent GameStateAgent { get; private set; }
+
+        private IGameStateAgent _survivalAgent;
+        private IGameStateAgent _normalAgent;
+
+        private bool _survivalMode = true;
+        public IGameStateAgent GameStateAgent =>
+            _survivalMode ? _survivalAgent : _normalAgent;
 
         private SpriteBatch _spriteBatch;
 
@@ -72,9 +78,12 @@ namespace Zelda
             Survival.HUD.HUDSpriteFactory.Instance.LoadAllTextures(Content);
             Survival.Pause.PauseSpriteFactory.Instance.LoadAllTextures(Content);
 
-            GameStateAgent = new GameStateAgent(_spriteBatch, GraphicsDevice);
-            GameStateAgent.DarkMode = true;
-            GameStateAgent.DungeonManager.LoadDungeonContent(Content);
+            _normalAgent = new GameStateAgent(_spriteBatch, GraphicsDevice);
+            _normalAgent.DungeonManager.LoadDungeonContent(Content);
+
+            _survivalAgent = new Survival.GameState.GameStateAgent(_spriteBatch, GraphicsDevice);
+            _survivalAgent.DungeonManager.LoadDungeonContent(Content);
+
             GameStateAgent.Reset();
         }
 

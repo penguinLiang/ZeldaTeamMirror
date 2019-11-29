@@ -116,6 +116,8 @@ namespace Zelda.Dungeon
 
         public void Update()
         {
+            List<Rectangle> prioritizedCoinCollisions = new List<Rectangle>();
+
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
@@ -124,6 +126,10 @@ namespace Zelda.Dungeon
                 if (_projectiles[i] is SwordBeam)
                 {
                     _projectiles[i] = new SwordBeamParticles(_projectiles[i].Bounds.Location);
+                }
+                else if (_projectiles[i] is LaunchedBomb)
+                {
+                    _projectiles[i] = new LaunchedBombExplosion(_projectiles[i].Bounds.Location);
                 }
                 else
                 {
@@ -177,6 +183,8 @@ namespace Zelda.Dungeon
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
                         roomEnemy.ProjectileEffect(projectile).Execute();
+                        if (projectile is AlchemyCoin)
+                            prioritizedCoinCollisions.Add(roomEnemy.Bounds);
                     }
 
                     PlayerAttackCollision(projectile, roomEnemy);
@@ -193,11 +201,18 @@ namespace Zelda.Dungeon
                     if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
 
                     roomCollidable.ProjectileEffect(projectile).Execute();
+                    if (projectile is AlchemyCoin)
+                        prioritizedCoinCollisions.Insert(0, roomCollidable.Bounds);
                 }
             }
 
             foreach (var projectile in _projectiles)
             {
+                if (projectile is AlchemyCoin coin)
+                {
+                    coin.Reflect(prioritizedCoinCollisions);
+                }
+
                 if (projectile.CollidesWith(_player.BodyCollision.Bounds))
                 {
                     projectile.PlayerEffect(_player).Execute();
