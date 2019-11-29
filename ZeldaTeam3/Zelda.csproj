@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\KeyBarrier.cs" />
     <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
@@ -48,6 +49,19 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
+    <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="Items\AlchemyCoinItem.cs" />
+    <Compile Include="Items\ATWBoomerangItem.cs" />
+    <Compile Include="Items\BaitItem.cs" />
+    <Compile Include="Items\BombLauncherItem.cs" />
+    <Compile Include="Items\BombUpgradeItem.cs" />
+    <Compile Include="Items\ClockItem.cs" />
+    <Compile Include="Items\CrossShotItem.cs" />
+    <Compile Include="Items\FireBowItem.cs" />
+    <Compile Include="Items\RupeeUpgradeItem.cs" />
+    <Compile Include="Items\SilverArrowItem.cs" />
+    <Compile Include="Items\StarItem.cs" />
+    <Compile Include="Items\WalletUpgradeItem.cs" />
     <Compile Include="Survival\Commands\ScoreboardReturn.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
