@@ -16,7 +16,7 @@ namespace Zelda.Dungeon
         public bool[][] VisitedRooms { get; protected set; }
         public Point CurrentRoom { get; protected set; } = Point.Zero;
         public Action<Point, Point, Direction> Pan { private get; set; } = delegate { };
-        protected ISprite Background;
+        private ISprite _background;
         protected Scene[][] Scenes;
         protected IPlayer Player;
         protected Room[][] Rooms;
@@ -33,7 +33,7 @@ namespace Zelda.Dungeon
             Shop = 4
         }
 
-        protected static ISprite GenerateBgSprite(BackgroundId backgroundId)
+        protected static ISprite Background(BackgroundId backgroundId)
         {
             switch (backgroundId)
             {
@@ -54,7 +54,7 @@ namespace Zelda.Dungeon
 
         protected void SetBackground(BackgroundId backgroundId)
         {
-            Background = GenerateBgSprite(backgroundId);
+            _background = Background(backgroundId);
         }
 
         public virtual void LoadDungeonContent(ContentManager content)
@@ -163,7 +163,7 @@ namespace Zelda.Dungeon
 
         public IDrawable BuildPanScene(int row, int column)
         {
-            return new PanningScene(Rooms[row][column], GenerateBgSprite(BackgroundIds[row][column]));
+            return new PanningScene(Rooms[row][column], Background(BackgroundIds[row][column]));
         }
 
         public virtual void JumpToRoom(int row, int column, Direction facing = Direction.Up)
@@ -190,14 +190,14 @@ namespace Zelda.Dungeon
             Scene.SpawnScene();
         }
 
-        public void Update()
+        public virtual void Update()
         {
             Scene?.Update();
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
-            Background?.Draw(Vector2.Zero);
+            _background?.Draw(Vector2.Zero);
             Scene?.Draw();
         }
     }

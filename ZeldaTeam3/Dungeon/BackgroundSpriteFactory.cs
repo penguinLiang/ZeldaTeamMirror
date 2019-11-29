@@ -43,12 +43,12 @@ namespace Zelda.Dungeon
 
         public ISprite CreateSurvivalDungeonBackground()
         {
-            return new Sprite(_survivalDungeonBackground, Width * 3, Height * 3, 1, Point.Zero);
+            return new Sprite(_survivalDungeonBackground, 768, 528, 1, Point.Zero);
         }
 
         public ISprite CreateSurvivalShopBackground()
         {
-            return new Sprite(_survivalShopBackground, Width * 3, Height * 5, 1, Point.Zero);
+            return new Sprite(_survivalShopBackground, 896, 1008, 1, Point.Zero);
         }
     }
 }

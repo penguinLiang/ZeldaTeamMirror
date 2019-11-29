@@ -34,9 +34,12 @@ namespace Zelda.Survival
             //TODO: To be called by WaveManager or something. Should only spawn on the tiles within the current zone.
             //Update to control the zones that the player has unlocked.
             //currently we have an array of all the spawn tiles, this can spawn all the waves.
-            var enemy = MakeEnemy(enemyId, _spawnTiles[_rnd.Next(_spawnTiles.Capacity)]);
-            Enemies.Add(enemy);
-            enemy.Spawn();
+            if (_spawnTiles.Count > 0)
+            {
+                var enemy = MakeEnemy(enemyId, _spawnTiles[_rnd.Next(_spawnTiles.Count)]);
+                Enemies.Add(enemy);
+                enemy.Spawn();
+            }
         }
 
         private IEnemy MakeEnemy(int enemyId, Point spawnPoint)

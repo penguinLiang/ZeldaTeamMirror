@@ -78,7 +78,7 @@ namespace Zelda.Survival.GameState
         {
             DungeonManager.ResetScenes();
             Player.Spawn();
-            DungeonManager.JumpToRoom(5, 2);
+            DungeonManager.JumpToRoom(1, 0);
             Play();
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Policy;
+﻿using System.Diagnostics.Eventing.Reader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Zelda.Dungeon;
@@ -13,36 +12,50 @@ namespace Zelda.Survival
 
         public override void LoadDungeonContent(ContentManager content)
         {
+            BackgroundIds = new[]
+            {
+                new[] {BackgroundId.Shop},
+                new[] {BackgroundId.Dungeon},
+            };
 
-            Scenes = new Scene[2][];
-            Rooms = new Room[2][];
-            BackgroundIds = new BackgroundId[2][];
-            Scenes[0] = new Scene[1];
-            Rooms[0] = new Room[1];
+            Rooms = new [] {
+                new Room[]
+                {
+                    new SurvivalRoom(this, content.Load<int[][]>($"Shop/ShopTiles"))
+                },
+                new Room[]
+                {
+                    new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"))
+                }
+            };
 
-            Scenes[1] = new Scene[1]; //
-            Rooms[1] = new Room[1]; //
+            var rows = Rooms.Length;
+            Scenes = new Scene[rows][];
+            EnabledRooms = new bool[rows][];
+            UnmappedRooms = new bool[rows][];
+            VisitedRooms = new bool[rows][];
+            for (var row = 0; row < rows; row++)
+            {
+                var cols = Rooms[row].Length;
+                Scenes[row] = new Scene[cols];
+                EnabledRooms[row] = new bool[cols];
+                UnmappedRooms[row] = new bool[cols];
+                VisitedRooms[row] = new bool[cols];
 
-            BackgroundIds[1] = new BackgroundId[] {BackgroundId.Shop};
-            BackgroundIds[0] = new BackgroundId[] { BackgroundId.Dungeon};
-
-            var shopRoom = new SurvivalRoom(this, content.Load<int[][]>($"Shop/ShopTiles")); //
-            var shopScene = new SurvivalScene(shopRoom, Player); //
-            Scenes[1][0] = shopScene; //
-            Rooms[1][0] = shopRoom; //
-
-            var dungeonRoom = new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"));
-            Rooms[0][0] = dungeonRoom;
-
-            _waveManager = new WaveManager(dungeonRoom,content);
+                for (var col = 0; col < cols; col++)
+                {
+                    EnabledRooms[row][col] = true;
+                    UnmappedRooms[row][col] = true;
+                }
+            }
+            _waveManager = new WaveManager((SurvivalRoom)Rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
 
             /* TODO: Implement */
         }
 
         public override void LoadScenes(IPlayer player)
         {
-            Player = player;
-            Scenes[0][0] = new SurvivalScene((SurvivalRoom)Rooms[0][0], Player);
+            base.LoadScenes(player);
         }
 
         public override void ResetScenes()
@@ -52,10 +65,26 @@ namespace Zelda.Survival
 
         public override void JumpToRoom(int row, int column, Direction facing = Direction.Up)
         {
+            VisitedRooms[row][column] = true;
+            CurrentRoom = new Point(column, row);
+            SetBackground(BackgroundIds[row][column]);
+            if (row == 1)
+            {
+                Player?.Teleport(TileSize * new Point(23, 2) + new Point(8, 0), Direction.Down);
+            }
+            else
+            {
+                Player?.Teleport(TileSize * new Point(27, 60) + new Point(8, 0), Direction.Up);
+            }
+
+            Scene?.DestroyProjectiles();
+            Scene = Scenes[row][column];
+            Scene.SpawnScene();
         }
 
-        public void Update() 
+        public override void Update() 
         {
+            base.Update();
             _waveManager.Update();
         }
     }

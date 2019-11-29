@@ -28,36 +28,28 @@ namespace Zelda.Survival
         private List<Wave> _waveStorage = new List<Wave>();
         private SurvivalRoom _dungeonRoom;
 
-        public WaveManager(SurvivalRoom dungeonRoom, ContentManager content)
+        public WaveManager(SurvivalRoom dungeonRoom, string[][] waveMatrix)
         {
             _dungeonRoom = dungeonRoom;
-            _waveMatrix = content.Load<string[][]>("SurvivalWaves");
             _currentWave = 0;
             _scale = 1;
             char[] separator = {':'};
             Int32 count = 2;
 
-            for(int row = 0; row < _waveMatrix.Length; row++)
+            for(int row = 0; row < waveMatrix.Length; row++)
             {
-                WaveType currentWaveType = WaveType.Normal;
+                WaveType currentWaveType = GetCurrentWaveType(waveMatrix[row][0]);
                 List<EnemyType> enemyCSVContent = new List<EnemyType>();
-                for(int col = 0; col < _waveMatrix[row].Length; col++)
+                for(int col = 1; col < waveMatrix[row].Length; col++)
                 {
-                    if(col == 0)
-                    {
-                        currentWaveType = GetCurrentWaveType(row);
-                    }
-                    else
-                    {
-                        String[] strList = _waveMatrix[row][col].Split(separator, count, StringSplitOptions.None);
-                        int enemyCount = int.Parse(strList[1]);
+                    String[] strList = waveMatrix[row][col].Split(separator, count, StringSplitOptions.None);
+                    int enemyCount = int.Parse(strList[1]);
 
-                        EnemyType enemyType = GetCurrentEnemyType(row, col, strList);
+                    EnemyType enemyType = GetCurrentEnemyType(row, col, strList);
 
-                        for(int currentCount = 0; currentCount < enemyCount; currentCount++)
-                        {
-                            enemyCSVContent.Add(enemyType);
-                        }
+                    for(int currentCount = 0; currentCount < enemyCount; currentCount++)
+                    {
+                        enemyCSVContent.Add(enemyType);
                     }
                 }
 
@@ -86,9 +78,9 @@ namespace Zelda.Survival
             _currentAliveEnemies.Clear();
         }
 
-        private WaveType GetCurrentWaveType(int row)
+        private static WaveType GetCurrentWaveType(string type)
         {
-            switch (_waveMatrix[row][0])
+            switch (type)
             {
                 case "S":
                     return WaveType.Shop;
