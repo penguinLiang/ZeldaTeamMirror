@@ -54,7 +54,7 @@ namespace Zelda.Blocks
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if ((player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveKey()) && !unlocked)
+            if (!unlocked &&(player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveKey()))
             {
                 // SoundEffectManager.Instance.PlayDoorUnlock();
                 Unlock();

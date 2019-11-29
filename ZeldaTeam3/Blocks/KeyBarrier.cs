@@ -22,7 +22,7 @@ namespace Zelda.Blocks
 
         private static BlockType UnlockedType(BlockType block)
         {
-            return BlockType.Sand;
+            return BlockType.InvisibleBlock;
         }
 
         public KeyBarrier(Point location, BlockType block)
