@@ -29,8 +29,8 @@ namespace Zelda
             Keys.Right,
             Keys.Left,
             Keys.Right,
-            Keys.A,
             Keys.B,
+            Keys.A,
             Keys.Enter
         };
         private int _konamiPos;

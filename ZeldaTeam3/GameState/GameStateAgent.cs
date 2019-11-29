@@ -131,6 +131,8 @@ namespace Zelda.GameState
             if (_worldState == WorldState.Reset) return;
             _worldState = WorldState.Reset;
 
+            Sprite.PartyHard = false;
+            _partyHard = false;
             Player = new Link(Point.Zero);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
