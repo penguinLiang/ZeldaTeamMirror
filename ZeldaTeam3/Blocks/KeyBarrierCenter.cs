@@ -8,40 +8,31 @@ using Zelda.SoundEffects;
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
-    internal class KeyBarrier : ICollideable, IDrawable
+    internal class KeyBarrierCenter : ICollideable, IDrawable
     {
         private readonly BlockType _block;
         // protected override ISprite Sprite => _sprite;
         // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        private bool _unlocked {get; set;}
+        public bool _unlocked;
         public Rectangle Bounds { get; }
         private Point _location;
-        private KeyBarrierStateMachine _keyState { get; set; }
-
+       // private KeyBarrierStateMachine _keyState {get; set;}
 
         private static BlockType UnlockedType(BlockType block)
         {
             return BlockType.Sand;
         }
 
-        public KeyBarrier(Point location, BlockType block)
+        public KeyBarrierCenter(Point location, BlockType block)
         {
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
-            _keyState = new KeyBarrierStateMachine();
-           // _unlocked = 
-           //unlocked = (Check collisions for KeyBarrierCenter -> Unlocked = keybarrerCenter.unlock)
+            Bounds = new Rectangle(location, new Point(32, 32));
+    }
 
-            if (_keyState._unlocked)
-            {
-                _block = BlockType.Sand;
-                _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
-            }
-        }
-
-        public void Reset()
+    public void Reset()
         {
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _unlocked = false;
@@ -61,18 +52,17 @@ namespace Zelda.Blocks
             //check player has key
 
             // ReSharper disable once InvertIf (cleaner as-is)
-           // if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
-           // {
-             //   SoundEffectManager.Instance.PlayDoorUnlock();
-              //  Unblock();
-           // }
+            // if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
+            // {
+            //   SoundEffectManager.Instance.PlayDoorUnlock();
+            //  Unblock();
+            // }
 
             return new MoveableHalt(player);
         }
         public bool CollidesWith(Rectangle rect)
         {
             return Bounds.Intersects(rect);
-            //if CollidesWith.KeyBarrierCenter && KeyBarrierCenter.unlocked => no collision, turn to sand
         }
 
 
