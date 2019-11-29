@@ -58,7 +58,6 @@ float4 rgba_to_hsva(float4 rgba)
 	// If maximum and minimum are identical, assume gray so no saturation or hue
 	if (delta == 0) return hsva;
 
-	// Green is the "strongest" color, desaturate relative to maximum
 	hsva.g = delta / hsva.b;
 	delta_rgb = (hsva.bbb - rgba.rgb + 3.0 * delta) / 6.0 / delta;
 	if (rgba.r == hsva.b) hsva.r = delta_rgb.b - delta_rgb.g;
@@ -94,19 +93,19 @@ float4 hsva_to_rgba(float4 hsva)
 	return rgba;
 }
 
-float4 MainPS(VertexShaderOutput input) : COLOR
+float4 PartyTimeShader(VertexShaderOutput input) : COLOR
 {
-	// Visual range is -0.5 to 0.5
+	// Visual range is -1 to 1
 	float4 color = tex2D(s0, input.TextureCoordinates);
 	float4 hsva = rgba_to_hsva(color);
-	hsva.r -= InSaturationOffset;
+	hsva.x = saturate(hsva.x - InSaturationOffset);
 	return hsva_to_rgba(hsva);
 }
 
-technique SpriteDrawing
+technique PartyTime
 {
 	pass P0
 	{
-		PixelShader = compile PS_SHADERMODEL MainPS();
+		PixelShader = compile PS_SHADERMODEL PartyTimeShader();
 	}
 };
