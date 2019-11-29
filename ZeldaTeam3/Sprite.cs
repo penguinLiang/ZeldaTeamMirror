@@ -6,6 +6,7 @@ namespace Zelda
     internal class Sprite : ISprite
     {
         public static SpriteBatch SpriteBatch { private get; set; }
+        public static bool PartyHard { private get; set; }
 
         public bool AnimationFinished { get; private set; }
 
@@ -63,7 +64,7 @@ namespace Zelda
                 if (_totalPaletteCount == 0 || _paletteShiftDelay.Delayed) return;
                 _currentPaletteRow = value % _totalPaletteCount;
 
-                if (_currentPaletteRow != 0 || _paletteCyclesShifted++ != PaletteShiftCycles) return;
+                if (PartyHard || _currentPaletteRow != 0 || _paletteCyclesShifted++ != PaletteShiftCycles) return;
                 _paletteShiftDelay.Pause();
                 _paletteCyclesShifted = 0;
             }
@@ -89,6 +90,7 @@ namespace Zelda
         public void Update()
         {
             _frameDelay.Update();
+            if (PartyHard) PaletteShift();
             _paletteShiftDelay.Update();
             CurrentFrame++;
             CurrentPaletteRow++;

@@ -6,6 +6,7 @@ using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Projectiles;
 
+// ReSharper disable ConvertIfStatementToSwitchStatement
 // ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
 namespace Zelda.Dungeon
 {
@@ -116,7 +117,7 @@ namespace Zelda.Dungeon
 
         public void Update()
         {
-            List<Rectangle> prioritizedCoinCollisions = new List<Rectangle>();
+            var prioritizedCoinCollisions = new List<Rectangle>();
 
             for (var i = 0; i < _projectiles.Count; i++)
             {
@@ -168,10 +169,8 @@ namespace Zelda.Dungeon
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
-                if (_player.UsingPrimaryItem)
-                {
-                    PlayerAttackCollision(_player.SwordCollision, roomEnemy);
-                }
+
+                PlayerAttackCollision(_player.UsingPrimaryItem ? _player.SwordCollision : _player.BodyCollision, roomEnemy);
 
                 if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
                 {
