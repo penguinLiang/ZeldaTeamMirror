@@ -4,25 +4,24 @@ using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
 {
-    public class Bomb : IProjectile
+    public class LaunchedBombExplosion : IProjectile
     {
-        private const int FramesToExplosion = 100;
-        private const int FramesToDisappear = 160;
+        private const int FramesToDisappear = 60;
         private const int NumberOfOuterExplosionSprites = 3;
 
         private readonly Vector2 _location;
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
-        private ISprite _sprite;
+        private readonly ISprite _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
 
-        public Bomb(Point location)
+        public LaunchedBombExplosion(Point location)
         {
             _location = location.ToVector2();
-            _sprite = ProjectileSpriteFactory.Instance.CreateBombDown();
-            SoundEffectManager.Instance.PlayBombDrop();
-            Halted = false;
+            Bounds = new Rectangle((int)_location.X - 16, (int)_location.Y - 16, 48, 48);
+            SoundEffectManager.Instance.PlayBombExplode();
+            SetExplosionSpriteLocations();
         }
 
         private void SetExplosionSpriteLocations()
@@ -46,14 +45,7 @@ namespace Zelda.Projectiles
             _sprite.Update();
             _framesDelayed++;
             
-            if (_framesDelayed == FramesToExplosion)
-            {
-                SoundEffectManager.Instance.PlayBombExplode();
-                _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
-                SetExplosionSpriteLocations();
-                Bounds  = new Rectangle((int)_location.X - 16 ,(int) _location.Y - 16, 48, 48);
-            }
-            else if (_framesDelayed > FramesToExplosion && _framesDelayed < FramesToDisappear)
+            if (_framesDelayed < FramesToDisappear)
             {
                 SetExplosionSpriteLocations();
             }
@@ -92,8 +84,6 @@ namespace Zelda.Projectiles
         public void Draw()
         {
             _sprite.Draw(_location);
-
-            if (_framesDelayed < FramesToExplosion) return;
             foreach (var spriteLocation in _outerExplosionSpriteLocations)
             {
                 _sprite.Draw( spriteLocation);

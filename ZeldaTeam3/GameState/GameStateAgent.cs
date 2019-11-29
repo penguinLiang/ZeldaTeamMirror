@@ -11,12 +11,12 @@ namespace Zelda.GameState
     /*
      * Handles game state transitions and screen panning
      */
-    public class GameStateAgent : IUpdatable
+    public class GameStateAgent : IGameStateAgent
     {
-        public const float Scale = 2.0f;
+        private const float Scale = 2.0f;
 
         public DungeonManager DungeonManager { get; } = new DungeonManager();
-        public HUDScreen HUD { get; }
+        public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
 

@@ -57,6 +57,31 @@ namespace Zelda.Player
             }
         }
 
+        private void GenerateBowFireballs(Direction facing, Point location)
+        {
+            switch (facing)
+            {
+                case Direction.Up:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-1, -2)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(1, -2)));
+                    break;
+                case Direction.Left:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-2, -1)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-2, 1)));
+                    break;
+                case Direction.Right:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(2, -1)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(2, 1)));
+                    break;
+                case Direction.Down:
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(-1, 2)));
+                    Projectiles.Add(new PlayerFireball(location, new Vector2(1, 2)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public void UseSecondaryItem(Direction facing, Point location)
         {
             switch (facing)
@@ -81,20 +106,65 @@ namespace Zelda.Player
             var inv = _player.Inventory;
             switch (Item)
             {
-                case Secondary.Bow when inv.HasBow && inv.HasBow && inv.TryRemoveRupee():
-                    Projectiles.Add(new Arrow(location, facing));
+                case Secondary.Bow when inv.ArrowLevel != Secondary.None && inv.TryRemoveRupee():
+                    if (inv.ArrowLevel == Secondary.Arrow)
+                        Projectiles.Add(new Arrow(location, facing));
+                    else
+                        Projectiles.Add(new SilverArrow(location, facing));
+                    break;
+                case Secondary.FireBow when inv.ArrowLevel != Secondary.None && inv.TryRemoveRupee():
+                    if (inv.ArrowLevel == Secondary.Arrow)
+                        Projectiles.Add(new Arrow(location, facing));
+                    else
+                        Projectiles.Add(new SilverArrow(location, facing));
+                    GenerateBowFireballs(facing, location);
                     break;
                 case Secondary.Boomerang when inv.TryRemoveBoomerang():
-                    Projectiles.Add(new PlayerBoomerang(_player, location, facing));
+                    Projectiles.Add(new PlayerBoomerang(_player, new Point(location.X, location.Y), facing));
                     break;
                 case Secondary.Bomb when inv.TryRemoveBomb():
                     Projectiles.Add(new Bomb(location));
+                    break;
+                case Secondary.Coins when inv.TryRemoveCoins():
+                    Projectiles.Add(new AlchemyCoin(location, facing, _player.Inventory, true));
+                    Projectiles.Add(new AlchemyCoin(location, facing, _player.Inventory, false));
+                    break;
+                case Secondary.ATWBoomerang when inv.TryRemoveATWBoomerang():
+                    Projectiles.Add(new ATWBoomerang(_player, facing));
+                    break;
+                case Secondary.BombLauncher when inv.TryRemoveBomb():
+                    Projectiles.Add(new LaunchedBomb(location, facing));
+                    break;
+                case Secondary.ExtraSlot1:
+                    UseExtraItem(inv.RemoveExtraItem1(), location, facing);
+                    break;
+                case Secondary.ExtraSlot2:
+                    UseExtraItem(inv.RemoveExtraItem2(), location, facing);
+                    break;
+                case Secondary.None:
+                case Secondary.Arrow:
+                case Secondary.SilverArrow:
+                case Secondary.LaserBeam:
+                case Secondary.Bait:
+                    UsingSecondaryItem = false;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(Item.ToString());
+            }
+
+        }
+
+        private void UseExtraItem(Items.Secondary extraItem, Point location, Direction facing)
+        {
+            switch (extraItem)
+            {
+                case Secondary.LaserBeam:
+                    Projectiles.Add(new LaserBeam(location, facing));
                     break;
                 default:
                     UsingSecondaryItem = false;
                     break;
             }
-
         }
 
         public void AssignSecondaryItem(Secondary item)

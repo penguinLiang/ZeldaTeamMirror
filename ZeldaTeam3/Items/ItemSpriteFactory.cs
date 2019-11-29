@@ -75,11 +75,21 @@ namespace Zelda.Items
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 112));
         }
 
+        public ISprite CreateFireBow()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 96));
+        }
+
         public ISprite CreateWoodBoomerang()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 112));
         }
-     
+
+        public ISprite CreateATWBoomerang()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 112));
+        }
+
         public ISprite CreateBomb()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 112));
@@ -87,7 +97,27 @@ namespace Zelda.Items
       
         public ISprite CreateArrow()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16,1, new Point(0, 128));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 128));
+        }
+
+        public ISprite CreateSilverArrow()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 128));
+        }
+
+        public ISprite CreateAlchemyCoin()
+        {
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(0, 160));
+        }
+
+        public ISprite CreateBombLauncher()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 128));
+        }
+
+        public ISprite CreateLaserBeam()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 144));
         }
 
         public ISprite CreateTriforcePiece()

@@ -1,49 +1,49 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
 {
-    internal class SwordBeam : IProjectile
+    internal class SilverArrow :  IProjectile
     {
         private const int FramesToDisappear = 140;
-        private const int SwordBeamSpeed = 3;
+        private const int ArrowSpeed = 4;
 
         private readonly ISprite _sprite;
-        private readonly BasicProjectileStateMachine _swordBeamStateMachine;
-        private readonly int _damage;
-
-        public Rectangle Bounds => _swordBeamStateMachine.Bounds;
-        public bool Halted { get; set; }
+        private readonly BasicProjectileStateMachine _arrowStateMachine;
+        public Rectangle Bounds => _arrowStateMachine.Bounds;
 
         private int _framesDelayed;
+        public bool Halted { get; set; }
 
-        public SwordBeam(Point location, Direction direction, int damage)
+        public SilverArrow(Point location, Direction direction)
         {
+            SoundEffectManager.Instance.PlayArrowShoot();
             switch (direction)
             {
                 case Direction.Up:
-                    _sprite = ProjectileSpriteFactory.Instance.CreateSwordBeamUp();
+                    _sprite = ProjectileSpriteFactory.Instance.CreateSilverArrowUp();
                     break;
                 case Direction.Down:
-                    _sprite = ProjectileSpriteFactory.Instance.CreateSwordBeamDown();
+                    _sprite = ProjectileSpriteFactory.Instance.CreateSilverArrowDown();
                     break;
                 case Direction.Left:
-                    _sprite = ProjectileSpriteFactory.Instance.CreateSwordBeamLeft();
+                    _sprite = ProjectileSpriteFactory.Instance.CreateSilverArrowLeft();
                     break;
                 case Direction.Right:
-                    _sprite = ProjectileSpriteFactory.Instance.CreateSwordBeamRight();
+                    _sprite = ProjectileSpriteFactory.Instance.CreateSilverArrowRight();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _swordBeamStateMachine = new BasicProjectileStateMachine(location, direction, SwordBeamSpeed);
-            _damage = damage;
+            _arrowStateMachine = new BasicProjectileStateMachine(location, direction, ArrowSpeed);
+            Halted = false;
         }
 
         public bool CollidesWith(Rectangle rectangle)
         {
-            return _swordBeamStateMachine.CollidesWith(rectangle);
+            return _arrowStateMachine.CollidesWith(rectangle);
         }
 
         public ICommand PlayerEffect(IPlayer player)
@@ -51,11 +51,13 @@ namespace Zelda.Projectiles
             return NoOp.Instance;
         }
 
+
         public ICommand EnemyEffect(IEnemy enemy)
         {
             _sprite.Hide();
-            _swordBeamStateMachine.ClearBounds();
-            return new SpawnableDamage(enemy, _damage);
+            _arrowStateMachine.ClearBounds();
+            Halt();
+            return new SpawnableDamage(enemy, 4);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
@@ -70,7 +72,7 @@ namespace Zelda.Projectiles
 
         public void Update()
         {
-            _swordBeamStateMachine.Update();
+            _arrowStateMachine.Update();
             if (_framesDelayed++ == FramesToDisappear)
             {
                 _sprite.Hide();
@@ -80,7 +82,7 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-            _sprite.Draw(_swordBeamStateMachine.Location.ToVector2());
+            _sprite.Draw(_arrowStateMachine.Location.ToVector2());
         }
     }
 }
