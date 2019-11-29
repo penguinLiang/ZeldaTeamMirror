@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,9 +28,13 @@ namespace Zelda.Survival
         private List<EnemyType> _currentAliveEnemies;
         private List<Wave> _waveStorage = new List<Wave>();
         private SurvivalRoom _dungeonRoom;
+        private SurvivalManager _survivalManager;
+        public bool InShop;
 
-        public WaveManager(SurvivalRoom dungeonRoom, string[][] waveMatrix)
+        public WaveManager(SurvivalManager survivalManager, SurvivalRoom dungeonRoom, string[][] waveMatrix)
         {
+            InShop = false;
+            _survivalManager = survivalManager;
             _dungeonRoom = dungeonRoom;
             _currentWave = 0;
             _scale = 1;
@@ -61,21 +66,32 @@ namespace Zelda.Survival
 
         public void Update()
         {
-            if(_dungeonRoom.SomeEnemiesAlive == false)
+            if(!InShop) 
             {
-                _currentWave++;
-                if(_currentWave == 2) //Currently 2, but change later when there are around 10-20 unique waves
+                if (_dungeonRoom.SomeEnemiesAlive == false)
                 {
-                    _currentWave = 0;
-                    _scale++;
-                    _currentAliveEnemies = _waveStorage[_currentWave].GetList(_scale);
+                    _currentWave++;
+
+                    if (_currentWave == 3) //change later when there are around 10-20 unique waves
+                    {
+                        _scale++;
+                        _currentWave = 0;
+                    }
+                    if(_waveStorage[_currentWave].Type == WaveType.Shop)
+                    {
+                        _survivalManager.JumpToRoom(0, 0);
+                        InShop = true;
+                    } else
+                    {
+                        _currentAliveEnemies = _waveStorage[_currentWave].GetList(_scale);
+                        foreach (var enemy in _currentAliveEnemies)
+                        {
+                            _dungeonRoom.SpawnEnemy((int)enemy);
+                        }
+                        _currentAliveEnemies.Clear();
+                    }
                 }
             }
-            foreach(var enemy in _currentAliveEnemies)
-            {
-                _dungeonRoom.SpawnEnemy((int)enemy);
-            }
-            _currentAliveEnemies.Clear();
         }
 
         private static WaveType GetCurrentWaveType(string type)

@@ -1,2 +1,3 @@
+D, keese:20, stalfos:15, goriya:10
 D, stalfos:3
 D, keese:20, stalfos:15, goriya:10

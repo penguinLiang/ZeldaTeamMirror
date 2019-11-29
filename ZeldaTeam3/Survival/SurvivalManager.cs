@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Zelda.Dungeon;
@@ -48,7 +49,7 @@ namespace Zelda.Survival
                     UnmappedRooms[row][col] = true;
                 }
             }
-            _waveManager = new WaveManager((SurvivalRoom)Rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
+            _waveManager = new WaveManager(this,(SurvivalRoom)Rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
 
             /* TODO: Implement */
         }
@@ -71,10 +72,12 @@ namespace Zelda.Survival
             if (row == 1)
             {
                 Player?.Teleport(TileSize * new Point(23, 2) + new Point(8, 0), Direction.Down);
+                _waveManager.InShop = false;
             }
             else
             {
                 Player?.Teleport(TileSize * new Point(27, 60) + new Point(8, 0), Direction.Up);
+                _waveManager.InShop = true;
             }
 
             Scene?.DestroyProjectiles();
