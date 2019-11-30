@@ -8,9 +8,9 @@ namespace Zelda.Items
     internal class HeartContainer : Item
     {
         private bool _activated;
-        private readonly Room _room;
+        private readonly IRoom _room;
 
-        public HeartContainer(Point location, Room room) : base(location)
+        public HeartContainer(Point location, IRoom room) : base(location)
         {
             _room = room;
         }

@@ -14,7 +14,7 @@ namespace Zelda.Survival.GameState
     {
         public const float Scale = 2.0f;
 
-        public DungeonManager DungeonManager { get; } = new SurvivalManager();
+        public IDungeonManager DungeonManager { get; } = new SurvivalManager();
         public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
@@ -32,7 +32,6 @@ namespace Zelda.Survival.GameState
             _spriteBatch = spriteBatch;
             _graphicsDevice = graphicsDevice;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
-            DungeonManager.Pan = DungeonPan;
             _camera = new PlayerLockCamera(Player);
         }
 

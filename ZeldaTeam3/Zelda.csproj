@@ -49,8 +49,12 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
+    <Compile Include="Dungeon\EnemyFactory.cs" />
     <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="IDungeonManager.cs" />
     <Compile Include="IGameStateAgent.cs" />
+    <Compile Include="IRoom.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Items\AlchemyCoinItem.cs" />
     <Compile Include="Items\ATWBoomerangItem.cs" />
     <Compile Include="Items\BaitItem.cs" />

@@ -20,8 +20,6 @@ namespace Zelda.Survival.HUD
             _bombCount.Location += location;
         }
 
-        private Vector2 LinkLocation => _agent.DungeonManager.CurrentRoom.ToVector2() * MiniMapCellSize;
-
         private ISprite Primary
         {
             get
@@ -60,16 +58,16 @@ namespace Zelda.Survival.HUD
                     case Items.Secondary.BombLauncher:
                         return BombLauncher;
                     case Items.Secondary.ExtraSlot1:
-                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+                        return GetExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
                     case Items.Secondary.ExtraSlot2:
-                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
+                        return GetExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
                     default:
                         return null;
                 }
             }
         }
 
-        private ISprite getExtraItemSprite(Items.Secondary extraItem)
+        private static ISprite GetExtraItemSprite(Items.Secondary extraItem)
         {
             switch (extraItem)
             {
@@ -94,17 +92,9 @@ namespace Zelda.Survival.HUD
         {
             Background.Draw(_location);
 
-            if (_agent.Player.Inventory.HasMap)
-            {
-                MiniMap.Draw(MiniMapLocation + _location);
-            }
             if (_agent.Player.Inventory.HasCompass)
             {
                 TriforceDot.Draw(MiniMapLocation + TriforceLocation + _location);
-            }
-            if (_agent.DungeonManager.CurrentRoomMapped)
-            {
-                PlayerDot.Draw(MiniMapLocation + LinkLocation + _location);
             }
 
             Primary?.Draw(PrimaryLocation + _location);

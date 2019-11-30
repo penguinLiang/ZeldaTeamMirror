@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.SoundEffects;
 
 namespace Zelda.Items
@@ -8,9 +7,9 @@ namespace Zelda.Items
     internal class BoomerangItem : Item
     {
         private bool _activated;
-        private readonly Room _room;
+        private readonly IRoom _room;
 
-        public BoomerangItem(Point location, Room room) : base(location)
+        public BoomerangItem(Point location, IRoom room) : base(location)
         {
             _room = room;
         }

@@ -1,94 +1,136 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.Diagnostics;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Zelda.Dungeon;
+// ReSharper disable ForCanBeConvertedToForeach
 
 namespace Zelda.Survival
 {
-    public class SurvivalManager : DungeonManager
+    public class SurvivalManager : IDrawable, IDungeonManager
     {
-        public override bool CurrentRoomMapped { get; } = true;
-        WaveManager _waveManager;
+        private static readonly Point TileSize = new Point(16, 16);
 
-        public override void LoadDungeonContent(ContentManager content)
+        public IScene Scene { get; protected set; }
+        private ISprite _background;
+        private SurvivalScene[][] _scenes;
+        private IPlayer _player;
+        private SurvivalRoom[][] _rooms ;
+        private WaveManager _waveManager;
+        public Point CurrentRoom { get; protected set; } = Point.Zero;
+
+        private static ISprite Background(bool inShop)
         {
-            BackgroundIds = new[]
-            {
-                new[] {BackgroundId.Shop},
-                new[] {BackgroundId.Dungeon},
-            };
+            return inShop ?
+                BackgroundSpriteFactory.Instance.CreateSurvivalShopBackground() : BackgroundSpriteFactory.Instance.CreateSurvivalDungeonBackground();
+        }
 
-            Rooms = new [] {
-                new Room[]
+        private void SetBackground(bool inShop)
+        {
+            _background = Background(inShop);
+        }
+
+        public void LoadDungeonContent(ContentManager content)
+        {
+            _rooms = new [] {
+                new []
                 {
                     new SurvivalRoom(this, content.Load<int[][]>($"Shop/ShopTiles"))
                 },
-                new Room[]
+                new []
                 {
                     new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"))
                 }
             };
 
-            var rows = Rooms.Length;
-            Scenes = new Scene[rows][];
-            EnabledRooms = new bool[rows][];
-            UnmappedRooms = new bool[rows][];
-            VisitedRooms = new bool[rows][];
+            var rows = _rooms.Length;
+            _scenes = new SurvivalScene[rows][];
             for (var row = 0; row < rows; row++)
             {
-                var cols = Rooms[row].Length;
-                Scenes[row] = new Scene[cols];
-                EnabledRooms[row] = new bool[cols];
-                UnmappedRooms[row] = new bool[cols];
-                VisitedRooms[row] = new bool[cols];
-
-                for (var col = 0; col < cols; col++)
-                {
-                    EnabledRooms[row][col] = true;
-                    UnmappedRooms[row][col] = true;
-                }
+                var cols = _rooms[row].Length;
+                _scenes[row] = new SurvivalScene[cols];
             }
-            _waveManager = new WaveManager(this,(SurvivalRoom)Rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
+            _waveManager = new WaveManager(this, _rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
 
             /* TODO: Implement */
         }
 
-        public override void LoadScenes(IPlayer player)
+        public void LoadScenes(IPlayer player)
         {
-            base.LoadScenes(player);
-        }
-
-        public override void ResetScenes()
-        {
-            //No Op
-        }
-
-        public override void JumpToRoom(int row, int column, Direction facing = Direction.Up)
-        {
-            VisitedRooms[row][column] = true;
-            CurrentRoom = new Point(column, row);
-            SetBackground(BackgroundIds[row][column]);
-            if (row == 1)
+            _player = player;
+            for (var row = 0; row < _scenes.Length; row++)
             {
-                Player?.Teleport(TileSize * new Point(23, 2) + new Point(8, 0), Direction.Down);
-                _waveManager.InShop = false;
+                for (var col = 0; col < _scenes[row].Length; col++)
+                {
+                    _scenes[row][col] = new SurvivalScene(_rooms[row][col], player);
+                }
             }
-            else
+        }
+
+        public void ResetScenes()
+        {
+            // NO-OP: Not necessary for now
+        }
+
+        public void Transition(Direction roomDirection, bool unlock)
+        {
+            var newRoom = CurrentRoom;
+            switch (roomDirection)
             {
-                Player?.Teleport(TileSize * new Point(27, 60) + new Point(8, 0), Direction.Up);
-                _waveManager.InShop = true;
+                case Direction.Up:
+                    newRoom.Y--;
+                    break;
+                case Direction.Down:
+                    newRoom.Y++;
+                    break;
+                case Direction.Left:
+                    newRoom.X--;
+                    break;
+                case Direction.Right:
+                    newRoom.X++;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (unlock)
+            {
+                _rooms[newRoom.Y][newRoom.X].Doors[DirectionUtility.Flip(roomDirection)]?.Unblock();
             }
 
             Scene?.DestroyProjectiles();
-            Scene = Scenes[row][column];
+            JumpToRoom(newRoom.Y, newRoom.X);
+        }
+
+        public void JumpToRoom(int row, int column, Direction facing = Direction.Up)
+        {
+            CurrentRoom = new Point(column, row);
+            var inShop = row == 0;
+            SetBackground(inShop);
+            //_waveManager.InShop = inShop;
+            if (inShop)
+            {
+                _player?.Teleport(TileSize * new Point(27, 60) + new Point(8, 0), Direction.Up);
+            }
+            else
+            {
+                _player?.Teleport(TileSize * new Point(23, 2) + new Point(8, 0), Direction.Down);
+            }
+
+            Scene?.DestroyProjectiles();
+            Scene = _scenes[row][column];
             Scene.SpawnScene();
         }
 
-        public override void Update() 
+        public void Update()
         {
-            base.Update();
-            _waveManager.Update();
+            //_waveManager.Update();
+            Scene?.Update();
+        }
+
+        public void Draw()
+        {
+            _background?.Draw(Vector2.Zero);
+            Scene?.Draw();
         }
     }
 }
