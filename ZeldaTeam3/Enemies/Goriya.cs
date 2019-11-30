@@ -8,7 +8,7 @@ namespace Zelda.Enemies
     internal class Goriya : EnemyAgent
     {
         private const int BoomerangDuration = 40;
-        private const int ActionDelay = 30;
+        private const int ActionDelay = 16;
 
         private static readonly Point Size = new Point(16, 16);
         public override Rectangle Bounds => new Rectangle(Location, Alive ? Size : Point.Zero);
@@ -102,7 +102,7 @@ namespace Zelda.Enemies
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            _agentClock = ActionDelay / 2;
+            _agentClock = ActionDelay;
             _statusDirection = DirectionUtility.Flip(_statusDirection);
         }
 
