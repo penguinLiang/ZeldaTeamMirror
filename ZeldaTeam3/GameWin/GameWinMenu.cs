@@ -8,7 +8,7 @@ namespace Zelda.GameWin
     {
         private readonly GameStateAgent _agent;
         private const string GameWinMessage = "YOU WIN!";
-        private const string RetryMessage = "RESET";
+        private const string RetryMessage = "RETRY";
         private const string QuitMessage = "QUIT";
         private const string PressEnter = "PRESS ENTER TO SELECT";
 

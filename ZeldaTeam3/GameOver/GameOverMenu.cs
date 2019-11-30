@@ -13,7 +13,7 @@ namespace Zelda.GameOver
             new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameOverMessage)) / 2, 0);
 
         private const string ContinueMessage = "CONTINUE";
-        private const string RetryMessage = "RESET";
+        private const string RetryMessage = "RETRY";
         private const string QuitMessage = "QUIT";
         private const string PressEnter = "PRESS ENTER TO SELECT";
 
