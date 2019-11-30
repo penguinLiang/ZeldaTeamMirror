@@ -13,6 +13,7 @@ namespace Zelda.Commands
 
         public void Execute()
         {
+            _link.Inventory.AddSecondaryItem(Secondary.Bow);
             _link.AssignSecondaryItem(Secondary.Bow);
             _link.UseSecondaryItem();
         }

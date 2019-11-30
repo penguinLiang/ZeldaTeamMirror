@@ -141,6 +141,14 @@ namespace Zelda.Player
                 case Secondary.ExtraSlot2:
                     UseExtraItem(inv.RemoveExtraItem2(), location, facing);
                     break;
+                // Unconditional cases must be handled
+                case Secondary.Bow:
+                case Secondary.FireBow:
+                case Secondary.Boomerang:
+                case Secondary.Bomb:
+                case Secondary.Coins:
+                case Secondary.ATWBoomerang:
+                case Secondary.BombLauncher:
                 case Secondary.None:
                 case Secondary.Arrow:
                 case Secondary.SilverArrow:
