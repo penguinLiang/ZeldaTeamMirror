@@ -30,5 +30,6 @@ namespace Zelda
 
         bool Won { get; }
         void TouchTriforce();
+        void PartyHard();
     }
 }

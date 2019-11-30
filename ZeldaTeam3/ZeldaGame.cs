@@ -46,7 +46,6 @@ namespace Zelda
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            //_lightInTheDarknessEffect.Parameters["InSaturationOffset"].SetValue(0f);
             Sprite.SpriteBatch = _spriteBatch;
             DrawnText.SpriteBatch = _spriteBatch;
             DrawnText.SpriteFont = Content.Load<SpriteFont>("prstartk");
@@ -62,6 +61,8 @@ namespace Zelda
             LightInTheDarkness.ShaderEffect = Content.Load<Effect>("LightInTheDarkness");
             LightInTheDarkness.GraphicsDevice = GraphicsDevice;
             LightInTheDarkness.SpriteBatch = _spriteBatch;
+
+            PartyTime.ShaderEffect = Content.Load<Effect>("PartyTime");
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
