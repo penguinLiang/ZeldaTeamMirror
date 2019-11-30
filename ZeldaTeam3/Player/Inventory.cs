@@ -24,6 +24,8 @@ namespace Zelda.Player
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = 0;
         public int KeyCount { get; private set; }
+        public int Rupee1Value = 1;
+        public int Rupee5Value = 5;
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
@@ -122,11 +124,11 @@ namespace Zelda.Player
 
         public void Add1Rupee()
         {
-            RupeeCount = Math.Min(RupeeCount + 1, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + Rupee1Value, MaxRupeeCount);
         }
 
         public void Add5Rupee(){
-            RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + Rupee5Value, MaxRupeeCount);
         }
 
         public void AddKey()

@@ -18,18 +18,17 @@ namespace Zelda.Items
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-
+            Used = false;
             if(_price>0){
                 if((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None)&&player.Inventory.TryRemoveRupee(_price)){
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new LinkSecondaryAssign(player, Secondary.Clock);
-                } else return new NoOp();
+                }
+                return new NoOp();
             }
-            else {
             Used = true;
             SoundEffectManager.Instance.PlayPickupItem();
             return new LinkSecondaryAssign(player, Secondary.Clock);
-                }
         }
     }
 }

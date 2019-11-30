@@ -26,23 +26,11 @@ namespace Zelda.Items
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.FireBow);
                 }
-                else {
                     Used = false;
                     return new NoOp();
-                }
-            }else{
+            }
             SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.FireBow);
-                }
-        }
-
-        public ICommand BuyItem()
-        {
-            //In the actual thing this will be triggered if Link has enough to buy it
-            //Item added to inventory, collision cleared and sprite hidden
-            //potentially monitored in ShopManager?
-            //Upgrade to Bow
-            return new NoOp();
+            return new AddSecondaryItem(player, Secondary.FireBow);  
         }
     }
 }

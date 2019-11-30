@@ -20,12 +20,11 @@ namespace Zelda.Items
             Used = true;
             if(_price>0){
                 if(player.Inventory.TryRemoveRupee(_price)){
-                    SoundEffectManager.Instance.PlayPickupItem();
-                    player.Inventory.MaxRupeeCount = player.Inventory.MaxRupeeCount *2;
+                    SoundEffectManager.Instance.PlayPickupNewItem();
+                    player.Inventory.Rupee1Value = 3;
+                    player.Inventory.Rupee5Value = 10;
                 }
-                else {
                     Used = false;
-                }
             }
             else {
             SoundEffectManager.Instance.PlayPickupItem();

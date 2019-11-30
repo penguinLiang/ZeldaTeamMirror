@@ -7,7 +7,7 @@ namespace Zelda.Items
     internal class WalletUpgradeItem : Item
     {
         private int _price;
-        public WalletUpgradeItem(Point location,int price = 0) : base(location, price)
+        public WalletUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
         }
@@ -27,10 +27,8 @@ namespace Zelda.Items
                     Used = false;
                 }
             }
-            else {
             SoundEffectManager.Instance.PlayPickupItem();
-                }
-            return new NoOp();
+            player.Inventory.MaxRupeeCount = player.Inventory.MaxRupeeCount*2;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Zelda.Items
                     return new NoOp();
                 }
             }
-            SoundEffectManager.Instance.PlayPickupItem();
+            SoundEffectManager.Instance.PlayPickupNewItem();
             return new AddSecondaryItem(player, Secondary.Coins);
         }
     }

@@ -25,10 +25,8 @@ namespace Zelda.Items
                     player.Inventory.MaxBombCount = player.Inventory.MaxBombCount *2;
                     return new NoOp();
                 }
-                else {
                     Used = false;
                     return new NoOp();
-                }
             }
             SoundEffectManager.Instance.PlayPickupItem();
             return new NoOp();

@@ -22,16 +22,13 @@ namespace Zelda.Items
             if(_price>0){
                 if(player.Inventory.TryRemoveRupee(_price)){
                     SoundEffectManager.Instance.PlayPickupNewItem();
-                    player.Inventory.UpgradeSword(Primary.MagicalSword);
+                    return new UpgradeSword(player, Primary.MagicalSword);
                 }
-                else{
                     Used = false;
                     return new NoOp();
-                }
-            } else {
+            } 
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new UpgradeSword(player, Primary.MagicalSword);
-                }
         }
     }
 }

@@ -29,17 +29,13 @@ namespace Zelda.Items
             if(_price>0){
                 if(player.Inventory.TryRemoveRupee(_price)){
                     SoundEffectManager.Instance.PlayPickupItem();
-                    player.Inventory.AddSecondaryItem(Secondary.Boomerang);
+                    return new AddSecondaryItem(player, Secondary.Boomerang);
                 }
-                else {
                 Used = false;
                 return new NoOp();
-                }
             }
-            else {
             SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.Boomerang);
-            }
+            return new AddSecondaryItem(player, Secondary.Boomerang);  
         }
 
         public override void Update()

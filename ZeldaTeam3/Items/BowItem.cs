@@ -26,10 +26,8 @@ namespace Zelda.Items
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.Bow);
                     }
-                else {  
                     Used = false;
                     return new NoOp();
-                }
             }
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new AddSecondaryItem(player, Secondary.Bow);
