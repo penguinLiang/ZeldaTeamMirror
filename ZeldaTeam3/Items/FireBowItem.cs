@@ -7,25 +7,33 @@ namespace Zelda.Items
     internal class FireBowItem : Item
     {
 
-        public int price { get; private set; }
-        public FireBowItem(Point location) : base(location)
+        private int _price;
+        public FireBowItem(Point location,int price = 0) : base(location, price)
         {
-            price = 20;
-            //TODO fix the prices later
+            _price = price;
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
         //TODO: Fix this with the proper sprite
-        //TODO: Make this buyable
-        //TODO: PlayerEffect -> Buy? -> Add to Inventory
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-            //If link collides with, and he has enough money, Buy Item, else leave the item there
-            //Link also needs enough space in inventory, or to already have one of this item in inventory
+           
             Used = true;
+
+            if(_price>0){
+                if(player.Inventory.TryRemoveRupee(_price)){
+                    SoundEffectManager.Instance.PlayPickupNewItem();
+                    return new AddSecondaryItem(player, Secondary.FireBow);
+                }
+                else {
+                    Used = false;
+                    return new NoOp();
+                }
+            }else{
             SoundEffectManager.Instance.PlayPickupItem();
-            return new NoOp();
+            return new AddSecondaryItem(player, Secondary.FireBow);
+                }
         }
 
         public ICommand BuyItem()

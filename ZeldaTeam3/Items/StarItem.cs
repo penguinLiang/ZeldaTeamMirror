@@ -6,18 +6,14 @@ namespace Zelda.Items
 {
     internal class StarItem : Item
     {
-
-        public int price { get; private set; }
-        public StarItem(Point location) : base(location)
+        private int _price;
+        public StarItem(Point location, int price = 0) : base(location, price)
         {
-            price = 20;
-            //TODO fix the prices later
+           _price = price;
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
         //TODO: Fix this with the proper sprite
-        //TODO: Make this buyable
-        //TODO: PlayerEffect -> Buy? -> Add to Inventory
 
         public override ICommand PlayerEffect(IPlayer player)
         {
@@ -25,8 +21,21 @@ namespace Zelda.Items
             //Link also needs enough space in inventory, or to already have one of this item in inventory
             //Added to EXTRA SLOT 1 || 2
             Used = true;
+            if(_price>0){
+                if(player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None){
+            
+                if(player.Inventory.TryRemoveRupee(_price)){
+                    //add to inventory
+                    player.Inventory.AssignSecondaryItem(Secondary.Star);
+                    SoundEffectManager.Instance.PlayPickupItem();
+                    }
+                }
+                Used = false;
+                return new NoOp();
+            }
+            else {
             SoundEffectManager.Instance.PlayPickupItem();
-            return new NoOp();
+            return new NoOp();}
         }
 
         public ICommand BuyItem()

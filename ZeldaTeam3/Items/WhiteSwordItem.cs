@@ -6,10 +6,10 @@ namespace Zelda.Items
 {
     internal class WhiteSwordItem : Item
     {
-        public WhiteSwordItem(Point location) : base(location)
+        private int _price;
+        public WhiteSwordItem(Point location, int price = 0) : base(location, price)
         {
-            //price should not be 0 if survival mode shop
-            System.Diagnostics.Debug.WriteLine("What is the price:", base.Price );
+         _price = price;   
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWhiteSword();
@@ -18,9 +18,17 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupNewItem();
-          //  if(Price>0)
-            //check if you can buy it if price > 0
-            //else
+            if(_price>0){
+                if(player.Inventory.TryRemoveRupee(_price)){
+                    return new UpgradeSword(player, Primary.WhiteSword);
+                }
+                else
+                    {
+                    Used = false;
+                    return new NoOp();
+                    }
+            }
+            else
             return new UpgradeSword(player, Primary.WhiteSword);
         }
     }

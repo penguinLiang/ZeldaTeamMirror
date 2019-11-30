@@ -5,8 +5,8 @@ namespace Zelda.Player
 {
     public class Inventory
     {
-        private const int MaxRupeeCount = 255;
-        private const int MaxBombCount = 8;
+        public int MaxRupeeCount = 255;
+        public int MaxBombCount = 8;
         private const int MaxKeyCount = 255;
 
         public Primary SwordLevel { get; private set; }
@@ -44,6 +44,8 @@ namespace Zelda.Player
             {
                 case Secondary.LaserBeam:
                 case Secondary.Bait:
+                case Secondary.Star:
+                case Secondary.Clock:
                     // Case pre-condition: At least one extra slot is open (should be checked before method call)
                     if (ExtraItem1 == Secondary.None)
                     {
@@ -104,8 +106,7 @@ namespace Zelda.Player
             }
         }
 
-        public void AddCoin()
-        {
+        public void AddCoin()        {
             Coins++;
         }
 

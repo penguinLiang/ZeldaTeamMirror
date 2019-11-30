@@ -9,12 +9,12 @@ namespace Zelda.Items
     {
         private bool _activated;
         private readonly Room _room;
+        private int _price;
 
         public BoomerangItem(Point location, Room room, int price = 0) : base(location, price)
         {
             _room = room;
-            System.Diagnostics.Debug.WriteLine("What is the price: "+ price );
-
+            _price = price;
         }
 
 
@@ -23,10 +23,23 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             if (!_activated) return NoOp.Instance;
-
+            
             Used = true;
+
+            if(_price>0){
+                if(player.Inventory.TryRemoveRupee(_price)){
+                    SoundEffectManager.Instance.PlayPickupItem();
+                    player.Inventory.AddSecondaryItem(Secondary.Boomerang);
+                }
+                else {
+                Used = false;
+                return new NoOp();
+                }
+            }
+            else {
             SoundEffectManager.Instance.PlayPickupItem();
             return new AddSecondaryItem(player, Secondary.Boomerang);
+            }
         }
 
         public override void Update()

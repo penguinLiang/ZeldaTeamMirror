@@ -6,8 +6,10 @@ namespace Zelda.Items
 {
     internal class MagicSwordItem : Item
     {
-        public MagicSwordItem(Point location) : base(location)
+        private int _price;
+        public MagicSwordItem(Point location, int price = 0) : base(location, price)
         {
+            _price = price;
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMagicSword();
@@ -17,8 +19,19 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
+            if(_price>0){
+                if(player.Inventory.TryRemoveRupee(_price)){
+                    SoundEffectManager.Instance.PlayPickupNewItem();
+                    player.Inventory.UpgradeSword(Primary.MagicalSword);
+                }
+                else{
+                    Used = false;
+                    return new NoOp();
+                }
+            } else {
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new UpgradeSword(player, Primary.MagicalSword);
+                }
         }
     }
 }
