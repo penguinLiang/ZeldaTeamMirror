@@ -26,7 +26,6 @@ namespace Zelda.Enemies
         private AgentState _agentStatus;
         private Point _playerLocation;
         private int _actionCount;
-        private int _stunClock;
 
         public WallMaster(Point location)
         {
@@ -62,7 +61,8 @@ namespace Zelda.Enemies
 
         public override void Stun()
         {
-            _stunClock = 240;
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
         }
 
         protected override void Knockback()
@@ -111,6 +111,7 @@ namespace Zelda.Enemies
                 case AgentState.Ready:
                     UpdateAction();
                     break;
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {
@@ -131,14 +132,6 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Moving:
-                    if (--_stunClock > 0)
-                    {
-                        var shiftLength = 16;
-                        if (_stunClock % shiftLength == 0)
-                        {
-                            _sprite.PaletteShift();
-                        }
-                    }
                     if (_agentClock == 0)
                     {
                         _agentStatus = AgentState.Ready;

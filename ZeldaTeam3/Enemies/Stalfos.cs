@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
@@ -54,11 +55,17 @@ namespace Zelda.Enemies
             _playerLocation = playerLocation;
         }
 
+        public override void Stun()
+        {
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
+        }
+
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            Velocity = 2;
             _agentClock = ActionDelay;
+            FlipDirection();
         }
 
         public override void Halt()
@@ -66,7 +73,7 @@ namespace Zelda.Enemies
             _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
             FlipDirection();
-            Move(_currentDirection);
+            Move(_currentDirection,2);
         }
 
         public void UpdateAction()
@@ -93,6 +100,7 @@ namespace Zelda.Enemies
                 case AgentState.Ready:
                     UpdateAction();
                     break;
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {
@@ -103,12 +111,11 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
-                        Velocity = 1;
                         _agentStatus = AgentState.Ready;
                     }
                     else
                     {
-                        Move(DirectionUtility.Flip(_currentDirection));
+                        Move(_currentDirection, 2);
                     }
 
                     break;

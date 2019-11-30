@@ -50,14 +50,9 @@ namespace Zelda.Enemies
             _currentDirection = Direction.Down;
         }
 
-        private void FlipDirection()
+        protected override void Move(Direction direction, int speed = 1)
         {
-            _currentDirection = DirectionUtility.Flip(_currentDirection);
-        }
-
-        protected override void Move(Direction direction)
-        {
-            base.Move(direction);
+            base.Move(direction, speed);
             if (direction == Direction.Right)
             {
                 _sprite = EnemySpriteFactory.Instance.CreateFygarFaceRight();
@@ -74,15 +69,15 @@ namespace Zelda.Enemies
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay;
-            Velocity = 3;
+            _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
         public override void Halt()
         {
             _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
-            FlipDirection();
-            Move(_currentDirection);
+            _currentDirection = DirectionUtility.Flip(_currentDirection);
+            base.Move(_currentDirection, 2);
         }
 
         public bool IsFacingPlayer()
@@ -121,7 +116,6 @@ namespace Zelda.Enemies
             switch (_agentStatus)
             {
                 case AgentState.Ready:
-                    Velocity = 1;
                     UpdateAction();
                     break;
                 case AgentState.Halted:
@@ -134,12 +128,11 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
-                        Velocity = 1;
                         _agentStatus = AgentState.Ready;
                     }
                     else
                     {
-                        Move(DirectionUtility.Flip(_currentDirection));
+                        base.Move(_currentDirection, 2);
                     }
 
                     break;

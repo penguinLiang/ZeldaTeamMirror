@@ -60,6 +60,11 @@ namespace Zelda.Enemies
         {
             UpdateDirection(DirectionUtility.Flip(_statusDirection));
         }
+        public override void Stun()
+        {
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
+        }
 
         private void UseAttack()
         {
@@ -86,27 +91,27 @@ namespace Zelda.Enemies
             _timeSinceBoomerangThrown = 0;
         }
 
-        protected override void Move(Direction direction)
+        protected override void Move(Direction direction, int speed = 1)
         {
             if (_timeSinceBoomerangThrown <= BoomerangDuration || !CanMove) return;
 
             UpdateDirection(direction);
-            base.Move(direction);
+            base.Move(direction, speed);
         }
 
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
             _agentClock = ActionDelay / 2;
-            Velocity = 2;
+            _statusDirection = DirectionUtility.Flip(_statusDirection);
         }
 
         public override void Halt()
         {
             _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
-            FlipDirection();
-            Move(_statusDirection);
+            _statusDirection = DirectionUtility.Flip(_statusDirection);
+            Move(_statusDirection, 2);
         }
 
         public void ExecuteAction()
@@ -120,6 +125,7 @@ namespace Zelda.Enemies
                     UpdateAction();
                     break;
                 case AgentState.Attacking:
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {
@@ -129,12 +135,11 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
-                        Velocity = 1;
                         _agentStatus = AgentState.Ready;
                     }
                     else
                     {
-                        base.Move(DirectionUtility.Flip(_statusDirection));
+                        base.Move(_statusDirection, 2);
                     }
 
                     break;

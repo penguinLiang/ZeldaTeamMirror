@@ -11,7 +11,7 @@ namespace Zelda.Enemies
         protected abstract ISprite Sprite { get; }
 
         protected Point Location;
-        protected int Velocity = 1;
+        protected int Speed = 1;
         protected const int TileSize = 8;
         protected const int AlignThreshold = 3;
 
@@ -56,9 +56,12 @@ namespace Zelda.Enemies
             }
         }
 
-        protected virtual void Move(Direction direction)
+        protected virtual void Move(Direction direction, int speed = 1)
         {
+            var initialSpeed = Speed;
+            Speed = speed;
             AlignMovement(direction);
+            Speed = initialSpeed;
         }
 
         protected void AlignMovement(Direction direction)
@@ -68,11 +71,11 @@ namespace Zelda.Enemies
                 var distance = Location.X % TileSize;
                 if (distance == 0)
                 {
-                    Location += new Point(0, direction == Direction.Down ? Velocity : -Velocity);
+                    Location += new Point(0, direction == Direction.Down ? Speed : -Speed);
                 }
                 else
                 {
-                    Location += new Point(distance > AlignThreshold ? Velocity : -Velocity, 0);
+                    Location += new Point(distance > AlignThreshold ? Speed : -Speed, 0);
                 }
             }
             else
@@ -80,11 +83,11 @@ namespace Zelda.Enemies
                 var distance = Location.Y % TileSize;
                 if (distance == 0)
                 {
-                    Location += new Point(direction == Direction.Left ? -Velocity : Velocity, 0);
+                    Location += new Point(direction == Direction.Left ? -Speed : Speed, 0);
                 }
                 else
                 {
-                    Location += new Point(0, distance > AlignThreshold ? Velocity : -Velocity);
+                    Location += new Point(0, distance > AlignThreshold ? Speed : -Speed);
                 }
             }
         }
@@ -139,8 +142,7 @@ namespace Zelda.Enemies
 
         public virtual void Stun()
         {
-            Halt();
-            Sprite.PaletteShift();
+            // NO-OP
         }
 
         public abstract Rectangle Bounds { get; }
