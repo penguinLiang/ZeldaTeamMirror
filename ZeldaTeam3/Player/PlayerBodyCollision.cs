@@ -20,7 +20,7 @@ namespace Zelda.Player
 
         public bool CollidesWith(Rectangle rect)
         {
-            return Bounds.Intersects(rect);
+            return rect.Size != Point.Zero && Bounds.Intersects(rect);
         }
 
         public ICommand EnemyEffect(IEnemy enemy)
