@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
 using Zelda.HUD;
+using Zelda.Items;
 using Zelda.Music;
 using Zelda.Player;
 using Zelda.ShaderEffects;
@@ -134,6 +135,7 @@ namespace Zelda.GameState
             Sprite.PartyHard = false;
             _partyHard = false;
             Player = new Link(Point.Zero);
+            Player.Inventory.AddSecondaryItem(Secondary.Arrow);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
             DungeonManager.LoadScenes(Player);
