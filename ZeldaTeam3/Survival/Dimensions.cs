@@ -8,5 +8,6 @@
         public const int MapWidth = 256;
         public const int PlayerHeight = 16;
         public const int PlayerWidth = 16;
+        public const int TileSize = 16;
     }
 }

@@ -46,7 +46,7 @@ namespace Zelda.Dungeon
             _projectiles.Clear();
         }
 
-        public virtual void SpawnScene()
+        public void SpawnScene()
         {
             _projectiles.Clear();
 
@@ -67,7 +67,7 @@ namespace Zelda.Dungeon
             }
         }
 
-        protected void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
+        private void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
         {
             if (!_player.Alive || _enemiesAttackThrottle.ContainsKey(roomEnemy) || !collision.CollidesWith(roomEnemy.Bounds)) return;
             collision.EnemyEffect(roomEnemy).Execute();
@@ -85,7 +85,7 @@ namespace Zelda.Dungeon
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
-        protected virtual void AddDroppedItem(Point location)
+        private void AddDroppedItem(Point location)
         {
             var rand = _rnd.Next(100);
             if (rand < 50) return; // No drop = 50%

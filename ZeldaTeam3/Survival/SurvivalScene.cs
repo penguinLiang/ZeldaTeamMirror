@@ -14,6 +14,7 @@ namespace Zelda.Survival
     {
         private const int ThrottleFrameDuration = 50;
         private readonly SurvivalRoom _room;
+        private readonly WaveManager _waveManager;
         private readonly IPlayer _player;
         private readonly Dictionary<IEnemy, int> _enemiesAttackThrottle = new Dictionary<IEnemy, int>();
         private readonly List<IProjectile> _projectiles = new List<IProjectile>();
@@ -21,9 +22,10 @@ namespace Zelda.Survival
         private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
         private int _enemyCount = int.MinValue;
 
-        public SurvivalScene(SurvivalRoom room, IPlayer player)
+        public SurvivalScene(SurvivalRoom room, WaveManager waveManager, IPlayer player)
         {
             _room = room;
+            _waveManager = waveManager;
             _player = player;
             _items.AddRange(_room.Items);
             foreach (var item in _items)
@@ -46,13 +48,13 @@ namespace Zelda.Survival
             _projectiles.Clear();
         }
 
-        public virtual void SpawnScene()
+        public void SpawnScene()
         {
             _projectiles.Clear();
 
             if (_enemyCount == int.MinValue)
             {
-                _enemyCount = _room.Enemies.Count;
+                _enemyCount = _waveManager.Enemies.Count;
             }
 
             foreach (var roomDoor in _room.Doors.Values)
@@ -62,25 +64,19 @@ namespace Zelda.Survival
             _room.TransitionReset();
         }
 
-        protected void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
+        private void PlayerAttackCollision(ICollideable collision, IEnemy roomEnemy)
         {
             if (!_player.Alive || _enemiesAttackThrottle.ContainsKey(roomEnemy) || !collision.CollidesWith(roomEnemy.Bounds)) return;
             collision.EnemyEffect(roomEnemy).Execute();
             _enemiesAttackThrottle[roomEnemy] = ThrottleFrameDuration;
 
             if (roomEnemy.Alive) return;
-            if (--_enemyCount == 0)
-            {
-                foreach (var door in _room.Doors.Values)
-                {
-                    door.Activate();
-                }
-            }
+
             if (roomEnemy is Stalfos || roomEnemy is Goriya || roomEnemy is WallMaster)
                 AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
-        protected virtual void AddDroppedItem(Point location)
+        private void AddDroppedItem(Point location)
         {
             var rand = _rnd.Next(100);
             if (rand < 50) return; // No drop = 50%
@@ -150,7 +146,7 @@ namespace Zelda.Survival
                 }
             }
 
-            foreach (var roomEnemy in _room.Enemies)
+            foreach (var roomEnemy in _waveManager.Enemies)
             {
                 roomEnemy.Target(_player.Location);
                 roomEnemy.Update();
@@ -241,15 +237,10 @@ namespace Zelda.Survival
                 projectile.Draw();
             }
 
-            foreach (var roomEnemy in _room.Enemies)
+            foreach (var roomEnemy in _waveManager.Enemies)
             {
                 roomEnemy.Draw();
             }
-        }
-
-        public void ResetEnemies()
-        {
-            _enemyCount = int.MinValue;
         }
     }
 }

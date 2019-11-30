@@ -690,10 +690,10 @@
 /processorParam:TextureFormat=Color
 /build:SurvivalDungeonBackground.png
 
-#begin SurvivalWaves.txt
+#begin SurvivalWaves.csv
 /importer:CSVWaveImporter
 /processor:PassThroughProcessor
-/build:SurvivalWaves.txt
+/build:SurvivalWaves.csv
 
 #begin Tiles.png
 /importer:TextureImporter

@@ -1,21 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Zelda.Blocks;
 using Zelda.Dungeon;
-using Zelda.Enemies;
 using Zelda.Items;
 
 // ReSharper disable SwitchStatementMissingSomeCases (handled at runtime)
 namespace Zelda.Survival
 {
-    public sealed class SurvivalRoom : IRoom
+    public class SurvivalRoom : IRoom
     {
         private const int TileWidthHeight = 16;
 
-        public List<IEnemy> Enemies { get; } = new List<IEnemy>();
-        public bool SomeEnemiesAlive => Enemies.Any(enemy => enemy.Alive);
+        // Wave handles enemy status since there is a spawn delay, this is only used for items
+        public bool SomeEnemiesAlive => false;
         public List<ICollideable> Collidables { get; } = new List<ICollideable>();
         public List<IDrawable> Drawables { get; } = new List<IDrawable>();
         public List<IItem> Items { get; } = new List<IItem>();
@@ -23,8 +21,6 @@ namespace Zelda.Survival
         public Dictionary<Direction, DoorBase> Doors { get; } = new Dictionary<Direction, DoorBase>();
         public List<IItem> ShopItems { get; } = new List<IItem>();
         public List<Point> SpawnTiles { get; } = new List<Point>();
-
-        private readonly Random _rnd = new Random((int)DateTime.Now.Ticks);
 
         private readonly IDungeonManager _survivalManager;
         private readonly ShopManager _shopManager;
@@ -142,18 +138,6 @@ namespace Zelda.Survival
             return true;
         }
 
-        public void SpawnEnemy(int enemyId)
-        {
-            //TODO: To be called by WaveManager or something. Should only spawn on the tiles within the current zone.
-            //Update to control the zones that the player has unlocked.
-            //currently we have an array of all the spawn tiles, this can spawn all the waves.
-            if (SpawnTiles.Count == 0) return;
-
-            var enemy = EnemyFactory.MakeEnemy(SpawnTiles[_rnd.Next(SpawnTiles.Count)], (EnemyType)enemyId);
-            Enemies.Add(enemy);
-            enemy.Spawn();
-        }
-
         private bool TryAddNonStandardTiles(MapTile tile, Point location) {
             // ReSharper disable once SwitchStatementMissingSomeCases (cases are covered elsewhere)
             switch (tile)
@@ -252,9 +236,6 @@ namespace Zelda.Survival
                 case MapTile.SilverArrow:
                     ShopItems.Add(new SilverArrowItem(location));
                     break;
-                case MapTile.SpawnShopKeep:
-                    Enemies.Add(new OldMan(location));
-                    break;
                 case MapTile.Star:
                     ShopItems.Add(new StarItem(location));
                     break;
@@ -269,6 +250,8 @@ namespace Zelda.Survival
                     break;
                 case MapTile.Fairy:
                     ShopItems.Add(new Fairy(location));
+                    break;
+                case MapTile.SpawnShopKeep:
                     break;
                 default:
                     return false;

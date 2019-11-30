@@ -6,7 +6,7 @@ using Zelda.Dungeon;
 
 namespace Zelda.Survival
 {
-    public class SurvivalManager : IDrawable, IDungeonManager
+    public class SurvivalManager : IDungeonManager
     {
         private static readonly Point TileSize = new Point(16, 16);
 
@@ -14,19 +14,18 @@ namespace Zelda.Survival
         private ISprite _background;
         private SurvivalScene[][] _scenes;
         private IPlayer _player;
-        private SurvivalRoom[][] _rooms ;
+        private SurvivalRoom[][] _rooms;
         private WaveManager _waveManager;
         public Point CurrentRoom { get; protected set; } = Point.Zero;
+        public int CurrentWave => _waveManager.CurrentWave;
 
-        private static ISprite Background(bool inShop)
+        private bool InShop => CurrentRoom.Y == 0;
+        public bool PartyHard => _waveManager.CurrentWaveType == WaveType.Party && !InShop;
+
+        private void SetBackground()
         {
-            return inShop ?
+            _background = InShop ?
                 BackgroundSpriteFactory.Instance.CreateSurvivalShopBackground() : BackgroundSpriteFactory.Instance.CreateSurvivalDungeonBackground();
-        }
-
-        private void SetBackground(bool inShop)
-        {
-            _background = Background(inShop);
         }
 
         public void LoadDungeonContent(ContentManager content)
@@ -49,9 +48,8 @@ namespace Zelda.Survival
                 var cols = _rooms[row].Length;
                 _scenes[row] = new SurvivalScene[cols];
             }
-            _waveManager = new WaveManager(this, _rooms[0][0], content.Load<string[][]>("SurvivalWaves"));
 
-            /* TODO: Implement */
+            _waveManager = new WaveManager(content.Load<string[][]>("SurvivalWaves"));
         }
 
         public void LoadScenes(IPlayer player)
@@ -61,14 +59,14 @@ namespace Zelda.Survival
             {
                 for (var col = 0; col < _scenes[row].Length; col++)
                 {
-                    _scenes[row][col] = new SurvivalScene(_rooms[row][col], player);
+                    _scenes[row][col] = new SurvivalScene(_rooms[row][col], _waveManager, player);
                 }
             }
         }
 
         public void ResetScenes()
         {
-            // NO-OP: Not necessary for now
+            _waveManager.Reset();
         }
 
         public void Transition(Direction roomDirection, bool unlock)
@@ -104,16 +102,16 @@ namespace Zelda.Survival
         public void JumpToRoom(int row, int column, Direction facing = Direction.Up)
         {
             CurrentRoom = new Point(column, row);
-            var inShop = row == 0;
-            SetBackground(inShop);
-            //_waveManager.InShop = inShop;
-            if (inShop)
+            SetBackground();
+            if (InShop)
             {
                 _player?.Teleport(TileSize * new Point(27, 60) + new Point(8, 0), Direction.Up);
+                _waveManager.AdvanceWave();
             }
             else
             {
                 _player?.Teleport(TileSize * new Point(23, 2) + new Point(8, 0), Direction.Down);
+                _waveManager.StartEnemyWave();
             }
 
             Scene?.DestroyProjectiles();
@@ -123,8 +121,25 @@ namespace Zelda.Survival
 
         public void Update()
         {
-            //_waveManager.Update();
             Scene?.Update();
+            _waveManager.Update();
+
+            if (InShop) return;
+
+            _waveManager.TrackSpawnsNearPlayer(_rooms[1][0].SpawnTiles, _player.Location);
+
+            if (!_waveManager.WaveComplete || _player.UsingPrimaryItem) return;
+
+            _waveManager.ClearWave();
+            _waveManager.AdvanceWave();
+            if (_waveManager.CurrentWaveType == WaveType.Shop)
+            {
+                JumpToRoom(0, 0);
+            }
+            else
+            {
+                _waveManager.StartEnemyWave();
+            }
         }
 
         public void Draw()

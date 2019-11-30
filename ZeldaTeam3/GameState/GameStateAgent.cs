@@ -15,7 +15,7 @@ namespace Zelda.GameState
     {
         private const float Scale = 2.0f;
 
-        private DungeonManager _dungeonManager = new DungeonManager();
+        private readonly DungeonManager _dungeonManager = new DungeonManager();
         public IDungeonManager DungeonManager => _dungeonManager;
         public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
