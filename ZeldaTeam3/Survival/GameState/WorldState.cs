@@ -3,6 +3,7 @@
     internal enum WorldState {
         Playing,
         GameOver,
+        Scoreboard,
         GameWin,
         Reset
     }

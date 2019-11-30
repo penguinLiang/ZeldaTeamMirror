@@ -6,6 +6,7 @@ using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Projectiles;
 
+// ReSharper disable ConvertIfStatementToSwitchStatement
 // ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
 namespace Zelda.Dungeon
 {
@@ -116,6 +117,8 @@ namespace Zelda.Dungeon
 
         public void Update()
         {
+            var prioritizedCoinCollisions = new List<Rectangle>();
+
             for (var i = 0; i < Projectiles.Count; i++)
             {
                 Projectiles[i].Update();
@@ -124,6 +127,10 @@ namespace Zelda.Dungeon
                 if (Projectiles[i] is SwordBeam)
                 {
                     Projectiles[i] = new SwordBeamParticles(Projectiles[i].Bounds.Location);
+                }
+                else if (Projectiles[i] is LaunchedBomb)
+                {
+                    Projectiles[i] = new LaunchedBombExplosion(Projectiles[i].Bounds.Location);
                 }
                 else
                 {
@@ -162,10 +169,7 @@ namespace Zelda.Dungeon
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
-                if (Player.UsingPrimaryItem)
-                {
-                    PlayerAttackCollision(Player.SwordCollision, roomEnemy);
-                }
+                PlayerAttackCollision(Player.UsingPrimaryItem ? Player.SwordCollision : Player.BodyCollision, roomEnemy);
 
                 if (roomEnemy.Alive && roomEnemy.CollidesWith(Player.BodyCollision.Bounds))
                 {
@@ -177,6 +181,8 @@ namespace Zelda.Dungeon
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
                         roomEnemy.ProjectileEffect(projectile).Execute();
+                        if (projectile is AlchemyCoin)
+                            prioritizedCoinCollisions.Add(roomEnemy.Bounds);
                     }
 
                     PlayerAttackCollision(projectile, roomEnemy);
@@ -193,11 +199,18 @@ namespace Zelda.Dungeon
                     if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
 
                     roomCollidable.ProjectileEffect(projectile).Execute();
+                    if (projectile is AlchemyCoin)
+                        prioritizedCoinCollisions.Insert(0, roomCollidable.Bounds);
                 }
             }
 
             foreach (var projectile in Projectiles)
             {
+                if (projectile is AlchemyCoin coin)
+                {
+                    coin.Reflect(prioritizedCoinCollisions);
+                }
+
                 if (projectile.CollidesWith(Player.BodyCollision.Bounds))
                 {
                     projectile.PlayerEffect(Player).Execute();

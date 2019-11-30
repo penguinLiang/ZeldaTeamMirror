@@ -46,15 +46,37 @@ namespace Zelda.Survival.HUD
             {
                 switch (_agent.Player.Inventory.SecondaryItem)
                 {
-                    case Items.Secondary.Bow when _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow:
-                        return Arrow;
                     case Items.Secondary.Boomerang:
                         return Boomerang;
                     case Items.Secondary.Bomb:
                         return Bomb;
+                    case Items.Secondary.Bow when _agent.Player.Inventory.ArrowLevel != Items.Secondary.None:
+                    case Items.Secondary.FireBow when _agent.Player.Inventory.ArrowLevel != Items.Secondary.None:
+                        return _agent.Player.Inventory.ArrowLevel == Items.Secondary.Arrow ? Arrow : SilverArrow;
+                    case Items.Secondary.Coins:
+                        return AlchemyCoin;
+                    case Items.Secondary.ATWBoomerang:
+                        return ATWBoomerang;
+                    case Items.Secondary.BombLauncher:
+                        return BombLauncher;
+                    case Items.Secondary.ExtraSlot1:
+                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+                    case Items.Secondary.ExtraSlot2:
+                        return getExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
                     default:
                         return null;
                 }
+            }
+        }
+
+        private ISprite getExtraItemSprite(Items.Secondary extraItem)
+        {
+            switch (extraItem)
+            {
+                case Items.Secondary.LaserBeam:
+                    return LaserBeam;
+                default:
+                    return null;
             }
         }
 
@@ -86,7 +108,15 @@ namespace Zelda.Survival.HUD
             }
 
             Primary?.Draw(PrimaryLocation + _location);
-            Secondary?.Draw(SecondaryLocation + _location);
+            switch (_agent.Player.Inventory.SecondaryItem)
+            {
+                case Items.Secondary.Coins:
+                    Secondary?.Draw(SecondaryLocation16_16 + _location);
+                    break;
+                default:
+                    Secondary?.Draw(SecondaryLocation8_16 + _location);
+                    break;
+            }
 
             int i;
             for (i = 0; i < _agent.Player.Health / 2; i++)

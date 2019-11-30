@@ -49,6 +49,7 @@ namespace Zelda.Dungeon
         Arrow = 60,
         BombLauncher = 61,
         RupeeUpgrade = 54,
+        Fairy = 36,
 
         // Blocks
         ImmovableBlock = 24,

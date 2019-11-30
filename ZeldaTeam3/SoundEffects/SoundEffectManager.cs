@@ -9,6 +9,7 @@ namespace Zelda.SoundEffects
 
         private SoundEffect _playSwordSlash;
         private SoundEffect _playSwordShoot;
+        private SoundEffect _playDeflect;
         private SoundEffect _playArrowBoomerangShoot;
         private SoundEffect _playBombDrop;
         private SoundEffect _playBombExplode;
@@ -27,6 +28,7 @@ namespace Zelda.SoundEffects
         private SoundEffect _playBossDead;
         private SoundEffect _playBossHurt;
         private SoundEffect _playPuzzleSolved;
+        private SoundEffect _playLaserBeam;
 
         public void LoadAllSounds(ContentManager content)
         {
@@ -35,10 +37,12 @@ namespace Zelda.SoundEffects
             _playBombExplode = content.Load<SoundEffect>("Sounds/LOZ_Bomb_Blow");
             _playBossHurt = content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Hit");
             _playBossDead = content.Load<SoundEffect>("Sounds/LOZFDS_Boss_Scream1_Distant");
+            _playDeflect = content.Load<SoundEffect>("Sounds/LOZ_Shield");
             _playDoorUnlock = content.Load<SoundEffect>("Sounds/LOZ_Door_Unlock");
             _playEnemyDie = content.Load<SoundEffect>("Sounds/LOZ_Enemy_Die");
             _playEnemyHit = content.Load<SoundEffect>("Sounds/LOZ_Enemy_Hit");
             _playKeyAppear = content.Load<SoundEffect>("Sounds/LOZ_Key_Appear");
+            _playLaserBeam = content.Load<SoundEffect>("Sounds/LaserBeam");
             _playLinkHurt = content.Load<SoundEffect>("Sounds/LOZ_Link_Hurt");
             _playLowHealth = content.Load<SoundEffect>("Sounds/LOZ_LowHealth");
             _playPickupDoppedHeartKey = content.Load<SoundEffect>("Sounds/LOZ_Get_Heart");
@@ -83,6 +87,11 @@ namespace Zelda.SoundEffects
             _playBossDead.CreateInstance().Play();
         }
 
+        public void PlayDeflect()
+        {
+            _playDeflect.CreateInstance().Play();
+        }
+
         public void PlayDoorUnlock()
         {
             _playDoorUnlock.CreateInstance().Play();
@@ -101,6 +110,11 @@ namespace Zelda.SoundEffects
         public void PlayKeyAppear()
         {
             _playKeyAppear.CreateInstance().Play();
+        }
+
+        public void PlayLaserBeam()
+        {
+            _playLaserBeam.CreateInstance().Play();
         }
 
         public void PlayLinkHurt()

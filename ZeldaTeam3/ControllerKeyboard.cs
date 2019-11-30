@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.Commands;
@@ -10,6 +11,7 @@ namespace Zelda
 {
     internal class ControllerKeyboard : IUpdatable
     {
+        private readonly GameStateAgent _agent;
         private readonly Dictionary<Keys, ICommand> _keydownMap;
         private readonly Dictionary<Keys, ICommand> _keyupMap;
         private readonly Dictionary<Keys, ICommand> _playerDirections;
@@ -17,18 +19,25 @@ namespace Zelda
         private Keys _firstPlayerDirection = Keys.None;
         private Keys[] _lastKeys = {};
 
+        private readonly Keys[] _konamiCode =
+        {
+            Keys.Up,
+            Keys.Up,
+            Keys.Down,
+            Keys.Down,
+            Keys.Left,
+            Keys.Right,
+            Keys.Left,
+            Keys.Right,
+            Keys.B,
+            Keys.A,
+            Keys.Enter
+        };
+        private int _konamiPos;
+
         public ControllerKeyboard(GameStateAgent agent)
-        { 
-            var quit = new Quit(agent);
-
-            var primaryattack = new LinkPrimaryAction(agent.Player);
-            var whiteswordupgrade = new UpgradeSword(agent.Player, Primary.WhiteSword);
-            var magicalswordupgrade = new UpgradeSword(agent.Player, Primary.MagicalSword);
-
-            var secondaryattack = new LinkSecondaryAction(agent.Player);
-            var bowassign = new LinkBowAssign(agent.Player);
-            var boomerangassign = new LinkBoomerangAssign(agent.Player);
-            var bombassign = new LinkBombAssign(agent.Player);
+        {
+            _agent = agent;
 
             var up = new LinkMoveUp(agent.Player);
             var down = new LinkMoveDown(agent.Player);
@@ -37,19 +46,19 @@ namespace Zelda
 
             _keydownMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, quit }
+                { Keys.Q, new Quit(agent) }
             };
 
             _keyupMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Z, primaryattack },
-                { Keys.D2, whiteswordupgrade },
-                { Keys.D3, magicalswordupgrade },
-                
-                { Keys.X, secondaryattack },
-                { Keys.D4, bowassign },
-                { Keys.D5, boomerangassign },
-                { Keys.D6, bombassign },
+                { Keys.Z, new LinkPrimaryAction(agent.Player)},
+                { Keys.D2, new UpgradeSword(agent.Player, Primary.WhiteSword)},
+                { Keys.D3, new UpgradeSword(agent.Player, Primary.MagicalSword)},
+
+                { Keys.X, new LinkSecondaryAction(agent.Player)},
+                { Keys.D4, new LinkBowAssign(agent.Player)},
+                { Keys.D5, new LinkBoomerangAssign(agent.Player)},
+                { Keys.D6, new LinkBombAssign(agent.Player)},
 
                 { Keys.Space, new Commands.Pause(agent) },
                 { Keys.M, new ShowJumpMap(agent) },
@@ -90,9 +99,25 @@ namespace Zelda
 
             foreach (var key in _lastKeys)
             {
-                if (!keysPressed.Contains(key) && _keyupMap.ContainsKey(key))
+                if (keysPressed.Contains(key)) continue;
+                if (_keyupMap.ContainsKey(key))
                 {
                     _keyupMap[key].Execute();
+                }
+
+                if (_konamiPos == _konamiCode.Length) continue;
+
+                if (_konamiCode[_konamiPos] == key)
+                {
+                    if (++_konamiPos == _konamiCode.Length)
+                    {
+                        Console.WriteLine("PARTY HARD");
+                        _agent.PartyHard();
+                    }
+                }
+                else
+                {
+                    _konamiPos = 0;
                 }
             }
 

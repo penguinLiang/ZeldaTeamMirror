@@ -20,10 +20,12 @@ namespace Zelda.Dungeon
         public List<IDrawable> Drawables = new List<IDrawable>();
         public List<IItem> Items = new List<IItem>();
         public List<ITransitionResetable> TransitionResetables = new List<ITransitionResetable>();
-        public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>(); 
+        public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>();
+        public List<IItem> ShopItems = new List<IItem>();
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
+        private readonly ShopManager _shopManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
@@ -58,6 +60,79 @@ namespace Zelda.Dungeon
                     if (!success) throw new ArgumentOutOfRangeException(tile.ToString());
                 }
             }
+        }
+
+        private bool TryAddShopTiles(MapTile tile, Point location)
+        {
+            switch(tile)
+            {
+                case MapTile.AlchemyCoin:
+                    ShopItems.Add(new AlchemyCoinItem(location));
+                    break;
+                case MapTile.Arrow:
+                    ShopItems.Add(new ArrowItem(location, Secondary.Arrow));
+                    break;
+                case MapTile.ATWBoomerang:
+                    ShopItems.Add(new ATWBoomerangItem(location));
+                    break;
+                case MapTile.Bait:
+                    ShopItems.Add(new BaitItem(location));
+                    break;
+                case MapTile.Bomb:
+                    ShopItems.Add(new BombItem(location));
+                    break;
+                case MapTile.BombLauncher:
+                    ShopItems.Add(new BombLauncherItem(location));
+                    break;
+                case MapTile.BombUpgrade:
+                    ShopItems.Add(new BombUpgradeItem(location));
+                    break;
+                case MapTile.Boomerang:
+                    ShopItems.Add(new BoomerangItem(location, this));
+                    break;
+                case MapTile.Bow:
+                    ShopItems.Add(new BowItem(location, Secondary.Bow));
+                    break;
+                case MapTile.Clock:
+                    ShopItems.Add(new ClockItem(location));
+                    break;
+                case MapTile.CrossShot:
+                    ShopItems.Add(new CrossShotItem(location));
+                    break;
+                case MapTile.KeyBarrier:
+                    Collidables.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
+                    break;
+                case MapTile.MagicSword:
+                    ShopItems.Add(new MagicSwordItem(location));
+                    break;
+                case MapTile.RupeeUpgrade:
+                    ShopItems.Add(new RupeeUpgradeItem(location));
+                    break;
+                case MapTile.SilverArrow:
+                    ShopItems.Add(new SilverArrowItem(location));
+                    break;
+                case MapTile.SpawnShopKeep:
+                    Enemies.Add(new OldMan(location));
+                    break;
+                case MapTile.Star:
+                    ShopItems.Add(new StarItem(location));
+                    break;
+                case MapTile.WalletUpgrade:
+                    ShopItems.Add(new WalletUpgradeItem(location));
+                    break;
+                case MapTile.WhiteSword:
+                    ShopItems.Add(new WhiteSwordItem(location));
+                    break;
+                case MapTile.FireBow:
+                    ShopItems.Add(new FireBowItem(location));
+                    break;
+                case MapTile.Fairy:
+                    ShopItems.Add(new Fairy(location));
+                    break;
+                default:
+                    return false;
+            }
+            return true;
         }
 
         private IEnemy MakeEnemy(Point spawnPoint)
@@ -103,7 +178,7 @@ namespace Zelda.Dungeon
                     Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    Items.Add(new BowItem(location));
+                    Items.Add(new BowItem(location, Secondary.Bow));
                     break;
                 case MapTile.Triforce:
                     Items.Add(new Triforce(location));
@@ -174,20 +249,6 @@ namespace Zelda.Dungeon
             Doors.Add(direction, door);
             Drawables.Add(door);
             Collidables.Add(door);
-            return true;
-        }
-
-        private bool TryAddShopTiles(MapTile tile, Point location)
-        {
-            BlockType blockType;
-            Direction direction;
-            // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (tile)
-            {
-                default:
-                    Debug.WriteLine(tile.ToString() + " is not implemented");
-                    return true; //CHANGE TO FALSE AFTER IMPLEMENTATION
-            }
             return true;
         }
 

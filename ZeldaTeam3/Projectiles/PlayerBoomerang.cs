@@ -105,14 +105,16 @@ namespace Zelda.Projectiles
             if (_location.X < _player.Location.X + DistancePerFrame)
             {
                 _location.X += DistancePerFrame;
-            } else if (_location.X > _player.Location.X - DistancePerFrame)
+            }
+            else if (_location.X > _player.Location.X - DistancePerFrame)
             {
                 _location.X -= DistancePerFrame;
             }
             if (_location.Y < _player.Location.Y + DistancePerFrame)
             {
                 _location.Y += DistancePerFrame;
-            } else if (_location.Y > _player.Location.Y - DistancePerFrame)
+            }
+            else if (_location.Y > _player.Location.Y - DistancePerFrame)
             {
                 _location.Y -= DistancePerFrame;
             }
@@ -148,7 +150,7 @@ namespace Zelda.Projectiles
 
         public void Draw()
         {
-            if (_collisionLocation != null) _collision?.Draw((Vector2) _collisionLocation);
+            if (_collisionLocation != null) _collision?.Draw((Vector2)_collisionLocation);
             _sprite.Draw(_location);
         }
     }

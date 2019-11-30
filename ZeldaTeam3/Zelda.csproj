@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\KeyBarrier.cs" />
     <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
@@ -48,15 +49,38 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
+    <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="IGameStateAgent.cs" />
+    <Compile Include="Items\AlchemyCoinItem.cs" />
+    <Compile Include="Items\ATWBoomerangItem.cs" />
+    <Compile Include="Items\BaitItem.cs" />
+    <Compile Include="Items\BombLauncherItem.cs" />
+    <Compile Include="Items\BombUpgradeItem.cs" />
+    <Compile Include="Items\ClockItem.cs" />
+    <Compile Include="Items\CrossShotItem.cs" />
+    <Compile Include="Items\FireBowItem.cs" />
+    <Compile Include="Items\RupeeUpgradeItem.cs" />
+    <Compile Include="Items\SilverArrowItem.cs" />
+    <Compile Include="Items\StarItem.cs" />
+    <Compile Include="Items\WalletUpgradeItem.cs" />
+    <Compile Include="Survival\Commands\ScoreboardReturn.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
+    <Compile Include="Survival\Commands\ShowScoreboard.cs" />
+    <Compile Include="Survival\GameState\ScoreboardWorld.cs" />
+    <Compile Include="HighScore\ScoreboardControllerKeyboard.cs" />
+    <Compile Include="HighScore\ScoreboardBackground.cs" />
+    <Compile Include="HighScore\Scoreboard.cs" />
     <Compile Include="HighScore\InitialEntryController.cs" />
     <Compile Include="DrawnText.cs" />
     <Compile Include="Enemies\Fygar.cs" />
+    <Compile Include="ShaderEffects\AlphaPassMask.cs" />
+    <Compile Include="ShaderEffects\LightInTheDarkness.cs" />
+    <Compile Include="ShaderEffects\PartyTime.cs" />
     <Compile Include="Survival\Commands\Pause.cs" />
     <Compile Include="Survival\Commands\Play.cs" />
     <Compile Include="Survival\Commands\Quit.cs" />
@@ -90,6 +114,13 @@
     <Compile Include="HighScore\InitialEntryScreen.cs" />
     <Compile Include="HighScore\PlayerScore.cs" />
     <Compile Include="ITransitionResetable.cs" />
+    <Compile Include="Projectiles\AlchemyCoin.cs" />
+    <Compile Include="Projectiles\LaserBeam.cs" />
+    <Compile Include="Projectiles\PlayerFireball.cs" />
+    <Compile Include="Projectiles\LaunchedBombExplosion.cs" />
+    <Compile Include="Projectiles\ATWBoomerang.cs" />
+    <Compile Include="Projectiles\SilverArrow.cs" />
+    <Compile Include="Projectiles\LaunchedBomb.cs" />
     <Compile Include="Projectiles\SwordBeam.cs" />
     <Compile Include="Projectiles\SwordBeamParticles.cs" />
     <Compile Include="Dungeon\PanningScene.cs" />
@@ -118,7 +149,6 @@
     <Compile Include="Blocks\Stair.cs" />
     <Compile Include="Commands\Add1Rupee.cs" />
     <Compile Include="Commands\Add5Rupee.cs" />
-    <Compile Include="Commands\AddArrow.cs" />
     <Compile Include="Commands\AddCompass.cs" />
     <Compile Include="Commands\AddKey.cs" />
     <Compile Include="Commands\AddMap.cs" />
@@ -219,7 +249,7 @@
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\GoriyaBoomerang.cs" />
     <Compile Include="Projectiles\ProjectileSpriteFactory.cs" />
-    <Compile Include="Projectiles\ArrowAndSwordBeamStateMachine.cs" />
+    <Compile Include="Projectiles\BasicProjectileStateMachine.cs" />
     <Compile Include="Projectiles\PlayerBoomerang.cs" />
     <Compile Include="Player\AliveSpriteStateMachine.cs" />
     <Compile Include="Player\HealthStateMachine.cs" />
@@ -254,6 +284,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\LightInTheDarkness.fx" />
+    <Content Include="Content\PartyTime.fx" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

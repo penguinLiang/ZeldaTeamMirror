@@ -29,6 +29,8 @@
         BasementStair,
         Fire,
         BlackBarrier,
-        ProjectileBlackBarrier
+        ProjectileBlackBarrier,
+        KeyBarrier,
+        RupeeBarrier
     }
 }

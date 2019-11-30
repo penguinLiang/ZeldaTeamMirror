@@ -10,7 +10,7 @@ namespace Zelda.Projectiles
         private const int SwordBeamSpeed = 3;
 
         private readonly ISprite _sprite;
-        private readonly ArrowAndSwordBeamStateMachine _swordBeamStateMachine;
+        private readonly BasicProjectileStateMachine _swordBeamStateMachine;
         private readonly int _damage;
 
         public Rectangle Bounds => _swordBeamStateMachine.Bounds;
@@ -37,7 +37,7 @@ namespace Zelda.Projectiles
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _swordBeamStateMachine = new ArrowAndSwordBeamStateMachine(location, direction, SwordBeamSpeed);
+            _swordBeamStateMachine = new BasicProjectileStateMachine(location, direction, SwordBeamSpeed);
             _damage = damage;
         }
 

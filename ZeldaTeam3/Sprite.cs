@@ -6,6 +6,7 @@ namespace Zelda
     internal class Sprite : ISprite
     {
         public static SpriteBatch SpriteBatch { private get; set; }
+        public static bool PartyHard { private get; set; }
 
         public bool AnimationFinished { get; private set; }
 
@@ -18,8 +19,8 @@ namespace Zelda
         /* Each sprite sheet follows a convention such that row dimensions may vary,
            but each column has the same width and height. */
         private readonly Texture2D _spriteSheet;
-        private readonly int _width;
-        private readonly int _height;
+        public int Width { get; }
+        public int Height { get; }
 
         /* A source offset must be provided since the dimensions of each row may vary,
            and some sheets are single frames and not contiguous. */
@@ -63,19 +64,19 @@ namespace Zelda
                 if (_totalPaletteCount == 0 || _paletteShiftDelay.Delayed) return;
                 _currentPaletteRow = value % _totalPaletteCount;
 
-                if (_currentPaletteRow != 0 || _paletteCyclesShifted++ != PaletteShiftCycles) return;
+                if (PartyHard || _currentPaletteRow != 0 || _paletteCyclesShifted++ != PaletteShiftCycles) return;
                 _paletteShiftDelay.Pause();
                 _paletteCyclesShifted = 0;
             }
         }
 
-        private int SourceX => _sourceOffset.X + _currentFrame * _width;
+        private int SourceX => _sourceOffset.X + _currentFrame * Width;
         private int SourceY => _sourceOffset.Y + _currentPaletteRow * _paletteHeight;
 
         public Sprite(Texture2D spriteSheet, int width, int height, int frameCount, Point sourceOffset, int frameDelay = DefaultFrameDelay, int paletteHeight = 0, int totalPaletteCount = 0, int paletteShiftDelay = DefaultPaletteShiftDelay)
         {
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
             _frameCount = frameCount;
             _spriteSheet = spriteSheet;
             _paletteHeight = paletteHeight;
@@ -89,6 +90,7 @@ namespace Zelda
         public void Update()
         {
             _frameDelay.Update();
+            if (PartyHard) PaletteShift();
             _paletteShiftDelay.Update();
             CurrentFrame++;
             CurrentPaletteRow++;
@@ -97,7 +99,7 @@ namespace Zelda
         public void Draw(Vector2 location)
         {
             if (!_visible) return;
-            SpriteBatch.Draw(_spriteSheet, location, new Rectangle(SourceX, SourceY, _width, _height), Color.White);
+            SpriteBatch.Draw(_spriteSheet, location, new Rectangle(SourceX, SourceY, Width, Height), Color.White);
         }
 
         public void Hide()

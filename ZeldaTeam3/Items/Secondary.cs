@@ -2,8 +2,19 @@
 {
     public enum Secondary
     {
-        Bow,
+        None = 0,
         Boomerang,
-        Bomb
+        Bomb,
+        Bow,
+        FireBow,
+        Arrow,
+        SilverArrow,
+        Coins,
+        ATWBoomerang,
+        BombLauncher,
+        ExtraSlot1,
+        ExtraSlot2,
+        LaserBeam,
+        Bait
     }
 }

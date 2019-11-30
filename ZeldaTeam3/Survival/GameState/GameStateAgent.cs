@@ -10,25 +10,27 @@ namespace Zelda.Survival.GameState
     /*
      * Handles game state transitions and screen panning
      */
-    public class GameStateAgent : IUpdatable
+    public class GameStateAgent : IGameStateAgent
     {
         public const float Scale = 2.0f;
 
-        public SurvivalManager DungeonManager { get; } = new SurvivalManager();
-        public HUDScreen HUD { get; }
+        public DungeonManager DungeonManager { get; } = new SurvivalManager();
+        public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
 
         private readonly SpriteBatch _spriteBatch;
+        private readonly GraphicsDevice _graphicsDevice;
         private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();
         private PlayerLockCamera _camera;
 
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
 
-        public GameStateAgent(SpriteBatch spriteBatch)
+        public GameStateAgent(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             _spriteBatch = spriteBatch;
+            _graphicsDevice = graphicsDevice;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
             DungeonManager.Pan = DungeonPan;
             _camera = new PlayerLockCamera(Player);
@@ -59,6 +61,13 @@ namespace Zelda.Survival.GameState
             if (_worldState == WorldState.GameOver) return;
             _world = new GameOverWorld(this);
             _worldState = WorldState.GameOver;
+        }
+
+        public void Scoreboard()
+        {
+            if (_worldState == WorldState.Scoreboard) return;
+            _world = new ScoreboardWorld(this);
+            _worldState = WorldState.Scoreboard;
         }
 
         public void GameWin()
@@ -122,6 +131,7 @@ namespace Zelda.Survival.GameState
         public void Draw()
         {
             if (_world == null) return;
+            _graphicsDevice.Clear(Color.Black);
 
             // DrawFollow(); // UNCOMMENT THIS LINE TO TEST SURVIVAL CAMERA
 

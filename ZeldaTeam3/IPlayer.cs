@@ -14,6 +14,7 @@ namespace Zelda
         Inventory Inventory { get; }
 
         Point Location { get; }
+        Direction Direction { get; }
         ICollideable BodyCollision { get; }
         ICollideable SwordCollision { get; }
         bool UsingPrimaryItem { get; }
@@ -29,5 +30,6 @@ namespace Zelda
 
         bool Won { get; }
         void TouchTriforce();
+        void PartyHard();
     }
 }
