@@ -39,6 +39,27 @@ namespace Zelda.Enemies
             _currentDirection = Direction.Down;
         }
 
+        protected override void Move(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    Location.Y -= Velocity;
+                    break;
+                case Direction.Down:
+                    Location.Y += Velocity;
+                    break;
+                case Direction.Left:
+                    Location.X -= Velocity;
+                    break;
+                case Direction.Right:
+                    Location.X += Velocity;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         private void FlipDirection()
         {
             _currentDirection = DirectionUtility.Flip(_currentDirection);
@@ -64,14 +85,14 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Knocked:
-                    if (_agentClock != 0)
+                    if (_agentClock == 0)
                     {
-                        Move(_currentDirection);
+                        Velocity = 1;
+                        _agentStatus = AgentState.Ready;
                     }
                     else
                     {
-                        FlipDirection();
-                        _agentStatus = AgentState.Ready;
+                        Move(DirectionUtility.Flip(_currentDirection));
                     }
 
                     break;
@@ -106,7 +127,8 @@ namespace Zelda.Enemies
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            _agentClock = ActionDelay / 2;
+            Velocity = 2;
+            _agentClock = ActionDelay;
             FlipDirection();
         }
 

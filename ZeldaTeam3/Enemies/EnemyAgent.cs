@@ -11,7 +11,9 @@ namespace Zelda.Enemies
         protected abstract ISprite Sprite { get; }
 
         protected Point Location;
-        protected const int Velocity = 1;
+        protected int Velocity = 1;
+        protected const int TileSize = 8;
+        protected const int AlignThreshold = 3;
 
         protected int Health = 1;
 
@@ -56,22 +58,34 @@ namespace Zelda.Enemies
 
         protected virtual void Move(Direction direction)
         {
-            switch (direction)
+            AlignMovement(direction);
+        }
+
+        protected void AlignMovement(Direction direction)
+        {
+            if (direction == Direction.Down || direction == Direction.Up)
             {
-                case Direction.Up:
-                    Location.Y -= Velocity;
-                    break;
-                case Direction.Down:
-                    Location.Y += Velocity;
-                    break;
-                case Direction.Left:
-                    Location.X -= Velocity;
-                    break;
-                case Direction.Right:
-                    Location.X += Velocity;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var distance = Location.X % TileSize;
+                if (distance == 0)
+                {
+                    Location += new Point(0, direction == Direction.Down ? Velocity : -Velocity);
+                }
+                else
+                {
+                    Location += new Point(distance > AlignThreshold ? Velocity : -Velocity, 0);
+                }
+            }
+            else
+            {
+                var distance = Location.Y % TileSize;
+                if (distance == 0)
+                {
+                    Location += new Point(direction == Direction.Left ? -Velocity : Velocity, 0);
+                }
+                else
+                {
+                    Location += new Point(0, distance > AlignThreshold ? Velocity : -Velocity);
+                }
             }
         }
 

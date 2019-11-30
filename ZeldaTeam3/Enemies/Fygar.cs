@@ -73,7 +73,8 @@ namespace Zelda.Enemies
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            _agentClock = ActionDelay / 2;
+            _agentClock = ActionDelay;
+            Velocity = 3;
         }
 
         public override void Halt()
@@ -120,6 +121,7 @@ namespace Zelda.Enemies
             switch (_agentStatus)
             {
                 case AgentState.Ready:
+                    Velocity = 1;
                     UpdateAction();
                     break;
                 case AgentState.Halted:
@@ -132,6 +134,7 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
+                        Velocity = 1;
                         _agentStatus = AgentState.Ready;
                     }
                     else

@@ -24,10 +24,18 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
+        private Point _playerLocation;
+        private int _actionCount;
+        private int _stunClock;
 
         public WallMaster(Point location)
         {
             _origin = location;
+        }
+
+        public override void Target(Point playerLocation)
+        {
+            _playerLocation = playerLocation;
         }
 
         public override void Spawn()
@@ -52,6 +60,11 @@ namespace Zelda.Enemies
             Move(_currentDirection);
         }
 
+        public override void Stun()
+        {
+            _stunClock = 240;
+        }
+
         protected override void Knockback()
         {
             // NO-OP: Unknockable
@@ -59,10 +72,29 @@ namespace Zelda.Enemies
 
         public void UpdateAction()
         {
-            _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
+            if (_actionCount == 0)
+            {
+                _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
+                switch (_agentStatus)
+                {
+                    case AgentState.Moving:
+                        _actionCount = 4;
+                        break;
+                    case AgentState.Halted:
+                    case AgentState.Knocked:
+                    case AgentState.Ready:
+                        _actionCount = 1;
+                        break;
+                }
+                
+            }
+            _actionCount--;
+
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = DirectionUtility.RandomDirection();
+                _currentDirection = IsWithinCircularBounds(_playerLocation, 192)
+                    ? DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation)
+                    : DirectionUtility.RandomDirection();
             }
             _agentClock = ActionDelay;
         }
@@ -99,6 +131,14 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Moving:
+                    if (--_stunClock > 0)
+                    {
+                        var shiftLength = 16;
+                        if (_stunClock % shiftLength == 0)
+                        {
+                            _sprite.PaletteShift();
+                        }
+                    }
                     if (_agentClock == 0)
                     {
                         _agentStatus = AgentState.Ready;

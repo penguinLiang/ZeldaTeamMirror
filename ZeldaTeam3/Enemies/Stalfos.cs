@@ -8,6 +8,8 @@ namespace Zelda.Enemies
     {
         private const int ActionDelay = 16;
 
+        private static readonly Random Rng = new Random();
+
         private static readonly Point Size = new Point(16, 16);
         public override Rectangle Bounds => new Rectangle(Location, Alive ? Size : Point.Zero);
         private ISprite _sprite;
@@ -24,6 +26,7 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
+        private Point _playerLocation;
 
         public Stalfos(Point location)
         {
@@ -46,10 +49,16 @@ namespace Zelda.Enemies
             _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
+        public override void Target(Point playerLocation)
+        {
+            _playerLocation = playerLocation;
+        }
+
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            _agentClock = ActionDelay / 2;
+            Velocity = 2;
+            _agentClock = ActionDelay;
         }
 
         public override void Halt()
@@ -65,7 +74,9 @@ namespace Zelda.Enemies
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = DirectionUtility.RandomDirection();
+                _currentDirection = Rng.Next(2)==0 
+                    ? DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation)
+                    : DirectionUtility.RandomDirection();
             }
             _agentClock = ActionDelay;
         }
@@ -92,6 +103,7 @@ namespace Zelda.Enemies
                 case AgentState.Knocked:
                     if (_agentClock == 0)
                     {
+                        Velocity = 1;
                         _agentStatus = AgentState.Ready;
                     }
                     else
@@ -120,10 +132,11 @@ namespace Zelda.Enemies
 
         public override void Update()
         {
+            base.Update();
             if (Alive && CanMove)
                 ExecuteAction();
 
-            base.Update();
+            
         }
     }
 }
