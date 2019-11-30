@@ -137,6 +137,11 @@ __5__: Assign and Use the Boomerang as the Secondary Weapon
 __6__: Assign and Use the Bomb as the Secondary Weapon  
 
 __M__: Open/close the jump map. _Click on a room to teleport there_  
+
+## Cheats
+
+__Activate Party Mode (PARTY HARD)_:_
+UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A, ENTER
   
 ## Frame Rates  
 __Normal Frame Rate__: Frame rate usually used to cycle between animation frames of a sprite  

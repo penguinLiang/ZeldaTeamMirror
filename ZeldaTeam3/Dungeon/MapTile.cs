@@ -23,6 +23,8 @@ namespace Zelda.Dungeon
         BlackBarrier = 15,
         RupeeBarrier = 27,
         KeyBarrier = 28,
+        KeyBarrierCenter = 7,
+        RupeeBarrierCenter = 6,
 
 
         // Items

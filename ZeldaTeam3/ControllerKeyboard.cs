@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.Commands;
@@ -10,6 +11,7 @@ namespace Zelda
 {
     internal class ControllerKeyboard : IUpdatable
     {
+        private readonly GameStateAgent _agent;
         private readonly Dictionary<Keys, ICommand> _keydownMap;
         private readonly Dictionary<Keys, ICommand> _keyupMap;
         private readonly Dictionary<Keys, ICommand> _playerDirections;
@@ -17,8 +19,26 @@ namespace Zelda
         private Keys _firstPlayerDirection = Keys.None;
         private Keys[] _lastKeys = {};
 
+        private readonly Keys[] _konamiCode =
+        {
+            Keys.Up,
+            Keys.Up,
+            Keys.Down,
+            Keys.Down,
+            Keys.Left,
+            Keys.Right,
+            Keys.Left,
+            Keys.Right,
+            Keys.B,
+            Keys.A,
+            Keys.Enter
+        };
+        private int _konamiPos;
+
         public ControllerKeyboard(GameStateAgent agent)
-        { 
+        {
+            _agent = agent;
+
             var up = new LinkMoveUp(agent.Player);
             var down = new LinkMoveDown(agent.Player);
             var right = new LinkMoveRight(agent.Player);
@@ -79,9 +99,25 @@ namespace Zelda
 
             foreach (var key in _lastKeys)
             {
-                if (!keysPressed.Contains(key) && _keyupMap.ContainsKey(key))
+                if (keysPressed.Contains(key)) continue;
+                if (_keyupMap.ContainsKey(key))
                 {
                     _keyupMap[key].Execute();
+                }
+
+                if (_konamiPos == _konamiCode.Length) continue;
+
+                if (_konamiCode[_konamiPos] == key)
+                {
+                    if (++_konamiPos == _konamiCode.Length)
+                    {
+                        Console.WriteLine("PARTY HARD");
+                        _agent.PartyHard();
+                    }
+                }
+                else
+                {
+                    _konamiPos = 0;
                 }
             }
 
