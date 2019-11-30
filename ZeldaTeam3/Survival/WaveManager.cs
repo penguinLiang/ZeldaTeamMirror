@@ -11,8 +11,6 @@ namespace Zelda.Survival
 {
     public class WaveManager : IUpdatable
     {
-        private readonly Random _rnd = new Random((int) DateTime.Now.Ticks);
-
         public int CurrentWave { get; private set; }
         private int _scale = 1;
         private readonly List<Wave> _waveStorage = new List<Wave>();
@@ -23,6 +21,8 @@ namespace Zelda.Survival
         private EnemyType[] _waveEnemyTypes;
         private int _currentEnemyOffset;
         private bool _waveStarted;
+
+        private uint _spawnCount;
 
         public List<IEnemy> Enemies { get; } = new List<IEnemy>();
 
@@ -146,11 +146,13 @@ namespace Zelda.Survival
                 _spawnLocations.Count == 0 ||
                 _currentEnemyOffset >= _waveEnemyTypes.Length) return;
 
-            var spawnLocation = _spawnLocations[_rnd.Next(_spawnLocations.Count)];
+            var roundRobin = (int)(_spawnCount % _spawnLocations.Count);
+            var spawnLocation = _spawnLocations[roundRobin];
             var enemy = EnemyFactory.MakeEnemy(spawnLocation, _waveEnemyTypes[_currentEnemyOffset]);
             Enemies.Add(enemy);
             enemy.Spawn();
             _currentEnemyOffset++;
+            _spawnCount++;
         }
     }
 }
