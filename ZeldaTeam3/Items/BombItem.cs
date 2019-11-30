@@ -19,7 +19,7 @@ namespace Zelda.Items
             Used = false;
             if(_price>0){
                 if(player.Inventory.TryRemoveRupee(_price)){
-                    SoundEffectManager.PlayPickupItem();
+                    SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Bomb);
                 }
                 return new NoOp();

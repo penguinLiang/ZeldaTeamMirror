@@ -24,7 +24,6 @@ namespace Zelda.Dungeon
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
-        private readonly ShopManager _shopManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
@@ -93,7 +92,6 @@ namespace Zelda.Dungeon
                     break;
                 case MapTile.KeyBarrier:
                     Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));
-                    //BuyableItems.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
                     break;
                 case MapTile.KeyBarrierCenter:
                     Barricade.Add(new KeyBarrierCenter(location, BlockType.KeyBarrierCenter));
@@ -111,7 +109,7 @@ namespace Zelda.Dungeon
                     Items.Add(new RupeeUpgradeItem(location));
                     break;
                 case MapTile.SilverArrow:
-                    Items.Add(new SilverArrowItem(location));
+                    Items.Add(new ArrowItem(location, Secondary.SilverArrow));
                     break;
                 case MapTile.SpawnShopKeep:
                     Enemies.Add(new OldMan(location));

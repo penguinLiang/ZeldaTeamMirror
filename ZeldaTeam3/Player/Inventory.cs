@@ -12,7 +12,7 @@ namespace Zelda.Player
         public Primary SwordLevel { get; private set; }
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
-        public int BombCount { get; private set; } = MaxBombCount / 2;
+        public int BombCount { get; private set; }
         public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; }
         public int Coins { get; private set; } = 2;
@@ -32,6 +32,8 @@ namespace Zelda.Player
         public bool HasBow => BowLevel != Secondary.None;
 
         public Inventory(){
+            MaxBombCount = 8;
+            BombCount = MaxBombCount / 2;
         }
 
         public void UpgradeSword(Primary newSwordLevel)
