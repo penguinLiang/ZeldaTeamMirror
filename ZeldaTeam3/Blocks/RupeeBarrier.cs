@@ -8,30 +8,30 @@ using Zelda.SoundEffects;
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
 {
-    internal class KeyBarrier : IBarricade
+    internal class RupeeBarrier : IBarricade
     {
         private BlockType _block;
         // protected override ISprite Sprite => _sprite;
         // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        private bool _unlocked {get; set;}
+        private bool _unlocked { get; set; }
         public Rectangle Bounds { get; private set; }
         private Point _location;
-       public bool unlocked { get; set; }
+        public bool unlocked { get; set; }
 
         private static BlockType UnlockedType(BlockType block)
         {
             return BlockType.InvisibleBlock;
         }
 
-        public KeyBarrier(Point location, BlockType block)
+        public RupeeBarrier(Point location, BlockType block)
         {
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
             unlocked = false;
             Bounds = new Rectangle(_location, new Point(20, 20));
-           //unlocked = (Check collisions for KeyBarrierCenter -> Unlocked = keybarrerCenter.unlock)
+            //unlocked = (Check collisions for KeyBarrierCenter -> Unlocked = keybarrerCenter.unlock)
 
             if (_unlocked)
             {
@@ -43,7 +43,7 @@ namespace Zelda.Blocks
 
         public void Reset()
         {
-            _block = BlockType.KeyBarrier;
+            _block = BlockType.RupeeBarrier;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             Bounds = new Rectangle(_location, new Point(20, 20));
             _unlocked = false;
@@ -53,7 +53,7 @@ namespace Zelda.Blocks
         {
             _unlocked = true;
             _block = BlockType.InvisibleBlock;
-            Bounds = new Rectangle(_location,new Point(0, 0));
+            Bounds = new Rectangle(_location, new Point(0, 0));
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
             //The center will play the sound effect
         }
@@ -64,8 +64,8 @@ namespace Zelda.Blocks
             //check player has key
 
             // ReSharper disable once InvertIf (cleaner as-is)
-           else
-            return new MoveableHalt(player);
+            else
+                return new MoveableHalt(player);
         }
         public bool CollidesWith(Rectangle rect)
         {

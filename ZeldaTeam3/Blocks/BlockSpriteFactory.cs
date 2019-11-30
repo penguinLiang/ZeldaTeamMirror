@@ -8,6 +8,7 @@ namespace Zelda.Blocks
     {
         private Texture2D _doorSpritesheet;
         private Texture2D _tileSpritesheet;
+        private Texture2D _barricadeSpritesheet;
 
         public static BlockSpriteFactory Instance { get; } = new BlockSpriteFactory();
 
@@ -15,6 +16,7 @@ namespace Zelda.Blocks
         {
             _doorSpritesheet = content.Load<Texture2D>("Doors");
             _tileSpritesheet = content.Load<Texture2D>("Tiles");
+            _barricadeSpritesheet = content.Load<Texture2D>("Barricades");
         }
 
         public ISprite CreateTopOpenDoor()
@@ -141,5 +143,15 @@ namespace Zelda.Blocks
         {
             return new Sprite(_tileSpritesheet, 16, 16, 1, new Point(0, 80));
         }
+
+        public ISprite CreateRupeeBarricade(){
+            return new Sprite(_barricadeSpritesheet, 16, 16, 1, new Point(0,0));
+        }
+        
+        public ISprite CreateKeyBarricade(){
+            return new Sprite(_barricadeSpritesheet, 16, 16, 1, new Point(0,16));
+        }
+
+
     }
 }
