@@ -33,6 +33,10 @@ namespace Zelda.Pause
                     _selectedItem = Bomb;
                     _cursorPosition = BombPosition;
                     break;
+                case Secondary.None:
+                    _selectedItem = Arrow;
+                    _cursorPosition = BowPosition;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

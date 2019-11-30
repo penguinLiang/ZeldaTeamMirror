@@ -17,7 +17,6 @@ namespace Zelda.Blocks
         private bool _unlocked {get; set;}
         public Rectangle Bounds { get; private set; }
         private Point _location;
-        private KeyBarrierStateMachine _keyState { get; set; }
        public bool unlocked { get; set; }
 
         private static BlockType UnlockedType(BlockType block)
@@ -30,12 +29,11 @@ namespace Zelda.Blocks
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
-            _keyState = new KeyBarrierStateMachine();
             unlocked = false;
             Bounds = new Rectangle(_location, new Point(20, 20));
            //unlocked = (Check collisions for KeyBarrierCenter -> Unlocked = keybarrerCenter.unlock)
 
-            if (_keyState._unlocked)
+            if (_unlocked)
             {
                 _block = BlockType.InvisibleBlock;
                 Bounds = new Rectangle(_location, new Point(0, 0));

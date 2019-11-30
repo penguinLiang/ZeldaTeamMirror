@@ -197,6 +197,7 @@ namespace Zelda.Dungeon
 
                 foreach (var projectile in _projectiles)
                 {
+
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
                         roomEnemy.ProjectileEffect(projectile).Execute();
@@ -213,9 +214,6 @@ namespace Zelda.Dungeon
                 if (roomCollidable.CollidesWith(_player.BodyCollision.Bounds))
                     roomCollidable.PlayerEffect(_player).Execute();
 
-                //If Edge Collides with Center
-                    //If Center is Unlocked -> trigger unlock in all center, edges
-
                 foreach (var projectile in _projectiles)
                 {
                     if (!roomCollidable.CollidesWith(projectile.Bounds)) continue;
@@ -223,6 +221,14 @@ namespace Zelda.Dungeon
                     roomCollidable.ProjectileEffect(projectile).Execute();
                     if (projectile is AlchemyCoin)
                         prioritizedCoinCollisions.Insert(0, roomCollidable.Bounds);
+
+                    foreach(var barricade in _room.Barricade)
+                    {
+                        if (projectile.CollidesWith(barricade.Bounds))
+                        {
+                            barricade.ProjectileEffect(projectile).Execute();
+                        }
+                    }
                 }
             }
 
@@ -234,14 +240,15 @@ namespace Zelda.Dungeon
                 {
                     if (barricade.CollidesWith(otherBarricade.Bounds)&& barricade.GetType() == typeof(KeyBarrierCenter))
                     {
-                        if (barricade.unlocked)
+                        if (otherBarricade.GetType()==typeof(KeyBarrier) &&barricade.unlocked)
                         {
                             otherBarricade.Unlock();
                         }
-                        //change so there is no moveable halt in KeyBarrierCenter if unlocked
-                        //if it's the center barricade, and it collides with edge barricades, and Center barricade is unlocked
-                        //otherBarricade.Unblock()
-                        //Reduce collision to zero, replace sprite with sand
+                       
+                    }
+                    if(barricade.CollidesWith(otherBarricade.Bounds) && barricade.GetType() == typeof(RupeeBarrierCenter)){
+                        if(otherBarricade.GetType() == typeof(RupeeBarrier)&& barricade.unlocked)
+                            otherBarricade.Unlock();
                     }
                     
                 }

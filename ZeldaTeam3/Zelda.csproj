@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Blocks\KeyBarrier.cs" />
     <Compile Include="Blocks\KeyBarrierCenter.cs" />
-    <Compile Include="Blocks\KeyBarrierStateMachine.cs" />
     <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
@@ -53,7 +52,6 @@
     <Compile Include="Blocks\LockedDoor.cs" />
     <Compile Include="Blocks\RupeeBarrier.cs" />
     <Compile Include="Blocks\RupeeBarrierCenter.cs" />
-    <Compile Include="Blocks\RupeeBarrierStateMachine.cs" />
     <Compile Include="Dungeon\ShopManager.cs" />
     <Compile Include="IBarricade.cs" />
     <Compile Include="IBuyable.cs" />

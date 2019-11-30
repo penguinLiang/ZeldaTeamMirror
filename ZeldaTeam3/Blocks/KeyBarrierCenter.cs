@@ -48,7 +48,6 @@ namespace Zelda.Blocks
 
             //Collision remains
             //take out the other blocks near you
-            //no more collision, block replaced by sand?
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
         }
 

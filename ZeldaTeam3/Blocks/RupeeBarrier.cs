@@ -10,18 +10,18 @@ namespace Zelda.Blocks
 {
     internal class RupeeBarrier : IBarricade
     {
-        private readonly BlockType _block;
+        private BlockType _block;
         // protected override ISprite Sprite => _sprite;
         // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        public bool unlocked { get; set; }
-        public Rectangle Bounds { get; }
+        private bool _unlocked { get; set; }
+        public Rectangle Bounds { get; private set; }
         private Point _location;
-
+        public bool unlocked { get; set; }
 
         private static BlockType UnlockedType(BlockType block)
         {
-            return BlockType.Sand;
+            return BlockType.InvisibleBlock;
         }
 
         public RupeeBarrier(Point location, BlockType block)
@@ -29,35 +29,43 @@ namespace Zelda.Blocks
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
+            unlocked = false;
+            Bounds = new Rectangle(_location, new Point(20, 20));
+            //unlocked = (Check collisions for KeyBarrierCenter -> Unlocked = keybarrerCenter.unlock)
+
+            if (_unlocked)
+            {
+                _block = BlockType.InvisibleBlock;
+                Bounds = new Rectangle(_location, new Point(0, 0));
+                _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
+            }
         }
 
         public void Reset()
         {
+            _block = BlockType.RupeeBarrier;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
-            unlocked = false;
+            Bounds = new Rectangle(_location, new Point(20, 20));
+            _unlocked = false;
         }
 
         public void Unlock()
         {
-            unlocked = true;
-            //take out the other blocks near you
-            //no more collision, block replaced by sand?
+            _unlocked = true;
+            _block = BlockType.InvisibleBlock;
+            Bounds = new Rectangle(_location, new Point(0, 0));
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
+            //The center will play the sound effect
         }
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (unlocked) return new NoOp();
+            if (_unlocked) return new NoOp();
             //check player has key
 
             // ReSharper disable once InvertIf (cleaner as-is)
-            // if (player.BodyCollision.CollidesWith(LocationOffset(NoOpArea)) && player.Inventory.TryRemoveKey())
-            // {
-            //   SoundEffectManager.Instance.PlayDoorUnlock();
-            //  Unblock();
-            // }
-
-            return new MoveableHalt(player);
+            else
+                return new MoveableHalt(player);
         }
         public bool CollidesWith(Rectangle rect)
         {

@@ -23,9 +23,12 @@ namespace Zelda.Items
             SoundEffectManager.Instance.PlayPickupNewItem();
             switch (_bowLevel)
             {
+                case Secondary.None:
                 case Secondary.Bow:
+                    player.Inventory.BowLevel = Secondary.Bow;
                     return new AddSecondaryItem(player, Secondary.Bow);
                 case Secondary.FireBow:
+                    player.Inventory.BowLevel = Secondary.FireBow;
                     return new AddSecondaryItem(player, Secondary.FireBow);
                 default:
                     throw new System.ArgumentOutOfRangeException("Error: Items.Secondary _bowLevel was not a type of bow");
