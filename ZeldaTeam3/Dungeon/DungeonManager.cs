@@ -5,7 +5,7 @@ using Zelda.ShaderEffects;
 
 namespace Zelda.Dungeon
 {
-    public class DungeonManager : IDrawable, IDungeonManager
+    public class DungeonManager : IDungeonManager
     {
         private static readonly Point TileSize = new Point(16, 16);
         private static readonly Point BasementAccessRoom = new Point(1, 0);

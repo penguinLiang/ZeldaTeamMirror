@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Zelda.Blocks;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Projectiles;
@@ -31,6 +32,11 @@ namespace Zelda.Survival
             foreach (var item in _items)
             {
                 item.Reset();
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Reset();
             }
 
             foreach (var roomDoor in _room.Doors.Values)
@@ -146,6 +152,18 @@ namespace Zelda.Survival
                 }
             }
 
+            foreach(var buyableItem in _room.BuyableItems){
+                buyableItem.Update();
+                if(buyableItem.CollidesWith(_player.BodyCollision.Bounds)){
+                    buyableItem.PlayerEffect(_player).Execute();
+                }
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Update();
+            }
+
             foreach (var roomEnemy in _waveManager.Enemies)
             {
                 roomEnemy.Target(_player.Location);
@@ -158,6 +176,13 @@ namespace Zelda.Survival
                     if (!roomCollidable.CollidesWith(roomEnemy.Bounds)) continue;
 
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
+                }
+
+                foreach(var barricadeCollidable in _room.Barricade)
+                {
+                    if (!barricadeCollidable.CollidesWith(roomEnemy.Bounds)) continue;
+
+                    barricadeCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
                 PlayerAttackCollision(_player.UsingPrimaryItem ? _player.SwordCollision : _player.BodyCollision, roomEnemy);
@@ -192,6 +217,36 @@ namespace Zelda.Survival
                     roomCollidable.ProjectileEffect(projectile).Execute();
                     if (projectile is AlchemyCoin)
                         prioritizedCoinCollisions.Insert(0, roomCollidable.Bounds);
+
+                    foreach(var barricade in _room.Barricade)
+                    {
+                        if (projectile.CollidesWith(barricade.Bounds))
+                        {
+                            barricade.ProjectileEffect(projectile).Execute();
+                        }
+                    }
+                }
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                if (barricade.CollidesWith(_player.BodyCollision.Bounds))
+                    barricade.PlayerEffect(_player).Execute();
+
+                foreach(var otherBarricade in _room.Barricade)
+                {
+                    if (barricade.CollidesWith(otherBarricade.Bounds)&& barricade is KeyBarrierCenter)
+                    {
+                        if (otherBarricade is KeyBarrier && barricade.unlocked)
+                        {
+                            otherBarricade.Unlock();
+                        }
+                    }
+
+                    if (!barricade.CollidesWith(otherBarricade.Bounds) || !(barricade is RupeeBarrierCenter)) continue;
+
+                    if (otherBarricade.GetType() == typeof(RupeeBarrier)&& barricade.unlocked)
+                        otherBarricade.Unlock();
                 }
             }
 
@@ -240,6 +295,16 @@ namespace Zelda.Survival
             foreach (var roomEnemy in _waveManager.Enemies)
             {
                 roomEnemy.Draw();
+            }
+
+            foreach (var barricade in _room.Barricade)
+            {
+                barricade.Draw();
+            }
+
+            foreach (var roomBuyableItem in _room.BuyableItems)
+            {
+                roomBuyableItem.Draw();
             }
         }
     }
