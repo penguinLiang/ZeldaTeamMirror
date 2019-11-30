@@ -20,11 +20,13 @@ namespace Zelda.Items
         {
             Used = true;
             if(_price>0){
-                if(player.Inventory.TryRemoveRupee(_price)){
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.Coins);
                 }
-                else {
+                else 
+                {
                     Used = false;
                     return new NoOp();
                 }

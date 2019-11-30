@@ -17,8 +17,10 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = false;
-            if(_price>0){
-                if(player.Inventory.TryRemoveRupee(_price)){
+            if(_price>0)
+            {
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Bomb);
                 }

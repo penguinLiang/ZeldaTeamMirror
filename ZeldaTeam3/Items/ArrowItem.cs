@@ -25,19 +25,27 @@ namespace Zelda.Items
             switch (_arrowLevel)
             {
                 case Secondary.Arrow:
-                    if(_price>0 && player.Inventory.TryRemoveRupee(_price)){
+                    if(_price>0 && player.Inventory.TryRemoveRupee(_price))
+                    {
                         SoundEffectManager.Instance.PlayPickupItem();
                         return new AddSecondaryItem(player, Secondary.Arrow); 
                     }
-                    else if(_price>0) {Used = false;}
+                    else if(_price>0) 
+                    {
+                        Used = false;
+                    }
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Arrow);
                 case Secondary.SilverArrow:
-                       if(_price>0 && player.Inventory.TryRemoveRupee(_price)){
-                        SoundEffectManager.Instance.PlayPickupItem();
-                        return new AddSecondaryItem(player, Secondary.SilverArrow); 
+                       if(_price>0 && player.Inventory.TryRemoveRupee(_price))  
+                        {
+                            SoundEffectManager.Instance.PlayPickupItem();
+                            return new AddSecondaryItem(player, Secondary.SilverArrow); 
+                        }
+                    else if(_price>0) 
+                    {
+                        Used = false;
                     }
-                    else if(_price>0) {Used = false;}
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.SilverArrow);
                 default:

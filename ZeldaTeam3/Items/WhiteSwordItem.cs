@@ -18,18 +18,20 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupNewItem();
-            if(_price>0){
-                if(player.Inventory.TryRemoveRupee(_price)){
+            if(_price>0)
+            {
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
                     return new UpgradeSword(player, Primary.WhiteSword);
                 }
                 else
-                    {
+                {
                     Used = false;
                     return new NoOp();
-                    }
+                }
             }
             else
-            return new UpgradeSword(player, Primary.WhiteSword);
+                return new UpgradeSword(player, Primary.WhiteSword);
         }
     }
 }
