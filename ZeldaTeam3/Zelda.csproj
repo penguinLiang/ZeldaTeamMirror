@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Blocks\KeyBarrier.cs" />
+    <Compile Include="Blocks\KeyBarrierCenter.cs" />
     <Compile Include="Blocks\Overlay.cs" />
     <Compile Include="Blocks\ProjectilePassthroughBarrier.cs" />
     <Compile Include="Blocks\DoorBase.cs" />
@@ -50,8 +51,14 @@
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
     <Compile Include="Dungeon\EnemyFactory.cs" />
-    <Compile Include="Dungeon\ShopManager.cs" />
     <Compile Include="IDungeonManager.cs" />
+    <Compile Include="Blocks\RupeeBarrier.cs" />
+    <Compile Include="Blocks\RupeeBarrierCenter.cs" />
+    <Compile Include="ModeMenu\MainMenu.cs" />
+    <Compile Include="ModeMenu\MainMenuBackground.cs" />
+    <Compile Include="Dungeon\ShopManager.cs" />
+    <Compile Include="IBarricade.cs" />
+    <Compile Include="IBuyable.cs" />
     <Compile Include="IGameStateAgent.cs" />
     <Compile Include="IRoom.cs" />
     <Compile Include="IScene.cs" />
@@ -67,6 +74,8 @@
     <Compile Include="Items\SilverArrowItem.cs" />
     <Compile Include="Items\StarItem.cs" />
     <Compile Include="Items\WalletUpgradeItem.cs" />
+    <Compile Include="ModeMenu\MainMenuControllerKeyboard.cs" />
+    <Compile Include="ModeMenu\ModeSelectWorld.cs" />
     <Compile Include="Survival\Commands\ScoreboardReturn.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />

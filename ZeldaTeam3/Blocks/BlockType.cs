@@ -31,6 +31,8 @@
         BlackBarrier,
         ProjectileBlackBarrier,
         KeyBarrier,
-        RupeeBarrier
+        RupeeBarrier,
+        KeyBarrierCenter,
+        RupeeBarrierCenter
     }
 }

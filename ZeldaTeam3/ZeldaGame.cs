@@ -7,6 +7,7 @@ using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
 using Zelda.JumpMap;
+using Zelda.ModeMenu;
 using Zelda.Music;
 using Zelda.Pause;
 using Zelda.Player;
@@ -22,10 +23,12 @@ namespace Zelda
         private const int Width = 512;
         private const int Height = 448;
 
+        private ModeSelectWorld _modeSelect;
         private IGameStateAgent _survivalAgent;
         private IGameStateAgent _normalAgent;
-
-        private bool _survivalMode = true;
+        
+        private bool _atMainMenu = true;
+        private bool _survivalMode;
         public IGameStateAgent GameStateAgent =>
             _survivalMode ? _survivalAgent : _normalAgent;
 
@@ -41,6 +44,15 @@ namespace Zelda
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+        }
+
+        public void SelectGameMode(bool isSurvival, bool lightsOut)
+        {
+            _survivalMode = isSurvival;
+            if (!isSurvival && _normalAgent is GameStateAgent agent) agent.DarkMode = lightsOut;
+
+            _atMainMenu = false;
+            GameStateAgent.Reset();
         }
 
         protected override void LoadContent()
@@ -72,6 +84,7 @@ namespace Zelda
             BackgroundSpriteFactory.Instance.LoadAllTextures(Content);
             PauseSpriteFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
+            MainMenuBackground.LoadTexture(Content);
             ScoreboardBackground.LoadTexture(Content);
             JumpMapScreen.LoadTexture(Content);
             MusicManager.Instance.LoadAllSounds(Content);
@@ -79,13 +92,13 @@ namespace Zelda
             Survival.HUD.HUDSpriteFactory.Instance.LoadAllTextures(Content);
             Survival.Pause.PauseSpriteFactory.Instance.LoadAllTextures(Content);
 
+            _modeSelect = new ModeSelectWorld(this, _spriteBatch);
+
             _normalAgent = new GameStateAgent(_spriteBatch, GraphicsDevice);
             _normalAgent.DungeonManager.LoadDungeonContent(Content);
 
             _survivalAgent = new Survival.GameState.GameStateAgent(_spriteBatch, GraphicsDevice);
             _survivalAgent.DungeonManager.LoadDungeonContent(Content);
-
-            GameStateAgent.Reset();
         }
 
         protected override void UnloadContent()
@@ -94,6 +107,12 @@ namespace Zelda
 
         protected override void Update(GameTime gameTime)
         {
+            if (_atMainMenu)
+            {
+                _modeSelect.Update();
+                if (_atMainMenu) return;
+            }
+
             if (GameStateAgent.Quitting)
             {
                 Exit();
@@ -107,7 +126,14 @@ namespace Zelda
 
         protected override void Draw(GameTime gameTime)
         {
-            GameStateAgent.Draw();
+            if (_atMainMenu)
+            {
+                _modeSelect.Draw();
+            }
+            else
+            {
+                GameStateAgent.Draw();
+            }
 
             base.Draw(gameTime);
         }
