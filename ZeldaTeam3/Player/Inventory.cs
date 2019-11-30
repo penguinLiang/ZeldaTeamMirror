@@ -22,12 +22,15 @@ namespace Zelda.Player
         public Secondary ExtraItem2 { get; private set; }
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
-        public int RupeeCount { get; private set; } = MaxRupeeCount / 2;
+        public int RupeeCount { get; private set; } = 0;
         public int KeyCount { get; private set; }
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
         public bool HasBow => BowLevel != Secondary.None;
+
+        public Inventory(){
+        }
 
         public void UpgradeSword(Primary newSwordLevel)
         {

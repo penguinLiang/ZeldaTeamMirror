@@ -2,6 +2,7 @@
 {
     internal enum MusicType
     {
+        Intro,
         Labryinth,
         GameOver,
         Win,

@@ -299,6 +299,24 @@
 /processorParam:TextureFormat=Color
 /build:LinkUseSecondary.png
 
+#begin MainMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu.png
+
+#begin Music/01_Intro.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/01_Intro.mp3
+
 #begin Music/06_Triforce.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -494,12 +512,6 @@
 /processor:PassThroughProcessor
 /build:Rooms/5-5.csv
 
-#begin Sounds/LaserBeam.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/LaserBeam.wav
-
 #begin Rooms/Survival-Dungeon.csv
 /importer:CSVMapImporter
 /processor:PassThroughProcessor
@@ -533,6 +545,12 @@
 /importer:CSVMapImporter
 /processor:PassThroughProcessor
 /build:Shop/ShopTiles.csv
+
+#begin Sounds/LaserBeam.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LaserBeam.wav
 
 #begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
@@ -701,4 +719,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles.png
+
+#begin Barricades.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Barricades.png
 

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Projectiles;
+using Zelda.Blocks;
 
 // ReSharper disable ConvertIfStatementToSwitchStatement
 // ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
@@ -31,6 +32,10 @@ namespace Zelda.Dungeon
                 item.Reset();
             }
 
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Reset();
+            }
             foreach (var roomDoor in _room.Doors.Values)
             {
                 roomDoor.Reset();
@@ -154,6 +159,17 @@ namespace Zelda.Dungeon
                     droppedItem.PlayerEffect(_player).Execute();
                 }
             }
+            foreach(var buyableItem in _room.BuyableItems){
+                buyableItem.Update();
+                if(buyableItem.CollidesWith(_player.BodyCollision.Bounds)){
+                    buyableItem.PlayerEffect(_player).Execute();
+                }
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Update();
+            }
 
             foreach (var roomEnemy in _room.Enemies)
             {
@@ -169,8 +185,20 @@ namespace Zelda.Dungeon
                     roomCollidable.EnemyEffect(roomEnemy).Execute();
                 }
 
+                foreach(var barricadeCollidable in _room.Barricade)
+                {
+                    if (!barricadeCollidable.CollidesWith(roomEnemy.Bounds)) continue;
+
+                    barricadeCollidable.EnemyEffect(roomEnemy).Execute();
+                }
+
+                if (_player.UsingPrimaryItem)
+                {
+                    PlayerAttackCollision(_player.SwordCollision, roomEnemy);
+                }
 
                 PlayerAttackCollision(_player.UsingPrimaryItem ? _player.SwordCollision : _player.BodyCollision, roomEnemy);
+
 
                 if (roomEnemy.Alive && roomEnemy.CollidesWith(_player.BodyCollision.Bounds))
                 {
@@ -179,6 +207,7 @@ namespace Zelda.Dungeon
 
                 foreach (var projectile in _projectiles)
                 {
+
                     if (roomEnemy.CollidesWith(projectile.Bounds))
                     {
                         roomEnemy.ProjectileEffect(projectile).Execute();
@@ -202,6 +231,36 @@ namespace Zelda.Dungeon
                     roomCollidable.ProjectileEffect(projectile).Execute();
                     if (projectile is AlchemyCoin)
                         prioritizedCoinCollisions.Insert(0, roomCollidable.Bounds);
+
+                    foreach(var barricade in _room.Barricade)
+                    {
+                        if (projectile.CollidesWith(barricade.Bounds))
+                        {
+                            barricade.ProjectileEffect(projectile).Execute();
+                        }
+                    }
+                }
+            }
+
+            foreach(var barricade in _room.Barricade)
+            {
+                if (barricade.CollidesWith(_player.BodyCollision.Bounds))
+                    barricade.PlayerEffect(_player).Execute();
+                foreach(var otherBarricade in _room.Barricade)
+                {
+                    if (barricade.CollidesWith(otherBarricade.Bounds)&& barricade.GetType() == typeof(KeyBarrierCenter))
+                    {
+                        if (otherBarricade.GetType()==typeof(KeyBarrier) &&barricade.unlocked)
+                        {
+                            otherBarricade.Unlock();
+                        }
+                       
+                    }
+                    if(barricade.CollidesWith(otherBarricade.Bounds) && barricade.GetType() == typeof(RupeeBarrierCenter)){
+                        if(otherBarricade.GetType() == typeof(RupeeBarrier)&& barricade.unlocked)
+                            otherBarricade.Unlock();
+                    }
+                    
                 }
             }
 
@@ -237,6 +296,10 @@ namespace Zelda.Dungeon
                 roomDrawable.Draw();
             }
 
+            foreach(var buyableItem in _room.BuyableItems){
+                buyableItem.Draw();
+            }
+
             foreach (var droppedItem in _items)
             {
                 droppedItem.Draw();
@@ -250,6 +313,11 @@ namespace Zelda.Dungeon
             foreach (var roomEnemy in _room.Enemies)
             {
                 roomEnemy.Draw();
+            }
+            
+            foreach(var barricade in _room.Barricade)
+            {
+                barricade.Draw();
             }
         }
 

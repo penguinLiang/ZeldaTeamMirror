@@ -20,6 +20,7 @@ namespace Zelda.Dungeon
         public List<IItem> Items = new List<IItem>();
         public List<ITransitionResetable> TransitionResetables = new List<ITransitionResetable>();
         public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>();
+        public List<IBarricade> Barricade = new List<IBarricade>();
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
@@ -39,7 +40,9 @@ namespace Zelda.Dungeon
                 TryAddSpecialDoor,
                 TryAddBombableWall,
                 TryAddStair,
-                TryAddNonStandardTiles
+                TryAddShopTiles,
+                TryAddNonStandardTiles,
+                
             };
 
             for (var row = 0; row < tiles.Length; row++)
@@ -89,7 +92,17 @@ namespace Zelda.Dungeon
                     Items.Add(new CrossShotItem(location));
                     break;
                 case MapTile.KeyBarrier:
-                    Collidables.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
+                    Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));
+                    //BuyableItems.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
+                    break;
+                case MapTile.KeyBarrierCenter:
+                    Barricade.Add(new KeyBarrierCenter(location, BlockType.KeyBarrierCenter));
+                    break;
+                case MapTile.RupeeBarrier:
+                    Barricade.Add(new RupeeBarrier(location, BlockType.RupeeBarrier));
+                    break;
+                case MapTile.RupeeBarrierCenter:
+                    Barricade.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter));
                     break;
                 case MapTile.MagicSword:
                     Items.Add(new MagicSwordItem(location));
