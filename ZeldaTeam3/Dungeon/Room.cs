@@ -20,7 +20,6 @@ namespace Zelda.Dungeon
         public List<IItem> Items = new List<IItem>();
         public List<ITransitionResetable> TransitionResetables = new List<ITransitionResetable>();
         public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>();
-        public List<IItem> ShopItems = new List<IItem>();
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
@@ -66,67 +65,55 @@ namespace Zelda.Dungeon
             switch(tile)
             {
                 case MapTile.AlchemyCoin:
-                    ShopItems.Add(new AlchemyCoinItem(location));
+                    Items.Add(new AlchemyCoinItem(location));
                     break;
                 case MapTile.Arrow:
-                    ShopItems.Add(new ArrowItem(location, Secondary.Arrow));
+                    Items.Add(new ArrowItem(location, Secondary.Arrow));
                     break;
                 case MapTile.ATWBoomerang:
-                    ShopItems.Add(new ATWBoomerangItem(location));
+                    Items.Add(new ATWBoomerangItem(location));
                     break;
                 case MapTile.Bait:
-                    ShopItems.Add(new BaitItem(location));
-                    break;
-                case MapTile.Bomb:
-                    ShopItems.Add(new BombItem(location));
+                    Items.Add(new BaitItem(location));
                     break;
                 case MapTile.BombLauncher:
-                    ShopItems.Add(new BombLauncherItem(location));
+                    Items.Add(new BombLauncherItem(location));
                     break;
                 case MapTile.BombUpgrade:
-                    ShopItems.Add(new BombUpgradeItem(location));
-                    break;
-                case MapTile.Boomerang:
-                    ShopItems.Add(new BoomerangItem(location, this));
-                    break;
-                case MapTile.Bow:
-                    ShopItems.Add(new BowItem(location, Secondary.Bow));
+                    Items.Add(new BombUpgradeItem(location));
                     break;
                 case MapTile.Clock:
-                    ShopItems.Add(new ClockItem(location));
+                    Items.Add(new ClockItem(location));
                     break;
                 case MapTile.CrossShot:
-                    ShopItems.Add(new CrossShotItem(location));
+                    Items.Add(new CrossShotItem(location));
                     break;
                 case MapTile.KeyBarrier:
                     Collidables.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
                     break;
                 case MapTile.MagicSword:
-                    ShopItems.Add(new MagicSwordItem(location));
+                    Items.Add(new MagicSwordItem(location));
                     break;
                 case MapTile.RupeeUpgrade:
-                    ShopItems.Add(new RupeeUpgradeItem(location));
+                    Items.Add(new RupeeUpgradeItem(location));
                     break;
                 case MapTile.SilverArrow:
-                    ShopItems.Add(new SilverArrowItem(location));
+                    Items.Add(new SilverArrowItem(location));
                     break;
                 case MapTile.SpawnShopKeep:
                     Enemies.Add(new OldMan(location));
                     break;
                 case MapTile.Star:
-                    ShopItems.Add(new StarItem(location));
+                    Items.Add(new StarItem(location));
                     break;
                 case MapTile.WalletUpgrade:
-                    ShopItems.Add(new WalletUpgradeItem(location));
+                    Items.Add(new WalletUpgradeItem(location));
                     break;
                 case MapTile.WhiteSword:
-                    ShopItems.Add(new WhiteSwordItem(location));
+                    Items.Add(new WhiteSwordItem(location));
                     break;
                 case MapTile.FireBow:
-                    ShopItems.Add(new FireBowItem(location));
-                    break;
-                case MapTile.Fairy:
-                    ShopItems.Add(new Fairy(location));
+                    Items.Add(new FireBowItem(location));
                     break;
                 default:
                     return false;
@@ -179,6 +166,9 @@ namespace Zelda.Dungeon
                 case MapTile.Bow:
                     Items.Add(new BowItem(location, Secondary.Bow));
                     break;
+                case MapTile.Bomb:
+                    Items.Add(new BombItem(location));
+                    break;
                 case MapTile.Triforce:
                     Items.Add(new Triforce(location));
                     break;
@@ -205,6 +195,9 @@ namespace Zelda.Dungeon
                     break;
                 case MapTile.Boomerang:
                     Items.Add(new BoomerangItem(location, this));
+                    break;
+                case MapTile.Fairy:
+                    Items.Add(new Fairy(location));
                     break;
                 case MapTile.BasementBricks:
                 case MapTile.BlackOverlay:

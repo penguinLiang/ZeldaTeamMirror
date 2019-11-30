@@ -172,10 +172,10 @@ namespace Zelda.Player
             return extraItem;
         }
 
-        public bool TryRemoveRupee()
+        public bool TryRemoveRupee(int price = 1)
         {
-            if (RupeeCount <= 0) return false;
-            RupeeCount--;
+            if (RupeeCount <= 0 && RupeeCount<price) return false;
+            RupeeCount = RupeeCount - price;
             return true;
         }
 

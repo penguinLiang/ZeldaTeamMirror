@@ -6,13 +6,15 @@ namespace Zelda.Items
 {
     internal abstract class Item : IItem
     {
-        protected Item(Point location)
+        protected Item(Point location, int price = 0)
         {
             Location = location;
+            Price = price;
         }
 
         protected abstract ISprite Sprite { get; }
         protected Point Location { get; } 
+        protected int Price { get; }
 
         protected virtual Point Size { get; } = new Point(8, 16);
         protected virtual Point Offset { get; } = new Point(8, 0);
@@ -31,6 +33,12 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupItem();
+            if(Price>0){
+                if(player.Inventory.TryRemoveRupee(Price)){
+                    //add to inventory
+                    return NoOp.Instance;
+                }
+            }
             return NoOp.Instance;
         }
 

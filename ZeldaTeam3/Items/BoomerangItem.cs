@@ -10,10 +10,13 @@ namespace Zelda.Items
         private bool _activated;
         private readonly Room _room;
 
-        public BoomerangItem(Point location, Room room) : base(location)
+        public BoomerangItem(Point location, Room room, int price = 0) : base(location, price)
         {
             _room = room;
+            System.Diagnostics.Debug.WriteLine("What is the price: "+ price );
+
         }
+
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWoodBoomerang();
 
