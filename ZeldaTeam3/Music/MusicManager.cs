@@ -5,6 +5,7 @@ namespace Zelda.Music
 {
     public class MusicManager
     {
+        private SoundEffect _introMusic;
         private SoundEffect _labryinthMusic;
         private SoundEffect _gameOverMusic;
         private SoundEffect _winMusic;
@@ -16,10 +17,26 @@ namespace Zelda.Music
 
         public void LoadAllSounds(ContentManager content)
         {
+            _introMusic = content.Load<SoundEffect>("Music/01_Intro");
             _labryinthMusic = content.Load<SoundEffect>("Music/Dungeon");
             _gameOverMusic = content.Load<SoundEffect>("Music/07_Game_Over");
             _winMusic = content.Load<SoundEffect>("Music/10_Ending");
             _triforceMusic = content.Load<SoundEffect>("Music/06_Triforce");
+        }
+
+        public void PlayIntroMusic()
+        {
+            if (_playing == MusicType.Intro)
+            {
+                _activeMusic.Resume();
+                return;
+            }
+
+            _playing = MusicType.Intro;
+            _activeMusic?.Stop();
+            _activeMusic = _introMusic.CreateInstance();
+            _activeMusic.IsLooped = false;
+            _activeMusic.Play();
         }
 
         public void PlayLabryinthMusic()
