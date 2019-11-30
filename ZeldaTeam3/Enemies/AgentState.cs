@@ -6,6 +6,7 @@
         Moving,
         Halted,
         Attacking,
-        Knocked
+        Knocked,
+        Stunned
     }
 }
