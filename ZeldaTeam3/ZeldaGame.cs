@@ -24,19 +24,12 @@ namespace Zelda
         private const int Height = 448;
 
         private ModeSelectWorld _modeSelect;
-        private Survival.GameState.GameStateAgent _survivalAgent;
-        private GameStateAgent _normalAgent;
+        private IGameStateAgent _survivalAgent;
+        private IGameStateAgent _normalAgent;
         
         private bool _atMainMenu = true;
         private bool _survivalMode;
-        public IGameStateAgent GameStateAgent
-        {
-            get
-            {
-                if (_survivalMode) return _survivalAgent;
-                else return _normalAgent;
-            }
-        }
+        public IGameStateAgent GameStateAgent => _survivalMode ? _survivalAgent : _normalAgent;
 
         private SpriteBatch _spriteBatch;
 
@@ -52,11 +45,10 @@ namespace Zelda
             IsMouseVisible = true;
         }
 
-        public void SelectGamemode(bool isSurvival, bool lightsOut)
+        public void SelectGameMode(bool isSurvival, bool lightsOut)
         {
             _survivalMode = isSurvival;
-            if (!isSurvival)
-                _normalAgent.DarkMode = lightsOut;
+            if (!isSurvival && _normalAgent is GameStateAgent agent) agent.DarkMode = lightsOut;
 
             _atMainMenu = false;
             GameStateAgent.Reset();
@@ -134,9 +126,13 @@ namespace Zelda
         protected override void Draw(GameTime gameTime)
         {
             if (_atMainMenu)
+            {
                 _modeSelect.Draw();
+            }
             else
+            {
                 GameStateAgent.Draw();
+            }
 
             base.Draw(gameTime);
         }

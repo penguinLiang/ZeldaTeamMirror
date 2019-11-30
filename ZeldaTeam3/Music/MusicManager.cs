@@ -35,7 +35,7 @@ namespace Zelda.Music
             _playing = MusicType.Intro;
             _activeMusic?.Stop();
             _activeMusic = _introMusic.CreateInstance();
-            _activeMusic.IsLooped = true;
+            _activeMusic.IsLooped = false;
             _activeMusic.Play();
         }
 

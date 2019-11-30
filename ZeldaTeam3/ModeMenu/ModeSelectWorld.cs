@@ -8,15 +8,13 @@ namespace Zelda.ModeMenu
     {
         private const float Scale = 2.0f;
 
-        private SpriteBatch _spriteBatch;
-        private GraphicsDevice _graphicsDevice;
-        private MainMenuControllerKeyboard _controllerKeyboard;
-        private MainMenu _mainMenu;
+        private readonly SpriteBatch _spriteBatch;
+        private readonly MainMenuControllerKeyboard _controllerKeyboard;
+        private readonly MainMenu _mainMenu;
 
         public ModeSelectWorld(ZeldaGame game, SpriteBatch spriteBatch)
         {
             _spriteBatch = spriteBatch;
-            _graphicsDevice = game.GraphicsDevice;
             _mainMenu = new MainMenu(game);
             _controllerKeyboard = new MainMenuControllerKeyboard(_mainMenu);
             MusicManager.Instance.PlayIntroMusic();

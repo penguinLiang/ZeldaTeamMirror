@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.ModeMenu
 {
-    public partial class MainMenu : IDrawable, IMenu
+    public class MainMenu : IDrawable, IMenu
     {
         private const int CursorX = 80;
         private const int TopCursorY = 120;
@@ -14,10 +15,9 @@ namespace Zelda.ModeMenu
         private const int SurvivalPosition = 2;
         private const int QuitPosition = 3;
 
-        private static readonly IDrawable _background = new MainMenuBackground();
+        private static readonly IDrawable Background = new MainMenuBackground();
         private readonly ZeldaGame _game;
         private readonly ISprite _cursor = HUD.HUDSpriteFactory.Instance.CreateFullHeart();
-        private readonly Point _topCursorPosition = new Point(80, 120);
 
         private Point _cursorLocation = new Point(CursorX, TopCursorY);
         private int _optionNumber;
@@ -33,7 +33,7 @@ namespace Zelda.ModeMenu
 
         public void Draw()
         {
-            _background.Draw();
+            Background.Draw();
             _cursor.Draw(_cursorLocation.ToVector2());
         }
 
@@ -42,19 +42,17 @@ namespace Zelda.ModeMenu
             switch (_optionNumber)
             {
                 case DungeonPosition:
-                    _game.SelectGamemode(false, false);
+                    _game.SelectGameMode(false, false);
                     break;
                 case LightsOutPosition:
-                    _game.SelectGamemode(false, true);
+                    _game.SelectGameMode(false, true);
                     break;
                 case SurvivalPosition:
-                    _game.SelectGamemode(true, false);
+                    _game.SelectGameMode(true, false);
                     break;
                 case QuitPosition:
                     _game.Exit();
                     return;
-                default:
-                    break;
             }
         }
 
