@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Zelda.MainMenu
+namespace Zelda.ModeMenu
 {
     public class MainMenuBackground : IDrawable
     {

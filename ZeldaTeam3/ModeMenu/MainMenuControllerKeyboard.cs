@@ -3,24 +3,24 @@ using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.Commands;
 
-namespace Zelda.MainMenu
+namespace Zelda.ModeMenu
 {
-    public class ScoreboardControllerKeyboard : IUpdatable
+    public class MainMenuControllerKeyboard : IUpdatable
     {
-        private readonly Dictionary<Keys, ICommand> _keydownOnceMap;
+        private readonly Dictionary<Keys, ICommand> _keyupMap;
         private Keys[] _lastKeys = { };
 
-        public ScoreboardControllerKeyboard(IMenu menu)
+        public MainMenuControllerKeyboard(IMenu menu)
         {
             var selectUp = new MenuSelectUp(menu);
             var selectDown = new MenuSelectDown(menu);
-            var selectOption = new MenuSelectChoice(menu);
+            var selectChoice = new MenuSelectChoice(menu);
 
-            _keydownOnceMap = new Dictionary<Keys, ICommand>
+            _keyupMap = new Dictionary<Keys, ICommand>
             {
                 { Keys.Up, selectUp },
                 { Keys.Down, selectDown },
-                { Keys.Enter, selectOption }
+                { Keys.Enter, selectChoice }
             };
         }
 
@@ -28,10 +28,12 @@ namespace Zelda.MainMenu
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
 
-            foreach (var key in keysPressed)
+            foreach (var key in _lastKeys)
             {
-                if (_keydownOnceMap.ContainsKey(key) && !_lastKeys.Contains(key))
-                    _keydownOnceMap[key].Execute();
+                if (!keysPressed.Contains(key) && _keyupMap.ContainsKey(key))
+                {
+                    _keyupMap[key].Execute();
+                }
             }
 
             _lastKeys = keysPressed;

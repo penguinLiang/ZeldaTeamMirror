@@ -49,8 +49,8 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
-    <Compile Include="MainMenu\MainMenu.cs" />
-    <Compile Include="MainMenu\MainMenuBackground.cs" />
+    <Compile Include="ModeMenu\MainMenu.cs" />
+    <Compile Include="ModeMenu\MainMenuBackground.cs" />
     <Compile Include="Dungeon\ShopManager.cs" />
     <Compile Include="IGameStateAgent.cs" />
     <Compile Include="Items\AlchemyCoinItem.cs" />
@@ -65,6 +65,8 @@
     <Compile Include="Items\SilverArrowItem.cs" />
     <Compile Include="Items\StarItem.cs" />
     <Compile Include="Items\WalletUpgradeItem.cs" />
+    <Compile Include="ModeMenu\MainMenuControllerKeyboard.cs" />
+    <Compile Include="ModeMenu\ModeSelectWorld.cs" />
     <Compile Include="Survival\Commands\ScoreboardReturn.cs" />
     <Compile Include="Commands\MenuSelectChoice.cs" />
     <Compile Include="Commands\LinkSecondaryAction.cs" />

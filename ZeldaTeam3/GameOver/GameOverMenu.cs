@@ -12,10 +12,10 @@ namespace Zelda.GameOver
         private static readonly Point GameOverMessageLocation =
             new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameOverMessage)) / 2, 0);
 
-        private const string ContinueMessage = "Continue";
-        private const string RetryMessage = "Retry";
-        private const string QuitMessage = "Quit";
-        private const string PressEnter = "Press Enter to Select";
+        private const string ContinueMessage = "CONTINUE";
+        private const string RetryMessage = "RESET";
+        private const string QuitMessage = "QUIT";
+        private const string PressEnter = "PRESS ENTER TO SELECT";
 
         private static readonly Point ContinueMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 160);
         private static readonly Point RetryMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 140);

@@ -8,9 +8,9 @@ namespace Zelda.GameWin
     {
         private readonly GameStateAgent _agent;
         private const string GameWinMessage = "YOU WIN!";
-        private const string RetryMessage = "Retry";
-        private const string QuitMessage = "Quit";
-        private const string PressEnter = "Press Enter to Select";
+        private const string RetryMessage = "RESET";
+        private const string QuitMessage = "QUIT";
+        private const string PressEnter = "PRESS ENTER TO SELECT";
 
         private static readonly Point GameWinMessageLocation =
             new Point((HUDSpriteFactory.ScreenWidth - DrawnText.Width(GameWinMessage)) / 2, 0);
