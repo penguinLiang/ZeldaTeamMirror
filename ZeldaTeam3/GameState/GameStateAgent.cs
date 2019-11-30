@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Zelda.Dungeon;
 using Zelda.HUD;
+using Zelda.Items;
 using Zelda.Music;
 using Zelda.Player;
 using Zelda.ShaderEffects;
@@ -41,6 +42,8 @@ namespace Zelda.GameState
         private GameWorld _world;
 
         private readonly LightInTheDarkness _lightInTheDarkness = new LightInTheDarkness();
+        private readonly PartyTime _partyTime = new PartyTime();
+        private bool _partyHard;
 
         public GameStateAgent(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
@@ -129,7 +132,10 @@ namespace Zelda.GameState
             if (_worldState == WorldState.Reset) return;
             _worldState = WorldState.Reset;
 
+            Sprite.PartyHard = false;
+            _partyHard = false;
             Player = new Link(Point.Zero);
+            Player.Inventory.AddSecondaryItem(Secondary.Arrow);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
             DungeonManager.LoadScenes(Player);
@@ -144,6 +150,7 @@ namespace Zelda.GameState
         public void Update()
         {
             _pauseMachine.Update();
+            _partyTime.Update();
 
             if (_world == null) return;
 
@@ -183,12 +190,14 @@ namespace Zelda.GameState
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.SourceOffset.X * Scale,
                     (_panAnimation.SourceOffset.Y + yOffset) * Scale, 0.0f));
+            if (_partyHard) _partyTime.Apply();
             _sourceScene.Draw();
             _spriteBatch.End();
 
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_panAnimation.DestinationOffset.X * Scale,
                     (_panAnimation.DestinationOffset.Y + yOffset) * Scale, 0.0f));
+            if (_partyHard) _partyTime.Apply();
             _destinationScene.Draw();
             _spriteBatch.End();
         }
@@ -200,6 +209,7 @@ namespace Zelda.GameState
             if (_worldState == WorldState.DungeonPanning) DrawPan();
 
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, YOffset * Scale, 0.0f));
+            if (_partyHard) _partyTime.Apply();
             foreach (var drawable in _world.ScaledDrawables)
             {
                 drawable.Draw();
@@ -221,12 +231,21 @@ namespace Zelda.GameState
 
             _graphicsDevice.SetRenderTarget(null);
             _graphicsDevice.Clear(Color.Black);
+
             Render();
+
 
             if (!DarkMode) return;
             _spriteBatch.Begin(SpriteSortMode.Immediate);
             _spriteBatch.Draw(overlay, Vector2.Zero, Color.Black);
             _spriteBatch.End();
+        }
+
+        public void PartyHard()
+        {
+            _partyHard = true;
+            Sprite.PartyHard = true;
+            Player.PartyHard();
         }
     }
 }

@@ -2,14 +2,20 @@
 
 namespace Zelda.ShaderEffects
 {
-    class PartyTime : IUpdatable
+    internal class PartyTime : IUpdatable
     {
-        private const float CycleVelocity = 0.01f;
-        private const float CycleCap = 0.51f;
-        private const float CycleReset = -0.50f;
-        private float _cycle = CycleReset;
+        private const float BaseVelocity = 0.005f;
+        private const float CycleMax = 0.35f;
+        private const float CycleMin = -0.34f;
+        private float _cycle = CycleMin;
+        private float _cycleVelocity = BaseVelocity;
 
         public static Effect ShaderEffect { set; private get; }
+
+        public PartyTime()
+        {
+            ShaderEffect.Parameters["InSaturationOffset"].SetValue(CycleMin);
+        }
 
         public void Apply()
         {
@@ -18,12 +24,16 @@ namespace Zelda.ShaderEffects
 
         public void Update()
         {
-            if (_cycle > CycleCap)
+            if (_cycleVelocity > 0.0f && _cycle >= CycleMax)
             {
-                _cycle = CycleReset;
+                _cycleVelocity = -BaseVelocity;
+            }
+            else if (_cycleVelocity < 0.0f && _cycle <= CycleMin)
+            {
+                _cycleVelocity = BaseVelocity;
             }
 
-            _cycle += CycleVelocity;
+            _cycle += _cycleVelocity;
             ShaderEffect.Parameters["InSaturationOffset"].SetValue(_cycle);
         }
     }
