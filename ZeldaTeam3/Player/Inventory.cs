@@ -34,7 +34,6 @@ namespace Zelda.Player
         public Inventory(){
             MaxBombCount = 8;
             BombCount = MaxBombCount / 2;
-            KeyCount = 9;
         }
 
         public void UpgradeSword(Primary newSwordLevel)
@@ -183,7 +182,7 @@ namespace Zelda.Player
 
         public bool TryRemoveRupee(int price = 1)
         {
-            if (RupeeCount <= 0 && RupeeCount<price) return false;
+            if ((RupeeCount <= 0 && RupeeCount<price)||RupeeCount - price<0) return false;
             RupeeCount = RupeeCount - price;
             return true;
         }

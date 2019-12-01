@@ -191,7 +191,7 @@ namespace Zelda.Survival
             switch(tile)
             {
                 case MapTile.AlchemyCoin:
-                    Items.Add(new AlchemyCoinItem(location, 1));
+                    Items.Add(new AlchemyCoinItem(location, 80));
                     break;
                 case MapTile.Arrow:
                     Items.Add(new ArrowItem(location, Secondary.Arrow,5));
