@@ -132,6 +132,7 @@ namespace Zelda.Survival
         {
             CurrentWave = 0;
             _scale = 1;
+            _spawnCount = 0;
             ClearWave();
         }
 
