@@ -88,24 +88,40 @@ namespace Zelda.Survival
             if (rand < 50) return; // No drop = 50%
 
             IItem item;
-            rand = _rnd.Next(5);
+            rand = _rnd.Next(20);
 
             switch (rand)
             {
                 case 0:
-                    item = new Rupee(location); // 1 Rupee = 10%
-                    break;
                 case 1:
-                    item = new DroppedHeart(location); // Dropped Heart = 10%
-                    break;
                 case 2:
-                    item = new Rupee5(location); // 5 Rupee = 10%
-                    break;
                 case 3:
-                    item = new BombItem(location); // Bomb = 10%
+                case 4:
+                    item = new Rupee(location); // 1 Rupee = 25%
                     break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    item = new DroppedHeart(location); // Dropped Heart = 25%
+                    break;
+                case 10:
+                case 11:
+                case 12:
+                    item = new Rupee5(location); // 5 Rupee = 15%
+                    break;
+                case 13:
+                case 14:
+                case 15:
+                    item = new BombItem(location); // Bomb = 15%
+                    break;
+                case 16:
+                case 17:
+                case 18:
+                    item = new Fairy(location); //Fairy = 15% 
                 default:
-                    item = new Fairy(location); // Fairy = 10%
+                    item = new Key(location); // Key = 5%
                     break;
             }
 

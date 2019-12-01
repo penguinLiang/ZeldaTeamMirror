@@ -88,6 +88,8 @@ namespace Zelda.Survival.GameState
             _worldState = WorldState.Reset;
 
             Player = new Link(Point.Zero);
+            Player.MaxHealth = 12;
+            Player.Inventory.RupeeCount = 50;
             _camera = new PlayerLockCamera(Player);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
