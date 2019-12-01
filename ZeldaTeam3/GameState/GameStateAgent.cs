@@ -246,7 +246,7 @@ namespace Zelda.GameState
         {
             _partyHard = true;
             Sprite.PartyHard = true;
-            Player.PartyMode();
+            Player.PartyHard();
         }
     }
 }

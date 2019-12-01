@@ -134,7 +134,7 @@ namespace Zelda.Items
 
         public ISprite CreateBait()
         {
-            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(12, 144));
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 144));
         }
 
         public ISprite CreateAlchemyCoin()

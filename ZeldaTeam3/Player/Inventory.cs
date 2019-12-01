@@ -23,7 +23,7 @@ namespace Zelda.Player
         public int Coins { get; private set; } = 2;
         public bool HasATWBoomerang { get; private set; }
         public bool HasBombLauncher { get; private set; }
-        public Secondary ExtraItem1 { get; private set; } = Secondary.LaserBeam;
+        public Secondary ExtraItem1 { get; private set; } = Secondary.Bait;
         public Secondary ExtraItem2 { get; private set; } = Secondary.Star;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }

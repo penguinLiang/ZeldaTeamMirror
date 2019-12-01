@@ -178,7 +178,7 @@ namespace Zelda.Player
                     UsingSecondaryItem = false;
                     break;
                 case Secondary.Bait:
-
+                    Projectiles.Add(new Bait(new Point(location.X + 4, location.Y)));
                     break;
                 default:
                     UsingSecondaryItem = false;

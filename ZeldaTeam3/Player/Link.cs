@@ -172,7 +172,7 @@ namespace Zelda.Player
             _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
 
-        public void PartyMode()
+        public void PartyHard()
         {
             _partyHard = true;
         }
