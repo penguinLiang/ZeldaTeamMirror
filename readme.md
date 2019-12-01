@@ -22,33 +22,31 @@ We have broken up our implementation by __nouns__, such as 'enemies', 'items', '
 - Large classes were broken into smaller, more manageable classes.
 - Implemented basic design for Doors, and Barriers
 - Created every room and a few debug rooms
+- Dark mode for the game has been implemented. 
+- Survival mode for the game has been implemnted, more details down below.
 
 __NEW (and improved):__
 ZeldaGame received a major refactor so that it mostly loads assets and defers all stateful game management to GameStateAgent.  
 Each state, paused, playing, game over, game win, etc. all have their own worlds that make integrating different keyboard, mouse, update, and draw behaviors more abstract.
 
-- All in-game sounds and music
-- Fireball and sword projectiles
-- Projectile deployment and collision handling
-- Arrows and bombs deplete from inventory
-- Transitioning between rooms using doors/stairs
-- Unlockable doors
-- Bombable wall areas
-- Pause menu with screen transition
-- Heads up display (HUD)
-- Game over and game win screens
-- Improved/more accurate enemy AI
-- Separated ZeldaGame stateful logic into worlds deployed by GameStateAgent
-- Old man room puzzle
-- Old man dialogue
-- Some enemies drop items like hearts/fairies
-- Some items unlocked after destroying all enemies
-- Refined keybindings
-- Collecting triforce wins the game
-- 8x8 pixel grid player movement alignment
-- Remove debug items in starting room
-- Proper game reset and game continue
-- SAND!
+As of Sprint 5, ZeldaGame has again received a major refactoring that involves a lot of camera work where instead of the camera displaying the entirety of the current room, the camera insteads solely focuses on the player on the center of the screen. This is so it can be compatible with the size of Survival Mode rooms.
+
+- Survival Mode! Featuring:
+- New camera centered on Link.
+- More code cleanup that doesn't need to go into detail.
+- Survival mode has a huge survival map and a huge shop map.
+- Survival mode features many waves of enemies, where every wave is progressed after all the enemies are slain.
+- Survival dungeon also features pickup items that the player can collect!
+- High score system. What's the point of having this mode if there is no high score system?
+- Mode select menu at the start! Handy.
+- New enemy(s) have been implemented for survival exclusively! 
+- What's this? Unlockable barriers barring the player from another segment of the survival dungeons unless they have a key?
+- NEW WEAPONS. We have crazy weapons exclusive to only survival!
+- NEW ITEMS. We have just as crazy but not as crazy items exclusive again to survival!
+- Working shop system in survival, cool huh?
+- Enemy related code refactoring for survival! Refactoring is nice. Refactoring is good.
+- PARTY MODE. All monsters will all dance vividly in style because all these years rotting in the dungeon has ripened their dancing abilities.
+- DARK MODE?! We basically mashed together dark souls into the game but not really because you can only see in front of Link directly, which increases the difficulty dramatically.
 
 ## Sprint 2 Details  
   
@@ -88,6 +86,20 @@ Steven improved the background music's loop and Link's movement to be more accur
 Quinn established the projectile deployment system and collision handling, exposed links health, setup the entire sound management system, and created the game over and game win menu screens. Quinn also made it so the triforce triggers a win and that bombs/rupees are properly depleted upon use.
 
 Henry made the normal doors actually function like doors-- the doors now teleport you to the right room and exposes the room to the game state, and have a narrower collision field, as well as the activatable puzzle block, the deceptively involved pause inventory screen (selecting an item, keeping track of visited rooms, keeping track of specific items), and the stairs to/from the basement.
+
+## Spring 5 Details
+
+We just went as usual. Sprint 5 seemed more challenging on average because there were a lot of new things we had to implement or change that were based on our older system.
+
+Chase has worked on the high score name input menu, which is the ability to save your high score with a specific name that puts all your valuable score in the database. He has also researched and set up a database for high scores, as well as designed a high score system and everything related to high scores. Party mode has also been implemented by Chase in addition to the cone of view for dark mode. Finally he has done a lot of major refactoring in the code base overall just for survival mode.
+
+Jarred has handled the survival mode camera, which was centering the camera only on Link. Furthermore, he has worked on the mode select menu at the very start of the game, as well as implementing a high score board GUI. Most of all, Jarred has implemented a TON of new weapons and the graphics related to survival mode relating to that.
+
+Steven has also done a maximal amount of code refactoring for this sprint, and further optimised a lot of things, such as enemy AI just to handle survival mode well, implementing a new enemy and designing the dungeon for survival mode overall. He has further also integrated dungeon and shop into SurvivalManager and handled a lot of important core files such as SurvivalScene and SurvivalRoom.
+
+Quinn has done shop manager and everything shop related for survival mode, including designing the shop, and handling all the buyable items, which are not just related to items, but also including things such as buyable barriers in Survival Mode, and making sure they are unlockable using different items such as rupees or keys. 
+
+Henry is one of the contributors to the SurvivalManager file, as well as making the core handler for the wave spawning algorithm, WaveManager. The enemy spawning AI is handled in there. The storage file Wave was also made so that it can be handled by many various files. Changing the parsing tool that Monogame uses around so that it would take in wave text files have also been made by Henry.
 
 ## Code Reviews  
   
