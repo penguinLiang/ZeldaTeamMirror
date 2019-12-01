@@ -16,7 +16,7 @@ namespace Zelda.Survival.HUD
 
         public void LoadAllTextures(ContentManager content)
         {
-            _hudBackground = content.Load<Texture2D>("HUD");
+            _hudBackground = content.Load<Texture2D>("SurvivalHUD");
             _hudSpriteSheet = content.Load<Texture2D>("HUDElements");
         }
 

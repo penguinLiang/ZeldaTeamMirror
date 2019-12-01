@@ -16,7 +16,7 @@ namespace Zelda.Survival.Pause
 
         public void LoadAllTextures(ContentManager content)
         {
-            _pauseBackground = content.Load<Texture2D>("PauseScreen");
+            _pauseBackground = content.Load<Texture2D>("SurvivalPauseScreen");
             _pauseSpriteSheet = content.Load<Texture2D>("HUDElements");
         }
 

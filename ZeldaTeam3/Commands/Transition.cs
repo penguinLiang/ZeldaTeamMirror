@@ -1,14 +1,12 @@
-﻿using Zelda.Dungeon;
-
-namespace Zelda.Commands
+﻿namespace Zelda.Commands
 {
     internal class Transition : ICommand
     {
-        private readonly DungeonManager _dungeonManager;
+        private readonly IDungeonManager _dungeonManager;
         private readonly Direction _direction;
         private readonly bool _unlock;
 
-        public Transition(DungeonManager dungeonManager, Direction direction, bool unlock = false)
+        public Transition(IDungeonManager dungeonManager, Direction direction, bool unlock = false)
         {
             _dungeonManager = dungeonManager;
             _direction = direction;

@@ -4,7 +4,7 @@ namespace Zelda
 {
     public interface IGameStateAgent : IDrawable
     {
-        DungeonManager DungeonManager { get; }
+        IDungeonManager DungeonManager { get; }
         IDrawable HUD { get; }
         IPlayer Player { get; }
         bool Quitting { get; }

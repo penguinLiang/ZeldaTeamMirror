@@ -16,7 +16,8 @@ namespace Zelda.GameState
     {
         private const float Scale = 2.0f;
 
-        public DungeonManager DungeonManager { get; } = new DungeonManager();
+        private readonly DungeonManager _dungeonManager = new DungeonManager();
+        public IDungeonManager DungeonManager => _dungeonManager;
         public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
@@ -50,7 +51,7 @@ namespace Zelda.GameState
             _spriteBatch = spriteBatch;
             _graphicsDevice = graphicsDevice;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
-            DungeonManager.Pan = DungeonPan;
+            _dungeonManager.Pan = DungeonPan;
         }
 
         private float YOffset => HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
@@ -112,8 +113,8 @@ namespace Zelda.GameState
 
             if (_worldState == WorldState.DungeonPanning) return;
             _panAnimation = new PanAnimation(direction);
-            _sourceScene = DungeonManager.BuildPanScene(sourceRoom.Y, sourceRoom.X);
-            _destinationScene = DungeonManager.BuildPanScene(destinationRoom.Y, destinationRoom.X);
+            _sourceScene = _dungeonManager.BuildPanScene(sourceRoom.Y, sourceRoom.X);
+            _destinationScene = _dungeonManager.BuildPanScene(destinationRoom.Y, destinationRoom.X);
             _panDestination = destinationRoom;
             _world = new PanningWorld(this);
             _worldState = WorldState.DungeonPanning;
