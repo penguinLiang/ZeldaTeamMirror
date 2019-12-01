@@ -92,7 +92,7 @@ namespace Zelda.Enemies
 
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = IsWithinCircularBounds(_playerLocation, 192)
+                _currentDirection = IsWithinCircularBounds(_playerLocation, Location, 192)
                     ? DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation)
                     : DirectionUtility.RandomDirection();
             }

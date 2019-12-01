@@ -78,34 +78,42 @@ namespace Zelda.Survival
 
             if (roomEnemy.Alive) return;
 
-            if (roomEnemy is Stalfos || roomEnemy is Goriya || roomEnemy is WallMaster)
-                AddDroppedItem(roomEnemy.Bounds.Location);
+
+            AddDroppedItem(roomEnemy.Bounds.Location);
         }
 
         private void AddDroppedItem(Point location)
         {
             var rand = _rnd.Next(100);
-            if (rand < 50) return; // No drop = 50%
+            if (rand < 25) return; // No drop = 25%
 
             IItem item;
-            rand = _rnd.Next(5);
+            rand = _rnd.Next(11);
 
             switch (rand)
             {
                 case 0:
-                    item = new Rupee(location); // 1 Rupee = 10%
-                    break;
                 case 1:
-                    item = new DroppedHeart(location); // Dropped Heart = 10%
+                case 7:
+                    item = new Rupee(location);
                     break;
                 case 2:
-                    item = new Rupee5(location); // 5 Rupee = 10%
-                    break;
                 case 3:
-                    item = new BombItem(location); // Bomb = 10%
+                case 8:
+                    item = new DroppedHeart(location);
+                    break;
+                case 4:
+                    item = new Rupee5(location);
+                    break;
+                case 5:
+                case 9:
+                    item = new BombItem(location);
+                    break;
+                case 6:
+                    item = new Key(location, _room);
                     break;
                 default:
-                    item = new Fairy(location); // Fairy = 10%
+                    item = new Fairy(location);
                     break;
             }
 

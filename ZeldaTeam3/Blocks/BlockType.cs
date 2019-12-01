@@ -29,7 +29,7 @@
         BasementStair,
         Fire,
         BlackBarrier,
-        ProjectileBlackBarrier,
+        InvisibleProjectileBarrier,
         KeyBarrier,
         RupeeBarrier,
         KeyBarrierCenter,

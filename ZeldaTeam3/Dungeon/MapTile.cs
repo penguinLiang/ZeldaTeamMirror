@@ -12,7 +12,7 @@ namespace Zelda.Dungeon
         SpawnShopKeep = 4,
 
         // Barriers
-        ProjectileBlackBarrier = 5,
+        InvisibleProjectileBarrier = 5,
         InvisibleWall = 8,
         Fire = 9,
         Water = 10,

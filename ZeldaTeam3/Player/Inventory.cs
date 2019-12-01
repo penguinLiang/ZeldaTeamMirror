@@ -22,7 +22,7 @@ namespace Zelda.Player
         public Secondary ExtraItem2 { get; private set; }
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
-        public int RupeeCount { get; private set; } = 0;
+        public int RupeeCount { get; set; } = 0;
         public int KeyCount { get; private set; }
         public int Rupee1Value = 1;
         public int Rupee5Value = 5;

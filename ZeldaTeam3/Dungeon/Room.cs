@@ -285,7 +285,7 @@ namespace Zelda.Dungeon
                     return false;
             }
 
-            var barrier = new ProjectilPassthroughBarrier(location, blockType);
+            var barrier = new ProjectilePassthroughBarrier(location, blockType);
             Collidables.Add(barrier);
             Drawables.Add(barrier);
 
@@ -303,8 +303,8 @@ namespace Zelda.Dungeon
                 case MapTile.BlackBarrier:
                     blockType = BlockType.BlackBarrier;
                     break;
-                case MapTile.ProjectileBlackBarrier:
-                    blockType = BlockType.ProjectileBlackBarrier;
+                case MapTile.InvisibleProjectileBarrier:
+                    blockType = BlockType.InvisibleProjectileBarrier;
                     break;
                 default:
                     return false;
