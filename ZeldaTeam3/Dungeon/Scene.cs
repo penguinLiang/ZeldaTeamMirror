@@ -159,12 +159,6 @@ namespace Zelda.Dungeon
                     droppedItem.PlayerEffect(_player).Execute();
                 }
             }
-            foreach(var buyableItem in _room.BuyableItems){
-                buyableItem.Update();
-                if(buyableItem.CollidesWith(_player.BodyCollision.Bounds)){
-                    buyableItem.PlayerEffect(_player).Execute();
-                }
-            }
 
             foreach(var barricade in _room.Barricade)
             {
@@ -294,10 +288,6 @@ namespace Zelda.Dungeon
             foreach (var roomDrawable in _room.Drawables)
             {
                 roomDrawable.Draw();
-            }
-
-            foreach(var buyableItem in _room.BuyableItems){
-                buyableItem.Draw();
             }
 
             foreach (var droppedItem in _items)

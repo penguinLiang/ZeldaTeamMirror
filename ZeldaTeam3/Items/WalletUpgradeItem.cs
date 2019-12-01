@@ -6,34 +6,34 @@ namespace Zelda.Items
 {
     internal class WalletUpgradeItem : Item
     {
-
-        public int price { get; private set; }
-        public WalletUpgradeItem(Point location) : base(location)
+        private int _price;
+        public WalletUpgradeItem(Point location, int price = 0) : base(location, price)
         {
-            price = 20;
-            //TODO fix the prices later
+            _price = price;
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
         //TODO: Fix this with the proper sprite
-        //TODO: Make this buyable
-        //TODO: PlayerEffect -> Buy? -> Add to Inventory
 
         public override ICommand PlayerEffect(IPlayer player)
         {
-            //If link collides with, and he has enough money, Buy Item, else leave the item there
-            //Link also needs enough space in inventory, or to already have one of this item in inventory
             Used = true;
+            if(_price>0)
+            {
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
+                    SoundEffectManager.Instance.PlayPickupItem();
+                    player.Inventory.MaxRupeeCount = player.Inventory.MaxRupeeCount *2;
+                    return new NoOp();
+                }
+                else 
+                {
+                    Used = false;
+                    return new NoOp();
+                }
+            }
             SoundEffectManager.Instance.PlayPickupItem();
-            return new NoOp();
-        }
-
-        public ICommand BuyItem()
-        {
-            //In the actual thing this will be triggered if Link has enough to buy it
-            //Item added to inventory, collision cleared and sprite hidden
-            //potentially monitored in ShopManager?
-            //Applied Immediately on purchase. Link can now hold 2X rupees
+            player.Inventory.MaxRupeeCount = player.Inventory.MaxRupeeCount*2;
             return new NoOp();
         }
     }

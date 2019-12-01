@@ -9,9 +9,10 @@ namespace Zelda.Items
         private readonly Secondary _bowLevel;
 
         protected override ISprite Sprite { get; }
-
-        public BowItem(Point location, Secondary bowLevel) : base(location)
+        private int _price;
+        public BowItem(Point location, Secondary bowLevel, int price = 0) : base(location, price)
         {
+            _price = price;
             _bowLevel = bowLevel;
             Sprite = bowLevel == Secondary.Bow ? ItemSpriteFactory.Instance.CreateBow()
                 : ItemSpriteFactory.Instance.CreateFireBow();
@@ -20,16 +21,18 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            SoundEffectManager.Instance.PlayPickupNewItem();
-            switch (_bowLevel)
-            {
-                case Secondary.Bow:
+            if(_price>0)
+            { 
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
+                    SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.Bow);
-                case Secondary.FireBow:
-                    return new AddSecondaryItem(player, Secondary.FireBow);
-                default:
-                    throw new System.ArgumentOutOfRangeException("Error: Items.Secondary _bowLevel was not a type of bow");
+                }
+                    Used = false;
+                    return new NoOp();
             }
+            SoundEffectManager.Instance.PlayPickupNewItem();
+            return new AddSecondaryItem(player, Secondary.Bow);
         }
     }
 }

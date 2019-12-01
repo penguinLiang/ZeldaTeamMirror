@@ -54,7 +54,6 @@
     <Compile Include="Blocks\RupeeBarrierCenter.cs" />
     <Compile Include="ModeMenu\MainMenu.cs" />
     <Compile Include="ModeMenu\MainMenuBackground.cs" />
-    <Compile Include="Dungeon\ShopManager.cs" />
     <Compile Include="IBarricade.cs" />
     <Compile Include="IBuyable.cs" />
     <Compile Include="IGameStateAgent.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="Items\CrossShotItem.cs" />
     <Compile Include="Items\FireBowItem.cs" />
     <Compile Include="Items\RupeeUpgradeItem.cs" />
-    <Compile Include="Items\SilverArrowItem.cs" />
     <Compile Include="Items\StarItem.cs" />
     <Compile Include="Items\WalletUpgradeItem.cs" />
     <Compile Include="ModeMenu\MainMenuControllerKeyboard.cs" />
