@@ -6,10 +6,14 @@ namespace Zelda.Items
 {
     internal class MagicSwordItem : Item
     {
+        private DrawnText _priceDisplay;
         private int _price;
         public MagicSwordItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMagicSword();
@@ -31,6 +35,12 @@ namespace Zelda.Items
             } 
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new UpgradeSword(player, Primary.MagicalSword);
+        }
+
+        public override void Draw()
+        {
+            _priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

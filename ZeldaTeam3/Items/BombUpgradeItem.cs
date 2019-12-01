@@ -6,11 +6,14 @@ namespace Zelda.Items
 {
     internal class BombUpgradeItem : Item
     {
-
+        private DrawnText _priceDisplay;
         public int _price;
         public BombUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -32,6 +35,12 @@ namespace Zelda.Items
             }
             SoundEffectManager.Instance.PlayPickupItem();
             return new NoOp();
+        }
+
+        public override void Draw()
+        {
+            _priceDisplay.Draw();
+            base.Draw();
         }
 
     }

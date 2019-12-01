@@ -182,7 +182,7 @@ namespace Zelda.Player
 
         public bool TryRemoveRupee(int price = 1)
         {
-            if (RupeeCount <= 0 && RupeeCount<price) return false;
+            if ( ( RupeeCount <= 0 && RupeeCount < price ) || RupeeCount - price < 0) return false;
             RupeeCount = RupeeCount - price;
             return true;
         }

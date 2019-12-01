@@ -6,10 +6,14 @@ namespace Zelda.Items
 {
     internal class WalletUpgradeItem : Item
     {
+        private DrawnText _priceDisplay;
         private int _price;
         public WalletUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -35,6 +39,12 @@ namespace Zelda.Items
             SoundEffectManager.Instance.PlayPickupItem();
             player.Inventory.MaxRupeeCount = player.Inventory.MaxRupeeCount*2;
             return new NoOp();
+        }
+
+        public override void Draw()
+        {
+            _priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

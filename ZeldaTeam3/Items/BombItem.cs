@@ -6,30 +6,54 @@ namespace Zelda.Items
 {
     internal class BombItem : Item
     {
+        private DrawnText _priceDisplay;
         private int _price;
+        private readonly FrameDelay _delay = new FrameDelay(90);
         public BombItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBomb();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
+            _delay.Update();
             Used = false;
-            if(_price>0)
+            if(_price > 0 && player.Inventory.BombCount < player.Inventory.MaxBombCount)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if(!_delay.Delayed && player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Bomb);
                 }
                 return new NoOp();
             }
+            else if(_price == 0)
+            {
+                Used = true;
+                SoundEffectManager.Instance.PlayPickupItem();
+                return new AddSecondaryItem(player, Secondary.Bomb);
+            }
+            else 
+                return new NoOp();
+        }
 
-            Used = true;
-            SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.Bomb);
+        public override void Update()
+        {
+            base.Update();
+        }
+
+        public override void Draw()
+        {
+            if(_price>0)
+            {
+                _priceDisplay.Draw();
+            }
+            base.Draw();
         }
     }
 }
