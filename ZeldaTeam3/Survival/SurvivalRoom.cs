@@ -75,11 +75,14 @@ namespace Zelda.Survival
                 case MapTile.ImmovableBlock:
                     blockType = BlockType.ImmovableBlock;
                     break;
+                case MapTile.InvisibleProjectileBarrier:
+                    blockType = BlockType.InvisibleProjectileBarrier;
+                    break;
                 default:
                     return false;
             }
 
-            var barrier = new ProjectilPassthroughBarrier(location, blockType);
+            var barrier = new ProjectilePassthroughBarrier(location, blockType);
             Collidables.Add(barrier);
             Drawables.Add(barrier);
 
@@ -96,9 +99,6 @@ namespace Zelda.Survival
                     break;
                 case MapTile.BlackBarrier:
                     blockType = BlockType.BlackBarrier;
-                    break;
-                case MapTile.ProjectileBlackBarrier:
-                    blockType = BlockType.ProjectileBlackBarrier;
                     break;
                 default:
                     return false;

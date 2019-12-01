@@ -58,8 +58,8 @@ namespace Zelda.Blocks
                 case BlockType.PushableBlock:
                     return new AlphaPassMask(BlockSpriteFactory.Instance.CreateSolidBlock(), true);
                 case BlockType.BlackBarrier:
-                case BlockType.ProjectileBlackBarrier:
                     return BlockSpriteFactory.Instance.CreateBlackTile();
+                case BlockType.InvisibleProjectileBarrier:
                 case BlockType.InvisibleBlock:
                     return new AlphaPassMask(16, 16);
                 case BlockType.RupeeBarrier:

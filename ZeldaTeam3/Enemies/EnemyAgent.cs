@@ -149,9 +149,11 @@ namespace Zelda.Enemies
         public abstract void Halt();
         protected abstract void Knockback();
 
-        public static bool IsWithinCircularBounds(Point location, int radius)
+        public static bool IsWithinCircularBounds(Point center, Point location, int radius)
         {
-            return Math.Sqrt(location.X * location.X + location.Y * location.Y) < radius;
+            var x = location.X - center.X;
+            var y = location.Y - center.Y;
+            return Math.Sqrt(x * x + y * y) < radius;
         }
     }
 }
