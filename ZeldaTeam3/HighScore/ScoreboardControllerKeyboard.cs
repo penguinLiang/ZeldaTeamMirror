@@ -9,18 +9,17 @@ namespace Zelda.HighScore
     public class ScoreboardControllerKeyboard : IUpdatable
     {
         private readonly Dictionary<Keys, ICommand> _keydownOnceMap;
-        private Keys[] _lastKeys = { };
+        private Keys[] _lastKeys = { Keys.Enter, Keys.Q, Keys.R };
 
         public ScoreboardControllerKeyboard(GameStateAgent agent)
         {
-            var selectReturn = new ScoreboardReturn(agent);
-
+            var reset = new Reset(agent);
             _keydownOnceMap = new Dictionary<Keys, ICommand>
             {
                 { Keys.Q, new Quit(agent) },
-                { Keys.R, new Reset(agent) },
+                { Keys.R, reset},
 
-                { Keys.Enter, selectReturn }
+                { Keys.Enter, reset }
             };
         }
 

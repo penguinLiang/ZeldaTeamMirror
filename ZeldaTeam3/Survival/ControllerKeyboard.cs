@@ -45,7 +45,6 @@ namespace Zelda.Survival
                 { Keys.D0, new LinkSecondaryAssign(agent.Player, Secondary.FireBow)},
 
                 { Keys.Space, new Commands.Pause(agent) },
-                { Keys.K, new Commands.ShowScoreboard(agent) }, // Should be removed once SurvivalManager is implemented
                 { Keys.R, new Commands.Reset(agent) }
             };
 
