@@ -8,10 +8,12 @@ namespace Zelda.Items
     {
         private bool _activated;
         private readonly IRoom _room;
+        private int _price;
 
-        public BoomerangItem(Point location, IRoom room) : base(location)
+        public BoomerangItem(Point location, IRoom room, int price = 0) : base(location, price)
         {
             _room = room;
+            _price = price;
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWoodBoomerang();
@@ -19,10 +21,21 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             if (!_activated) return NoOp.Instance;
-
+            
             Used = true;
+
+            if(_price>0)
+            {
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
+                    SoundEffectManager.Instance.PlayPickupItem();
+                    return new AddSecondaryItem(player, Secondary.Boomerang);
+                }
+                Used = false;
+                return new NoOp();
+            }
             SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.Boomerang);
+            return new AddSecondaryItem(player, Secondary.Boomerang);  
         }
 
         public override void Update()
