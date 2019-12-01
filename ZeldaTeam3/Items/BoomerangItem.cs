@@ -6,7 +6,7 @@ namespace Zelda.Items
 {
     internal class BoomerangItem : Item
     {
-        private DrawnText priceDisplay;
+        private DrawnText _priceDisplay;
         private bool _activated;
         private readonly IRoom _room;
         private int _price;
@@ -15,10 +15,10 @@ namespace Zelda.Items
         {
             _room = room;
             _price = price;
-            priceDisplay = new DrawnText();
+            _priceDisplay = new DrawnText();
             if(_price>0){
-                priceDisplay.Text = _price.ToString();
-                priceDisplay.Location = new Point(location.X, location.Y + 20);
+                _priceDisplay.Text = _price.ToString();
+                _priceDisplay.Location = new Point(location.X, location.Y + 20);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Zelda.Items
         public override void Draw()
         {
             if (_activated && !Used) Sprite?.Draw((Location + DrawOffset).ToVector2());
-            if(_price>0) priceDisplay.Draw();
+            if(_price>0) _priceDisplay.Draw();
         }
 
         public override void Reset()

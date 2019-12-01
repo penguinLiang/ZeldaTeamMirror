@@ -6,14 +6,14 @@ namespace Zelda.Items
 {
     internal class WalletUpgradeItem : Item
     {
-        private DrawnText priceDisplay;
+        private DrawnText _priceDisplay;
         private int _price;
         public WalletUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            priceDisplay = new DrawnText();
-            priceDisplay.Location = new Point(location.X, location.Y + 20);
-            priceDisplay.Text = _price.ToString();
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -43,7 +43,7 @@ namespace Zelda.Items
 
         public override void Draw()
         {
-            priceDisplay.Draw();
+            _priceDisplay.Draw();
             base.Draw();
         }
     }

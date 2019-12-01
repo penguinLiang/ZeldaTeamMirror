@@ -7,13 +7,13 @@ namespace Zelda.Items
     internal class WhiteSwordItem : Item
     {
         private int _price;
-        private DrawnText priceDisplay;
+        private DrawnText _priceDisplay;
         public WhiteSwordItem(Point location, int price = 0) : base(location, price)
         {
-         _price = price;   
-         priceDisplay = new DrawnText();
-         priceDisplay.Text = _price.ToString();
-         priceDisplay.Location = new Point(location.X, location.Y+20);
+            _price = price;   
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y+20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWhiteSword();
@@ -43,7 +43,7 @@ namespace Zelda.Items
 
         public override void Draw()
         {
-            priceDisplay.Draw();
+            _priceDisplay.Draw();
             base.Draw();
         }
     }

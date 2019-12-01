@@ -6,7 +6,7 @@ namespace Zelda.Items
 {
     internal class ArrowItem : Item
     {
-        private DrawnText priceDisplay;
+        private DrawnText _priceDisplay;
         private readonly Secondary _arrowLevel;
         private int _price;
 
@@ -18,9 +18,9 @@ namespace Zelda.Items
             _price = price;
             Sprite = arrowLevel == Secondary.Arrow ? ItemSpriteFactory.Instance.CreateArrow()
                 : ItemSpriteFactory.Instance.CreateSilverArrow();
-            priceDisplay = new DrawnText();
-            priceDisplay.Text = _price.ToString();
-            priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -59,7 +59,7 @@ namespace Zelda.Items
 
         public override void Draw()
         {
-            priceDisplay.Draw();
+            _priceDisplay.Draw();
             base.Draw();
         }
     }
