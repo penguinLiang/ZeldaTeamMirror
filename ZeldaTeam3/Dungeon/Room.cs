@@ -3,31 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Zelda.Blocks;
-using Zelda.Enemies;
 using Zelda.Items;
 
 // ReSharper disable SwitchStatementMissingSomeCases (handled at runtime)
 namespace Zelda.Dungeon
 {
-    public class Room
+    public class Room : IRoom
     {
         private const int TileWidthHeight = 16;
 
-        public List<IEnemy> Enemies = new List<IEnemy>();
+        public List<IEnemy> Enemies { get; } = new List<IEnemy>();
         public bool SomeEnemiesAlive => Enemies.Any(enemy => enemy.Alive);
-        public List<ICollideable> Collidables = new List<ICollideable>();
-        public List<IDrawable> Drawables = new List<IDrawable>();
-        public List<IItem> Items = new List<IItem>();
-        public List<ITransitionResetable> TransitionResetables = new List<ITransitionResetable>();
-        public Dictionary<Direction, DoorBase> Doors = new Dictionary<Direction, DoorBase>();
-        public List<IItem> BuyableItems = new List<IItem>();
-        public List<IBarricade> Barricade = new List<IBarricade>();
-        //TODO: Change this to be IBuyable
-        //TODO: Change all items to use IBuyable
+        public List<ICollideable> Collidables { get; } = new List<ICollideable>();
+        public List<IDrawable> Drawables { get; } = new List<IDrawable>();
+        public List<IItem> Items { get; } = new List<IItem>();
+        public List<ITransitionResetable> TransitionResetables { get; } = new List<ITransitionResetable>();
+        public Dictionary<Direction, DoorBase> Doors { get; } = new Dictionary<Direction, DoorBase>();
 
         private readonly EnemyType _enemyType;
         private readonly DungeonManager _dungeonManager;
-        private readonly ShopManager _shopManager;
 
         // ReSharper disable once SuggestBaseTypeForParameter (the input must be a jagged int array)
         public Room(DungeonManager dungeon, int[][] tiles, int enemyID)
@@ -43,18 +37,15 @@ namespace Zelda.Dungeon
                 TryAddSpecialDoor,
                 TryAddBombableWall,
                 TryAddStair,
-                TryAddShopTiles,
                 TryAddNonStandardTiles,
-                
             };
-
+            
             for (var row = 0; row < tiles.Length; row++)
             {
                 for (var col = 0; col < tiles[row].Length; col++)
                 {
                     var location = new Point(col * TileWidthHeight, row * TileWidthHeight);
                     var tile = (MapTile) tiles[row][col];
-
                     var success = false;
                     foreach (var possibleBlock in possibleBlocks)
                     {
@@ -63,118 +54,6 @@ namespace Zelda.Dungeon
                     }
                     if (!success) throw new ArgumentOutOfRangeException(tile.ToString());
                 }
-            }
-        }
-
-        private bool TryAddShopTiles(MapTile tile, Point location)
-        {
-            switch(tile)
-            {
-                case MapTile.AlchemyCoin:
-                    BuyableItems.Add(new AlchemyCoinItem(location));
-                    break;
-                case MapTile.Arrow:
-                    BuyableItems.Add(new ArrowItem(location, Secondary.Arrow));
-                    break;
-                case MapTile.ATWBoomerang:
-                    BuyableItems.Add(new ATWBoomerangItem(location));
-                    break;
-                case MapTile.Bait:
-                    BuyableItems.Add(new BaitItem(location));
-                    break;
-                case MapTile.Bomb:
-                    BuyableItems.Add(new BombItem(location));
-                    break;
-                case MapTile.BombLauncher:
-                    BuyableItems.Add(new BombLauncherItem(location));
-                    break;
-                case MapTile.BombUpgrade:
-                    BuyableItems.Add(new BombUpgradeItem(location));
-                    break;
-                case MapTile.Boomerang:
-                    BuyableItems.Add(new BoomerangItem(location, this));
-                    break;
-                case MapTile.Bow:
-                    BuyableItems.Add(new BowItem(location, Secondary.Bow));
-                    break;
-                case MapTile.Clock:
-                    BuyableItems.Add(new ClockItem(location));
-                    break;
-                case MapTile.CrossShot:
-                    BuyableItems.Add(new CrossShotItem(location));
-                    break;
-                case MapTile.KeyBarrier:
-                    Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));
-                    //BuyableItems.Add(new KeyBarrier(_shopManager, location, BlockType.KeyBarrier));
-                    break;
-                case MapTile.KeyBarrierCenter:
-                    Barricade.Add(new KeyBarrierCenter(location, BlockType.KeyBarrierCenter));
-                    break;
-                case MapTile.RupeeBarrier:
-                    Barricade.Add(new RupeeBarrier(location, BlockType.RupeeBarrier));
-                    break;
-                case MapTile.RupeeBarrierCenter:
-                    Barricade.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter));
-                    break;
-                case MapTile.MagicSword:
-                    BuyableItems.Add(new MagicSwordItem(location));
-                    break;
-                case MapTile.RupeeUpgrade:
-                    BuyableItems.Add(new RupeeUpgradeItem(location));
-                    break;
-                case MapTile.SilverArrow:
-                    BuyableItems.Add(new SilverArrowItem(location));
-                    break;
-                case MapTile.SpawnShopKeep:
-                    Enemies.Add(new OldMan(location));
-                    break;
-                case MapTile.Star:
-                    BuyableItems.Add(new StarItem(location));
-                    break;
-                case MapTile.WalletUpgrade:
-                    BuyableItems.Add(new WalletUpgradeItem(location));
-                    break;
-                case MapTile.WhiteSword:
-                    BuyableItems.Add(new WhiteSwordItem(location));
-                    break;
-                case MapTile.FireBow:
-                    BuyableItems.Add(new FireBowItem(location));
-                    break;
-                case MapTile.Fairy:
-                    BuyableItems.Add(new Fairy(location));
-                    break;
-                default:
-                    return false;
-            }
-            return true;
-        }
-
-        private IEnemy MakeEnemy(Point spawnPoint)
-        {
-            switch (_enemyType)
-            {
-                case EnemyType.Gel:
-                    return new Gel(spawnPoint);
-                case EnemyType.Goriya:
-                    return new Goriya(spawnPoint);
-                case EnemyType.Keese:
-                    return new Keese(spawnPoint);
-                case EnemyType.OldMan:
-                    return new OldMan(spawnPoint);
-                case EnemyType.Stalfos:
-                    return new Stalfos(spawnPoint);
-                case EnemyType.Trap:
-                    return new Trap(spawnPoint);
-                case EnemyType.WallMaster:
-                    return new WallMaster(spawnPoint);
-                case EnemyType.Aquamentus:
-                    return new Aquamentus(spawnPoint);
-                case EnemyType.Fygar:
-                    return new Fygar(spawnPoint);
-                case EnemyType.None:
-                    throw new Exception("Room spawns an enemy but no type is set");
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -210,7 +89,7 @@ namespace Zelda.Dungeon
                     TransitionResetables.Add(pushableBlock);
                     break;
                 case MapTile.SpawnEnemy:
-                    Enemies.Add(MakeEnemy(location));
+                    Enemies.Add(EnemyFactory.MakeEnemy(location, _enemyType));
                     break;
                 case MapTile.Sand:
                     Drawables.Add(new Overlay(location, BlockType.Sand));

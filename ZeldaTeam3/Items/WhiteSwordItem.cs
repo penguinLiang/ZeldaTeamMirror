@@ -6,8 +6,10 @@ namespace Zelda.Items
 {
     internal class WhiteSwordItem : Item
     {
-        public WhiteSwordItem(Point location) : base(location)
+        private int _price;
+        public WhiteSwordItem(Point location, int price = 0) : base(location, price)
         {
+         _price = price;   
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWhiteSword();
@@ -16,7 +18,20 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupNewItem();
-            return new UpgradeSword(player, Primary.WhiteSword);
+            if(_price>0)
+            {
+                if(player.Inventory.TryRemoveRupee(_price))
+                {
+                    return new UpgradeSword(player, Primary.WhiteSword);
+                }
+                else
+                {
+                    Used = false;
+                    return new NoOp();
+                }
+            }
+            else
+                return new UpgradeSword(player, Primary.WhiteSword);
         }
     }
 }

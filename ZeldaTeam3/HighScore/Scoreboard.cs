@@ -32,11 +32,11 @@ namespace Zelda.HighScore
 
             try
             {
-                PlayerScore[] scores = HighScoreClient.Scores();
+                var scores = HighScoreClient.Scores();
 
-                for (int i = 0; i < DisplayedScores && i < scores.Length; i++)
+                for (var i = 0; i < DisplayedScores && i < scores.Length; i++)
                 {
-                    String initials = scores[i].Initials;
+                    var initials = scores[i].Initials;
                     while (initials.Length < MaxInitials)
                     {
                         initials += " ";

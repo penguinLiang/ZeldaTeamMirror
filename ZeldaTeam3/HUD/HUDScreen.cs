@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.Dungeon;
 using Zelda.GameState;
 
 namespace Zelda.HUD
@@ -80,7 +81,9 @@ namespace Zelda.HUD
             {
                 TriforceDot.Draw(MiniMapLocation + TriforceLocation + _location);
             }
-            if (_agent.DungeonManager.CurrentRoomMapped)
+
+            var dungeonManager = (DungeonManager)_agent.DungeonManager;
+            if (dungeonManager.CurrentRoomMapped)
             {
                 PlayerDot.Draw(MiniMapLocation + LinkLocation + _location);
             }

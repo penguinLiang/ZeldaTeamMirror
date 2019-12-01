@@ -112,22 +112,6 @@ namespace Zelda.Survival.Pause
             else
                 _selectedItem?.Draw(_location + SelectedItemLocation8_16);
 
-            var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
-            var visitedRooms = _agent.DungeonManager.VisitedRooms;
-            if (_agent.DungeonManager.CurrentRoomMapped)
-            {
-                PlayerMapDot.Draw(MapGridCoverSize * currentRoom + MapGridLocation + _location);
-            }
-
-            for (var row = 0; row < visitedRooms.Length; row++)
-            {
-                for (var col = 0; col < visitedRooms[row].Length; col++)
-                {
-                    if (!visitedRooms[row][col])
-                        RoomCover.Draw(MapGridCoverSize * new Vector2(col, row) + MapGridLocation + _location);
-                }
-            }
-
             if (_agent.Player.Inventory.HasBoomerang)
                 Boomerang.Draw(BoomerangLocation + GridLocation + _location);
 
@@ -155,11 +139,6 @@ namespace Zelda.Survival.Pause
 
             _slot7Sprite?.Draw(Slot7Location + GridLocation + _location);
             _slot8Sprite?.Draw(Slot8Location + GridLocation + _location);
-
-            if (_agent.Player.Inventory.HasMap)
-                Map.Draw(MapLocation + _location);
-            if (_agent.Player.Inventory.HasCompass)
-                Compass.Draw(CompassLocation + _location);
 
             CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
         }

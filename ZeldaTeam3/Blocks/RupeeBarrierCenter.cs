@@ -15,14 +15,16 @@ namespace Zelda.Blocks
         public bool unlocked { get; set; }
         public Rectangle Bounds { get; private set; }
         private Point _location;
+        private int _price;
 
         private static BlockType UnlockedType(BlockType block)
         {
             return BlockType.InvisibleBlock;
         }
 
-        public RupeeBarrierCenter(Point location, BlockType block)
+        public RupeeBarrierCenter(Point location, BlockType block, int price = 1)
         {
+            _price = price;
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
@@ -41,21 +43,15 @@ namespace Zelda.Blocks
         public void Unlock()
         {
             unlocked = true;
-            // SoundEffectManager.Instance.PlayDoorUnlock();
-
-            //Collision remains
-            //take out the other blocks near you
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
         }
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (!unlocked && (player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveRupee()))
+            if (!unlocked && (player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveRupee(_price)))
             {
-                // SoundEffectManager.Instance.PlayDoorUnlock();
                 Unlock();
                 return new NoOp();
-                //if link is unlocking the block, it shouldn't halt him
             }
             else if (!unlocked)
                 return new MoveableHalt(player);

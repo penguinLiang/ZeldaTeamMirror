@@ -5,14 +5,14 @@ namespace Zelda.Player
 {
     public class Inventory
     {
-        private const int MaxRupeeCount = 255;
-        private const int MaxBombCount = 8;
+        public int MaxRupeeCount = 255;
+        public int MaxBombCount = 8;
         private const int MaxKeyCount = 255;
 
         public Primary SwordLevel { get; private set; }
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
-        public int BombCount { get; private set; } = MaxBombCount / 2;
+        public int BombCount { get; private set; }
         public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; }
         public int Coins { get; private set; } = 2;
@@ -24,12 +24,16 @@ namespace Zelda.Player
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = 0;
         public int KeyCount { get; private set; }
+        public int Rupee1Value = 1;
+        public int Rupee5Value = 5;
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
         public bool HasBow => BowLevel != Secondary.None;
 
         public Inventory(){
+            MaxBombCount = 8;
+            BombCount = MaxBombCount / 2;
         }
 
         public void UpgradeSword(Primary newSwordLevel)
@@ -44,6 +48,8 @@ namespace Zelda.Player
             {
                 case Secondary.LaserBeam:
                 case Secondary.Bait:
+                case Secondary.Star:
+                case Secondary.Clock:
                     // Case pre-condition: At least one extra slot is open (should be checked before method call)
                     if (ExtraItem1 == Secondary.None)
                     {
@@ -104,8 +110,7 @@ namespace Zelda.Player
             }
         }
 
-        public void AddCoin()
-        {
+        public void AddCoin()        {
             Coins++;
         }
 
@@ -121,11 +126,11 @@ namespace Zelda.Player
 
         public void Add1Rupee()
         {
-            RupeeCount = Math.Min(RupeeCount + 1, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + Rupee1Value, MaxRupeeCount);
         }
 
         public void Add5Rupee(){
-            RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + Rupee5Value, MaxRupeeCount);
         }
 
         public void AddKey()
@@ -175,10 +180,10 @@ namespace Zelda.Player
             return extraItem;
         }
 
-        public bool TryRemoveRupee()
+        public bool TryRemoveRupee(int price = 1)
         {
-            if (RupeeCount <= 0) return false;
-            RupeeCount--;
+            if (RupeeCount <= 0 && RupeeCount<price) return false;
+            RupeeCount = RupeeCount - price;
             return true;
         }
 

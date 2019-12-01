@@ -208,6 +208,10 @@ We moved to tracking our bugs using the issue tracker on GitHub.
 - __Background Music__: https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-nes
 - __Sprite Sound Effects__: http://noproblo.dayjo.org/ZeldaSounds/LOZ/index.html
 - __Laser Beam Sound Effect__: https://www.myinstants.com/instant/mega-man-x-charge-buster-shot/
+
+
+## Fonts
+- __Manticore (survival pause screen)__: https://befonts.com/manticore-brush-font.html
   
 ## Debug Rooms
 There are four debug rooms, each with their own element of the game to test.

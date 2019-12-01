@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Zelda.Dungeon;
 using Zelda.Music;
 using Zelda.Player;
+using Zelda.ShaderEffects;
 using Zelda.Survival.HUD;
 
 namespace Zelda.Survival.GameState
@@ -14,10 +14,13 @@ namespace Zelda.Survival.GameState
     {
         public const float Scale = 2.0f;
 
-        public DungeonManager DungeonManager { get; } = new DungeonManager();
+        private readonly SurvivalManager _survivalManager = new SurvivalManager();
+        public IDungeonManager DungeonManager => _survivalManager;
         public IDrawable HUD { get; }
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
+
+        public int Score => _survivalManager.CurrentWave;
 
         private readonly SpriteBatch _spriteBatch;
         private readonly GraphicsDevice _graphicsDevice;
@@ -27,12 +30,13 @@ namespace Zelda.Survival.GameState
         private WorldState _worldState = WorldState.Playing;
         private GameWorld _world;
 
+        private readonly PartyTime _partyTime = new PartyTime();
+
         public GameStateAgent(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             _spriteBatch = spriteBatch;
             _graphicsDevice = graphicsDevice;
             HUD = new HUDScreen(this, new Point(0, -HUDSpriteFactory.ScreenHeight));
-            DungeonManager.Pan = DungeonPan;
             _camera = new PlayerLockCamera(Player);
         }
 
@@ -70,24 +74,11 @@ namespace Zelda.Survival.GameState
             _worldState = WorldState.Scoreboard;
         }
 
-        public void GameWin()
-        {
-            if (_worldState == WorldState.GameWin) return;
-            _world = new GameWinWorld(this);
-            _worldState = WorldState.GameWin;
-        }
-
-        public void DungeonPan(Point sourceRoom, Point destinationRoom, Direction direction)
-        {
-            DungeonManager.JumpToRoom(destinationRoom.Y, destinationRoom.X, direction);
-            Play();
-        }
-
         public void Continue()
         {
             DungeonManager.ResetScenes();
             Player.Spawn();
-            DungeonManager.JumpToRoom(5, 2);
+            DungeonManager.JumpToRoom(1, 0);
             Play();
         }
 
@@ -112,6 +103,8 @@ namespace Zelda.Survival.GameState
         public void Update()
         {
             _pauseMachine.Update();
+            Sprite.PartyHard = _survivalManager.PartyHard;
+            if (_survivalManager.PartyHard) _partyTime.Update();
 
             if (_world == null) return;
 
@@ -121,7 +114,6 @@ namespace Zelda.Survival.GameState
             }
 
             if (!Player.Alive) GameOver();
-            if (Player.Won) GameWin();
             if (_pauseMachine.State != PauseState.Unpaused) return;
 
             _pauseMachine.Play();
@@ -133,21 +125,19 @@ namespace Zelda.Survival.GameState
             if (_world == null) return;
             _graphicsDevice.Clear(Color.Black);
 
-            // DrawFollow(); // UNCOMMENT THIS LINE TO TEST SURVIVAL CAMERA
-
-            // COMMENT OUT THE REMAINING CODE FOR THIS METHOD TO TEST SURVIVAL CAMERA
-
             var yOffset = HUDSpriteFactory.ScreenHeight + _pauseMachine.YOffset;
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+            _spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null,
                 Matrix.CreateScale(Scale) * Matrix.CreateTranslation(_camera.X * Scale, (_camera.Y + yOffset) * Scale, 0.0f));
+            if (_survivalManager.PartyHard) _partyTime.Apply();
             foreach (var drawable in _world.CameraDrawables)
             {
                 drawable.Draw();
             }
             _spriteBatch.End();
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
+            _spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Scale) * Matrix.CreateTranslation(0.0f, yOffset * Scale, 0.0f));
+            if (_survivalManager.PartyHard) _partyTime.Apply();
             foreach (var drawable in _world.FixedDrawables)
             {
                 drawable.Draw();
