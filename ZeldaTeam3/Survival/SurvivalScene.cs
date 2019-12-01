@@ -152,13 +152,6 @@ namespace Zelda.Survival
                 }
             }
 
-            foreach(var buyableItem in _room.BuyableItems){
-                buyableItem.Update();
-                if(buyableItem.CollidesWith(_player.BodyCollision.Bounds)){
-                    buyableItem.PlayerEffect(_player).Execute();
-                }
-            }
-
             foreach(var barricade in _room.Barricade)
             {
                 barricade.Update();
@@ -300,11 +293,6 @@ namespace Zelda.Survival
             foreach (var barricade in _room.Barricade)
             {
                 barricade.Draw();
-            }
-
-            foreach (var roomBuyableItem in _room.BuyableItems)
-            {
-                roomBuyableItem.Draw();
             }
         }
     }

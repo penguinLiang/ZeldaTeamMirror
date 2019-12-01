@@ -26,6 +26,18 @@
 /processorParam:TextureFormat=Color
 /build:AlchemyCoin.png
 
+#begin Barricades.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Barricades.png
+
 #begin BasementBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -708,6 +720,18 @@
 /processorParam:TextureFormat=Color
 /build:SurvivalDungeonBackground.png
 
+#begin SurvivalPauseScreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SurvivalPauseScreen.png
+
 #begin SurvivalWaves.csv
 /importer:CSVWaveImporter
 /processor:PassThroughProcessor
@@ -724,16 +748,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles.png
-
-#begin Barricades.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Barricades.png
 
