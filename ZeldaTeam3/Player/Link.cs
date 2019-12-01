@@ -23,7 +23,12 @@ namespace Zelda.Player
         public bool Alive => _healthStateMachine.Alive;
         public bool Won { get; private set; }
         public int Health => _healthStateMachine.Health;
-        public int MaxHealth => _healthStateMachine.MaxHealth;
+
+        public int MaxHealth
+        {
+            get => _healthStateMachine.MaxHealth;
+            set => _healthStateMachine.MaxHealth = value;
+        }
         public Point Location => _movementStateMachine.Location;
         public Direction Direction => _movementStateMachine.Facing;
         public List<IProjectile> Projectiles => _playerProjectileAgent.Projectiles;

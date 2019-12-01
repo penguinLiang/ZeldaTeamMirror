@@ -78,6 +78,8 @@ namespace Zelda.Survival.GameState
         {
             DungeonManager.ResetScenes();
             Player.Spawn();
+            Player.MaxHealth = 12;
+            Player.FullHeal();
             DungeonManager.JumpToRoom(1, 0);
             Play();
         }
@@ -88,6 +90,7 @@ namespace Zelda.Survival.GameState
             _worldState = WorldState.Reset;
 
             Player = new Link(Point.Zero);
+            Player.Inventory.RupeeCount = 50;
             _camera = new PlayerLockCamera(Player);
             _pauseMachine = new PauseTransitionStateMachine();
             MusicManager.Instance.StopMusic();
