@@ -1,69 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Zelda.Blocks;
 using Zelda.Dungeon;
-using Zelda.Enemies;
-using Zelda.Survival.GameState;
-using Zelda.HighScore;
-using Zelda.HUD;
-using Zelda.Items;
-using Zelda.JumpMap;
-using Zelda.Music;
-using Zelda.Pause;
-using Zelda.Player;
-using Zelda.Projectiles;
-using Zelda.SoundEffects;
+// ReSharper disable ForCanBeConvertedToForeach
+// ReSharper disable SuggestBaseTypeForParameter
+// ReSharper disable InvertIf
 
 namespace Zelda.Survival
 {
-    public class WaveManager
+    public class WaveManager : IUpdatable
     {
-        private string[][] _waveMatrix;
+        public int CurrentWave => (_scale - 1) * _waveStorage.Count + _currentWave;
         private int _currentWave;
-        private List<Wave> _waveStorage = new List<Wave>();
+        private int _scale = 1;
+        private readonly List<Wave> _waveStorage = new List<Wave>();
 
-        public WaveManager(ContentManager content)
+        private readonly FrameDelay _spawnDelay = new FrameDelay(60, true);
+        private List<Point> _spawnLocations;
+
+        private EnemyType[] _waveEnemyTypes;
+        private int _currentEnemyOffset;
+        private bool _waveStarted;
+
+        private uint _spawnCount;
+
+        public List<IEnemy> Enemies { get; } = new List<IEnemy>();
+
+        public WaveManager(string[][] waveMatrix)
         {
-            _waveMatrix = content.Load<string[][]>("SurvivalWaves");
-            _currentWave = 0;
-            char[] separator = {':'};
-            Int32 count = 2;
-
-            for(int row = 0; row < _waveMatrix.Length; row++)
+            for(var row = 0; row < waveMatrix.Length; row++)
             {
-                WaveType currentWaveType = WaveType.Normal;
-                List<EnemyType> enemyCSVContent = new List<EnemyType>();
-                for(int col = 0; col < _waveMatrix[row].Length; col++)
+                var currentWaveType = DecodeWaveType(waveMatrix[row][0]);
+                var enemyTypes = new List<EnemyType>();
+
+                for(var col = 1; col < waveMatrix[row].Length; col++)
                 {
-                    if(col == 0)
-                    {
-                        currentWaveType = GetCurrentWaveType(row);
-                    }
-                    else
-                    {
-                        String[] strList = _waveMatrix[row][col].Split(separator, count, StringSplitOptions.None);
-                        int enemyCount = int.Parse(strList[1]);
+                    if (waveMatrix[row][col].Length == 0) continue;
+                    var strList = waveMatrix[row][col].Split(':');
+                    var enemyCount = int.Parse(strList[1]);
+                    var enemyType = DecodeEnemyType(strList[0]);
 
-                        EnemyType enemyType = GetCurrentEnemyType(row, col, strList);
-
-                        for(int currentCount = 0; currentCount < enemyCount; currentCount++)
-                        {
-                            enemyCSVContent.Add(enemyType);
-                        }
+                    for (var currentCount = 0; currentCount < enemyCount; currentCount++)
+                    {
+                        enemyTypes.Add(enemyType);
                     }
                 }
 
-                _waveStorage.Add(new Wave(enemyCSVContent,currentWaveType));
-
+                _waveStorage.Add(new Wave(enemyTypes, currentWaveType));
             }
         }
 
-        private WaveType GetCurrentWaveType(int row)
+        private static WaveType DecodeWaveType(string type)
         {
-            switch (_waveMatrix[row][0])
+            switch (type)
             {
                 case "S":
                     return WaveType.Shop;
@@ -76,9 +66,9 @@ namespace Zelda.Survival
             }
         }
 
-        private EnemyType GetCurrentEnemyType(int row, int col, string[] strList)
+        private static EnemyType DecodeEnemyType(string enemyString)
         {
-            switch (strList[0])
+            switch (enemyString)
             {
                 case "aquamentus":
                     return EnemyType.Aquamentus;
@@ -99,5 +89,73 @@ namespace Zelda.Survival
             }
         }
 
+        public WaveType CurrentWaveType => _waveStorage[_currentWave].Type;
+
+        public void AdvanceWave()
+        {
+            if (++_currentWave == _waveStorage.Count)
+            {
+                _currentWave = 0;
+                _scale++;
+            }
+        }
+
+        private EnemyType[] NextWaveEnemies()
+        {
+            return _waveStorage[_currentWave].GetList(_scale);
+        }
+
+        public void ClearWave()
+        {
+            _currentEnemyOffset = 0;
+            Enemies.Clear();
+            _waveStarted = false;
+            _spawnDelay.Pause();
+        }
+
+        public void StartEnemyWave()
+        {
+            _waveStarted = true;
+            _waveEnemyTypes = NextWaveEnemies();
+            _spawnDelay.Resume();
+        }
+
+        public bool SomeEnemiesAlive => Enemies.Any(enemy => enemy.Alive) || _currentEnemyOffset < _waveEnemyTypes.Length;
+        public bool WaveComplete => _waveStarted && !SomeEnemiesAlive;
+
+        public void TrackSpawnsNearPlayer(List<Point> spawnTiles, Point location)
+        {
+            if (_spawnDelay.Delayed) return;
+
+            _spawnLocations = ZoneManager.SpawnTilesWithinZone(spawnTiles, location);
+        }
+
+        public void Reset()
+        {
+            _currentWave = 0;
+            _scale = 1;
+            _spawnCount = 0;
+            ClearWave();
+        }
+
+        public void Update()
+        {
+            if (!_waveStarted || WaveComplete) return;
+
+            _spawnDelay.Update();
+
+            if (_spawnDelay.Delayed ||
+                _spawnLocations == null ||
+                _spawnLocations.Count == 0 ||
+                _currentEnemyOffset >= _waveEnemyTypes.Length) return;
+
+            var roundRobin = (int)(_spawnCount % _spawnLocations.Count);
+            var spawnLocation = _spawnLocations[roundRobin];
+            var enemy = EnemyFactory.MakeEnemy(spawnLocation, _waveEnemyTypes[_currentEnemyOffset]);
+            Enemies.Add(enemy);
+            enemy.Spawn();
+            _currentEnemyOffset++;
+            _spawnCount++;
+        }
     }
 }

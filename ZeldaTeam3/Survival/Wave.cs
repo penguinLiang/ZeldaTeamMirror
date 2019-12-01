@@ -1,49 +1,38 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Zelda.Blocks;
+﻿using System.Collections.Generic;
 using Zelda.Dungeon;
-using Zelda.Enemies;
-using Zelda.GameState;
-using Zelda.HighScore;
-using Zelda.HUD;
-using Zelda.Items;
-using Zelda.JumpMap;
-using Zelda.Music;
-using Zelda.Pause;
-using Zelda.Player;
-using Zelda.Projectiles;
-using Zelda.SoundEffects;
 
+// ReSharper disable ParameterTypeCanBeEnumerable.Local
 namespace Zelda.Survival
 {
     public class Wave
     {
         private readonly List<EnemyType> _waveEnemies = new List<EnemyType>();
-
         public WaveType Type { get; }
 
-        public Wave(List<EnemyType> enemyCSVContent, WaveType waveType)
+        public Wave(List<EnemyType> enemyTypes, WaveType waveType)
         {
             Type = waveType;
 
-            foreach (var enemy in enemyCSVContent)
+            foreach (var enemy in enemyTypes)
             {
                 _waveEnemies.Add(enemy);
             }
         }
 
-        public List<EnemyType> GetList(int scale)
+        public EnemyType[] GetList(int scale)
         {
-            var unspawnedEnemies = new List<EnemyType>();
+            var enemies = new EnemyType[scale * _waveEnemies.Count];
 
-            for(var i = 0; i < scale; i++)
+            for (var i = 0; i < _waveEnemies.Count; i++)
             {
-                unspawnedEnemies.AddRange(_waveEnemies);
+                var enemyType = _waveEnemies[i];
+                for(var j = 0; j < scale; j++)
+                {
+                    enemies[i * scale + j] = enemyType;
+                }
             }
 
-            return unspawnedEnemies;
+            return enemies;
         }
     }
 }        

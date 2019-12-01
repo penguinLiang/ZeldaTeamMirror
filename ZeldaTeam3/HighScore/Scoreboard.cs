@@ -5,24 +5,26 @@ namespace Zelda.HighScore
 {
     public class Scoreboard : IDrawable
     {
-        private const string WaitingMessage = "FETCHING SCORES ...";
+        private readonly PlayerScore _playerScore;
+        private const string WaitingMessage = "SUBMITTING SCORE...";
         private const string TimeoutMessage = "FAILED TO GET SCORES";
         private const int DisplayedScores = 9;
         private const int MaxInitials = 3;
-        private const int FirstPlaceX = 48;
+        private const int FirstPlaceX = 44;
         private const int FirstPlaceY = 32 - HUD.HUDSpriteFactory.ScreenHeight;
         private const int LineSpacing = 16;
         private const int MaxTries = 3;
 
         private static readonly IDrawable Background = new ScoreboardBackground();
 
-        private readonly IDrawable[] _textDrawables = new DrawnText[DisplayedScores];
+        private readonly IDrawable[] _textDrawables = new IDrawable[DisplayedScores];
 
         private bool _scoresFetched;
         private int _failedTries;
 
-        public Scoreboard()
+        public Scoreboard(int score = 0, string initials = "")
         {
+            _playerScore = new PlayerScore {Initials = initials, Score = score};
             _textDrawables[0] = new DrawnText { Text = WaitingMessage, Location = new Point(FirstPlaceX, FirstPlaceY) };
         }
 
@@ -32,18 +34,19 @@ namespace Zelda.HighScore
 
             try
             {
-                PlayerScore[] scores = HighScoreClient.Scores();
+                var scores = _playerScore.Score == 0 ?
+                    HighScoreClient.Scores() : HighScoreClient.Submit(_playerScore);
 
-                for (int i = 0; i < DisplayedScores && i < scores.Length; i++)
+                for (var i = 0; i < DisplayedScores && i < scores.Length; i++)
                 {
-                    String initials = scores[i].Initials;
+                    var initials = scores[i].Initials;
                     while (initials.Length < MaxInitials)
                     {
                         initials += " ";
                     }
 
                     _textDrawables[i] = new DrawnText {
-                        Text = initials + " KILLED " + scores[i].Score.ToString("D6") + " MOBS",
+                        Text = initials + " LASTED " + scores[i].Score.ToString("D6") + " WAVES",
                         Location = new Point(FirstPlaceX, FirstPlaceY + i * LineSpacing)
                     };
                 }

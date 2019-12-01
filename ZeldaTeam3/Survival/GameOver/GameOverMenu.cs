@@ -12,23 +12,25 @@ namespace Zelda.Survival.GameOver
         private static readonly Point GameOverMessageLocation =
             new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 2, 0);
 
-        private const string ContinueMessage = "CONTINUE";
+        private const string SubmitScoreMessage = "SUBMIT SCORE";
         private const string RetryMessage = "RETRY";
         private const string QuitMessage = "QUIT";
         private const string PressEnter = "PRESS ENTER TO SELECT";
 
-        private static readonly Point ContinueMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 160);
+        private static readonly Point SubmitScoreMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 160);
         private static readonly Point RetryMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 140);
         private static readonly Point QuitMessageLocation = new Point((ScreenWidth - DrawnText.Width(GameOverMessage)) / 4, ScreenHeight - 120);
         private static readonly Point PressEnterLocation = new Point((ScreenWidth - DrawnText.Width(PressEnter)) / 4, ScreenHeight - 80);
 
+        private readonly DrawnText _score = new DrawnText();
+
         private readonly IDrawable[] _textDrawables =
         {
             new DrawnText { Location = GameOverMessageLocation, Text = GameOverMessage },
-            new DrawnText { Location = ContinueMessageLocation, Text = ContinueMessage },
+            new DrawnText { Location = SubmitScoreMessageLocation, Text = SubmitScoreMessage },
             new DrawnText { Location = RetryMessageLocation, Text = RetryMessage },
             new DrawnText { Location = QuitMessageLocation, Text = QuitMessage },
-            new DrawnText { Location = PressEnterLocation, Text = PressEnter }
+            new DrawnText { Location = PressEnterLocation, Text = PressEnter },
         };
 
         private readonly GameStateAgent _agent;
@@ -40,9 +42,12 @@ namespace Zelda.Survival.GameOver
         public GameOverMenu(GameStateAgent agent)
         {
             _agent = agent;
-            _selectedItem = ContinueMessage;
-            _location = new Vector2(ContinueMessageLocation.X - 16, ContinueMessageLocation.Y);
+            _selectedItem = SubmitScoreMessage;
+            _location = new Vector2(SubmitScoreMessageLocation.X - 16, SubmitScoreMessageLocation.Y);
             _cursor = HUDSpriteFactory.Instance.CreateFullHeart();
+            var scoreMessage = "SCORE: " + agent.Score.ToString("D6");
+            _score.Location = new Point((ScreenWidth - DrawnText.Width(scoreMessage)) / 2, 16);
+            _score.Text = scoreMessage;
         }
 
         public void Update()
@@ -57,14 +62,15 @@ namespace Zelda.Survival.GameOver
                 textDrawable.Draw();
             }
             _cursor.Draw(_location);
+            _score.Draw();
         }
 
         public void Choose()
         {
             switch (_selectedItem)
             {
-                case ContinueMessage:
-                    _agent.Continue();
+                case SubmitScoreMessage:
+                    _agent.SubmitScore();
                     break;
                 case RetryMessage:
                     _agent.Reset();
@@ -85,8 +91,8 @@ namespace Zelda.Survival.GameOver
                     _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
                     break;
                 case RetryMessage:
-                    _selectedItem = ContinueMessage;
-                    _location = new Vector2(ContinueMessageLocation.X - 16, ContinueMessageLocation.Y);
+                    _selectedItem = SubmitScoreMessage;
+                    _location = new Vector2(SubmitScoreMessageLocation.X - 16, SubmitScoreMessageLocation.Y);
                     break;
             }
         }
@@ -100,7 +106,7 @@ namespace Zelda.Survival.GameOver
                     _selectedItem = QuitMessage;
                     _location = new Vector2(QuitMessageLocation.X - 16, QuitMessageLocation.Y);
                     break;
-                case ContinueMessage:
+                case SubmitScoreMessage:
                     _selectedItem = RetryMessage;
                     _location = new Vector2(RetryMessageLocation.X - 16, RetryMessageLocation.Y);
                     break;

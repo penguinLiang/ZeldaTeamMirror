@@ -65,8 +65,6 @@ namespace Zelda.Enemies
 
         private void AdvanceToDestination()
         {
-            const int yBounds = 150;
-            const int xBounds = 220;
             double xDiff = _playerLocation.X - _nextDestination.X;
             double yDiff = _playerLocation.Y - _nextDestination.Y;
             var magnitude = Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
@@ -77,7 +75,7 @@ namespace Zelda.Enemies
             var normalizedY = yDiff / magnitude * yScale;
             var normalizedX = xDiff / magnitude * xScale;
 
-            if (Location.X - (int)normalizedX > xBounds || Location.X - (int)normalizedX < 0 || Location.Y - (int)normalizedY > yBounds || Location.Y - (int)normalizedY < 0)
+            if (Location.X - (int)normalizedX < 0 || Location.Y - (int)normalizedY < 0)
             {
                 GenerateNextDestination();
             }
@@ -101,14 +99,9 @@ namespace Zelda.Enemies
             xDiff += Math.Sign(xDiff) * Rng.Next(32);
             yDiff += Math.Sign(yDiff) * Rng.Next(32);
             // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression (too long for ternary)
-            if (Rng.Next(3) == 0)
-            {
-                _nextDestination = new Point(Rng.Next(256), Rng.Next(48,200));
-            }
-            else
-            {
-                _nextDestination = new Point((int)(Location.X + xDiff * locationScale), (int)(Location.Y + yDiff * locationScale));
-            }
+            _nextDestination = Rng.Next(3) == 0
+                ? new Point(_playerLocation.X + Rng.Next(-256,256), _playerLocation.Y + Rng.Next(-100,100))
+                : new Point((int)(Location.X + xDiff * locationScale), (int)(Location.Y + yDiff * locationScale));
         }
 
         public override void Update()

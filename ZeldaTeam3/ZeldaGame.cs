@@ -29,7 +29,8 @@ namespace Zelda
         
         private bool _atMainMenu = true;
         private bool _survivalMode;
-        public IGameStateAgent GameStateAgent => _survivalMode ? _survivalAgent : _normalAgent;
+        public IGameStateAgent GameStateAgent =>
+            _survivalMode ? _survivalAgent : _normalAgent;
 
         private SpriteBatch _spriteBatch;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace Zelda.Enemies
@@ -7,6 +8,8 @@ namespace Zelda.Enemies
     public class Stalfos : EnemyAgent
     {
         private const int ActionDelay = 16;
+
+        private static readonly Random Rng = new Random();
 
         private static readonly Point Size = new Point(16, 16);
         public override Rectangle Bounds => new Rectangle(Location, Alive ? Size : Point.Zero);
@@ -24,6 +27,7 @@ namespace Zelda.Enemies
         private int _agentClock;
         private Direction _currentDirection;
         private AgentState _agentStatus;
+        private Point _playerLocation;
 
         public Stalfos(Point location)
         {
@@ -46,10 +50,22 @@ namespace Zelda.Enemies
             _currentDirection = DirectionUtility.Flip(_currentDirection);
         }
 
+        public override void Target(Point playerLocation)
+        {
+            _playerLocation = playerLocation;
+        }
+
+        public override void Stun()
+        {
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
+        }
+
         protected override void Knockback()
         {
             _agentStatus = AgentState.Knocked;
-            _agentClock = ActionDelay / 2;
+            _agentClock = ActionDelay;
+            FlipDirection();
         }
 
         public override void Halt()
@@ -57,7 +73,7 @@ namespace Zelda.Enemies
             _agentStatus = AgentState.Halted;
             _agentClock = ActionDelay;
             FlipDirection();
-            Move(_currentDirection);
+            Move(_currentDirection,2);
         }
 
         public void UpdateAction()
@@ -65,7 +81,9 @@ namespace Zelda.Enemies
             _agentStatus = AgentStateUtility.RandomFrom(ValidAgentStates);
             if (_agentStatus == AgentState.Moving)
             {
-                _currentDirection = DirectionUtility.RandomDirection();
+                _currentDirection = Rng.Next(2)==0 
+                    ? DirectionUtility.GetDirectionTowardsPoint(Location, _playerLocation)
+                    : DirectionUtility.RandomDirection();
             }
             _agentClock = ActionDelay;
         }
@@ -82,6 +100,7 @@ namespace Zelda.Enemies
                 case AgentState.Ready:
                     UpdateAction();
                     break;
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {
@@ -96,7 +115,7 @@ namespace Zelda.Enemies
                     }
                     else
                     {
-                        Move(DirectionUtility.Flip(_currentDirection));
+                        Move(_currentDirection, 2);
                     }
 
                     break;
@@ -120,10 +139,11 @@ namespace Zelda.Enemies
 
         public override void Update()
         {
+            base.Update();
             if (Alive && CanMove)
                 ExecuteAction();
 
-            base.Update();
+            
         }
     }
 }

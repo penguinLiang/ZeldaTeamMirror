@@ -7,16 +7,17 @@ namespace Zelda.Player
     {
         private const int MaxRupeeCountInitial = 255;
         private const int MaxBombCountInitial = 8;
+
         private const int MaxKeyCount = 255;
 
-        private int _maxRupeeCount = MaxRupeeCountInitial;
-        private int _maxBombCount = MaxRupeeCountInitial;
-        private int _rupeeMultiplier = 1;
+        public int MaxRupeeCount { get; private set; } = MaxRupeeCountInitial;
+        public int MaxBombCount { get; private set; } = MaxRupeeCountInitial;
+        public int RupeeMultiplier { get; private set; } = 1;
 
         public Primary SwordLevel { get; private set; }
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
-        public int BombCount { get; private set; } = MaxBombCountInitial / 2;
+        public int BombCount { get; private set; }
         public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; }
         public int Coins { get; private set; } = 2;
@@ -28,12 +29,15 @@ namespace Zelda.Player
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = 0;
         public int KeyCount { get; private set; }
+        //public int Rupee1Value = 1;
+        //public int Rupee5Value = 5;
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
         public bool HasBow => BowLevel != Secondary.None;
 
-        public Inventory(){
+        public Inventory() {
+            BombCount = MaxBombCountInitial / 2;
         }
 
         public void UpgradeSword(Primary newSwordLevel)
@@ -76,7 +80,7 @@ namespace Zelda.Player
                     HasBoomerang = true;
                     break;
                 case Secondary.Bomb:
-                    BombCount = Math.Min(BombCount + 4, _maxBombCount);
+                    BombCount = Math.Min(BombCount + 4, MaxBombCount);
                     break;
                 case Secondary.Bow:
                     if (BowLevel == Secondary.None) BowLevel = Secondary.Bow;
@@ -104,8 +108,7 @@ namespace Zelda.Player
             }
         }
 
-        public void AddCoin()
-        {
+        public void AddCoin()        {
             Coins++;
         }
 
@@ -121,11 +124,19 @@ namespace Zelda.Player
 
         public void Add1Rupee()
         {
-            RupeeCount = Math.Min(RupeeCount + _rupeeMultiplier, _maxRupeeCount);
+//<<<<<<< HEAD
+            RupeeCount = Math.Min(RupeeCount + RupeeMultiplier, MaxRupeeCount);
         }
 
         public void Add5Rupee(){
-            RupeeCount = Math.Min(RupeeCount + 5 * _rupeeMultiplier, _maxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + 5 * RupeeMultiplier, MaxRupeeCount);
+//=======
+        /*    RupeeCount = Math.Min(RupeeCount + Rupee1Value, MaxRupeeCount);
+        }
+
+        public void Add5Rupee(){
+            RupeeCount = Math.Min(RupeeCount + Rupee5Value, MaxRupeeCount); */
+//>>>>>>> master
         }
 
         public void AddKey()
@@ -175,10 +186,10 @@ namespace Zelda.Player
             return extraItem;
         }
 
-        public bool TryRemoveRupee()
+        public bool TryRemoveRupee(int price = 1)
         {
-            if (RupeeCount <= 0) return false;
-            RupeeCount--;
+            if (RupeeCount <= 0 && RupeeCount<price) return false;
+            RupeeCount = RupeeCount - price;
             return true;
         }
 
@@ -191,17 +202,17 @@ namespace Zelda.Player
 
         public void UpgradeRupeeWallet(int newMax)
         {
-            _maxRupeeCount = newMax;
+            MaxRupeeCount = newMax;
         }
 
         public void UpgradeBombWallet(int newMax)
         {
-            _maxBombCount = newMax;
+            MaxBombCount = newMax;
         }
 
         public void UpgradeRupeeMultiplier(int scale)
         {
-            _rupeeMultiplier = scale;
+            RupeeMultiplier = scale;
         }
     }
 }

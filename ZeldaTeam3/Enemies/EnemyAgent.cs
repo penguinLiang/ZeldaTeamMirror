@@ -11,7 +11,9 @@ namespace Zelda.Enemies
         protected abstract ISprite Sprite { get; }
 
         protected Point Location;
-        protected const int Velocity = 1;
+        protected int Speed = 1;
+        protected const int TileSize = 8;
+        protected const int AlignThreshold = 3;
 
         protected int Health = 1;
 
@@ -54,24 +56,39 @@ namespace Zelda.Enemies
             }
         }
 
-        protected virtual void Move(Direction direction)
+        protected virtual void Move(Direction direction, int speed = 1)
         {
-            switch (direction)
+            var initialSpeed = Speed;
+            Speed = speed;
+            AlignMovement(direction);
+            Speed = initialSpeed;
+        }
+
+        protected void AlignMovement(Direction direction)
+        {
+            if (direction == Direction.Down || direction == Direction.Up)
             {
-                case Direction.Up:
-                    Location.Y -= Velocity;
-                    break;
-                case Direction.Down:
-                    Location.Y += Velocity;
-                    break;
-                case Direction.Left:
-                    Location.X -= Velocity;
-                    break;
-                case Direction.Right:
-                    Location.X += Velocity;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var distance = Location.X % TileSize;
+                if (distance == 0)
+                {
+                    Location += new Point(0, direction == Direction.Down ? Speed : -Speed);
+                }
+                else
+                {
+                    Location += new Point(distance > AlignThreshold ? Speed : -Speed, 0);
+                }
+            }
+            else
+            {
+                var distance = Location.Y % TileSize;
+                if (distance == 0)
+                {
+                    Location += new Point(direction == Direction.Left ? -Speed : Speed, 0);
+                }
+                else
+                {
+                    Location += new Point(0, distance > AlignThreshold ? Speed : -Speed);
+                }
             }
         }
 
@@ -125,8 +142,7 @@ namespace Zelda.Enemies
 
         public virtual void Stun()
         {
-            Halt();
-            Sprite.PaletteShift();
+            // NO-OP
         }
 
         public abstract Rectangle Bounds { get; }

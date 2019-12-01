@@ -5,17 +5,17 @@ using Zelda.ShaderEffects;
 
 namespace Zelda.Dungeon
 {
-    public class DungeonManager : IDrawable
+    public class DungeonManager : IDungeonManager
     {
         private static readonly Point TileSize = new Point(16, 16);
         private static readonly Point BasementAccessRoom = new Point(1, 0);
         private static readonly Point BasementRoom = new Point(1, 1);
 
-        public Scene Scene { get; private set; }
-        public bool[][] EnabledRooms { get; private set; }
-        public bool[][] UnmappedRooms { get; private set; }
-        public bool[][] VisitedRooms { get; private set; }
-        public Point CurrentRoom { get; private set; } = Point.Zero;
+        public IScene Scene { get; protected set; }
+        public bool[][] EnabledRooms { get; protected set; }
+        public bool[][] UnmappedRooms { get; protected set; }
+        public bool[][] VisitedRooms { get; protected set; }
+        public Point CurrentRoom { get; protected set; } = Point.Zero;
         public Action<Point, Point, Direction> Pan { private get; set; } = delegate { };
         private ISprite _background;
         private Scene[][] _scenes;
@@ -29,7 +29,7 @@ namespace Zelda.Dungeon
         {
             Default = 0,
             Basement = 1,
-            OldMan = 2
+            OldMan = 2,
         }
 
         private static ISprite Background(BackgroundId backgroundId)

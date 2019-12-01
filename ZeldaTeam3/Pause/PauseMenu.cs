@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Dungeon;
 using Zelda.GameState;
 using Zelda.Items;
 
@@ -51,9 +52,10 @@ namespace Zelda.Pause
             CursorGrid.Draw(CursorSize * _cursorPosition.ToVector2() + GridLocation + _location);
             _selectedItem?.Draw(_location + SelectedItemLocation);
 
+            var dungeonManager = (DungeonManager)_agent.DungeonManager;
             var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
-            var visitedRooms = _agent.DungeonManager.VisitedRooms;
-            if (_agent.DungeonManager.CurrentRoomMapped)
+            var visitedRooms = dungeonManager.VisitedRooms;
+            if (dungeonManager.CurrentRoomMapped)
             {
                 PlayerMapDot.Draw(MapGridCoverSize * currentRoom + MapGridLocation + _location);
             }

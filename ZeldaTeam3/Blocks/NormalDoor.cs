@@ -17,7 +17,7 @@ namespace Zelda.Blocks
         protected override Rectangle TransitionArea { get; }
         protected override ICommand TransitionEffect { get; }
 
-        public NormalDoor(DungeonManager dungeon, Point location, BlockType block)
+        public NormalDoor(IDungeonManager dungeon, Point location, BlockType block)
         {
             Location = location;
             DrawOffset = Point.Zero;
