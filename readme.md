@@ -37,8 +37,6 @@ ZeldaGame has again received a major refactor, this time involving the camera sy
 - More code cleanup!
 Enemy AI has been cleaned up and improved.
 
-A LOT of code cleanup regarding survival manager, and all the survival related foundational files.
-
 A lot of code cleanup as well regarding item and weapon classes.
 
 Finally, the last major source of cleanup was the camera system so that it was edited to focus on Link.
