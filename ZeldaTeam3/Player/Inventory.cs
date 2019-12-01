@@ -5,21 +5,25 @@ namespace Zelda.Player
 {
     public class Inventory
     {
-        private const int MaxRupeeCount = 255;
-        private const int MaxBombCount = 8;
+        private const int MaxRupeeCountInitial = 255;
+        private const int MaxBombCountInitial = 8;
         private const int MaxKeyCount = 255;
+
+        private int _maxRupeeCount = MaxRupeeCountInitial;
+        private int _maxBombCount = MaxRupeeCountInitial;
+        private int _rupeeMultiplier = 1;
 
         public Primary SwordLevel { get; private set; }
         public Secondary SecondaryItem { get; private set; }
         public bool HasBoomerang { get; private set; }
-        public int BombCount { get; private set; } = MaxBombCount / 2;
+        public int BombCount { get; private set; } = MaxBombCountInitial / 2;
         public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; }
         public int Coins { get; private set; } = 2;
         public bool HasATWBoomerang { get; private set; }
         public bool HasBombLauncher { get; private set; }
-        public Secondary ExtraItem1 { get; private set; }
-        public Secondary ExtraItem2 { get; private set; }
+        public Secondary ExtraItem1 { get; private set; } = Secondary.LaserBeam;
+        public Secondary ExtraItem2 { get; private set; } = Secondary.Star;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = 0;
@@ -43,6 +47,8 @@ namespace Zelda.Player
             switch (secondaryItem)
             {
                 case Secondary.LaserBeam:
+                case Secondary.Clock:
+                case Secondary.Star:
                 case Secondary.Bait:
                     // Case pre-condition: At least one extra slot is open (should be checked before method call)
                     if (ExtraItem1 == Secondary.None)
@@ -70,7 +76,7 @@ namespace Zelda.Player
                     HasBoomerang = true;
                     break;
                 case Secondary.Bomb:
-                    BombCount = Math.Min(BombCount + 4, MaxBombCount);
+                    BombCount = Math.Min(BombCount + 4, _maxBombCount);
                     break;
                 case Secondary.Bow:
                     if (BowLevel == Secondary.None) BowLevel = Secondary.Bow;
@@ -93,14 +99,8 @@ namespace Zelda.Player
                 case Secondary.BombLauncher:
                     HasBombLauncher = true;
                     break;
-                case Secondary.None:
-                case Secondary.ExtraSlot1:
-                case Secondary.ExtraSlot2:
-                case Secondary.LaserBeam:
-                case Secondary.Bait:
-                    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
 
@@ -121,11 +121,11 @@ namespace Zelda.Player
 
         public void Add1Rupee()
         {
-            RupeeCount = Math.Min(RupeeCount + 1, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + _rupeeMultiplier, _maxRupeeCount);
         }
 
         public void Add5Rupee(){
-            RupeeCount = Math.Min(RupeeCount + 5, MaxRupeeCount);
+            RupeeCount = Math.Min(RupeeCount + 5 * _rupeeMultiplier, _maxRupeeCount);
         }
 
         public void AddKey()
@@ -187,6 +187,21 @@ namespace Zelda.Player
             if (KeyCount <= 0) return false;
             KeyCount--;
             return true;
+        }
+
+        public void UpgradeRupeeWallet(int newMax)
+        {
+            _maxRupeeCount = newMax;
+        }
+
+        public void UpgradeBombWallet(int newMax)
+        {
+            _maxBombCount = newMax;
+        }
+
+        public void UpgradeRupeeMultiplier(int scale)
+        {
+            _rupeeMultiplier = scale;
         }
     }
 }

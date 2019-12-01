@@ -22,6 +22,12 @@ namespace Zelda.Survival.Pause
             {
                 case Secondary.LaserBeam:
                     return LaserBeam;
+                case Secondary.Clock:
+                    return Clock;
+                case Secondary.Star:
+                    return Star;
+                case Secondary.Bait:
+                    return Bait;
                 default:
                     return null;
             }
@@ -81,36 +87,48 @@ namespace Zelda.Survival.Pause
             }
         }
 
+        private ISprite UpdateExtraItemSprite(Secondary item)
+        {
+            switch (item)
+            {
+                case Secondary.LaserBeam:
+                    return LaserBeam;
+                case Secondary.Clock:
+                    return Clock;
+                case Secondary.Star:
+                    return Star;
+                case Secondary.Bait:
+                    return Bait;
+                default:
+                    return null;
+            }
+        }
+
         public void Update()
         {
-            switch (_agent.Player.Inventory.ExtraItem1)
-            {
-                case Secondary.LaserBeam:
-                    _slot7Sprite = LaserBeam;
-                    break;
-                default:
-                    _slot7Sprite = null;
-                    break;
-            }
-            switch (_agent.Player.Inventory.ExtraItem2)
-            {
-                case Secondary.LaserBeam:
-                    _slot8Sprite = LaserBeam;
-                    break;
-                default:
-                    _slot8Sprite = null;
-                    break;
-            }
+            _slot7Sprite = UpdateExtraItemSprite(_agent.Player.Inventory.ExtraItem1);
+            _slot8Sprite = UpdateExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
             CursorGrid.Update();
+        }
+
+        private void DrawExtraItem(ISprite sprite, Vector2 location8_16)
+        {
+            Vector2 drawLocation = new Vector2(location8_16.X, location8_16.Y);
+            if (sprite != null && sprite.Width > 8)
+                drawLocation.X -= 4;
+
+            sprite?.Draw(drawLocation + GridLocation + _location);
         }
 
         public void Draw()
         {
             Background.Draw(_location);
-            if (_agent.Player.Inventory.SecondaryItem == Secondary.Coins)
-                _selectedItem?.Draw(_location + SelectedItemLocation16_16);
-            else
-                _selectedItem?.Draw(_location + SelectedItemLocation8_16);
+            if (_selectedItem != null) {
+                if (_selectedItem.Width > 8)
+                    _selectedItem.Draw(_location + SelectedItemLocation16_16);
+                else
+                    _selectedItem.Draw(_location + SelectedItemLocation8_16);
+            }
 
             var currentRoom = _agent.DungeonManager.CurrentRoom.ToVector2();
             var visitedRooms = _agent.DungeonManager.VisitedRooms;
@@ -153,8 +171,8 @@ namespace Zelda.Survival.Pause
             if (_agent.Player.Inventory.HasBombLauncher)
                 BombLauncher.Draw(BombLauncherLocation + GridLocation + _location);
 
-            _slot7Sprite?.Draw(Slot7Location + GridLocation + _location);
-            _slot8Sprite?.Draw(Slot8Location + GridLocation + _location);
+            DrawExtraItem(_slot7Sprite, Slot7Location);
+            DrawExtraItem(_slot8Sprite, Slot8Location);
 
             if (_agent.Player.Inventory.HasMap)
                 Map.Draw(MapLocation + _location);

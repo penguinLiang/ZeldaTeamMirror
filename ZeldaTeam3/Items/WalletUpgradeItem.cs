@@ -14,8 +14,7 @@ namespace Zelda.Items
             //TODO fix the prices later
         }
 
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWalletUpgrade();
         //TODO: Make this buyable
         //TODO: PlayerEffect -> Buy? -> Add to Inventory
 

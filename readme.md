@@ -201,11 +201,13 @@ We moved to tracking our bugs using the issue tracker on GitHub.
 - __HUD & Pause Screen__: https://www.spriters-resource.com/nes/legendofzelda/sheet/119278/  
 - __Alchemy Coin__: https://www.spriters-resource.com/pc_computer/shovelknight/sheet/67118/
 - __Laser Beam__: https://steredenn-game.tumblr.com/post/98397504410/steredenn-making-an-expandable-laser
+- __Star__: https://www.spriters-resource.com/resources/sheets/49/52569.png
 - __Fygar__: https://www.spriters-resource.com/nes/digdug/
 
 
 ## Sound Resources
 - __Background Music__: https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-nes
+- __Star Music__: https://downloads.khinsider.com/game-soundtracks/album/super-mario-bros
 - __Sprite Sound Effects__: http://noproblo.dayjo.org/ZeldaSounds/LOZ/index.html
 - __Laser Beam Sound Effect__: https://www.myinstants.com/instant/mega-man-x-charge-buster-shot/
   

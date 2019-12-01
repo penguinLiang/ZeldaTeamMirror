@@ -7,12 +7,14 @@ namespace Zelda.Items
    public class ItemSpriteFactory
     {
         private Texture2D _itemsSpriteSheet;
+        private Texture2D _starSpriteSheet;
 
         public static ItemSpriteFactory Instance { get; } = new ItemSpriteFactory();
 
         public void LoadAllTextures(ContentManager content)
         {
             _itemsSpriteSheet = content.Load<Texture2D>("Items");
+            _starSpriteSheet = content.Load<Texture2D>("Star");
         }
 
         public ISprite CreateDroppedHeart()
@@ -53,6 +55,11 @@ namespace Zelda.Items
         public ISprite CreateKey()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 64));
+        }
+
+        public ISprite CreateClock()
+        {
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 80));
         }
 
         public ISprite CreateWoodSword()
@@ -105,11 +112,6 @@ namespace Zelda.Items
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 128));
         }
 
-        public ISprite CreateAlchemyCoin()
-        {
-            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(0, 160));
-        }
-
         public ISprite CreateBombLauncher()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 128));
@@ -120,10 +122,39 @@ namespace Zelda.Items
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(0, 144));
         }
 
+        public ISprite CreateWalletUpgrade()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(8, 144));
+        }
+
+        public ISprite CreateBombWalletUpgrade()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(16, 144));
+        }
+
+        public ISprite CreateBait()
+        {
+            return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(12, 144));
+        }
+
+        public ISprite CreateAlchemyCoin()
+        {
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(0, 160));
+        }
+
+        public ISprite CreateRupeeMultiplier()
+        {
+            return new Sprite(_itemsSpriteSheet, 16, 16, 1, new Point(16, 160));
+        }
+
         public ISprite CreateTriforcePiece()
         {
             return new Sprite(_itemsSpriteSheet, 16, 16, 2, new Point(0, 176));
         }
 
+        public ISprite CreateStar()
+        {
+            return new Sprite(_starSpriteSheet, 16, 16, 4, Point.Zero, 4);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Zelda.Music;
 using Zelda.SoundEffects;
 
 namespace Zelda.Player
@@ -9,8 +10,10 @@ namespace Zelda.Player
     internal class HealthStateMachine : IUpdatable
     {
         private const int HealthBeepTimerReset = 20;
+        private const int InvulnerabilityTime = 670;
 
         public bool Hurt { get; private set; }
+        public bool Invulnerable { get; private set; }
         public bool Alive => Health > 0;
 
         // Health is countable as half hearts, so 6 is 3 full hearts
@@ -19,6 +22,7 @@ namespace Zelda.Player
 
         private readonly FrameDelay _hurtResetDelay = new FrameDelay(40, true);
         private int _healthBeepTimer;
+        private int _invulnerabilityTimer;
 
         public HealthStateMachine()
         {
@@ -57,6 +61,13 @@ namespace Zelda.Player
             Heal();
         }
 
+        public void MakeInvulnerable()
+        {
+            Invulnerable = true;
+            _invulnerabilityTimer = 0;
+            MusicManager.Instance.PlayStarMusic();
+        }
+
         public void Update()
         {
             if (Health > 2)
@@ -67,6 +78,12 @@ namespace Zelda.Player
             {
                 _healthBeepTimer = 0;
                 SoundEffectManager.Instance.PlayLowHealth();
+            }
+            
+            if (Invulnerable && ++_invulnerabilityTimer >= InvulnerabilityTime)
+            {
+                Invulnerable = false;
+                MusicManager.Instance.PlayLabryinthMusic();
             }
 
             _hurtResetDelay.Update();
