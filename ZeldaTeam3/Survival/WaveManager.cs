@@ -11,7 +11,8 @@ namespace Zelda.Survival
 {
     public class WaveManager : IUpdatable
     {
-        public int CurrentWave { get; private set; }
+        public int CurrentWave => (_scale - 1) * _waveStorage.Count + _currentWave;
+        private int _currentWave;
         private int _scale = 1;
         private readonly List<Wave> _waveStorage = new List<Wave>();
 
@@ -35,6 +36,7 @@ namespace Zelda.Survival
 
                 for(var col = 1; col < waveMatrix[row].Length; col++)
                 {
+                    if (waveMatrix[row][col].Length == 0) continue;
                     var strList = waveMatrix[row][col].Split(':');
                     var enemyCount = int.Parse(strList[1]);
                     var enemyType = DecodeEnemyType(strList[0]);
@@ -87,20 +89,20 @@ namespace Zelda.Survival
             }
         }
 
-        public WaveType CurrentWaveType => _waveStorage[CurrentWave].Type;
+        public WaveType CurrentWaveType => _waveStorage[_currentWave].Type;
 
         public void AdvanceWave()
         {
-            if (++CurrentWave == _waveStorage.Count)
+            if (++_currentWave == _waveStorage.Count)
             {
-                CurrentWave = 0;
+                _currentWave = 0;
                 _scale++;
             }
         }
 
         private EnemyType[] NextWaveEnemies()
         {
-            return _waveStorage[CurrentWave].GetList(_scale);
+            return _waveStorage[_currentWave].GetList(_scale);
         }
 
         public void ClearWave()
@@ -130,7 +132,7 @@ namespace Zelda.Survival
 
         public void Reset()
         {
-            CurrentWave = 0;
+            _currentWave = 0;
             _scale = 1;
             _spawnCount = 0;
             ClearWave();
