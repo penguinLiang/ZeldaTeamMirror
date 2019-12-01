@@ -36,16 +36,25 @@ ZeldaGame has again received a major refactor, this time involving the camera sy
 
 - More code cleanup!
 Enemy AI has been cleaned up and improved.
+
 A LOT of code cleanup regarding survival manager, and all the survival related foundational files.
+
 A lot of code cleanup as well regarding item and weapon classes.
+
+Finally, the last major source of cleanup was the camera system so that it was edited to focus on Link.
+
 Overall, a lot of cleanup here and there.
 
 - Survival mode has a huge survival map and shop map.
 
 - Survival mode features many waves of enemies, where every wave is progressed after all the enemies are slain.
+
 There are really just three types of waves: Party, Normal and Shop.
+
 Normal - A regular, normal wave. It plays out normally and ends when everything is dead.
+
 Shop - Every few waves the player will be able to go to the shop to buy items/weapons.
+
 Party - The player becomes invincible for the entire wave. A breather wave, if you will.
 
 - Survival dungeon also features pickup items that the player can collect! (More details in the NEW ITEMS section)
@@ -63,21 +72,35 @@ Fygar - A sprite from dig dug that is green. It is a terrifying enemy, able to r
 Barriers have been added. In the shop room, they are barriers that require keys to unlock, while in the dungeon survival room, they are barriers that require rupees to unlock.
 
 - NEW WEAPONS. We have crazy weapons exclusive to only survival!
+
 White Sword - Upgrade to sword for attack damage
+
 Magic Sword - Upgrade to sword for attack damage
+
 Silver Arrow - Upgrade to bow/arrow for attack damage
+
 Firebow - Shoots out three projectiles in a cone. One arrow down the center and two fireballs in a V shape. 
+
 Bomb Launcher - Launches bombs across the room
+
 Alchemy Coin - Shoots out diagonally from the player, bounces at maximum four times and gains rupees for the player when it hits an enemy.
+
 Around the World Boomerang - Boomerang that goes around the world. It will exit out the edge of the screen and come back on the other edge of the screen, whether horizontally or vertically.
 
 - NEW ITEMS. We have just as crazy but not as crazy items exclusive again to survival!
+
 Bomb Upgrade - Doubles the maximum bomb count
+
 Rupee Upgrade - Changes rupee value from one to three, and from five to ten.
+
 Wallet Upgrade - Doubles the maximum rupee count
+
 Laser beam - Shoots out a gigantic laser beam that either goes vertically or horizontally 
+
 Bait - Attracts enemies closer to the bait
+
 Clock - Freeze time and have enemies completely be stilled for a moment
+
 Star - Makes the player invincible for a small amount of time
 
 - Working shop system in survival, cool huh?
