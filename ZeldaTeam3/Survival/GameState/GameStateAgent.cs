@@ -20,6 +20,8 @@ namespace Zelda.Survival.GameState
         public IPlayer Player { get; private set; } = new Link(Point.Zero);
         public bool Quitting { get; private set; }
 
+        public int Score => _survivalManager.CurrentWave;
+
         private readonly SpriteBatch _spriteBatch;
         private readonly GraphicsDevice _graphicsDevice;
         private PauseTransitionStateMachine _pauseMachine = new PauseTransitionStateMachine();

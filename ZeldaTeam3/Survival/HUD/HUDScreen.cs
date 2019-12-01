@@ -10,6 +10,7 @@ namespace Zelda.Survival.HUD
         private readonly DrawnText _rupeeCount = new DrawnText { Location = RuppeeCountLocation };
         private readonly DrawnText _keyCount = new DrawnText { Location = KeyCountLocation };
         private readonly DrawnText _bombCount = new DrawnText { Location = BombCountLocation };
+        private readonly DrawnText _score = new DrawnText { Location = new Point(18, 24), Text = "X000000" };
 
         public HUDScreen(GameStateAgent agent, Point location)
         {
@@ -18,6 +19,7 @@ namespace Zelda.Survival.HUD
             _rupeeCount.Location += location;
             _keyCount.Location += location;
             _bombCount.Location += location;
+            _score.Location += location;
         }
 
         private ISprite Primary
@@ -86,6 +88,7 @@ namespace Zelda.Survival.HUD
             _rupeeCount.Text = CountString(_agent.Player.Inventory.RupeeCount);
             _bombCount.Text = CountString(_agent.Player.Inventory.BombCount);
             _keyCount.Text = CountString(_agent.Player.Inventory.KeyCount);
+            _score.Text = "X" + _agent.Score.ToString("D6");
         }
 
         public void Draw()
@@ -128,6 +131,7 @@ namespace Zelda.Survival.HUD
             _rupeeCount.Draw();
             _bombCount.Draw();
             _keyCount.Draw();
+            _score.Draw();
         }
     }
 }
