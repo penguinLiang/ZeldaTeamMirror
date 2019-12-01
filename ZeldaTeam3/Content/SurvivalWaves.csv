@@ -1,6 +1,17 @@
-D, gel: 3,,
+D, gel: 3
 D, keese:5, stalfos:3, goriya:2
-S,,,
-P, fygar:2,,
-D, stalfos:5,,
-S,,,
+S
+P, fygar:2
+D, stalfos:5
+S
+D, gel:5, keese:5
+D, fygar:4, goriya:4
+S
+P, stalfos:5, wallmaster:5, keese:5, gel:5
+S
+D, keese:20
+D, gel:20
+D, fygar:5
+S
+D, gel:10, keese:10, stalfos:3, fygar:3, goriya:3
+S
