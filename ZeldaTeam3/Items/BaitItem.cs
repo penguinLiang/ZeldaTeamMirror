@@ -6,12 +6,15 @@ namespace Zelda.Items
 {
     internal class BaitItem : Item
     {
-
+        private DrawnText priceDisplay;
         public int _price;
         private readonly FrameDelay _delay = new FrameDelay(90);
         public BaitItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
+            priceDisplay = new DrawnText();
+            priceDisplay.Location = new Point(location.X, location.Y + 20);
+            priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -38,6 +41,12 @@ namespace Zelda.Items
             }
             else 
                 return new NoOp();
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

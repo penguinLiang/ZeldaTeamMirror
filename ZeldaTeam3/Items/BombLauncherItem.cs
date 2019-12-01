@@ -6,11 +6,14 @@ namespace Zelda.Items
 {
     internal class BombLauncherItem : Item
     {
-
+        private DrawnText priceDisplay;
         public int _price;
         public BombLauncherItem(Point location, int price = 0) : base(location, price)
         {
            _price = price;
+            priceDisplay = new DrawnText();
+            priceDisplay.Text = _price.ToString();
+            priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -31,6 +34,12 @@ namespace Zelda.Items
             }
             SoundEffectManager.Instance.PlayPickupItem();
             return new AddSecondaryItem(player, Secondary.BombLauncher);
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

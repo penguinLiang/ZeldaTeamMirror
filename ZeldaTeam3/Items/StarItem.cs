@@ -6,11 +6,15 @@ namespace Zelda.Items
 {
     internal class StarItem : Item
     {
+        private DrawnText priceDisplay;
         private readonly FrameDelay _delay = new FrameDelay(90);
         private int _price;
         public StarItem(Point location, int price = 0) : base(location, price)
         {
            _price = price;
+            priceDisplay = new DrawnText();
+            priceDisplay.Text = _price.ToString();
+            priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -22,7 +26,7 @@ namespace Zelda.Items
             Used = true;
             if(_price>0)
             {
-                if(!_delay.Delayed && ((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None) && player.Inventory.TryRemoveRupee(price)))
+                if(!_delay.Delayed && ((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None) && player.Inventory.TryRemoveRupee(_price)))
                 {
                         player.Inventory.AssignSecondaryItem(Secondary.Star);
                         SoundEffectManager.Instance.PlayPickupItem();
@@ -32,6 +36,12 @@ namespace Zelda.Items
             }
             SoundEffectManager.Instance.PlayPickupItem();
             return new LinkSecondaryAssign(player, Secondary.Star);
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
 
     }

@@ -6,11 +6,15 @@ namespace Zelda.Items
 {
     internal class ClockItem : Item
     {
+        private DrawnText priceDisplay;
         private readonly FrameDelay _delay = new FrameDelay(90);
         public int _price;
         public ClockItem(Point location, int price = 0) : base(location, price)
         {
            _price = price;
+            priceDisplay = new DrawnText();
+            priceDisplay.Location = new Point(location.X, location.Y +20);
+            priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -32,6 +36,12 @@ namespace Zelda.Items
             Used = true;
             SoundEffectManager.Instance.PlayPickupItem();
             return new LinkSecondaryAssign(player, Secondary.Clock);
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

@@ -7,9 +7,13 @@ namespace Zelda.Items
     internal class WhiteSwordItem : Item
     {
         private int _price;
+        private DrawnText priceDisplay;
         public WhiteSwordItem(Point location, int price = 0) : base(location, price)
         {
          _price = price;   
+         priceDisplay = new DrawnText();
+         priceDisplay.Text = _price.ToString();
+         priceDisplay.Location = new Point(location.X, location.Y+20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWhiteSword();
@@ -35,6 +39,12 @@ namespace Zelda.Items
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new UpgradeSword(player, Primary.WhiteSword);
                 }
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Zelda.Items
     internal class BowItem : Item
     {
         private readonly Secondary _bowLevel;
-
+        private DrawnText priceDisplay;
         protected override ISprite Sprite { get; }
         private int _price;
         public BowItem(Point location, Secondary bowLevel, int price = 0) : base(location, price)
@@ -16,6 +16,9 @@ namespace Zelda.Items
             _bowLevel = bowLevel;
             Sprite = bowLevel == Secondary.Bow ? ItemSpriteFactory.Instance.CreateBow()
                 : ItemSpriteFactory.Instance.CreateFireBow();
+            priceDisplay = new DrawnText();
+            priceDisplay.Location = new Point(location.X, location.Y + 20);
+            priceDisplay.Text = _price.ToString();
         }
         
         public override ICommand PlayerEffect(IPlayer player)
@@ -34,6 +37,15 @@ namespace Zelda.Items
             }
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new AddSecondaryItem(player, Secondary.Bow);
+        }
+
+        public override void Draw()
+        {
+            if(_price>0)
+            {
+                priceDisplay.Draw();    
+            }
+            base.Draw();
         }
     }
 }

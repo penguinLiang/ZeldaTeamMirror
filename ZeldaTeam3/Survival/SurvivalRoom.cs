@@ -151,7 +151,7 @@ namespace Zelda.Survival
                     Items.Add(new Map(location));
                     break;
                 case MapTile.Bow:
-                    Items.Add(new BowItem(location, Secondary.Bow,1));
+                    Items.Add(new BowItem(location, Secondary.Bow,10));
                     break;
                 case MapTile.Triforce:
                     Items.Add(new Triforce(location));
@@ -172,7 +172,7 @@ namespace Zelda.Survival
                     Items.Add(new HeartContainer(location, this));
                     break;
                 case MapTile.Boomerang:
-                    Items.Add(new BoomerangItem(location, this,1));
+                    Items.Add(new BoomerangItem(location, this,20));
                     break;
                 case MapTile.BasementBricks:
                 case MapTile.BlackOverlay:
@@ -194,28 +194,28 @@ namespace Zelda.Survival
                     Items.Add(new AlchemyCoinItem(location, 1));
                     break;
                 case MapTile.Arrow:
-                    Items.Add(new ArrowItem(location, Secondary.Arrow,1));
+                    Items.Add(new ArrowItem(location, Secondary.Arrow,5));
                     break;
                 case MapTile.ATWBoomerang:
-                    Items.Add(new ATWBoomerangItem(location,1));
+                    Items.Add(new ATWBoomerangItem(location,50));
                     break;
                 case MapTile.Bait:
-                    Items.Add(new BaitItem(location,1));
+                    Items.Add(new BaitItem(location,40));
                     break;
                 case MapTile.Bomb:
-                    Items.Add(new BombItem(location,1));
+                    Items.Add(new BombItem(location,25));
                     break;
                 case MapTile.BombLauncher:
-                    Items.Add(new BombLauncherItem(location,1));
+                    Items.Add(new BombLauncherItem(location,100));
                     break;
                 case MapTile.BombUpgrade:
-                    Items.Add(new BombUpgradeItem(location,1));
+                    Items.Add(new BombUpgradeItem(location,150));
                     break;
                 case MapTile.Clock:
-                    Items.Add(new ClockItem(location,1));
+                    Items.Add(new ClockItem(location,150));
                     break;
                 case MapTile.CrossShot:
-                    Items.Add(new CrossShotItem(location,1));
+                    Items.Add(new CrossShotItem(location,50));
                     break;
                 case MapTile.KeyBarrier:
                     Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));
@@ -227,30 +227,30 @@ namespace Zelda.Survival
                     Barricade.Add(new RupeeBarrier(location, BlockType.RupeeBarrier));
                     break;
                 case MapTile.RupeeBarrierCenter:
-                    Barricade.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter,1));
+                    Barricade.Add(new RupeeBarrierCenter(location, BlockType.RupeeBarrierCenter,20));
                     break;
                 case MapTile.MagicSword:
-                    Items.Add(new MagicSwordItem(location,1));
+                    Items.Add(new MagicSwordItem(location,200));
                     break;
                 case MapTile.RupeeUpgrade:
-                    Items.Add(new RupeeUpgradeItem(location,1));
+                    Items.Add(new RupeeUpgradeItem(location,250));
                     break;
                 case MapTile.SilverArrow:
-                    Items.Add(new ArrowItem(location, Secondary.SilverArrow,1));
+                    Items.Add(new ArrowItem(location, Secondary.SilverArrow,80));
                     break;
                 case MapTile.SpawnShopKeep:
                     break;
                 case MapTile.Star:
-                    Items.Add(new StarItem(location,1));
+                    Items.Add(new StarItem(location,100));
                     break;
                 case MapTile.WalletUpgrade:
-                    Items.Add(new WalletUpgradeItem(location,1));
+                    Items.Add(new WalletUpgradeItem(location,150));
                     break;
                 case MapTile.WhiteSword:
-                    Items.Add(new WhiteSwordItem(location,1));
+                    Items.Add(new WhiteSwordItem(location,100));
                     break;
                 case MapTile.FireBow:
-                    Items.Add(new FireBowItem(location,1));
+                    Items.Add(new FireBowItem(location,150));
                     break;
                 case MapTile.Fairy:
                     Items.Add(new Fairy(location));

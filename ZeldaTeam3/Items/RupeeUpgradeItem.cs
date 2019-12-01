@@ -6,10 +6,14 @@ namespace Zelda.Items
 {
     internal class RupeeUpgradeItem : Item
     {
+        private DrawnText priceDisplay;
         private int _price;
         public RupeeUpgradeItem(Point location, int price = 0) : base(location, price)
         {
            _price = price;
+            priceDisplay = new DrawnText();
+            priceDisplay.Location = new Point(location.X, location.Y + 20);
+            priceDisplay.Text = _price.ToString();
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
@@ -36,6 +40,12 @@ namespace Zelda.Items
                 player.Inventory.Rupee5Value = 10;
             }
          return new NoOp();       
+        }
+
+        public override void Draw()
+        {
+            priceDisplay.Draw();
+            base.Draw();
         }
     }
 }
