@@ -67,13 +67,6 @@ namespace Zelda.Survival.GameState
             _worldState = WorldState.GameOver;
         }
 
-        public void Scoreboard()
-        {
-            if (_worldState == WorldState.Scoreboard) return;
-            _world = new ScoreboardWorld(this);
-            _worldState = WorldState.Scoreboard;
-        }
-
         public void Continue()
         {
             DungeonManager.ResetScenes();
@@ -113,6 +106,8 @@ namespace Zelda.Survival.GameState
                 updatable.Update();
             }
 
+
+            if (_worldState == WorldState.Scoreboard) return;
             if (!Player.Alive) GameOver();
             if (_pauseMachine.State != PauseState.Unpaused) return;
 
@@ -150,6 +145,13 @@ namespace Zelda.Survival.GameState
                 drawable.Draw();
             }
             _spriteBatch.End();
+        }
+
+        public void SubmitScore()
+        {
+            if (_worldState == WorldState.Scoreboard) return;
+            _world = new SubmitScoreWorld(this);
+            _worldState = WorldState.Scoreboard;
         }
     }
 }

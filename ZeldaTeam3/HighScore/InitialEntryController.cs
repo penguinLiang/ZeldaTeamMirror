@@ -74,7 +74,7 @@ namespace Zelda.HighScore
                         _text = _text.Remove(_text.Length - 1);
                         OnUpdate?.Invoke(_text);
                         break;
-                    case Keys.Enter:
+                    case Keys.Enter when _text.Length > 0:
                         OnUpdate?.Invoke(_text);
                         OnSubmit?.Invoke(_text);
                         break;

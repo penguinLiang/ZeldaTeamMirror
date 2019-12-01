@@ -80,7 +80,7 @@ namespace Zelda.Survival.HUD
             }
         }
 
-        private static string CountString(int count) => count > 100 ? count.ToString() : "X" + count;
+        private static string CountString(int count) => count >= 100 ? count.ToString() : "X" + count;
 
         public void Update()
         {
