@@ -6,6 +6,7 @@ namespace Zelda.Items
 {
     internal class StarItem : Item
     {
+        private readonly FrameDelay _delay = new FrameDelay(90);
         private int _price;
         public StarItem(Point location, int price = 0) : base(location, price)
         {
@@ -17,16 +18,14 @@ namespace Zelda.Items
 
         public override ICommand PlayerEffect(IPlayer player)
         {
+            _delay.Update();
             Used = true;
             if(_price>0)
             {
-                if(player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None)
+                if(!_delay.Delayed && ((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None) && player.Inventory.TryRemoveRupee(price)))
                 {
-                    if(player.Inventory.TryRemoveRupee(_price))
-                    {
                         player.Inventory.AssignSecondaryItem(Secondary.Star);
                         SoundEffectManager.Instance.PlayPickupItem();
-                    }
                 }
                 Used = false;
                 return new NoOp();

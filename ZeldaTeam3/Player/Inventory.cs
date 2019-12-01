@@ -34,6 +34,7 @@ namespace Zelda.Player
         public Inventory(){
             MaxBombCount = 8;
             BombCount = MaxBombCount / 2;
+            KeyCount = 5;
         }
 
         public void UpgradeSword(Primary newSwordLevel)

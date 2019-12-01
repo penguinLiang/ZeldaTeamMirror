@@ -21,7 +21,7 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             if (!_activated) return NoOp.Instance;
-            
+
             Used = true;
 
             if(_price>0)

@@ -6,7 +6,7 @@ namespace Zelda.Items
 {
     internal class ClockItem : Item
     {
-
+        private readonly FrameDelay _delay = new FrameDelay(90);
         public int _price;
         public ClockItem(Point location, int price = 0) : base(location, price)
         {
@@ -18,10 +18,11 @@ namespace Zelda.Items
 
         public override ICommand PlayerEffect(IPlayer player)
         {
+            _delay.Update();
             Used = false;
             if(_price>0)
             {
-                if((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None) && player.Inventory.TryRemoveRupee(_price))
+                if(!_delay.Delayed && ((player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None) && player.Inventory.TryRemoveRupee(_price)))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new LinkSecondaryAssign(player, Secondary.Clock);

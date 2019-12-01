@@ -8,6 +8,7 @@ namespace Zelda.Items
     {
 
         public int _price;
+        private readonly FrameDelay _delay = new FrameDelay(90);
         public BaitItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
@@ -18,8 +19,9 @@ namespace Zelda.Items
         
         public override ICommand PlayerEffect(IPlayer player)
         {
+           _delay.Update();
             Used = false;
-            if(_price>0 && (player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None)) 
+            if(!_delay.Delayed && (_price>0 && (player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None))) 
             {
                 if(player.Inventory.TryRemoveRupee(_price))
                 {
@@ -28,10 +30,14 @@ namespace Zelda.Items
                 }
                 return new NoOp();
             }
-
-            Used = true;
-            SoundEffectManager.Instance.PlayPickupItem();
-            return new LinkSecondaryAssign(player, Secondary.Bait);
+            else if(_price == 0)
+            {
+                Used = true;
+                SoundEffectManager.Instance.PlayPickupItem();
+                return new LinkSecondaryAssign(player, Secondary.Bait);
+            }
+            else 
+                return new NoOp();
         }
     }
 }

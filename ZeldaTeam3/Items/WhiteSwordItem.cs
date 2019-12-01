@@ -17,11 +17,11 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            SoundEffectManager.Instance.PlayPickupNewItem();
             if(_price>0)
             {
                 if(player.Inventory.TryRemoveRupee(_price))
                 {
+                    SoundEffectManager.Instance.PlayPickupNewItem();
                     return new UpgradeSword(player, Primary.WhiteSword);
                 }
                 else
@@ -31,7 +31,10 @@ namespace Zelda.Items
                 }
             }
             else
-                return new UpgradeSword(player, Primary.WhiteSword);
+               {
+                    SoundEffectManager.Instance.PlayPickupNewItem();
+                    return new UpgradeSword(player, Primary.WhiteSword);
+                }
         }
     }
 }

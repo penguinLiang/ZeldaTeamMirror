@@ -26,11 +26,14 @@ namespace Zelda.Items
                     player.Inventory.Rupee1Value = 3;
                     player.Inventory.Rupee5Value = 10;
                 }
+                else
                 Used = false;
             }
             else
             {
                 SoundEffectManager.Instance.PlayPickupItem();
+                player.Inventory.Rupee1Value = 3;
+                player.Inventory.Rupee5Value = 10;
             }
          return new NoOp();       
         }
