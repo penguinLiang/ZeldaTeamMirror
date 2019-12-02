@@ -14,6 +14,8 @@ __3__: Goriya sprite freezes during diagonal movement at the point where players
 __4__: If Goriya is facing a wall, it may shoot his boomerang backwards and/or may walk backwards away from the wall.
 (Sprint 3 Bug) (Patched by Jarred and Chase on 10/18)
 
+__5__: Enemies can occasionally not be hit at all
+
 
 ## Sprites
  __1__: The Rupee sprite has been flipped. From the original game, the blue rupee was solid and the red/yellow rupee should flash between colors.  
@@ -24,6 +26,8 @@ __4__: If Goriya is facing a wall, it may shoot his boomerang backwards and/or m
 
  __3__: Link's death sprite was removed at some point, so the program would crash when Link reached 0 health.
  (Sprint 3 Bug) (Patched by Chase on 10/16)
+
+ __4__: If link has more than 10 hearts, the hearts will go off screen.
 
 
 ## Link
@@ -50,8 +54,15 @@ __3__: Gel's hitbox is too large.
 __4__: If an enemy pins Link against a wall while getting knocked back by the door, Link can glitch outside of the map.
 (Sprint 3 Bug) (Patched by Chase on 10/18)
 
+__5__: If an enemy is killed near a wall or outside of bounds, item drops will be in unreachable places
+
+
+
 
 ## Miscellaneous
 __1__: Clicking on the jump map can occasionally stop working, seemingly when it is opened right after the game starts.
 (Sprint 3 Bug) (Patched as best as possible (bug exists in Monogame) by Chase on 10/17)
 
+__2__: In "party mode" wave type, Link can still take damage
+
+__3__: Item prices remain visible after item is bought out
