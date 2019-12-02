@@ -188,7 +188,7 @@ __D/RIGHT__:  Move Link Right
 
 __SPACE__: Pause the game and bring up the inventory screen
 
-__For debugging__:
+__For debugging__:  
 __2__: Upgrade to White Sword  
 __3__: Upgrade to Magical Sword  
 __4__: Assign and Use the Bow as the Secondary Weapon  
