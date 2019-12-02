@@ -1,0 +1,205 @@
+﻿Solution ZeldaTeam3.sln
+    Project Zelda
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:62 Method 'CreateTopBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BlockSpriteFactory.cs:77 Method 'CreateBottomBlockedDoor' is never used
+      ZeldaTeam3\Blocks\BombDoor.cs:38 Parameter can be of type 'Zelda.IDungeonManager'
+      ZeldaTeam3\Blocks\DoorSpecialLeft2_1.cs:16 Parameter can be of type 'Zelda.IDungeonManager'
+      ZeldaTeam3\Blocks\DoorSpecialRight3_1.cs:15 Parameter can be of type 'Zelda.IDungeonManager'
+      ZeldaTeam3\Blocks\KeyBarrier.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrier.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrier.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrier.cs:17 Name '_unlocked' does not match rule 'Properties'. Suggested name is 'Unlocked'.
+      ZeldaTeam3\Blocks\KeyBarrier.cs:22 Parameter 'block' is never used
+      ZeldaTeam3\Blocks\KeyBarrier.cs:36 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\KeyBarrier.cs:67 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:22 Parameter 'block' is never used
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:56 Redundant parentheses
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:63 Unexpected line indent change around statement braces
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:63 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:65 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:79 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:80 Line not indented relative to the previous line around child statement, expected indent 4 spaces
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:89 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\KeyBarrierCenter.cs:90 Line not indented relative to the previous line around child statement, expected indent 4 spaces
+      ZeldaTeam3\Blocks\LockedDoor.cs:36 Parameter can be of type 'Zelda.IDungeonManager'
+      ZeldaTeam3\Blocks\NormalDoor.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrier.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:17 Name '_unlocked' does not match rule 'Properties'. Suggested name is 'Unlocked'.
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:22 Parameter 'block' is never used
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:36 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Blocks\RupeeBarrier.cs:67 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:18 Field can be made readonly
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:20 Parameter 'block' is never used
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:51 Redundant parentheses
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:56 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:58 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:73 Redundant 'else' keyword
+      ZeldaTeam3\Blocks\RupeeBarrierCenter.cs:83 Redundant 'else' keyword
+      ZeldaTeam3\ControllerKeyboard.cs:112 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\DirectionUtility.cs:28 Method 'RotateClockwise' is never used
+      ZeldaTeam3\DirectionUtility.cs:74 Redundant 'else' keyword
+      ZeldaTeam3\Dungeon\DungeonManager.cs:32 Redundant comma in enum declaration
+      ZeldaTeam3\Dungeon\EnemyType.cs:14 Redundant comma in enum declaration
+      ZeldaTeam3\Dungeon\Room.cs:40 Redundant comma in array initializer
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:36 The parameter totalPaletteCount has the same default value
+      ZeldaTeam3\Enemies\EnemySpriteFactory.cs:41 The parameter totalPaletteCount has the same default value
+      ZeldaTeam3\Enemies\Fygar.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\Fygar.cs:56 Convert 'if' statement to 'switch' statement
+      ZeldaTeam3\Enemies\Fygar.cs:101 Convert 'if' statement to 'switch' statement
+      ZeldaTeam3\Enemies\Goriya.cs:59 Method 'FlipDirection' is never used
+      ZeldaTeam3\Enemies\Goriya.cs:164 Some values of the enum are not processed inside switch: Stunned, 
+      ZeldaTeam3\Enemies\Stalfos.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Enemies\WallMaster.cs:78 Some values of the enum are not processed inside switch: Attacking, Stunned, default
+      ZeldaTeam3\GameState\PanningWorld.cs:15 Redundant explicit array type specification
+      ZeldaTeam3\GameState\PausedWorld.cs:23 Redundant explicit array type specification
+      ZeldaTeam3\GameState\PlayingWorld.cs:21 Redundant explicit array type specification
+      ZeldaTeam3\HUD\HUDScreen.cs:48 Some values of the enum are not processed inside switch: None, FireBow, Arrow...
+      ZeldaTeam3\IBarricade.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBarricade.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBarricade.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBarricade.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBarricade.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBarricade.cs:11 Name 'unlocked' does not match rule 'Properties'. Suggested name is 'Unlocked'.
+      ZeldaTeam3\IBuyable.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBuyable.cs:2 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBuyable.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBuyable.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBuyable.cs:5 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\IBuyable.cs:11 Name 'price' does not match rule 'Properties'. Suggested name is 'Price'.
+      ZeldaTeam3\IBuyable.cs:11 Property 'price' is never used
+      ZeldaTeam3\IBuyable.cs:12 Method 'Buy' is never used
+      ZeldaTeam3\IBuyable.cs:13 Name 'isPurchased' does not match rule 'Properties'. Suggested name is 'IsPurchased'.
+      ZeldaTeam3\IBuyable.cs:13 Property 'isPurchased' is never used
+      ZeldaTeam3\IGameStateAgent.cs: Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\AlchemyCoinItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\AlchemyCoinItem.cs:10 Name '_price' does not match rule 'Fields (not private)'. Suggested name is 'Price'.
+      ZeldaTeam3\Items\AlchemyCoinItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\AlchemyCoinItem.cs:30 Redundant 'else' keyword
+      ZeldaTeam3\Items\ArrowItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\ArrowItem.cs:11 Field can be made readonly
+      ZeldaTeam3\Items\ArrowItem.cs:21 Use object initializer
+      ZeldaTeam3\Items\ArrowItem.cs:29 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Items\ArrowItem.cs:45 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\ArrowItem.cs:49 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\ArrowItem.cs:56 Cannot resolve symbol 'Error: Items.Secondary _arrowLevel was not a type of arrow'
+      ZeldaTeam3\Items\ATWBoomerangItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\ATWBoomerangItem.cs:10 Name '_price' does not match rule 'Fields (not private)'. Suggested name is 'Price'.
+      ZeldaTeam3\Items\ATWBoomerangItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\BombLauncherItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\BombLauncherItem.cs:10 Name '_price' does not match rule 'Fields (not private)'. Suggested name is 'Price'.
+      ZeldaTeam3\Items\BombLauncherItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\BombUpgradeItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\BombUpgradeItem.cs:10 Name '_price' does not match rule 'Fields (not private)'. Suggested name is 'Price'.
+      ZeldaTeam3\Items\BombUpgradeItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\BombUpgradeItem.cs:32 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\BoomerangItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\BoomerangItem.cs:12 Field can be made readonly
+      ZeldaTeam3\Items\BoomerangItem.cs:19 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Items\BowItem.cs:9 Field '_bowLevel' is assigned but its value is never used
+      ZeldaTeam3\Items\BowItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\BowItem.cs:12 Field can be made readonly
+      ZeldaTeam3\Items\BowItem.cs:19 Use object initializer
+      ZeldaTeam3\Items\BowItem.cs:35 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\FireBowItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\FireBowItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\FireBowItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\HeartContainer.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Items\Item.cs:36 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Items\MagicSwordItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\MagicSwordItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\MagicSwordItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\RupeeUpgradeItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\RupeeUpgradeItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\RupeeUpgradeItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\RupeeUpgradeItem.cs:32 Line not indented relative to the previous line around child statement, expected indent 4 spaces
+      ZeldaTeam3\Items\RupeeUpgradeItem.cs:39 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\WalletUpgradeItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\WalletUpgradeItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\WalletUpgradeItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\WalletUpgradeItem.cs:32 Redundant 'else' keyword
+      ZeldaTeam3\Items\WhiteSwordItem.cs:9 Field can be made readonly
+      ZeldaTeam3\Items\WhiteSwordItem.cs:10 Field can be made readonly
+      ZeldaTeam3\Items\WhiteSwordItem.cs:14 Use object initializer
+      ZeldaTeam3\Items\WhiteSwordItem.cs:31 Redundant 'else' keyword
+      ZeldaTeam3\Items\WhiteSwordItem.cs:37 Redundant 'else' keyword
+      ZeldaTeam3\Items\WhiteSwordItem.cs:38 Unexpected line indent change around statement braces
+      ZeldaTeam3\Items\WhiteSwordItem.cs:41 Line indent not restored to the previous level around statement braces
+      ZeldaTeam3\ModeMenu\MainMenuBackground.cs:9 Field 'LocationAfterHUDOffset' is never used
+      ZeldaTeam3\Music\MusicManager.cs:98 Method 'PlayTriforceMusic' is never used
+      ZeldaTeam3\Pause\PauseMenu.cs:21 Some values of the enum are not processed inside switch: FireBow, Arrow, SilverArrow...
+      ZeldaTeam3\Player\AliveSpriteStateMachine.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Player\Inventory.cs:75 Some values of the enum are not processed inside switch: None, ExtraSlot1, ExtraSlot2...
+      ZeldaTeam3\Player\Inventory.cs:104 Redundant empty switch section
+      ZeldaTeam3\Player\Inventory.cs:181 Redundant parentheses
+      ZeldaTeam3\Player\Inventory.cs:182 Convert to compound assignment
+      ZeldaTeam3\Player\Link.cs:141 Redundant parentheses
+      ZeldaTeam3\Player\PlayerProjectileAgent.cs:170 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:104 Use 'var' (built-in types)
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:105 Use 'var' (built-in types)
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:106 Use 'var' (built-in types)
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:107 Local variable 'overlap' can be declared in inner scope
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:108 Use 'var' (simple types)
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:118 Convert to method call with '?:' expression inside
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:126 Convert to method call with '?:' expression inside
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:142 Convert to method call with '?:' expression inside
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:147 Convert to method call with '?:' expression inside
+      ZeldaTeam3\Projectiles\AlchemyCoin.cs:153 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Projectiles\Bait.cs:17 Auto-property can be made get-only
+      ZeldaTeam3\Projectiles\Bait.cs:42 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Projectiles\Bait.cs:66 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Projectiles\LaunchedBombExplosion.cs:16 Auto-property can be made get-only
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:8 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:12 Use 'var' (simple types)
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:13 Use 'var' (elsewhere)
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:15 Loop can be converted into LINQ-expression but another 'GetEnumerator' method will be used
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:21 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:24 Use 'var' (built-in types)
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:25 Use 'var' (built-in types)
+      ZeldaTeam3\Survival\EnemyTargetManager.cs:27 Invert 'if' statement to reduce nesting
+      ZeldaTeam3\Survival\GameOver\GameOverMenu.cs:33 Redundant comma in array initializer
+      ZeldaTeam3\Survival\GameState\PausedWorld.cs:24 Redundant explicit array type specification
+      ZeldaTeam3\Survival\GameState\PlayingWorld.cs:22 Redundant explicit array type specification
+      ZeldaTeam3\Survival\GameState\PlayingWorld.cs:24 Redundant comma in array initializer
+      ZeldaTeam3\Survival\GameState\WorldState.cs:7 Enum member 'GameWin' is never used
+      ZeldaTeam3\Survival\HUD\HUDScreen.Constants.cs:15 Name 'SecondaryLocation8_16' does not match rule 'Static readonly fields (private)'. Suggested name is 'SecondaryLocation816'.
+      ZeldaTeam3\Survival\HUD\HUDScreen.Constants.cs:16 Name 'SecondaryLocation16_16' does not match rule 'Static readonly fields (private)'. Suggested name is 'SecondaryLocation1616'.
+      ZeldaTeam3\Survival\HUD\HUDScreen.cs:47 Some values of the enum are not processed inside switch: None, Arrow, SilverArrow...
+      ZeldaTeam3\Survival\HUD\HUDScreen.cs:74 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Survival\HUD\HUDScreen.cs:106 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Survival\HUD\HUDSpriteFactory.cs:39 Method 'CreateDungeonLayout' is never used
+      ZeldaTeam3\Survival\HUD\HUDSpriteFactory.cs:43 Method 'CreateTriforceIndicator' is never used
+      ZeldaTeam3\Survival\HUD\HUDSpriteFactory.cs:47 Method 'CreateLinkIndicator' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:13 Name 'SelectedItemLocation8_16' does not match rule 'Static readonly fields (private)'. Suggested name is 'SelectedItemLocation816'.
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:14 Name 'SelectedItemLocation16_16' does not match rule 'Static readonly fields (private)'. Suggested name is 'SelectedItemLocation1616'.
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:16 Field 'MapGridLocation' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:17 Field 'MapGridCoverSize' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:18 Field 'PlayerMapDot' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:19 Field 'RoomCover' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:54 Field 'CompassLocation' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:55 Field 'MapLocation' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:56 Field 'Compass' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.Constants.cs:57 Field 'Map' is never used
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:3 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:21 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:90 Method 'UpdateExtraItemSprite' can be made static
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:92 Some values of the enum are not processed inside switch: None, Boomerang, Bomb...
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:114 Name 'location8_16' does not match rule 'Parameters'. Suggested name is 'location816'.
+      ZeldaTeam3\Survival\Pause\PauseMenu.cs:116 Use 'var' (simple types)
+      ZeldaTeam3\Survival\QuitResetControllerKeyboard.cs:4 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Survival\SurvivalManager.cs:36 Redundant string interpolation
+      ZeldaTeam3\Survival\SurvivalManager.cs:40 Redundant string interpolation
+      ZeldaTeam3\Survival\SurvivalScene.cs:6 Using directive is not required by the code and can be safely removed
+      ZeldaTeam3\Survival\ZoneManager.cs:6 Inconsistent modifiers style: missing 'internal' modifier
+      ZeldaTeam3\Survival\ZoneManager.cs:17 Redundant comma in array initializer
+      ZeldaTeam3\ZeldaGame.cs:42 Redundant comma in object initializer
+      ZeldaTeam3\ZeldaGame.cs:67 Redundant comma in array initializer
+    
+  

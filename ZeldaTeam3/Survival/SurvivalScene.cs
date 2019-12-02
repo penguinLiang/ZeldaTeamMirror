@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Zelda.Blocks;
-using Zelda.Enemies;
 using Zelda.Items;
 using Zelda.Projectiles;
 
@@ -13,7 +12,7 @@ namespace Zelda.Survival
 {
     public class SurvivalScene : IScene
     {
-        private const int ThrottleFrameDuration = 50;
+        private const int ThrottleFrameDuration = 10;
         private readonly SurvivalRoom _room;
         private readonly WaveManager _waveManager;
         private readonly IPlayer _player;
@@ -247,7 +246,7 @@ namespace Zelda.Survival
                 {
                     if (barricade.CollidesWith(otherBarricade.Bounds)&& barricade is KeyBarrierCenter)
                     {
-                        if (otherBarricade is KeyBarrier && barricade.unlocked)
+                        if (otherBarricade is KeyBarrier && barricade.Unlocked)
                         {
                             otherBarricade.Unlock();
                         }
@@ -255,7 +254,7 @@ namespace Zelda.Survival
 
                     if (!barricade.CollidesWith(otherBarricade.Bounds) || !(barricade is RupeeBarrierCenter)) continue;
 
-                    if (otherBarricade.GetType() == typeof(RupeeBarrier)&& barricade.unlocked)
+                    if (otherBarricade is RupeeBarrier && barricade.Unlocked)
                         otherBarricade.Unlock();
                 }
             }

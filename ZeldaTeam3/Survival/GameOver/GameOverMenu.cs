@@ -30,7 +30,7 @@ namespace Zelda.Survival.GameOver
             new DrawnText { Location = SubmitScoreMessageLocation, Text = SubmitScoreMessage },
             new DrawnText { Location = RetryMessageLocation, Text = RetryMessage },
             new DrawnText { Location = QuitMessageLocation, Text = QuitMessage },
-            new DrawnText { Location = PressEnterLocation, Text = PressEnter },
+            new DrawnText { Location = PressEnterLocation, Text = PressEnter }
         };
 
         private readonly GameStateAgent _agent;

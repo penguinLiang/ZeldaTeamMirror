@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Zelda.Dungeon;
+
 // ReSharper disable ForCanBeConvertedToForeach
 
 namespace Zelda.Survival
@@ -33,11 +34,11 @@ namespace Zelda.Survival
             _rooms = new [] {
                 new []
                 {
-                    new SurvivalRoom(this, content.Load<int[][]>($"Shop/ShopTiles"))
+                    new SurvivalRoom(this, content.Load<int[][]>("Shop/ShopTiles"))
                 },
                 new []
                 {
-                    new SurvivalRoom(this, content.Load<int[][]>($"Rooms/Survival-Dungeon"))
+                    new SurvivalRoom(this, content.Load<int[][]>("Rooms/Survival-Dungeon"))
                 }
             };
 

@@ -4,6 +4,7 @@ using Zelda.Commands;
 using Zelda.Dungeon;
 using Zelda.GameState;
 using Zelda.Items;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Pause
 {

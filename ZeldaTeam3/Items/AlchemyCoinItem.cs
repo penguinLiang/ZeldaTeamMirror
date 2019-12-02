@@ -6,14 +6,17 @@ namespace Zelda.Items
 {
     internal class AlchemyCoinItem : Item
     {
-        private DrawnText _priceDisplay;
-        public int _price;
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
+
         public AlchemyCoinItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
-            _priceDisplay.Text = _price.ToString();
+            _priceDisplay = new DrawnText
+            {
+                Location = new Point(location.X, location.Y + 20),
+                Text = _price.ToString()
+            };
         }
         
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateAlchemyCoin();
@@ -27,11 +30,9 @@ namespace Zelda.Items
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.Coins);
                 }
-                else 
-                {
-                    Used = false;
-                    return new NoOp();
-                }
+
+                Used = false;
+                return new NoOp();
             }
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new AddSecondaryItem(player, Secondary.Coins);

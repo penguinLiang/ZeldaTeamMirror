@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.ShaderEffects;
-using Zelda.SoundEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
@@ -11,15 +8,12 @@ namespace Zelda.Blocks
     internal class KeyBarrierCenter : IBarricade
     {
         private BlockType _block;
-        // protected override ISprite Sprite => _sprite;
-        // protected override ICommand TransitionEffect { get; }
         private ISprite _sprite;
-        public bool unlocked { get; set; }
+        public bool Unlocked { get; set; }
         public Rectangle Bounds { get; private set; }
         private Point _location;
-       // private KeyBarrierStateMachine _keyState {get; set;}
 
-        private static BlockType UnlockedType(BlockType block)
+        private static BlockType UnlockedType()
         {
             return BlockType.InvisibleBlock;
         }
@@ -29,42 +23,38 @@ namespace Zelda.Blocks
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
-            unlocked = false;
+            Unlocked = false;
             Bounds = new Rectangle(location, new Point(32, 32));
-    }
+        }
 
-    public void Reset()
+        public void Reset()
         {
             _block = BlockType.KeyBarrierCenter;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             Bounds = new Rectangle(_location, new Point(32, 32));
-            unlocked = false;
+            Unlocked = false;
         }
 
         public void Unlock()
         {
-            unlocked = true;
-           // SoundEffectManager.Instance.PlayDoorUnlock();
+            Unlocked = true;
 
-            //Collision remains
-            //take out the other blocks near you
-            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType()), true);
         }
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (!unlocked &&(player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveKey()))
+            if (!Unlocked && player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveKey())
             {
-                // SoundEffectManager.Instance.PlayDoorUnlock();
                 Unlock();
                 return new NoOp();
-                //if link is unlocking the block, it shouldn't halt him
             }
-           else if (!unlocked)
+
+            if (!Unlocked)
                 return new MoveableHalt(player);
-            else
-                return new NoOp();
+            return new NoOp();
         }
+
         public bool CollidesWith(Rectangle rect)
         {
             return Bounds.Intersects(rect);
@@ -73,20 +63,20 @@ namespace Zelda.Blocks
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            if (unlocked)
+            if (Unlocked)
             {
                 return new NoOp();
-            }else
+            }
             return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            if (unlocked)
+            if (Unlocked)
             {
                 return new NoOp();
             }
-            else
+
             return new MoveableHalt(projectile);
         }
 

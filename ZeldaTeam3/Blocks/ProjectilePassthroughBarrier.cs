@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Projectiles;
 
 namespace Zelda.Blocks
 {
@@ -52,7 +53,7 @@ namespace Zelda.Blocks
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            if (projectile is Projectiles.AlchemyCoin)
+            if (projectile is AlchemyCoin)
                 return new MoveableHalt(projectile);
             return NoOp.Instance;
         }

@@ -20,7 +20,7 @@ namespace Zelda.GameState
                 StateAgent.HUD,
                 pause
             };
-            ScaledDrawables = new IDrawable[]
+            ScaledDrawables = new[]
             {
                 StateAgent.DungeonManager,
                 StateAgent.HUD,

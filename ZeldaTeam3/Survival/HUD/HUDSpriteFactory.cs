@@ -36,17 +36,5 @@ namespace Zelda.Survival.HUD
         {
             return new Sprite(_hudSpriteSheet, 8, 8, 1, new Point(48, 0));
         }
-        public ISprite CreateDungeonLayout()
-        {
-            return new Sprite(_hudSpriteSheet, 48, 24, 1, new Point(0, 24));
-        }
-        public ISprite CreateTriforceIndicator()
-        {
-            return new Sprite(_hudSpriteSheet, 8, 4, 2, new Point(0, 48));
-        }
-        public ISprite CreateLinkIndicator()
-        {
-            return new Sprite(_hudSpriteSheet, 8, 4, 1, new Point(16, 48));
-        }
     }
 }

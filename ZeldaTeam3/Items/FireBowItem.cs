@@ -6,14 +6,16 @@ namespace Zelda.Items
 {
     internal class FireBowItem : Item
     {
-        private DrawnText _priceDisplay;
-        private int _price;
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
         public FireBowItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Text = _price.ToString();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay = new DrawnText
+            {
+                Text = _price.ToString(),
+                Location = new Point(location.X, location.Y + 20)
+            };
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateFireBow();
@@ -21,9 +23,9 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            if(_price>0)
+            if (_price > 0)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if (player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new AddSecondaryItem(player, Secondary.FireBow);
@@ -32,7 +34,7 @@ namespace Zelda.Items
                 return new NoOp();
             }
             SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.FireBow);  
+            return new AddSecondaryItem(player, Secondary.FireBow);
         }
 
         public override void Draw()

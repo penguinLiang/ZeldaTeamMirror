@@ -1,14 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.SoundEffects;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Items
 {
     internal class ArrowItem : Item
     {
-        private DrawnText _priceDisplay;
+        private readonly DrawnText _priceDisplay;
         private readonly Secondary _arrowLevel;
-        private int _price;
+        private readonly int _price;
 
         protected override ISprite Sprite { get; }
 
@@ -18,9 +20,11 @@ namespace Zelda.Items
             _price = price;
             Sprite = arrowLevel == Secondary.Arrow ? ItemSpriteFactory.Instance.CreateArrow()
                 : ItemSpriteFactory.Instance.CreateSilverArrow();
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Text = _price.ToString();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay = new DrawnText
+            {
+                Text = _price.ToString(),
+                Location = new Point(location.X, location.Y + 20)
+            };
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -29,31 +33,31 @@ namespace Zelda.Items
             switch (_arrowLevel)
             {
                 case Secondary.Arrow:
-                    if(_price>0 && player.Inventory.TryRemoveRupee(_price))
+                    if (_price > 0 && player.Inventory.TryRemoveRupee(_price))
                     {
                         SoundEffectManager.Instance.PlayPickupItem();
-                        return new AddSecondaryItem(player, Secondary.Arrow); 
+                        return new AddSecondaryItem(player, Secondary.Arrow);
                     }
-                    else if(_price>0) 
+                    else if (_price > 0)
                     {
                         Used = false;
                     }
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Arrow);
                 case Secondary.SilverArrow:
-                       if(_price>0 && player.Inventory.TryRemoveRupee(_price))  
-                        {
-                            SoundEffectManager.Instance.PlayPickupItem();
-                            return new AddSecondaryItem(player, Secondary.SilverArrow); 
-                        }
-                    else if(_price>0) 
+                    if (_price > 0 && player.Inventory.TryRemoveRupee(_price))
+                    {
+                        SoundEffectManager.Instance.PlayPickupItem();
+                        return new AddSecondaryItem(player, Secondary.SilverArrow);
+                    }
+                    else if (_price > 0)
                     {
                         Used = false;
                     }
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.SilverArrow);
                 default:
-                    throw new System.ArgumentOutOfRangeException("Error: Items.Secondary _arrowLevel was not a type of arrow");
+                    throw new ArgumentOutOfRangeException(_arrowLevel.ToString());
             }
         }
 

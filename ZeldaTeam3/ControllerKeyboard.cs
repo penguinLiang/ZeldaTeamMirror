@@ -109,11 +109,10 @@ namespace Zelda
 
                 if (_konamiCode[_konamiPos] == key)
                 {
-                    if (++_konamiPos == _konamiCode.Length)
-                    {
-                        Console.WriteLine("PARTY HARD");
-                        _agent.PartyHard();
-                    }
+                    if (++_konamiPos != _konamiCode.Length) continue;
+
+                    Console.WriteLine("PARTY HARD");
+                    _agent.PartyHard();
                 }
                 else
                 {

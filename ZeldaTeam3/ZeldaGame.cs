@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Zelda.Blocks;
 using Zelda.Dungeon;
 using Zelda.Enemies;
+using Zelda.GameState;
 using Zelda.HighScore;
 using Zelda.HUD;
 using Zelda.Items;
@@ -14,7 +15,6 @@ using Zelda.Player;
 using Zelda.Projectiles;
 using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
-using Zelda.GameState;
 
 namespace Zelda
 {
@@ -39,7 +39,7 @@ namespace Zelda
             // Use 2x size of NES window
             var graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = Width, PreferredBackBufferHeight = Height,
+                PreferredBackBufferWidth = Width, PreferredBackBufferHeight = Height
             };
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
@@ -64,7 +64,7 @@ namespace Zelda
 
             AlphaPassMask.SpriteBatch = _spriteBatch;
             var opaqueMaskTexture = new Texture2D(GraphicsDevice, 1, 1);
-            opaqueMaskTexture.SetData(new[] { new Color(Color.White, 0.94f), });
+            opaqueMaskTexture.SetData(new[] { new Color(Color.White, 0.94f) });
             var transparentMaskTexture = new Texture2D(GraphicsDevice, 1, 1);
             transparentMaskTexture.SetData(new[] { Color.TransparentBlack });
             AlphaPassMask.OpaqueMaskTexture = opaqueMaskTexture;

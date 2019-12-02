@@ -12,7 +12,7 @@
                 new QuitResetControllerKeyboard(agent), 
                 StateAgent.HUD
             };
-            ScaledDrawables = new IDrawable[]
+            ScaledDrawables = new[]
             {
                 StateAgent.HUD
             };

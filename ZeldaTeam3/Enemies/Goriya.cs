@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Projectiles;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Enemies
 {
@@ -56,10 +57,7 @@ namespace Zelda.Enemies
             _updateSpriteFlag = _statusDirection != direction;
             _statusDirection = direction;
         }
-        private void FlipDirection()
-        {
-            UpdateDirection(DirectionUtility.Flip(_statusDirection));
-        }
+
         public override void Stun()
         {
             _agentClock = 240;

@@ -33,12 +33,12 @@ namespace Zelda.Enemies
 
         public ISprite CreateFygarFaceLeft()
         {
-            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 13), 10, 13, 0);
+            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 13), 10, 13);
         }
 
         public ISprite CreateFygarFaceRight()
         {
-            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 0), 10, 13, 0);
+            return new Sprite(_fygarTexture2D, 13, 13, 2, new Point(0, 0), 10, 13);
         }
 
         public ISprite CreateSpawnExplosion()

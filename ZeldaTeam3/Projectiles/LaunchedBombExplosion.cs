@@ -13,13 +13,13 @@ namespace Zelda.Projectiles
         private readonly Vector2[] _outerExplosionSpriteLocations = new Vector2[NumberOfOuterExplosionSprites];
         private readonly ISprite _sprite = ProjectileSpriteFactory.Instance.CreateBombExplosion();
         private int _framesDelayed;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; }
         public bool Halted { get; set; }
 
         public LaunchedBombExplosion(Point location)
         {
             _location = location.ToVector2();
-            Bounds = new Rectangle((int)_location.X - 16, (int)_location.Y - 16, 48, 48);
+            Bounds = new Rectangle(location.X - 16, location.Y - 16, 48, 48);
             SoundEffectManager.Instance.PlayBombExplode();
             SetExplosionSpriteLocations();
         }

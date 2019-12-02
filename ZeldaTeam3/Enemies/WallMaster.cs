@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Enemies
 {

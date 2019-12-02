@@ -6,8 +6,6 @@ namespace Zelda.ModeMenu
 {
     public class MainMenuBackground : IDrawable
     {
-        private static readonly Vector2 LocationAfterHUDOffset = new Vector2(0, -HUD.HUDSpriteFactory.ScreenHeight);
-
         public static ISprite Image { get; private set; }
 
         public static void LoadTexture(ContentManager content)

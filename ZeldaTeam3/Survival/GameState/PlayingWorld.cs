@@ -19,9 +19,9 @@ namespace Zelda.Survival.GameState
                 StateAgent.DungeonManager 
             };
 
-            FixedDrawables = new IDrawable[]
+            FixedDrawables = new[]
             {
-                StateAgent.HUD,
+                StateAgent.HUD
             };
 
             CameraDrawables = new IDrawable[]

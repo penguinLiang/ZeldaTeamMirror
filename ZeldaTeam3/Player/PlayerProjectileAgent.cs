@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Items;
 using Zelda.Projectiles;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Player
 {

@@ -11,6 +11,6 @@ namespace Zelda.Dungeon
         Stalfos = 5,
         Trap = 6,
         WallMaster = 7,
-        Fygar = 8,
+        Fygar = 8
     }
 }

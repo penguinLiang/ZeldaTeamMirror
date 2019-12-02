@@ -10,7 +10,6 @@ namespace Zelda.Music
         private SoundEffect _gameOverMusic;
         private SoundEffect _winMusic;
         private SoundEffect _starMusic;
-        private SoundEffect _triforceMusic;
         private SoundEffectInstance _activeMusic;
         private MusicType _playing = MusicType.None;
 
@@ -23,7 +22,6 @@ namespace Zelda.Music
             _gameOverMusic = content.Load<SoundEffect>("Music/07_Game_Over");
             _winMusic = content.Load<SoundEffect>("Music/10_Ending");
             _starMusic = content.Load<SoundEffect>("Music/02_Invincibility_Star");
-            _triforceMusic = content.Load<SoundEffect>("Music/06_Triforce");
         }
 
         public void PlayIntroMusic()
@@ -91,21 +89,6 @@ namespace Zelda.Music
             _playing = MusicType.Star;
             _activeMusic?.Stop();
             _activeMusic = _starMusic.CreateInstance();
-            _activeMusic.IsLooped = false;
-            _activeMusic.Play();
-        }
-
-        public void PlayTriforceMusic()
-        {
-            if (_playing == MusicType.Triforce)
-            {
-                _activeMusic.Resume();
-                return;
-            }
-
-            _playing = MusicType.Triforce;
-            _activeMusic?.Stop();
-            _activeMusic = _triforceMusic.CreateInstance();
             _activeMusic.IsLooped = false;
             _activeMusic.Play();
         }

@@ -6,38 +6,38 @@ namespace Zelda.Items
 {
     internal class WalletUpgradeItem : Item
     {
-        private DrawnText _priceDisplay;
-        private int _price;
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
         public WalletUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
-            _priceDisplay.Text = _price.ToString();
+            _priceDisplay = new DrawnText
+            {
+                Location = new Point(location.X, location.Y + 20),
+                Text = _price.ToString()
+            };
         }
-        
+
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWalletUpgrade();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            if(_price>0)
+            if (_price > 0)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if (player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
                     player.Inventory.UpgradeRupeeWallet(player.Inventory.MaxRupeeCount * 2);
-                    return new NoOp();
+                    return NoOp.Instance;
                 }
-                else 
-                {
-                    Used = false;
-                    return new NoOp();
-                }
+
+                Used = false;
+                return NoOp.Instance;
             }
             SoundEffectManager.Instance.PlayPickupItem();
             player.Inventory.UpgradeRupeeWallet(player.Inventory.MaxRupeeCount * 2);
-            return new NoOp();
+            return NoOp.Instance;
         }
 
         public override void Draw()

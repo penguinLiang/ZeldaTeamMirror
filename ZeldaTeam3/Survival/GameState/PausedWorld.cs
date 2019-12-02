@@ -21,7 +21,7 @@ namespace Zelda.Survival.GameState
                 StateAgent.HUD,
                 pause
             };
-            FixedDrawables = new IDrawable[]
+            FixedDrawables = new[]
             {
                 StateAgent.HUD,
                 pause

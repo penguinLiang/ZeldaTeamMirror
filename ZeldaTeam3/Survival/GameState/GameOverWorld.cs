@@ -1,5 +1,5 @@
-﻿using Zelda.Survival.GameOver;
-using Zelda.Music;
+﻿using Zelda.Music;
+using Zelda.Survival.GameOver;
 
 namespace Zelda.Survival.GameState
 {
