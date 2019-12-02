@@ -50,6 +50,12 @@ namespace Zelda.Survival
             foreach (var projectile in _projectiles)
             {
                 projectile.Halt();
+                if (projectile is PlayerBoomerang)
+                    _player.Inventory.AddSecondaryItem(Secondary.Boomerang);
+                if (projectile is AlchemyCoin)
+                    _player.Inventory.AddCoin();
+                if (projectile is ATWBoomerang)
+                    _player.Inventory.AddSecondaryItem(Secondary.ATWBoomerang);
             }
             _projectiles.Clear();
         }
