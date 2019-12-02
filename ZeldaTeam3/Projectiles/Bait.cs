@@ -1,20 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
+using Zelda.Items;
 using Zelda.SoundEffects;
 
 namespace Zelda.Projectiles
 {
     public class Bait : IProjectile
     {
-        private const int FramesToDisappear = 3600;
+        private const int FramesToDisappear = 900;
+        private const int StartingHealth = 8;
+        private const int InvincibilityTime = 30;
 
         private readonly Vector2 _location;
-        private readonly ISprite _sprite = Items.ItemSpriteFactory.Instance.CreateBait();
+        private ISprite _sprite = ItemSpriteFactory.Instance.CreateBait(StartingHealth);
         private int _framesDelayed;
         public Rectangle Bounds { get; private set; }
         public bool Halted { get; set; }
 
-        private int _health = 8;
+        private int _health = StartingHealth;
+        private int _invincibilityTimer = InvincibilityTime;
 
         public Bait(Point location)
         {
@@ -35,7 +39,13 @@ namespace Zelda.Projectiles
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            _health--;
+            if (_invincibilityTimer >= InvincibilityTime)
+            {
+                _health--;
+                _invincibilityTimer = 0;
+                _sprite = ItemSpriteFactory.Instance.CreateBait(_health);
+                SoundEffectManager.Instance.PlayBombDrop();
+            }
             return new SpawnableDamage(enemy, 0);
         }
 
@@ -52,6 +62,7 @@ namespace Zelda.Projectiles
         public void Update()
         {
             _framesDelayed++;
+            _invincibilityTimer++;
             if (_health <= 0 || _framesDelayed == FramesToDisappear)
             {
                 Halted = true;

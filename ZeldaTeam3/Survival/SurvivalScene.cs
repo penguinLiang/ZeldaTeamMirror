@@ -112,10 +112,38 @@ namespace Zelda.Survival
             _items.Add(item);
         }
 
+        private Point GetEnemyTargetLocation(Point enemyLocation)
+        {
+            Point targetLocation = _player.Location;
+            List<Point> baitLocations = new List<Point>();
+
+            foreach (var projectile in _projectiles)
+            {
+                if (projectile is Bait)
+                    baitLocations.Add(projectile.Bounds.Location);
+            }
+
+            if (baitLocations.Count > 0)
+            {
+                targetLocation = baitLocations[0];
+                double closestDistanceSquared = Math.Pow(_player.Location.X - targetLocation.X, 2) + Math.Pow(_player.Location.Y - targetLocation.Y, 2);
+                for (int i = 1; i < baitLocations.Count; i++)
+                {
+                    if (Math.Pow(_player.Location.X - baitLocations[i].X, 2) + Math.Pow(_player.Location.Y - baitLocations[i].Y, 2) < closestDistanceSquared)
+                    {
+                        targetLocation = baitLocations[i];
+                        closestDistanceSquared = Math.Pow(_player.Location.X - targetLocation.X, 2) + Math.Pow(_player.Location.Y - targetLocation.Y, 2);
+                    }
+                }
+            }
+
+            return targetLocation;
+        }
+
         public void Update()
         {
             var prioritizedCoinCollisions = new List<Rectangle>();
-
+            
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
@@ -159,7 +187,7 @@ namespace Zelda.Survival
 
             foreach (var roomEnemy in _waveManager.Enemies)
             {
-                roomEnemy.Target(_player.Location);
+                roomEnemy.Target(GetEnemyTargetLocation(roomEnemy.Bounds.Location));
                 roomEnemy.Update();
                 _projectiles.AddRange(roomEnemy.Projectiles);
                 roomEnemy.Projectiles.Clear();
@@ -194,7 +222,10 @@ namespace Zelda.Survival
                             prioritizedCoinCollisions.Add(roomEnemy.Bounds);
                     }
 
-                    PlayerAttackCollision(projectile, roomEnemy);
+                    if (projectile is ClockCollideable)
+                        projectile.EnemyEffect(roomEnemy).Execute();
+                    else
+                        PlayerAttackCollision(projectile, roomEnemy);
                 }
             }
 

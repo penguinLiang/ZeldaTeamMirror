@@ -81,6 +81,7 @@
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
     <Compile Include="Projectiles\Bait.cs" />
+    <Compile Include="Projectiles\ClockCollideable.cs" />
     <Compile Include="Survival\GameState\SubmitScoreWorld.cs" />
     <Compile Include="HighScore\ScoreboardControllerKeyboard.cs" />
     <Compile Include="HighScore\ScoreboardBackground.cs" />

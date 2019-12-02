@@ -170,7 +170,7 @@ namespace Zelda.Player
                     Projectiles.Add(new LaserBeam(location, facing));
                     break;
                 case Secondary.Clock:
-
+                    Projectiles.Add(new ClockCollideable());
                     UsingSecondaryItem = false;
                     break;
                 case Secondary.Star:

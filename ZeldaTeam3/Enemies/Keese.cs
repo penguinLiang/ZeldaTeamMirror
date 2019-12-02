@@ -5,11 +5,13 @@ namespace Zelda.Enemies
 {
     public class Keese : EnemyAgent
     {
+        private const int StunTime = 240;
         private static readonly Random Rng = new Random();
 
         public override Rectangle Bounds => Alive ? new Rectangle(Location.X, Location.Y, 16, 16) : Rectangle.Empty;
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
+        private int _stunTimer = StunTime;
 
         private readonly Point _origin;
         private int _movementClock;
@@ -34,6 +36,11 @@ namespace Zelda.Enemies
         public override void Halt()
         {
             // NO-OP: Flies through walls
+        }
+
+        public override void Stun()
+        {
+            _stunTimer = 0;
         }
 
         protected override void Knockback()
@@ -106,8 +113,11 @@ namespace Zelda.Enemies
 
         public override void Update()
         {
-            if (Alive && CanMove)
+            if (_stunTimer < StunTime)
+                _stunTimer++;
+            else if (Alive && CanMove)
                 ExecuteAction();
+
             base.Update();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -135,6 +136,11 @@ namespace Zelda.Items
         public ISprite CreateBait()
         {
             return new Sprite(_itemsSpriteSheet, 8, 16, 1, new Point(24, 144));
+        }
+
+        public ISprite CreateBait(int health)
+        {
+            return new Sprite(_itemsSpriteSheet, 8, Math.Min(2 * health, 16), 1, new Point(24, Math.Max(144, 152 - health)));
         }
 
         public ISprite CreateAlchemyCoin()

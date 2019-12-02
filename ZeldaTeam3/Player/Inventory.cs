@@ -23,14 +23,12 @@ namespace Zelda.Player
         public int Coins { get; private set; } = 2;
         public bool HasATWBoomerang { get; private set; }
         public bool HasBombLauncher { get; private set; }
-        public Secondary ExtraItem1 { get; private set; } = Secondary.Bait;
-        public Secondary ExtraItem2 { get; private set; } = Secondary.Star;
+        public Secondary ExtraItem1 { get; private set; } = Secondary.Clock;
+        public Secondary ExtraItem2 { get; private set; } = Secondary.Clock;
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
         public int RupeeCount { get; private set; } = 0;
         public int KeyCount { get; private set; }
-        //public int Rupee1Value = 1;
-        //public int Rupee5Value = 5;
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
