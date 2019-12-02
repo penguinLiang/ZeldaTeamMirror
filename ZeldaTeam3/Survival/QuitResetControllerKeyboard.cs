@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using Zelda.Commands;
+using Zelda.Survival.Commands;
 using Zelda.Survival.GameState;
 
 namespace Zelda.Survival
@@ -16,12 +16,12 @@ namespace Zelda.Survival
         { 
             _keydownMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, new Commands.Quit(agent) }
+                { Keys.Q, new Quit(agent) }
             };
 
             _keyupMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.R, new Commands.Reset(agent) }
+                { Keys.R, new Reset(agent) }
             };
         }
 

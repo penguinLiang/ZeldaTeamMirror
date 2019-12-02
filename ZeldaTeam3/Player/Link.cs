@@ -138,7 +138,7 @@ namespace Zelda.Player
                 return;
             }
 
-            if (_healthStateMachine.Hurt || (_healthStateMachine.Invulnerable && !_healthStateMachine.InvulnerabilityFading))
+            if (_healthStateMachine.Hurt || _healthStateMachine.Invulnerable && !_healthStateMachine.InvulnerabilityFading)
             {
                 _aliveSpriteStateMachine.Sprite.PaletteShift();
             }

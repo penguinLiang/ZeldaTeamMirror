@@ -4,7 +4,6 @@
         Playing,
         GameOver,
         Scoreboard,
-        GameWin,
         Reset
     }
 }

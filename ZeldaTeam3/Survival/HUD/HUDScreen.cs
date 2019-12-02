@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Zelda.Items;
 using Zelda.Survival.GameState;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Survival.HUD
 {
@@ -69,7 +71,7 @@ namespace Zelda.Survival.HUD
             }
         }
 
-        private static ISprite GetExtraItemSprite(Items.Secondary extraItem)
+        private static ISprite GetExtraItemSprite(Secondary extraItem)
         {
             switch (extraItem)
             {

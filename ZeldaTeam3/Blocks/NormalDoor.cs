@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.ShaderEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)

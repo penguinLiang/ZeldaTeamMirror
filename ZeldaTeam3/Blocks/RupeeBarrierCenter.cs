@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.ShaderEffects;
-using Zelda.SoundEffects;
 
 // ReSharper disable SwitchStatementMissingSomeCases (missing cases handled at run time)
 namespace Zelda.Blocks
@@ -12,12 +9,12 @@ namespace Zelda.Blocks
     {
         private BlockType _block;
         private ISprite _sprite;
-        public bool unlocked { get; set; }
+        public bool Unlocked { get; set; }
         public Rectangle Bounds { get; private set; }
         private Point _location;
-        private int _price;
+        private readonly int _price;
 
-        private static BlockType UnlockedType(BlockType block)
+        private static BlockType UnlockedType()
         {
             return BlockType.InvisibleBlock;
         }
@@ -28,7 +25,7 @@ namespace Zelda.Blocks
             _block = block;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             _location = location;
-            unlocked = false;
+            Unlocked = false;
             Bounds = new Rectangle(location, new Point(32, 32));
         }
 
@@ -37,27 +34,28 @@ namespace Zelda.Blocks
             _block = BlockType.RupeeBarrierCenter;
             _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(_block), true);
             Bounds = new Rectangle(_location, new Point(32, 32));
-            unlocked = false;
+            Unlocked = false;
         }
 
         public void Unlock()
         {
-            unlocked = true;
-            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType(_block)), true);
+            Unlocked = true;
+            _sprite = new AlphaPassMask(BlockTypeSprite.Sprite(UnlockedType()), true);
         }
 
         public ICommand PlayerEffect(IPlayer player)
         {
-            if (!unlocked && (player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveRupee(_price)))
+            if (!Unlocked && player.BodyCollision.CollidesWith(Bounds) && player.Inventory.TryRemoveRupee(_price))
             {
                 Unlock();
                 return new NoOp();
             }
-            else if (!unlocked)
+
+            if (!Unlocked)
                 return new MoveableHalt(player);
-            else
-                return new NoOp();
+            return new NoOp();
         }
+
         public bool CollidesWith(Rectangle rect)
         {
             return Bounds.Intersects(rect);
@@ -66,22 +64,22 @@ namespace Zelda.Blocks
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            if (unlocked)
+            if (Unlocked)
             {
                 return new NoOp();
             }
-            else
-                return new MoveableHalt(enemy);
+
+            return new MoveableHalt(enemy);
         }
 
         public ICommand ProjectileEffect(IProjectile projectile)
         {
-            if (unlocked)
+            if (Unlocked)
             {
                 return new NoOp();
             }
-            else
-                return new MoveableHalt(projectile);
+
+            return new MoveableHalt(projectile);
         }
 
         public void Update()

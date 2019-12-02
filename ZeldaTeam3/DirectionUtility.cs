@@ -25,23 +25,6 @@ namespace Zelda
             }
         }
 
-        public static Direction RotateClockwise(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Up:
-                    return Direction.Right;
-                case Direction.Down:
-                    return Direction.Left;
-                case Direction.Left:
-                    return Direction.Up;
-                case Direction.Right:
-                    return Direction.Down;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
         public static Direction RandomDirection()
         {
             return (Direction) Rng.Next(NumDirections);
@@ -71,10 +54,8 @@ namespace Zelda
             {
                 return xDiff > 0 ? Direction.Right : Direction.Left;
             }
-            else
-            {
-                return yDiff > 0 ? Direction.Down : Direction.Up;
-            }
+
+            return yDiff > 0 ? Direction.Down : Direction.Up;
         }
     }
 }

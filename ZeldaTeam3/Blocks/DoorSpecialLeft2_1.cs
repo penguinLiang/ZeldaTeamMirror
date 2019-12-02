@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.SoundEffects;
 
 namespace Zelda.Blocks
@@ -13,7 +12,7 @@ namespace Zelda.Blocks
         private bool _unlocked;
         private int _activations;
 
-        public DoorSpecialLeft2_1(DungeonManager dungeon, Point location) : base(dungeon, location, BlockType.DoorLeft)
+        public DoorSpecialLeft2_1(IDungeonManager dungeon, Point location) : base(dungeon, location, BlockType.DoorLeft)
         {
             TransitionEffect = new Transition(dungeon, Direction.Left, true);
             _sprite = BlockTypeSprite.Sprite(BlockType.DoorSpecialLeft2_1);

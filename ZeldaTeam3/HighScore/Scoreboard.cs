@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.HUD;
 
 namespace Zelda.HighScore
 {
@@ -11,7 +12,7 @@ namespace Zelda.HighScore
         private const int DisplayedScores = 9;
         private const int MaxInitials = 3;
         private const int FirstPlaceX = 44;
-        private const int FirstPlaceY = 32 - HUD.HUDSpriteFactory.ScreenHeight;
+        private const int FirstPlaceY = 32 - HUDSpriteFactory.ScreenHeight;
         private const int LineSpacing = 16;
         private const int MaxTries = 3;
 

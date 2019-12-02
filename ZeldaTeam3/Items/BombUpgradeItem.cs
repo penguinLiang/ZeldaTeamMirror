@@ -6,31 +6,33 @@ namespace Zelda.Items
 {
     internal class BombUpgradeItem : Item
     {
-        private DrawnText _priceDisplay;
-        public int _price;
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
         public BombUpgradeItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Text = _price.ToString();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay = new DrawnText
+            {
+                Text = _price.ToString(),
+                Location = new Point(location.X, location.Y + 20)
+            };
         }
-        
+
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBombWalletUpgrade();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            if(_price>0)
+            if (_price > 0)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if (player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
                     player.Inventory.UpgradeBombWallet(player.Inventory.MaxBombCount * 2);
                     return new NoOp();
                 }
-                    Used = false;
-                    return new NoOp();
+                Used = false;
+                return new NoOp();
             }
             SoundEffectManager.Instance.PlayPickupItem();
             player.Inventory.UpgradeBombWallet(player.Inventory.MaxBombCount * 2);

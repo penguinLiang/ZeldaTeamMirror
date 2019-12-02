@@ -58,7 +58,6 @@
     <Compile Include="ModeMenu\MainMenu.cs" />
     <Compile Include="ModeMenu\MainMenuBackground.cs" />
     <Compile Include="IBarricade.cs" />
-    <Compile Include="IBuyable.cs" />
     <Compile Include="IGameStateAgent.cs" />
     <Compile Include="IRoom.cs" />
     <Compile Include="IScene.cs" />

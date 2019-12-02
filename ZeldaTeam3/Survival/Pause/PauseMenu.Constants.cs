@@ -13,11 +13,6 @@ namespace Zelda.Survival.Pause
         private static readonly Vector2 SelectedItemLocation8_16 = new Vector2(68, 40);
         private static readonly Vector2 SelectedItemLocation16_16 = new Vector2(64, 40);
 
-        private static readonly Vector2 MapGridLocation = new Vector2(136, 104);
-        private static readonly Vector2 MapGridCoverSize = new Vector2(8, 8);
-        private static readonly ISprite PlayerMapDot = PauseSpriteFactory.Instance.CreateLinkIndicator();
-        private static readonly ISprite RoomCover = PauseSpriteFactory.Instance.CreateMapCoverSquare();
-
         private static readonly Point BoomerangPosition = new Point(0, 0);
         private static readonly Point BombPosition = new Point(1, 0);
         private static readonly Point BowPosition = new Point(2, 0);
@@ -50,11 +45,6 @@ namespace Zelda.Survival.Pause
         private static readonly ISprite Clock = ItemSpriteFactory.Instance.CreateClock();
         private static readonly ISprite Star = ItemSpriteFactory.Instance.CreateStar();
         private static readonly ISprite Bait = ItemSpriteFactory.Instance.CreateBait();
-
-        private static readonly Vector2 CompassLocation = new Vector2(44, 144);
-        private static readonly Vector2 MapLocation = new Vector2(48, 104);
-        private static readonly ISprite Compass = ItemSpriteFactory.Instance.CreateCompass();
-        private static readonly ISprite Map = ItemSpriteFactory.Instance.CreateMap();
 
         private static readonly ISprite Background = PauseSpriteFactory.Instance.CreateBackground();
         private static readonly ISprite CursorGrid = PauseSpriteFactory.Instance.CreateCursorFrame();

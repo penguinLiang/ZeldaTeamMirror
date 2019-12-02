@@ -1,6 +1,5 @@
 ﻿using System;
 using Zelda.Items;
-using Zelda.ShaderEffects;
 
 namespace Zelda.Player
 {

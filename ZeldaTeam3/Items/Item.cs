@@ -33,14 +33,7 @@ namespace Zelda.Items
         {
             Used = true;
             SoundEffectManager.Instance.PlayPickupItem();
-            if(Price>0)
-            {
-                if(player.Inventory.TryRemoveRupee(Price))
-                {
-                    //add to inventory
-                    return NoOp.Instance;
-                }
-            }
+
             return NoOp.Instance;
         }
 

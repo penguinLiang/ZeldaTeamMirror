@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Zelda.HUD;
+
 // ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.ModeMenu
@@ -17,7 +19,7 @@ namespace Zelda.ModeMenu
 
         private static readonly IDrawable Background = new MainMenuBackground();
         private readonly ZeldaGame _game;
-        private readonly ISprite _cursor = HUD.HUDSpriteFactory.Instance.CreateFullHeart();
+        private readonly ISprite _cursor = HUDSpriteFactory.Instance.CreateFullHeart();
 
         private Point _cursorLocation = new Point(CursorX, TopCursorY);
         private int _optionNumber;

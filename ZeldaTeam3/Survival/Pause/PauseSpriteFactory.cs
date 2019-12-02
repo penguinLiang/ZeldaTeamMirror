@@ -29,15 +29,5 @@ namespace Zelda.Survival.Pause
         {
             return new Sprite(_pauseSpriteSheet, 16, 16, 2, new Point(0, 0), 10);
         }
-
-        public ISprite CreateMapCoverSquare()
-        {
-            return new Sprite(_pauseSpriteSheet, 8, 8, 1, new Point(40, 8));
-        }
-
-        public ISprite CreateLinkIndicator()
-        {
-            return new Sprite(_pauseSpriteSheet, 8, 8, 1, new Point(48, 8));
-        }
     }
 }

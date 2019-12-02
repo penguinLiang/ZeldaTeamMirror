@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Zelda.Commands;
-using Zelda.Survival.GameState;
 using Zelda.Items;
+using Zelda.Survival.GameState;
 
+// ReSharper disable SwitchStatementMissingSomeCases
 // ReSharper disable ConvertIfStatementToSwitchStatement
 namespace Zelda.Survival.Pause
 {
@@ -87,7 +87,7 @@ namespace Zelda.Survival.Pause
             }
         }
 
-        private ISprite UpdateExtraItemSprite(Secondary item)
+        private static ISprite UpdateExtraItemSprite(Secondary item)
         {
             switch (item)
             {
@@ -113,7 +113,7 @@ namespace Zelda.Survival.Pause
 
         private void DrawExtraItem(ISprite sprite, Vector2 location8_16)
         {
-            Vector2 drawLocation = new Vector2(location8_16.X, location8_16.Y);
+            var drawLocation = new Vector2(location8_16.X, location8_16.Y);
             if (sprite != null && sprite.Width > 8)
                 drawLocation.X -= 4;
 

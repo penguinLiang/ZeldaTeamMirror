@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
 using Zelda.Player;
@@ -47,7 +48,7 @@ namespace Zelda.Projectiles
                     _velocityY = SpeedAlongAxis;
                     break;
                 default:
-                    throw new System.ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -95,38 +96,31 @@ namespace Zelda.Projectiles
                     _velocityY = SpeedAlongAxis;
                     break;
                 default:
-                    throw new System.ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
         public void Reflect(List<Rectangle> orderedBounds)
         {
-            bool existsTopBottomCollision = false;
-            bool existsLeftRightCollision = false;
-            bool existsCornerCollision = false;
-            Rectangle overlap;
-            Point cornerCollisionCoordinates = Point.Zero;
+            var existsTopBottomCollision = false;
+            var existsLeftRightCollision = false;
+            var existsCornerCollision = false;
+            var cornerCollisionCoordinates = Point.Zero;
 
             foreach (var rectangle in orderedBounds)
             {
-                overlap = Rectangle.Intersect(Bounds, rectangle);
+                var overlap = Rectangle.Intersect(Bounds, rectangle);
                 if (overlap.Size == Point.Zero) continue;
 
                 if (!existsTopBottomCollision && overlap.Width > overlap.Height)
                 {
                     existsTopBottomCollision = true;
-                    if (Bounds.Y <= rectangle.Y)
-                        ChangeDirection(Direction.Up);
-                    else
-                        ChangeDirection(Direction.Down);
+                    ChangeDirection(Bounds.Y <= rectangle.Y ? Direction.Up : Direction.Down);
                 }
                 else if (!existsLeftRightCollision && overlap.Width < overlap.Height)
                 {
                     existsLeftRightCollision = true;
-                    if (Bounds.X <= rectangle.X)
-                        ChangeDirection(Direction.Left);
-                    else
-                        ChangeDirection(Direction.Right);
+                    ChangeDirection(Bounds.X <= rectangle.X ? Direction.Left : Direction.Right);
                 }
                 else if (overlap.Width == overlap.Height)
                 {
@@ -139,22 +133,14 @@ namespace Zelda.Projectiles
 
             if (existsCornerCollision && !existsTopBottomCollision && !existsLeftRightCollision)
             {
-                if (Bounds.Y <= cornerCollisionCoordinates.Y)
-                    ChangeDirection(Direction.Up);
-                else
-                    ChangeDirection(Direction.Down);
+                ChangeDirection(Bounds.Y <= cornerCollisionCoordinates.Y ? Direction.Up : Direction.Down);
 
-                if (Bounds.X <= cornerCollisionCoordinates.X)
-                    ChangeDirection(Direction.Left);
-                else
-                    ChangeDirection(Direction.Right);
+                ChangeDirection(Bounds.X <= cornerCollisionCoordinates.X ? Direction.Left : Direction.Right);
             }
 
-            if (existsCornerCollision || existsLeftRightCollision || existsTopBottomCollision)
-            {
-                _collisions++;
-                SoundEffectManager.Instance.PlayDeflect();
-            }
+            if (!existsCornerCollision && !existsLeftRightCollision && !existsTopBottomCollision) return;
+            _collisions++;
+            SoundEffectManager.Instance.PlayDeflect();
         }
 
         public void Update()

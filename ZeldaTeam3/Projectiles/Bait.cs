@@ -14,7 +14,7 @@ namespace Zelda.Projectiles
         private readonly Vector2 _location;
         private ISprite _sprite = ItemSpriteFactory.Instance.CreateBait(StartingHealth);
         private int _framesDelayed;
-        public Rectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; }
         public bool Halted { get; set; }
 
         private int _health = StartingHealth;
@@ -23,7 +23,7 @@ namespace Zelda.Projectiles
         public Bait(Point location)
         {
             _location = location.ToVector2();
-            Bounds = new Rectangle((int)_location.X, (int)_location.Y, 8, 16);
+            Bounds = new Rectangle(location.X, location.Y, 8, 16);
             SoundEffectManager.Instance.PlayBombDrop();
         }
 
@@ -39,13 +39,12 @@ namespace Zelda.Projectiles
 
         public ICommand EnemyEffect(IEnemy enemy)
         {
-            if (_invincibilityTimer >= InvincibilityTime)
-            {
-                _health--;
-                _invincibilityTimer = 0;
-                _sprite = ItemSpriteFactory.Instance.CreateBait(_health);
-                SoundEffectManager.Instance.PlayBombDrop();
-            }
+            if (_invincibilityTimer < InvincibilityTime) return new SpawnableDamage(enemy, 0);
+
+            _health--;
+            _invincibilityTimer = 0;
+            _sprite = ItemSpriteFactory.Instance.CreateBait(_health);
+            SoundEffectManager.Instance.PlayBombDrop();
             return new SpawnableDamage(enemy, 0);
         }
 
@@ -63,11 +62,10 @@ namespace Zelda.Projectiles
         {
             _framesDelayed++;
             _invincibilityTimer++;
-            if (_health <= 0 || _framesDelayed == FramesToDisappear)
-            {
-                Halted = true;
-                _sprite.Hide();
-            }
+
+            if (_health > 0 && _framesDelayed != FramesToDisappear) return;
+            Halted = true;
+            _sprite.Hide();
         }
 
         public void Draw()

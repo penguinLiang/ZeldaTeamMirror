@@ -1,5 +1,6 @@
 ﻿using System;
 using Zelda.Items;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.Player
 {
@@ -101,8 +102,6 @@ namespace Zelda.Player
                 case Secondary.BombLauncher:
                     HasBombLauncher = true;
                     break;
-                default:
-                    break;
             }
         }
 
@@ -178,8 +177,8 @@ namespace Zelda.Player
 
         public bool TryRemoveRupee(int price = 1)
         {
-            if ( ( RupeeCount <= 0 && RupeeCount < price ) || RupeeCount - price < 0) return false;
-            RupeeCount = RupeeCount - price;
+            if (RupeeCount <= 0 && RupeeCount < price || RupeeCount - price < 0) return false;
+            RupeeCount -= price;
             return true;
         }
 

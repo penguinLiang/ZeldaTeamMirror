@@ -29,7 +29,7 @@ namespace Zelda.Dungeon
         {
             Default = 0,
             Basement = 1,
-            OldMan = 2,
+            OldMan = 2
         }
 
         private static ISprite Background(BackgroundId backgroundId)

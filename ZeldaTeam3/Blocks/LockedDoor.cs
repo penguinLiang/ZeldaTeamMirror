@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
 
@@ -33,7 +32,7 @@ namespace Zelda.Blocks
             }
         }
 
-        public LockedDoor(DungeonManager dungeon, Point location, BlockType block) : base(dungeon, location, UnlockedType(block))
+        public LockedDoor(IDungeonManager dungeon, Point location, BlockType block) : base(dungeon, location, UnlockedType(block))
         {
             _block = block;
             switch (block)

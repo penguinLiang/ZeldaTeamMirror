@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.Commands;
 using Zelda.Survival.GameState;
+using Quit = Zelda.Survival.Commands.Quit;
+using Reset = Zelda.Survival.Commands.Reset;
 
 namespace Zelda.Survival.GameOver
 {
@@ -19,8 +21,8 @@ namespace Zelda.Survival.GameOver
 
             _keydownOnceMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, new Commands.Quit(agent) },
-                { Keys.R, new Commands.Reset(agent) },
+                { Keys.Q, new Quit(agent) },
+                { Keys.R, new Reset(agent) },
 
                 { Keys.S, selectDown },
                 { Keys.Down, selectDown },

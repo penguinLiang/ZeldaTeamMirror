@@ -1,6 +1,4 @@
-﻿using Zelda.Dungeon;
-
-namespace Zelda
+﻿namespace Zelda
 {
     public interface IGameStateAgent : IDrawable
     {

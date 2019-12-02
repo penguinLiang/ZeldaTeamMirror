@@ -18,7 +18,7 @@ namespace Zelda.GameState
                 StateAgent.DungeonManager 
             };
 
-            ScaledDrawables = new IDrawable[]
+            ScaledDrawables = new[]
             {
                 StateAgent.DungeonManager, 
                 StateAgent.Player,

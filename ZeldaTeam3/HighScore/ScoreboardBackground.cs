@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Zelda.HUD;
 
 namespace Zelda.HighScore
 {
     public class ScoreboardBackground : IDrawable
     {
-        private static readonly Vector2 LocationAfterHUDOffset = new Vector2(0, -HUD.HUDSpriteFactory.ScreenHeight);
+        private static readonly Vector2 LocationAfterHUDOffset = new Vector2(0, -HUDSpriteFactory.ScreenHeight);
 
         public static ISprite Image { get; private set; }
 

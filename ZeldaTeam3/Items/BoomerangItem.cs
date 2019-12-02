@@ -6,20 +6,20 @@ namespace Zelda.Items
 {
     internal class BoomerangItem : Item
     {
-        private DrawnText _priceDisplay;
+        private readonly DrawnText _priceDisplay;
         private bool _activated;
         private readonly IRoom _room;
-        private int _price;
+        private readonly int _price;
 
         public BoomerangItem(Point location, IRoom room, int price = 0) : base(location, price)
         {
             _room = room;
             _price = price;
             _priceDisplay = new DrawnText();
-            if(_price>0){
-                _priceDisplay.Text = _price.ToString();
-                _priceDisplay.Location = new Point(location.X, location.Y + 20);
-            }
+
+            if (_price <= 0) return;
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWoodBoomerang();
@@ -30,9 +30,9 @@ namespace Zelda.Items
 
             Used = true;
 
-            if(_price>0)
+            if (_price > 0)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if (player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
                     return new AddSecondaryItem(player, Secondary.Boomerang);
@@ -41,7 +41,7 @@ namespace Zelda.Items
                 return new NoOp();
             }
             SoundEffectManager.Instance.PlayPickupItem();
-            return new AddSecondaryItem(player, Secondary.Boomerang);  
+            return new AddSecondaryItem(player, Secondary.Boomerang);
         }
 
         public override void Update()
@@ -56,7 +56,7 @@ namespace Zelda.Items
         public override void Draw()
         {
             if (_activated && !Used) Sprite?.Draw((Location + DrawOffset).ToVector2());
-            if(_price>0) _priceDisplay.Draw();
+            if (_price > 0) _priceDisplay.Draw();
         }
 
         public override void Reset()

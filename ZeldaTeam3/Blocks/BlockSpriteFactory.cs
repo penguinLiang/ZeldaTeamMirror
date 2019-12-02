@@ -59,11 +59,6 @@ namespace Zelda.Blocks
             return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(64, 96));
         }
 
-        public ISprite CreateTopBlockedDoor()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(96, 0));
-        }
-
         public ISprite CreateLeftBlockedDoor()
         {
             return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(96, 32));
@@ -72,11 +67,6 @@ namespace Zelda.Blocks
         public ISprite CreateRightBlockedDoor()
         {
             return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(96, 64));
-        }
-
-        public ISprite CreateBottomBlockedDoor()
-        {
-            return new Sprite(_doorSpritesheet, 32, 32, 1, new Point(96, 96));
         }
 
         public ISprite CreateTopWallHole()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Zelda.Dungeon;
+
 // ReSharper disable ForCanBeConvertedToForeach
 // ReSharper disable SuggestBaseTypeForParameter
 // ReSharper disable InvertIf

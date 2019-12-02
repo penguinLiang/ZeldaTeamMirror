@@ -2,8 +2,10 @@
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Zelda.Commands;
-using Zelda.Survival.GameState;
 using Zelda.Items;
+using Zelda.Survival.GameState;
+using Quit = Zelda.Survival.Commands.Quit;
+using Reset = Zelda.Survival.Commands.Reset;
 
 // ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator (this is never helpful)
 namespace Zelda.Survival
@@ -26,7 +28,7 @@ namespace Zelda.Survival
 
             _keydownMap = new Dictionary<Keys, ICommand>
             {
-                { Keys.Q, new Commands.Quit(agent) }
+                { Keys.Q, new Quit(agent) }
             };
 
             _keyupMap = new Dictionary<Keys, ICommand>
@@ -45,7 +47,7 @@ namespace Zelda.Survival
                 { Keys.D0, new LinkSecondaryAddDebug(agent.Player, Secondary.FireBow)},
 
                 { Keys.Space, new Commands.Pause(agent) },
-                { Keys.R, new Commands.Reset(agent) }
+                { Keys.R, new Reset(agent) }
             };
 
             _playerDirections = new Dictionary<Keys, ICommand>

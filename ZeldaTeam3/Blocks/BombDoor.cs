@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Zelda.Commands;
-using Zelda.Dungeon;
 using Zelda.Projectiles;
 using Zelda.ShaderEffects;
 using Zelda.SoundEffects;
@@ -35,7 +34,7 @@ namespace Zelda.Blocks
             }
         }
 
-        public BombDoor(DungeonManager dungeon, Point location, BlockType block) : base(dungeon, location, UnblockedType(block))
+        public BombDoor(IDungeonManager dungeon, Point location, BlockType block) : base(dungeon, location, UnblockedType(block))
         {
             _block = block;
             switch (block)

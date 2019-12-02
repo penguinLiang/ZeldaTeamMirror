@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Zelda.Dungeon;
 using Zelda.GameState;
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace Zelda.HUD
 {

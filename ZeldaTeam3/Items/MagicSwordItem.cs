@@ -6,14 +6,16 @@ namespace Zelda.Items
 {
     internal class MagicSwordItem : Item
     {
-        private DrawnText _priceDisplay;
-        private int _price;
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
         public MagicSwordItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
-            _priceDisplay.Text = _price.ToString();
+            _priceDisplay = new DrawnText
+            {
+                Location = new Point(location.X, location.Y + 20),
+                Text = _price.ToString()
+            };
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMagicSword();
@@ -23,16 +25,16 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            if(_price>0)
+            if (_price > 0)
             {
-                if(player.Inventory.TryRemoveRupee(_price))
+                if (player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupNewItem();
                     return new UpgradeSword(player, Primary.MagicalSword);
                 }
                 Used = false;
-                return new NoOp();
-            } 
+                return NoOp.Instance;
+            }
             SoundEffectManager.Instance.PlayPickupNewItem();
             return new UpgradeSword(player, Primary.MagicalSword);
         }

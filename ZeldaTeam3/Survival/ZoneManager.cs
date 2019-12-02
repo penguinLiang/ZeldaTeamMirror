@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Zelda.Survival
 {
-    class ZoneManager
+    internal class ZoneManager
     {
         private static readonly Point TileSize = new Point(Dimensions.TileSize, Dimensions.TileSize);
 
@@ -14,7 +14,7 @@ namespace Zelda.Survival
             new Rectangle(new Point(32, 0) * TileSize, new Point(16, 11) * TileSize),
             new Rectangle(new Point(0, 11) * TileSize, new Point(16, 22) * TileSize),
             new Rectangle(new Point(16, 22) * TileSize, new Point(16, 11) * TileSize),
-            new Rectangle(new Point(32, 11) * TileSize, new Point(16, 22) * TileSize),
+            new Rectangle(new Point(32, 11) * TileSize, new Point(16, 22) * TileSize)
         };
 
         private static Rectangle ZoneContaining(Point location)

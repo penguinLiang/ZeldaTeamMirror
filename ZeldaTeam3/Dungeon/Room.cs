@@ -37,7 +37,7 @@ namespace Zelda.Dungeon
                 TryAddSpecialDoor,
                 TryAddBombableWall,
                 TryAddStair,
-                TryAddNonStandardTiles,
+                TryAddNonStandardTiles
             };
             
             for (var row = 0; row < tiles.Length; row++)
