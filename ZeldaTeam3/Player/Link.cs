@@ -133,7 +133,7 @@ namespace Zelda.Player
                 return;
             }
 
-            if (_healthStateMachine.Hurt)
+            if (_healthStateMachine.Hurt || (_healthStateMachine.Invulnerable && !_healthStateMachine.InvulnerabilityFading))
             {
                 _aliveSpriteStateMachine.Sprite.PaletteShift();
             }
@@ -169,7 +169,6 @@ namespace Zelda.Player
         public void MakeInvulnerable()
         {
             _healthStateMachine.MakeInvulnerable();
-            _aliveSpriteStateMachine.Sprite.PaletteShift();
         }
 
         public void PartyHard()

@@ -11,9 +11,11 @@ namespace Zelda.Player
     {
         private const int HealthBeepTimerReset = 20;
         private const int InvulnerabilityTime = 670;
+        private const int PaletteShiftDuration = 100;
 
         public bool Hurt { get; private set; }
         public bool Invulnerable { get; private set; }
+        public bool InvulnerabilityFading => InvulnerabilityTime - _invulnerabilityTimer < PaletteShiftDuration;
         public bool Alive => Health > 0;
 
         // Health is countable as half hearts, so 6 is 3 full hearts
