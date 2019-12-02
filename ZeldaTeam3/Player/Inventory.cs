@@ -11,7 +11,7 @@ namespace Zelda.Player
         private const int MaxKeyCount = 255;
 
         public int MaxRupeeCount { get; private set; } = MaxRupeeCountInitial;
-        public int MaxBombCount { get; private set; } = MaxRupeeCountInitial;
+        public int MaxBombCount { get; private set; } = MaxBombCountInitial;
         public int RupeeMultiplier { get; private set; } = 1;
 
         public Primary SwordLevel { get; private set; }
@@ -27,8 +27,8 @@ namespace Zelda.Player
         public Secondary ExtraItem2 { get; private set; }
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
-        public int RupeeCount { get; set; } = 0;
-        public int KeyCount { get; private set; }
+        public int RupeeCount { get; set; } = 2000000;
+        public int KeyCount { get; private set; } = 80;
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
@@ -46,19 +46,19 @@ namespace Zelda.Player
 
         public void AssignSecondaryItem(Secondary secondaryItem)
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (secondaryItem)
             {
                 case Secondary.LaserBeam:
                 case Secondary.Clock:
                 case Secondary.Star:
                 case Secondary.Bait:
-                    // Case pre-condition: At least one extra slot is open (should be checked before method call)
                     if (ExtraItem1 == Secondary.None)
                     {
                         ExtraItem1 = secondaryItem;
                         SecondaryItem = Secondary.ExtraSlot1;
                     }
-                    else
+                    else if (ExtraItem2 == Secondary.None)
                     {
                         ExtraItem2 = secondaryItem;
                         SecondaryItem = Secondary.ExtraSlot2;

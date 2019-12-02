@@ -39,10 +39,10 @@ namespace Zelda.Survival
                 { Keys.D4, new LinkBowAssign(agent.Player)},
                 { Keys.D5, new LinkBoomerangAssign(agent.Player)},
                 { Keys.D6, new LinkBombAssign(agent.Player)},
-                { Keys.D7, new LinkSecondaryAssign(agent.Player, Secondary.Coins)},
-                { Keys.D8, new LinkSecondaryAssign(agent.Player, Secondary.ATWBoomerang)},
-                { Keys.D9, new LinkSecondaryAssign(agent.Player, Secondary.BombLauncher)},
-                { Keys.D0, new LinkSecondaryAssign(agent.Player, Secondary.FireBow)},
+                { Keys.D7, new LinkSecondaryAddDebug(agent.Player, Secondary.Coins)},
+                { Keys.D8, new LinkSecondaryAddDebug(agent.Player, Secondary.ATWBoomerang)},
+                { Keys.D9, new LinkSecondaryAddDebug(agent.Player, Secondary.BombLauncher)},
+                { Keys.D0, new LinkSecondaryAddDebug(agent.Player, Secondary.FireBow)},
 
                 { Keys.Space, new Commands.Pause(agent) },
                 { Keys.R, new Commands.Reset(agent) }

@@ -100,17 +100,17 @@ namespace Zelda.Pause
             ICommand assign = new NoOp();
             if (_cursorPosition == BoomerangPosition && _agent.Player.Inventory.HasBoomerang)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Boomerang);
+                assign = new LinkSecondaryAddAndAssign(_agent.Player, Secondary.Boomerang);
                 _selectedItem = Boomerang;
             }
             if (_cursorPosition == BombPosition && _agent.Player.Inventory.BombCount >= 1)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bomb);
+                assign = new LinkSecondaryAddAndAssign(_agent.Player, Secondary.Bomb);
                 _selectedItem = Bomb;
             }
             if (_cursorPosition == BowPosition && _agent.Player.Inventory.HasBow && _agent.Player.Inventory.HasArrow)
             {
-                assign = new LinkSecondaryAssign(_agent.Player, Secondary.Bow);
+                assign = new LinkSecondaryAddAndAssign(_agent.Player, Secondary.Bow);
                 _selectedItem = Arrow;
             }
             assign.Execute();

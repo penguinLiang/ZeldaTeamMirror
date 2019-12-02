@@ -6,40 +6,46 @@ namespace Zelda.Items
 {
     internal class BaitItem : Item
     {
-        private DrawnText _priceDisplay;
-        public int _price;
-        private readonly FrameDelay _delay = new FrameDelay(90);
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
+        private FrameDelay _delay = new FrameDelay(90, true);
+        private bool _reset;
+        private IPlayer _player;
+
         public BaitItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
-            _priceDisplay.Text = _price.ToString();
+            _priceDisplay = new DrawnText
+            {
+                Location = new Point(location.X, location.Y + 20),
+                Text = _price.ToString()
+            };
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBait();
-        
+
         public override ICommand PlayerEffect(IPlayer player)
         {
-           _delay.Update();
+            _delay.Update();
+            _delay.Resume();
             Used = false;
-            if(!_delay.Delayed && (_price>0 && (player.Inventory.ExtraItem1 == Secondary.None || player.Inventory.ExtraItem2 == Secondary.None))) 
-            {
-                if(player.Inventory.TryRemoveRupee(_price))
-                {
-                    SoundEffectManager.Instance.PlayPickupItem();
-                    return new LinkSecondaryAssign(player, Secondary.Bait);
-                }
-                return new NoOp();
-            }
-            else if(_price == 0)
-            {
-                Used = true;
-                SoundEffectManager.Instance.PlayPickupItem();
-                return new LinkSecondaryAssign(player, Secondary.Bait);
-            }
-            else 
-                return new NoOp();
+            if (_price <= 0 || player.Inventory.ExtraItem1 != Secondary.None &&
+                                player.Inventory.ExtraItem2 != Secondary.None) return new NoOp();
+
+            _reset = false;
+            _player = player;
+            if (_delay.Delayed || !player.Inventory.TryRemoveRupee(_price)) return new NoOp();
+
+            SoundEffectManager.Instance.PlayPickupItem();
+            return new LinkSecondaryAddAndAssign(player, Secondary.Bait);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (_player == null || _reset || _player.BodyCollision.CollidesWith(Bounds)) return;
+            _delay = new FrameDelay(90, true);
+            _reset = true;
         }
 
         public override void Draw()
