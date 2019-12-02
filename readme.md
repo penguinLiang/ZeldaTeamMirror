@@ -25,7 +25,7 @@ We have broken up our implementation by __nouns__, such as 'enemies', 'items', '
 - Dark mode for the game has been implemented. 
 - Survival mode for the game has been implemnted, more details down below.
 
-__NEW (and improved):__
+__NEW (and improved):__  
 ZeldaGame received a major refactor so that it mostly loads assets and defers all stateful game management to GameStateAgent.  
 Each state, paused, playing, game over, game win, etc. all have their own worlds that make integrating different keyboard, mouse, update, and draw behaviors more abstract.
 
@@ -33,83 +33,67 @@ ZeldaGame has again received a major refactor, this time involving the camera sy
 
 - Survival Mode! Featuring:
 - New camera centered on Link.
-
 - More code cleanup!
-Enemy AI has been cleaned up and improved.
-
-A lot of code cleanup as well regarding item and weapon classes.
-
-Finally, the last major source of cleanup was the camera system so that it was edited to focus on Link.
-
-Overall, a lot of cleanup here and there.
+  - Enemy AI has been cleaned up and improved.
+  - A lot of code cleanup as well regarding item and weapon classes.
+  - Finally, the last major source of cleanup was the camera system so that it was edited to focus on Link.
+  - Overall, a lot of cleanup here and there.
 
 - Survival mode has a huge survival map and shop map.
 
 - Survival mode features many waves of enemies, where every wave is progressed after all the enemies are slain.
 
-There are really just three types of waves: Party, Normal and Shop.
-
-Normal - A regular, normal wave. It plays out normally and ends when everything is dead.
-
-Shop - Every few waves the player will be able to go to the shop to buy items/weapons.
-
-Party - The player becomes invincible for the entire wave. A breather wave, if you will.
+  - There are really just three types of waves: Party, Normal and Shop.
+  
+    - Normal - A regular, normal wave. It plays out normally and ends when everything is dead.
+    - Shop - Every few waves the player will be able to go to the shop to buy items/weapons.
+    - Party - A psychadelic wave, like normal but also like the party mode cheat.
 
 - Survival dungeon also features pickup items that the player can collect! (More details in the NEW ITEMS section)
 
 - High score system. What's the point of having this mode if there is no high score system?
-The player is allowed to input their name, which will automatically be logged into an online database that we have set up. It will be put onto the leaderboard if it makes it on there to be compared against all the other players who have logged their score onto the leaderboard. 
+  - The player is allowed to input their name, which will automatically be logged into an online database that we have set up. It will be put onto the leaderboard if it makes it on there to be compared against all the other players who have logged their score onto the leaderboard. 
 
 - Mode select menu at the start! Handy.
-Now upon starting up the game, the player will be able to select which mode of the game they want to play, from dungeon to survival to dark mode. It will be the NES Zelda main menu screen in style.
+  - Now upon starting up the game, the player will be able to select which mode of the game they want to play, from dungeon to survival to dark mode. It will be the NES Zelda main menu screen in style.
 
-- New enemy(s) have been implemented for survival exclusively! Okay just one enemy.
-Fygar - A sprite from dig dug that is green. It is a terrifying enemy, able to relentlessly pursue the player and shoot fireballs constantly. It is dangerous and can only be found in survival.
+- A new enemy have been implemented for survival exclusively!
+  - Fygar - A sprite from dig dug that is green. It is a terrifying enemy, able to relentlessly pursue the player and shoot fireballs constantly. It is dangerous and can only be found in survival.
 
 - What's this? Unlockable barriers barring the player from another segment of the survival dungeons unless they have a key?
-Barriers have been added. In the shop room, they are barriers that require keys to unlock, while in the dungeon survival room, they are barriers that require rupees to unlock.
+  - Barriers have been added. In the shop room, they are barriers that require keys to unlock, while in the dungeon survival room, they are barriers that require rupees to unlock.
 
 - NEW WEAPONS. We have crazy weapons exclusive to only survival!
 
-White Sword - Upgrade to sword for attack damage
-
-Magic Sword - Upgrade to sword for attack damage
-
-Silver Arrow - Upgrade to bow/arrow for attack damage
-
-Firebow - Shoots out three projectiles in a cone. One arrow down the center and two fireballs in a V shape. 
-
-Bomb Launcher - Launches bombs across the room
-
-Alchemy Coin - Shoots out diagonally from the player, bounces at maximum four times and gains rupees for the player when it hits an enemy.
-
-Around the World Boomerang - Boomerang that goes around the world. It will exit out the edge of the screen and come back on the other edge of the screen, whether horizontally or vertically.
+  - White Sword - Upgrade to sword for attack damage
+  - Magic Sword - Upgrade to sword for attack damage
+  - Silver Arrow - Upgrade to bow/arrow for attack damage
+  - Firebow - Shoots out three projectiles in a cone. One arrow down the center and two fireballs in a V shape. 
+  - Bomb Launcher - Launches bombs across the room
+  - Alchemy Coin - Shoots out diagonally from the player, bounces at maximum four times and gains rupees for the player when it hits an enemy.
+  - Around the World Boomerang - Boomerang that goes around the world. It will exit out the edge of the screen and come back on the other edge of the screen, whether horizontally or vertically.
 
 - NEW ITEMS. We have just as crazy but not as crazy items exclusive again to survival!
 
-Bomb Upgrade - Doubles the maximum bomb count
-
-Rupee Upgrade - Changes rupee value from one to three, and from five to ten.
-
-Wallet Upgrade - Doubles the maximum rupee count
-
-Laser beam - Shoots out a gigantic laser beam that either goes vertically or horizontally 
-
-Bait - Attracts enemies closer to the bait
-
-Clock - Freeze time and have enemies completely be stilled for a moment
-
-Star - Makes the player invincible for a small amount of time
+  - Bomb Upgrade - Doubles the maximum bomb count
+  - Rupee Upgrade - Changes rupee value from one to three, and from five to ten.
+  - Wallet Upgrade - Doubles the maximum rupee count
+  - Laser beam - Shoots out a gigantic laser beam that either goes vertically or horizontally 
+  - Bait - Attracts enemies closer to the bait
+  - Clock - Freeze time and have enemies completely be stilled for a moment
+  - Star - Makes the player invincible for a small amount of time
 
 - Working shop system in survival, cool huh?
-Player will be able to walk over and buy an item as long they have enough rupees. Some items are bought only once while others will keep respawning!
+  - Player will be able to walk over and buy an item as long they have enough rupees. Some items are bought only once while others will keep respawning!
 
 - Enemy related code refactoring for survival! Refactoring is nice. Refactoring is good.
-Enemy will now target the player and move towards the player, but only if the player is within a certain range.
+  - Enemy will now target the player and move towards the player, but only if the player is within a certain range.
 
 - PARTY MODE. All monsters will all dance vividly in style because all these years rotting in the dungeon has ripened their dancing abilities.
 
 - DARK MODE?! We basically mashed together dark souls into the game but not really because you can only see in front of Link directly, which increases the difficulty dramatically.
+
+- Cheat codes for Normal mode: Check out the new **Cheats** section under **General Information**, be like Mario after consuming a Star and run through enemies as a psychadelic hurricane.
 
 ## Sprint 2 Details  
   
@@ -154,9 +138,9 @@ Henry made the normal doors actually function like doors-- the doors now telepor
 
 We just went as usual. Sprint 5 seemed more challenging on average because there were a lot of new things we had to implement or change that were based on our older system.
 
-Chase has worked on the high score name input database, which is the ability to save your high score with a specific name that puts all your valuable score in the database. He has also researched and set up a database for high scores, as well as designed a high score system and everything related to high scores. Party mode has also been implemented by Chase in addition to the cone of view for dark mode. Finally he has done a lot of major refactoring in the code base overall just for survival mode. Additionally he has done a ton of SurvivalManager work, implemented shaders and did a lot of bug fixing.
+Chase has worked on the high score name input database, which is the ability to save your high score with a specific name that puts all your valuable score in the database. He has also researched and set up a database for high scores, as well as designed a high score system and everything related to high scores, like the initial input screen. Both Party mode and Dark mode were implemented by Chase, including a pixel-level dynamic shadow renderer using a shader-based ray tracer and a light cone using light attenuation physics. He has done a lot of major refactoring in the code base overall just for survival mode. He added a cheat code system to normal mode. Additionally he has done a ton of SurvivalManager work, implemented shaders and did a lot of bug fixing.
 
-Jarred has handled the survival mode camera, which was centering the camera only on Link. Furthermore, he has worked on the mode select menu at the very start of the game, as well as implementing a high score board GUI. Most of all, Jarred has implemented a TON of new weapons and the graphics related to survival mode relating to that. He is also the one who handled the high score name input menu, versus the high score database, which was set up by Chase. In addition to Quinn, he also implemented a lot of the new items along with the weapon functions. He was also able to do quick PR reviews and bug fixes.
+Jarred has handled the survival mode camera, which was centering the camera only on Link. Furthermore, he has worked on the mode select menu at the very start of the game, as well as implementing a high score board GUI. Most of all, Jarred has implemented a TON of new weapons and the graphics related to survival mode relating to that. In addition to Quinn, he also implemented a lot of the new items along with the weapon functions. He was also able to do quick PR reviews and bug fixes.
 
 Steven has also done a maximal amount of code refactoring for this sprint, and further optimised a lot of things, such as enemy AI just to handle survival mode well, implementing a new enemy and designing the dungeon for survival mode overall. He has further also integrated dungeon and shop into SurvivalManager and handled a lot of important core files such as SurvivalScene and SurvivalRoom. Steven has also guided what SurvivalManager was supposed to be designed like and lead team discussions on it, and as well as directing Henry on the different aspects of SurvivalManager integration with WaveManager.
 
@@ -191,7 +175,7 @@ Code Analysis results before and after fixes for each sprint can be found under 
   
 ## Controls  
 
-__Q__: Quit
+__Q__: Quit  
 __R__: Reset
 
 __Z__: Primary Attack (Sword)  
@@ -202,25 +186,25 @@ __A/LEFT__: Move Link Left
 __S/DOWN__: Move Link Down  
 __D/RIGHT__:  Move Link Right  
 
-__SPACE__: Pause the game and bring up the inventory screen
+__SPACE__: Pause the game and bring up the inventory screen  
+__ENTER__: Menu select
 
-__For debugging__:
+__For debugging__:  
 __2__: Upgrade to White Sword  
 __3__: Upgrade to Magical Sword  
 __4__: Assign and Use the Bow as the Secondary Weapon  
 __5__: Assign and Use the Boomerang as the Secondary Weapon  
 __6__: Assign and Use the Bomb as the Secondary Weapon  
-__7__: Assign and Use the Alchemy Coin as the Secondary Weapon  (Survival Mode Only)
-__8__: Assign and Use the Around-the-world Boomerang as the Secondary Weapon  (Survival Mode Only)
+__7__: Assign and Use the Alchemy Coin as the Secondary Weapon  (Survival Mode Only)  
+__8__: Assign and Use the Around-the-world Boomerang as the Secondary Weapon  (Survival Mode Only)  
 __9__: Assign and Use the Bomb Launcher as the Secondary Weapon  (Survival Mode Only)
-
 - Note: To test the extra items (LaserBeam, Clock, Star, Bait) in Survival Mode, go to lines 26 or 27 of Player/Inventory.cs and set the properties ExtraItem1 or ExtraItem2 to Secondary.[name of extra item].
 
-__M__: Open/close the jump map. _Click on a room to teleport there_  
+__M__: Open/close the jump map in (Normal Mode Only) . _Click on a room to teleport there_  
 
 ## Cheats
 
-__Activate Party Mode (PARTY HARD)_:_
+__Activate Party Mode (PARTY HARD)__:  
 UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT, B, A, ENTER
   
 ## Frame Rates  
@@ -303,13 +287,14 @@ There are four debug rooms, each with their own element of the game to test.
 - __5-5__: Locked Doors
 
 ## Format of Survival Mode CSV Files:
-Every single line is one unique wave.
-Should be formatted every line as: "[Wave Type],[Enemy Type]:[Number of that enemy],...,[Enemy Type]:[Number of that enemy]"
-Enemy Types must be in lowercase form and they are the names of the enemies. Not all enemies are in, as some enemies are left out of the survival mode.
+Every single line is one unique wave.  
+Should be formatted every line as: `[Wave Type],[Enemy Type]:[Number of that enemy],...,[Enemy Type]:[Number of that enemy]`  
+Enemy Types must be in lowercase form and they are the names of the enemies. Not all enemies are in, as some enemies are left out of the survival mode.  
+
 The wave types are:
-"D" - Default, normal wave of monsters
-"S" - Shop wave
-"P" - Party mode
+- "D" - Default, normal wave of monsters
+- "S" - Shop wave
+- "P" - Party mode
     
 ## Extra Processes  
   
