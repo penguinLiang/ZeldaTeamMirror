@@ -10,7 +10,7 @@ namespace Zelda.HighScore
         private const string TimeoutMessage = "FAILED TO GET SCORES";
         private const int DisplayedScores = 9;
         private const int MaxInitials = 3;
-        private const int FirstPlaceX = 48;
+        private const int FirstPlaceX = 44;
         private const int FirstPlaceY = 32 - HUD.HUDSpriteFactory.ScreenHeight;
         private const int LineSpacing = 16;
         private const int MaxTries = 3;
@@ -46,7 +46,7 @@ namespace Zelda.HighScore
                     }
 
                     _textDrawables[i] = new DrawnText {
-                        Text = initials + " LIVED " + scores[i].Score.ToString("D6") + " WAVES",
+                        Text = initials + " LASTED " + scores[i].Score.ToString("D6") + " WAVES",
                         Location = new Point(FirstPlaceX, FirstPlaceY + i * LineSpacing)
                     };
                 }

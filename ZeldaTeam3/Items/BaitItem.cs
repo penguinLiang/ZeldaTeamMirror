@@ -14,7 +14,6 @@ namespace Zelda.Items
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBait();
-        //TODO: Fix this with the proper sprite
         
         public override ICommand PlayerEffect(IPlayer player)
         {
