@@ -27,8 +27,8 @@ namespace Zelda.Player
         public Secondary ExtraItem2 { get; private set; }
         public bool HasMap { get; private set; }
         public bool HasCompass { get; private set; }
-        public int RupeeCount { get; set; } = 2000000;
-        public int KeyCount { get; private set; } = 80;
+        public int RupeeCount { get; set; }
+        public int KeyCount { get; private set; }
 
         // For non-invasive backwards compatibility purposes only
         public bool HasArrow => true;
