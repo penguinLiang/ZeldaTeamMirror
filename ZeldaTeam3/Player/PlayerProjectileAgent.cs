@@ -169,6 +169,17 @@ namespace Zelda.Player
                 case Secondary.LaserBeam:
                     Projectiles.Add(new LaserBeam(location, facing));
                     break;
+                case Secondary.Clock:
+                    Projectiles.Add(new ClockCollideable());
+                    UsingSecondaryItem = false;
+                    break;
+                case Secondary.Star:
+                    _player.MakeInvulnerable();
+                    UsingSecondaryItem = false;
+                    break;
+                case Secondary.Bait:
+                    Projectiles.Add(new Bait(new Point(location.X + 4, location.Y)));
+                    break;
                 default:
                     UsingSecondaryItem = false;
                     break;

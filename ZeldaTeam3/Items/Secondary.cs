@@ -15,8 +15,8 @@
         ExtraSlot1,
         ExtraSlot2,
         LaserBeam,
-        Bait,
         Clock,
-        Star
+        Star,
+        Bait
     }
 }

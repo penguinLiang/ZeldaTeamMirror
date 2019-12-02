@@ -75,6 +75,12 @@ namespace Zelda.Survival.HUD
             {
                 case Items.Secondary.LaserBeam:
                     return LaserBeam;
+                case Items.Secondary.Clock:
+                    return Clock;
+                case Items.Secondary.Star:
+                    return Star;
+                case Items.Secondary.Bait:
+                    return Bait;
                 default:
                     return null;
             }
@@ -94,16 +100,19 @@ namespace Zelda.Survival.HUD
         public void Draw()
         {
             Background.Draw(_location);
-
-            if (_agent.Player.Inventory.HasCompass)
+            
+            Player.Inventory inv = _agent.Player.Inventory;
+            if (inv.HasCompass)
             {
                 TriforceDot.Draw(MiniMapLocation + TriforceLocation + _location);
             }
 
             Primary?.Draw(PrimaryLocation + _location);
-            switch (_agent.Player.Inventory.SecondaryItem)
+            switch (inv.SecondaryItem)
             {
                 case Items.Secondary.Coins:
+                case Items.Secondary.ExtraSlot1 when inv.ExtraItem1 == Items.Secondary.Clock || inv.ExtraItem1 == Items.Secondary.Star:
+                case Items.Secondary.ExtraSlot2 when inv.ExtraItem2 == Items.Secondary.Clock || inv.ExtraItem2 == Items.Secondary.Star:
                     Secondary?.Draw(SecondaryLocation16_16 + _location);
                     break;
                 default:

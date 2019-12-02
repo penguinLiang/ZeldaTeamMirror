@@ -67,7 +67,7 @@
     <Compile Include="Items\BombLauncherItem.cs" />
     <Compile Include="Items\BombUpgradeItem.cs" />
     <Compile Include="Items\ClockItem.cs" />
-    <Compile Include="Items\CrossShotItem.cs" />
+    <Compile Include="Items\LaserBeamItem.cs" />
     <Compile Include="Items\FireBowItem.cs" />
     <Compile Include="Items\RupeeUpgradeItem.cs" />
     <Compile Include="Items\StarItem.cs" />
@@ -80,6 +80,8 @@
     <Compile Include="Commands\Resume.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\EnemyStun.cs" />
+    <Compile Include="Projectiles\Bait.cs" />
+    <Compile Include="Projectiles\ClockCollideable.cs" />
     <Compile Include="Survival\GameState\SubmitScoreWorld.cs" />
     <Compile Include="HighScore\ScoreboardControllerKeyboard.cs" />
     <Compile Include="HighScore\ScoreboardBackground.cs" />
@@ -272,6 +274,7 @@
     <Compile Include="Survival\Pause\PauseSpriteFactory.cs" />
     <Compile Include="Survival\QuitResetControllerKeyboard.cs" />
     <Compile Include="Survival\WaveManager.cs" />
+    <Compile Include="Survival\EnemyTargetManager.cs" />
     <Compile Include="Survival\ZoneManager.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap\JumpMapScreen.cs" />

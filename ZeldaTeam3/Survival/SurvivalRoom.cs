@@ -215,7 +215,7 @@ namespace Zelda.Survival
                     Items.Add(new ClockItem(location,150));
                     break;
                 case MapTile.CrossShot:
-                    Items.Add(new CrossShotItem(location,50));
+                    Items.Add(new LaserBeamItem(location, 50));
                     break;
                 case MapTile.KeyBarrier:
                     Barricade.Add(new KeyBarrier(location, BlockType.KeyBarrier));

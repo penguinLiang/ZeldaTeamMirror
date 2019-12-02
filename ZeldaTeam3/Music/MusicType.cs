@@ -6,6 +6,7 @@
         Labryinth,
         GameOver,
         Win,
+        Star,
         Triforce,
         None
     }

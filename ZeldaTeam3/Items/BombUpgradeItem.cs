@@ -15,9 +15,8 @@ namespace Zelda.Items
             _priceDisplay.Text = _price.ToString();
             _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
-
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
+        
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBombWalletUpgrade();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
@@ -27,13 +26,14 @@ namespace Zelda.Items
                 if(player.Inventory.TryRemoveRupee(_price))
                 {
                     SoundEffectManager.Instance.PlayPickupItem();
-                    player.Inventory.MaxBombCount = player.Inventory.MaxBombCount *2;
+                    player.Inventory.UpgradeBombWallet(player.Inventory.MaxBombCount * 2);
                     return new NoOp();
                 }
                     Used = false;
                     return new NoOp();
             }
             SoundEffectManager.Instance.PlayPickupItem();
+            player.Inventory.UpgradeBombWallet(player.Inventory.MaxBombCount * 2);
             return new NoOp();
         }
 

@@ -82,6 +82,7 @@ namespace Zelda.Enemies
                 case AgentState.Ready: //determine next action
                     UpdateAction();
                     break;
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {
@@ -147,7 +148,8 @@ namespace Zelda.Enemies
 
         public override void Stun()
         {
-            throw new NotImplementedException();
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
         }
 
         public override void Update()
