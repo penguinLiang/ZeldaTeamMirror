@@ -34,8 +34,7 @@ namespace Zelda.Items
             else
             {
                 SoundEffectManager.Instance.PlayPickupItem();
-                player.Inventory.Rupee1Value = 3;
-                player.Inventory.Rupee5Value = 10;
+                player.Inventory.UpgradeRupeeMultiplier(3);
             }
          return new NoOp();       
         }

@@ -122,19 +122,11 @@ namespace Zelda.Player
 
         public void Add1Rupee()
         {
-//<<<<<<< HEAD
             RupeeCount = Math.Min(RupeeCount + RupeeMultiplier, MaxRupeeCount);
         }
 
         public void Add5Rupee(){
             RupeeCount = Math.Min(RupeeCount + 5 * RupeeMultiplier, MaxRupeeCount);
-//=======
-        /*    RupeeCount = Math.Min(RupeeCount + Rupee1Value, MaxRupeeCount);
-        }
-
-        public void Add5Rupee(){
-            RupeeCount = Math.Min(RupeeCount + Rupee5Value, MaxRupeeCount); */
-//>>>>>>> master
         }
 
         public void AddKey()
