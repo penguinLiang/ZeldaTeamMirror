@@ -175,7 +175,7 @@ Code Analysis results before and after fixes for each sprint can be found under 
   
 ## Controls  
 
-__Q__: Quit
+__Q__: Quit  
 __R__: Reset
 
 __Z__: Primary Attack (Sword)  
@@ -186,7 +186,8 @@ __A/LEFT__: Move Link Left
 __S/DOWN__: Move Link Down  
 __D/RIGHT__:  Move Link Right  
 
-__SPACE__: Pause the game and bring up the inventory screen
+__SPACE__: Pause the game and bring up the inventory screen  
+__ENTER__: Menu select
 
 __For debugging__:  
 __2__: Upgrade to White Sword  
@@ -194,13 +195,12 @@ __3__: Upgrade to Magical Sword
 __4__: Assign and Use the Bow as the Secondary Weapon  
 __5__: Assign and Use the Boomerang as the Secondary Weapon  
 __6__: Assign and Use the Bomb as the Secondary Weapon  
-__7__: Assign and Use the Alchemy Coin as the Secondary Weapon  (Survival Mode Only)
-__8__: Assign and Use the Around-the-world Boomerang as the Secondary Weapon  (Survival Mode Only)
+__7__: Assign and Use the Alchemy Coin as the Secondary Weapon  (Survival Mode Only)  
+__8__: Assign and Use the Around-the-world Boomerang as the Secondary Weapon  (Survival Mode Only)  
 __9__: Assign and Use the Bomb Launcher as the Secondary Weapon  (Survival Mode Only)
-
 - Note: To test the extra items (LaserBeam, Clock, Star, Bait) in Survival Mode, go to lines 26 or 27 of Player/Inventory.cs and set the properties ExtraItem1 or ExtraItem2 to Secondary.[name of extra item].
 
-__M__: Open/close the jump map. _Click on a room to teleport there_  
+__M__: Open/close the jump map in (Normal Mode Only) . _Click on a room to teleport there_  
 
 ## Cheats
 
