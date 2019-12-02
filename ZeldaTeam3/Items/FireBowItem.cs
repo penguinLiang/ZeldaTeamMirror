@@ -16,8 +16,7 @@ namespace Zelda.Items
             _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateFireBow();
 
         public override ICommand PlayerEffect(IPlayer player)
         {

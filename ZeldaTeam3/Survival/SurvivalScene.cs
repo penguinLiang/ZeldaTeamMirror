@@ -50,6 +50,12 @@ namespace Zelda.Survival
             foreach (var projectile in _projectiles)
             {
                 projectile.Halt();
+                if (projectile is PlayerBoomerang)
+                    _player.Inventory.AddSecondaryItem(Secondary.Boomerang);
+                if (projectile is AlchemyCoin)
+                    _player.Inventory.AddCoin();
+                if (projectile is ATWBoomerang)
+                    _player.Inventory.AddSecondaryItem(Secondary.ATWBoomerang);
             }
             _projectiles.Clear();
         }
@@ -123,7 +129,7 @@ namespace Zelda.Survival
         public void Update()
         {
             var prioritizedCoinCollisions = new List<Rectangle>();
-
+            
             for (var i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Update();
@@ -167,7 +173,7 @@ namespace Zelda.Survival
 
             foreach (var roomEnemy in _waveManager.Enemies)
             {
-                roomEnemy.Target(_player.Location);
+                roomEnemy.Target(EnemyTargetManager.GetTargetLocation(_projectiles, _player.Location, roomEnemy.Bounds.Location));
                 roomEnemy.Update();
                 _projectiles.AddRange(roomEnemy.Projectiles);
                 roomEnemy.Projectiles.Clear();
@@ -202,7 +208,10 @@ namespace Zelda.Survival
                             prioritizedCoinCollisions.Add(roomEnemy.Bounds);
                     }
 
-                    PlayerAttackCollision(projectile, roomEnemy);
+                    if (projectile is ClockCollideable)
+                        projectile.EnemyEffect(roomEnemy).Execute();
+                    else
+                        PlayerAttackCollision(projectile, roomEnemy);
                 }
             }
 

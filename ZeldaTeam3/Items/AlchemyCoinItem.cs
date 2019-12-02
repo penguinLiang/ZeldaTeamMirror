@@ -15,10 +15,9 @@ namespace Zelda.Items
             _priceDisplay.Location = new Point(location.X, location.Y + 20);
             _priceDisplay.Text = _price.ToString();
         }
-
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
         
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateAlchemyCoin();
+
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;

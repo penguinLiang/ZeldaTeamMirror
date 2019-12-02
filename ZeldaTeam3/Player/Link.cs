@@ -18,7 +18,7 @@ namespace Zelda.Player
         private readonly FrameDelay _teleportLockDelay = new FrameDelay(15, true);
 
         private bool _partyHard;
-
+        
         public Inventory Inventory { get; } = new Inventory();
         public bool Alive => _healthStateMachine.Alive;
         public bool Won { get; private set; }
@@ -36,7 +36,7 @@ namespace Zelda.Player
         public bool UsingPrimaryItem => _aliveSpriteStateMachine.UsingPrimaryItem;
         public bool UsingSecondaryItem => _playerProjectileAgent.UsingSecondaryItem;
 
-        public ICollideable BodyCollision => new PlayerBodyCollision(this, _partyHard);
+        public ICollideable BodyCollision => new PlayerBodyCollision(this, _partyHard || _healthStateMachine.Invulnerable);
 
         public ICollideable SwordCollision => new PlayerSwordCollision(_movementStateMachine, Inventory.SwordLevel);
 
@@ -84,7 +84,7 @@ namespace Zelda.Player
 
         public void TakeDamage(int damage)
         {
-            if(_partyHard || _healthStateMachine.Hurt) return;
+            if(_partyHard || _healthStateMachine.Hurt || _healthStateMachine.Invulnerable) return;
             Halt();
             _healthStateMachine.TakeDamage(damage);
             _movementStateMachine.Knockback();
@@ -138,7 +138,7 @@ namespace Zelda.Player
                 return;
             }
 
-            if (_healthStateMachine.Hurt)
+            if (_healthStateMachine.Hurt || (_healthStateMachine.Invulnerable && !_healthStateMachine.InvulnerabilityFading))
             {
                 _aliveSpriteStateMachine.Sprite.PaletteShift();
             }
@@ -169,6 +169,11 @@ namespace Zelda.Player
         public void TouchTriforce()
         {
             Won = true;
+        }
+
+        public void MakeInvulnerable()
+        {
+            _healthStateMachine.MakeInvulnerable();
         }
 
         public void PartyHard()

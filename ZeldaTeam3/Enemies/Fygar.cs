@@ -80,6 +80,12 @@ namespace Zelda.Enemies
             base.Move(_currentDirection, 2);
         }
 
+        public override void Stun()
+        {
+            _agentClock = 240;
+            _agentStatus = AgentState.Stunned;
+        }
+
         public bool IsFacingPlayer()
         {
             var xDiff = _playerLocation.X - Location.X;
@@ -118,6 +124,7 @@ namespace Zelda.Enemies
                 case AgentState.Ready:
                     UpdateAction();
                     break;
+                case AgentState.Stunned:
                 case AgentState.Halted:
                     if (_agentClock == 0)
                     {

@@ -31,6 +31,9 @@ namespace Zelda.Survival.HUD
         private static readonly ISprite ATWBoomerang = ItemSpriteFactory.Instance.CreateATWBoomerang();
         private static readonly ISprite BombLauncher = ItemSpriteFactory.Instance.CreateBombLauncher();
         private static readonly ISprite LaserBeam = ItemSpriteFactory.Instance.CreateLaserBeam();
+        private static readonly ISprite Clock = ItemSpriteFactory.Instance.CreateClock();
+        private static readonly ISprite Star = ItemSpriteFactory.Instance.CreateStar();
+        private static readonly ISprite Bait = ItemSpriteFactory.Instance.CreateBait();
 
         private static readonly Vector2 HeartsLocation = new Vector2(176, 32);
         private static readonly Vector2 HeartOffset = new Vector2(8, 0);

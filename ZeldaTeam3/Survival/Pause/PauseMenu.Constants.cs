@@ -47,6 +47,9 @@ namespace Zelda.Survival.Pause
         private static readonly ISprite ATWBoomerang = ItemSpriteFactory.Instance.CreateATWBoomerang();
         private static readonly ISprite BombLauncher = ItemSpriteFactory.Instance.CreateBombLauncher();
         private static readonly ISprite LaserBeam = ItemSpriteFactory.Instance.CreateLaserBeam();
+        private static readonly ISprite Clock = ItemSpriteFactory.Instance.CreateClock();
+        private static readonly ISprite Star = ItemSpriteFactory.Instance.CreateStar();
+        private static readonly ISprite Bait = ItemSpriteFactory.Instance.CreateBait();
 
         private static readonly Vector2 CompassLocation = new Vector2(44, 144);
         private static readonly Vector2 MapLocation = new Vector2(48, 104);

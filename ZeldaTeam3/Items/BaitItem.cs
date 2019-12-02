@@ -17,8 +17,7 @@ namespace Zelda.Items
             _priceDisplay.Text = _price.ToString();
         }
 
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBait();
         
         public override ICommand PlayerEffect(IPlayer player)
         {

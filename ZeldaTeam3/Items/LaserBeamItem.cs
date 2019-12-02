@@ -4,21 +4,19 @@ using Zelda.SoundEffects;
 
 namespace Zelda.Items
 {
-    internal class CrossShotItem : Item
+    internal class LaserBeamItem : Item
     {
         private DrawnText _priceDisplay;
         private readonly FrameDelay _delay = new FrameDelay(90);
         private int _price; 
-        public CrossShotItem(Point location, int price = 0) : base(location, price)
+        public LaserBeamItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
             _priceDisplay = new DrawnText();
             _priceDisplay.Location = new Point(location.X, location.Y + 20);
             _priceDisplay.Text = _price.ToString();
         }
-
-        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateMap();
-        //TODO: Fix this with the proper sprite
+        protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateLaserBeam();
 
         public override ICommand PlayerEffect(IPlayer player)
         {
