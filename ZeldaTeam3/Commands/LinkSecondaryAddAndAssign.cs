@@ -2,12 +2,12 @@
 
 namespace Zelda.Commands
 {
-    internal class LinkSecondaryAssign : ICommand
+    internal class LinkSecondaryAddAndAssign : ICommand
     {
         private readonly IPlayer _link;
         private readonly Secondary _item;
 
-        public LinkSecondaryAssign(IPlayer link, Secondary item)
+        public LinkSecondaryAddAndAssign(IPlayer link, Secondary item)
         {
             _link = link;
             _item = item;
@@ -15,6 +15,7 @@ namespace Zelda.Commands
 
         public void Execute()
         {
+            _link.Inventory.AddSecondaryItem(_item);
             _link.AssignSecondaryItem(_item);
         }
     }

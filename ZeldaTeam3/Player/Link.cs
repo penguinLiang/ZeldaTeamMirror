@@ -119,7 +119,7 @@ namespace Zelda.Player
         public void AssignSecondaryItem(Secondary item)
         {
             Inventory.AssignSecondaryItem(item);
-            _playerProjectileAgent.AssignSecondaryItem(item);
+            _playerProjectileAgent.AssignSecondaryItem(Inventory.SecondaryItem);
         }
 
         public void Teleport(Point location, Direction facing)

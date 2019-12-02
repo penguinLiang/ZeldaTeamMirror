@@ -154,7 +154,10 @@ namespace Zelda.Player
                 case Secondary.SilverArrow:
                 case Secondary.LaserBeam:
                 case Secondary.Bait:
+                case Secondary.Clock:
+                case Secondary.Star:
                     UsingSecondaryItem = false;
+                    Console.WriteLine(Item);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(Item.ToString());
@@ -162,7 +165,7 @@ namespace Zelda.Player
 
         }
 
-        private void UseExtraItem(Items.Secondary extraItem, Point location, Direction facing)
+        private void UseExtraItem(Secondary extraItem, Point location, Direction facing)
         {
             switch (extraItem)
             {

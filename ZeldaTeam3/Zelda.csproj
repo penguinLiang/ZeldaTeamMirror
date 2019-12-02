@@ -50,6 +50,7 @@
     <Compile Include="Blocks\DoorSpecialLeft2_1.cs" />
     <Compile Include="Blocks\BombDoor.cs" />
     <Compile Include="Blocks\LockedDoor.cs" />
+    <Compile Include="Commands\LinkSecondaryAddDebug.cs" />
     <Compile Include="Dungeon\EnemyFactory.cs" />
     <Compile Include="IDungeonManager.cs" />
     <Compile Include="Blocks\RupeeBarrier.cs" />
@@ -197,7 +198,7 @@
     <Compile Include="Commands\LinkBoomerangAssign.cs" />
     <Compile Include="Commands\LinkBombAssign.cs" />
     <Compile Include="Commands\LinkBowAssign.cs" />
-    <Compile Include="Commands\LinkSecondaryAssign.cs" />
+    <Compile Include="Commands\LinkSecondaryAddAndAssign.cs" />
     <Compile Include="Commands\LinkMoveDown.cs" />
     <Compile Include="Commands\LinkFullHeal.cs" />
     <Compile Include="Commands\LinkHeal.cs" />

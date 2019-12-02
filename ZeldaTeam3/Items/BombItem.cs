@@ -6,15 +6,20 @@ namespace Zelda.Items
 {
     internal class BombItem : Item
     {
-        private DrawnText _priceDisplay;
-        private int _price;
-        private readonly FrameDelay _delay = new FrameDelay(90);
+        private readonly DrawnText _priceDisplay;
+        private readonly int _price;
+        private FrameDelay _delay = new FrameDelay(90, true);
+        private bool _reset;
+        private IPlayer _player;
+
         public BombItem(Point location, int price = 0) : base(location, price)
         {
             _price = price;
-            _priceDisplay = new DrawnText();
-            _priceDisplay.Text = _price.ToString();
-            _priceDisplay.Location = new Point(location.X, location.Y + 20);
+            _priceDisplay = new DrawnText
+            {
+                Text = _price.ToString(),
+                Location = new Point(location.X, location.Y + 20)
+            };
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateBomb();
@@ -22,34 +27,35 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             _delay.Update();
+            _delay.Resume();
             Used = false;
-            if(_price > 0 && player.Inventory.BombCount < player.Inventory.MaxBombCount)
+            if (_price > 0)
             {
-                if(!_delay.Delayed && player.Inventory.TryRemoveRupee(_price))
-                {
-                    SoundEffectManager.Instance.PlayPickupItem();
-                    return new AddSecondaryItem(player, Secondary.Bomb);
-                }
-                return new NoOp();
-            }
-            else if(_price == 0)
-            {
-                Used = true;
+                _reset = false;
+                _player = player;
+                if (_delay.Delayed || player.Inventory.BombCount == player.Inventory.MaxBombCount ||
+                    !player.Inventory.TryRemoveRupee(_price)) return new NoOp();
+
                 SoundEffectManager.Instance.PlayPickupItem();
                 return new AddSecondaryItem(player, Secondary.Bomb);
             }
-            else 
-                return new NoOp();
+
+            Used = true;
+            SoundEffectManager.Instance.PlayPickupItem();
+            return new AddSecondaryItem(player, Secondary.Bomb);
         }
 
         public override void Update()
         {
             base.Update();
+            if (_player == null || _reset || _player.BodyCollision.CollidesWith(Bounds)) return;
+            _delay = new FrameDelay(90, true);
+            _reset = true;
         }
 
         public override void Draw()
         {
-            if(_price>0)
+            if (_price > 0)
             {
                 _priceDisplay.Draw();
             }

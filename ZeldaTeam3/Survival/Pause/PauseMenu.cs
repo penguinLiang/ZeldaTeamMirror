@@ -72,18 +72,18 @@ namespace Zelda.Survival.Pause
                     _selectedItem = GetExtraItemSprite(_agent.Player.Inventory.ExtraItem2);
                     _cursorPosition = Slot8Position;
                     break;
+                case Secondary.FireBow:
+                case Secondary.Bow:
                 case Secondary.None:
-                    break;
                 case Secondary.Arrow:
-                    break;
                 case Secondary.SilverArrow:
-                    break;
                 case Secondary.LaserBeam:
-                    break;
                 case Secondary.Bait:
+                case Secondary.Clock:
+                case Secondary.Star:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(_agent.Player.Inventory.SecondaryItem.ToString());
             }
         }
 

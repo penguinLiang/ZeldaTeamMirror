@@ -197,7 +197,8 @@ __5__: Assign and Use the Boomerang as the Secondary Weapon
 __6__: Assign and Use the Bomb as the Secondary Weapon  
 __7__: Assign and Use the Alchemy Coin as the Secondary Weapon  (Survival Mode Only)  
 __8__: Assign and Use the Around-the-world Boomerang as the Secondary Weapon  (Survival Mode Only)  
-__9__: Assign and Use the Bomb Launcher as the Secondary Weapon  (Survival Mode Only)
+__9__: Assign and Use the Bomb Launcher as the Secondary Weapon  (Survival Mode Only)  
+__0__: Assign and Use the Fire Bow as the Secondary Weapon  (Survival Mode Only)  
 - Note: To test the extra items (LaserBeam, Clock, Star, Bait) in Survival Mode, go to lines 26 or 27 of Player/Inventory.cs and set the properties ExtraItem1 or ExtraItem2 to Secondary.[name of extra item].
 
 __M__: Open/close the jump map in (Normal Mode Only) . _Click on a room to teleport there_  

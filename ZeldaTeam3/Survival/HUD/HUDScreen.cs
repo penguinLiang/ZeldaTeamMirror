@@ -90,7 +90,6 @@ namespace Zelda.Survival.HUD
 
         public void Update()
         {
-            TriforceDot.Update();
             _rupeeCount.Text = CountString(_agent.Player.Inventory.RupeeCount);
             _bombCount.Text = CountString(_agent.Player.Inventory.BombCount);
             _keyCount.Text = CountString(_agent.Player.Inventory.KeyCount);
@@ -101,11 +100,7 @@ namespace Zelda.Survival.HUD
         {
             Background.Draw(_location);
             
-            Player.Inventory inv = _agent.Player.Inventory;
-            if (inv.HasCompass)
-            {
-                TriforceDot.Draw(MiniMapLocation + TriforceLocation + _location);
-            }
+            var inv = _agent.Player.Inventory;
 
             Primary?.Draw(PrimaryLocation + _location);
             switch (inv.SecondaryItem)
