@@ -274,6 +274,7 @@
     <Compile Include="Survival\Pause\PauseSpriteFactory.cs" />
     <Compile Include="Survival\QuitResetControllerKeyboard.cs" />
     <Compile Include="Survival\WaveManager.cs" />
+    <Compile Include="Survival\EnemyTargetManager.cs" />
     <Compile Include="Survival\ZoneManager.cs" />
     <Compile Include="ZeldaGame.cs" />
     <Compile Include="JumpMap\JumpMapScreen.cs" />
