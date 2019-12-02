@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>LinkNoWeapon128.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -298,6 +298,7 @@
     <Content Include="Content\LightInTheDarkness.fx" />
     <Content Include="Content\PartyTime.fx" />
     <Content Include="Icon.ico" />
+    <Content Include="LinkNoWeapon128.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
