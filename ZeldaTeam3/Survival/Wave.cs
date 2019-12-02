@@ -11,7 +11,7 @@ namespace Zelda.Survival
 
         public Wave(List<EnemyType> enemyTypes, WaveType waveType)
         {
-            Type = WaveType.Shop;
+            Type = waveType;
 
             foreach (var enemy in enemyTypes)
             {
