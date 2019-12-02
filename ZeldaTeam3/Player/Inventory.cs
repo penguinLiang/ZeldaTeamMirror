@@ -20,7 +20,7 @@ namespace Zelda.Player
         public int BombCount { get; private set; }
         public Secondary BowLevel { get; private set; }
         public Secondary ArrowLevel { get; private set; }
-        public int Coins { get; private set; } = 2;
+        public int Coins { get; private set; }
         public bool HasATWBoomerang { get; private set; }
         public bool HasBombLauncher { get; private set; }
         public Secondary ExtraItem1 { get; private set; }
