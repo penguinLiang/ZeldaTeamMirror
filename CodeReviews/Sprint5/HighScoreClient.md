@@ -12,7 +12,7 @@ __Name of .cs file:__ HighScoreClient.cs
 
 __Author of .cs file:__ Chase
 
-__Minutes to review:__ 
+__Minutes to review:__ 5
 
 __Specific Comments (Readability):__
 At a glance, everything uses a specific naming convention. The file istelf is less than 70 lines, and the longest method is under 25 lines. Everything is there for a reason. We're using pure methods messed from c#.
