@@ -4,14 +4,14 @@ using Zelda.Commands;
 
 namespace Zelda.Blocks
 {
-    internal class ProjectilPassthroughBarrier : ICollideable, IDrawable
+    internal class ProjectilePassthroughBarrier : ICollideable, IDrawable
     {
         public Rectangle Bounds { get; }
 
         private readonly ISprite _sprite;
         private Point _location;
 
-        public ProjectilPassthroughBarrier(Point location, BlockType block)
+        public ProjectilePassthroughBarrier(Point location, BlockType block)
         {
             Bounds = CalculateBounds(location, block);
             _location = location;
@@ -28,7 +28,7 @@ namespace Zelda.Blocks
                 case BlockType.FishStatue:
                 case BlockType.ImmovableBlock:
                 case BlockType.Water:
-                case BlockType.ProjectileBlackBarrier:
+                case BlockType.InvisibleProjectileBarrier:
                     return new Rectangle(location, new Point(16, 16));
                 default:
                     throw new ArgumentOutOfRangeException(block.ToString());

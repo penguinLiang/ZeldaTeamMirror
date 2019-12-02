@@ -155,7 +155,7 @@ namespace Zelda.Enemies
 
                     break;
                 case AgentState.Attacking:
-                    if (!IsWithinCircularBounds(_playerLocation, 192))
+                    if (!IsWithinCircularBounds(_playerLocation, Location, 192))
                     {
                         _agentStatus = AgentState.Ready;
                         return;

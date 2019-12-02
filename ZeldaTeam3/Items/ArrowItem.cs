@@ -6,6 +6,7 @@ namespace Zelda.Items
 {
     internal class ArrowItem : Item
     {
+        private DrawnText _priceDisplay;
         private readonly Secondary _arrowLevel;
         private int _price;
 
@@ -17,6 +18,9 @@ namespace Zelda.Items
             _price = price;
             Sprite = arrowLevel == Secondary.Arrow ? ItemSpriteFactory.Instance.CreateArrow()
                 : ItemSpriteFactory.Instance.CreateSilverArrow();
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y + 20);
         }
 
         public override ICommand PlayerEffect(IPlayer player)
@@ -51,6 +55,12 @@ namespace Zelda.Items
                 default:
                     throw new System.ArgumentOutOfRangeException("Error: Items.Secondary _arrowLevel was not a type of arrow");
             }
+        }
+
+        public override void Draw()
+        {
+            _priceDisplay.Draw();
+            base.Draw();
         }
     }
 }

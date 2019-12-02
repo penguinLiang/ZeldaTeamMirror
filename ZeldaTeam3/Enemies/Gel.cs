@@ -8,7 +8,8 @@ namespace Zelda.Enemies
     {
         private ISprite _sprite;
         protected override ISprite Sprite => _sprite;
-        public override Rectangle Bounds => Alive ? new Rectangle(Location.X + 4, Location.Y + 7, 8, 9) : Rectangle.Empty;
+        private static readonly Point Size = new Point(12, 12);
+        public override Rectangle Bounds => new Rectangle(Location, Alive ? Size : Point.Zero);
         private static readonly List<AgentState> ValidAgentStates = new List<AgentState>
         {
             AgentState.Ready,

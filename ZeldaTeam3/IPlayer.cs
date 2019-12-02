@@ -8,7 +8,7 @@ namespace Zelda
     public interface IPlayer : IHaltable, ISpawnable, IDrawable
     {
         int Health { get; }
-        int MaxHealth { get; }
+        int MaxHealth { get; set; }
 
         List <IProjectile> Projectiles { get; }
         Inventory Inventory { get; }

@@ -7,9 +7,13 @@ namespace Zelda.Items
     internal class WhiteSwordItem : Item
     {
         private int _price;
+        private DrawnText _priceDisplay;
         public WhiteSwordItem(Point location, int price = 0) : base(location, price)
         {
-         _price = price;   
+            _price = price;   
+            _priceDisplay = new DrawnText();
+            _priceDisplay.Text = _price.ToString();
+            _priceDisplay.Location = new Point(location.X, location.Y+20);
         }
 
         protected override ISprite Sprite { get; } = ItemSpriteFactory.Instance.CreateWhiteSword();
@@ -17,11 +21,11 @@ namespace Zelda.Items
         public override ICommand PlayerEffect(IPlayer player)
         {
             Used = true;
-            SoundEffectManager.Instance.PlayPickupNewItem();
             if(_price>0)
             {
                 if(player.Inventory.TryRemoveRupee(_price))
                 {
+                    SoundEffectManager.Instance.PlayPickupNewItem();
                     return new UpgradeSword(player, Primary.WhiteSword);
                 }
                 else
@@ -31,7 +35,16 @@ namespace Zelda.Items
                 }
             }
             else
-                return new UpgradeSword(player, Primary.WhiteSword);
+               {
+                    SoundEffectManager.Instance.PlayPickupNewItem();
+                    return new UpgradeSword(player, Primary.WhiteSword);
+                }
+        }
+
+        public override void Draw()
+        {
+            _priceDisplay.Draw();
+            base.Draw();
         }
     }
 }
