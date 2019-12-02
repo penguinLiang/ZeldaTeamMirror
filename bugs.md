@@ -62,7 +62,3 @@ __5__: If an enemy is killed near a wall or outside of bounds, item drops will b
 ## Miscellaneous
 __1__: Clicking on the jump map can occasionally stop working, seemingly when it is opened right after the game starts.
 (Sprint 3 Bug) (Patched as best as possible (bug exists in Monogame) by Chase on 10/17)
-
-__2__: In "party mode" wave type, Link can still take damage
-
-__3__: Item prices remain visible after item is bought out
