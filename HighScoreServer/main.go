@@ -14,7 +14,7 @@ import (
 
 const schema = `
 CREATE TABLE IF NOT EXISTS Scores (
-    initials VARCHAR(3),
+    initials VARCHAR(3) PRIMARY KEY,
     score INT
 );
 `
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Scores (
 const (
 	defaultPort = "8080"
 	selectQuery = "SELECT initials, score FROM Scores ORDER BY score DESC LIMIT 25"
-	insertQuery = "INSERT INTO Scores (initials, score) VALUES ($1, $2)"
+	insertQuery = "INSERT INTO Scores (initials, score) VALUES ($1, $2) ON CONFLICT (initials) DO UPDATE SET score = GREATEST(EXCLUDED.score, Scores.score)"
 )
 
 var db *pgxpool.Pool
