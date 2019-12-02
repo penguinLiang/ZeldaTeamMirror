@@ -29,11 +29,12 @@ namespace Zelda.Items
             _delay.Update();
             _delay.Resume();
             Used = false;
-            if (_price > 0 && player.Inventory.BombCount < player.Inventory.MaxBombCount)
+            if (_price > 0)
             {
                 _reset = false;
                 _player = player;
-                if (_delay.Delayed || !player.Inventory.TryRemoveRupee(_price)) return new NoOp();
+                if (_delay.Delayed || player.Inventory.BombCount == player.Inventory.MaxBombCount ||
+                    !player.Inventory.TryRemoveRupee(_price)) return new NoOp();
 
                 SoundEffectManager.Instance.PlayPickupItem();
                 return new AddSecondaryItem(player, Secondary.Bomb);
