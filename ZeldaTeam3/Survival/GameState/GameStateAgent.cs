@@ -73,7 +73,7 @@ namespace Zelda.Survival.GameState
             Player.Spawn();
             Player.MaxHealth = 12;
             Player.FullHeal();
-            DungeonManager.JumpToRoom(0, 0);
+            DungeonManager.JumpToRoom(1, 0);
             Play();
         }
 
